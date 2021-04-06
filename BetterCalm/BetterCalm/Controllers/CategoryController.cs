@@ -1,21 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Model.Out;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BetterCalm.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoryController : BetterCalmControllerBase
     {
         [HttpGet]
         public IActionResult Get()
         {
-            List<Category> categories = new List<Category>();
-            Category category = new Category();
+            List<CategoryBasicInfoModel> categories = new List<CategoryBasicInfoModel>();
+            CategoryBasicInfoModel category = new CategoryBasicInfoModel();
             categories.Add(category);
             return Ok(categories);
         }
@@ -25,7 +22,7 @@ namespace BetterCalm.WebApi.Controllers
         {
             try
             {
-                List<Playlist> objectToReturn;
+                List<PlaylistBasicInfoModel> objectToReturn;
                 List<Playlist> playlists = new List<Playlist>();
                 Playlist playlist = new Playlist();
                 playlists.Add(playlist);

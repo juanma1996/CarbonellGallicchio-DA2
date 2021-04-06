@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BetterCalm\BetterCalm.csproj" />
+    <ProjectReference Include="..\BetterCalm\WebApi.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BetterCalm.WebApi.Controllers
+namespace Domain
 {
     public class Category
     {
