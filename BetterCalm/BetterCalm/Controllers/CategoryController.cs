@@ -1,20 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using BusinessLogicInterface;
+using Domain;
+using Microsoft.AspNetCore.Mvc;
 using Model.Out;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebApi.Mapper;
 
 namespace BetterCalm.WebApi.Controllers
 {
     public class CategoryController : BetterCalmControllerBase
     {
+        private readonly ICategoryLogic categoryLogic;
+        private readonly IMapper mapper;
+
+        public CategoryController(ICategoryLogic categoryLogic,IApiMapper mapper)
+        {
+            this.categoryLogic = categoryLogic;
+            this.mapper = mapper.Configure();
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
-            List<CategoryBasicInfoModel> categories = new List<CategoryBasicInfoModel>();
-            CategoryBasicInfoModel category = new CategoryBasicInfoModel();
-            categories.Add(category);
-            return Ok(categories);
+            IEnumerable<Category> categories = categoryLogic.GetAll();
+            IEnumerable <CategoryBasicInfoModel> categoriesOut = mapper.Map<IEnumerable<CategoryBasicInfoModel>>(categories);
+            return Ok(categoriesOut);
         }
 
         [HttpGet("{categoryId}/playlist", Name = "GetPlaylist")]
