@@ -35,13 +35,14 @@ namespace BetterCalmTests.WebApi
             ApiMapper mapper = new ApiMapper();
             CategoryController controller = new CategoryController(mock.Object, mapper);
 
+
             var result = controller.Get();
             var okResult = result as OkObjectResult;
             var categories = okResult.Value as List<CategoryBasicInfoModel>;
+            var categoriesToReturnModel = mapper.Configure().Map<List<CategoryBasicInfoModel>>(categoriesToReturn);
 
             mock.VerifyAll();
-            Assert.AreEqual(categories.First().Id, categoriesToReturn.First().Id);
-            Assert.AreEqual(categories.First().Name, categoriesToReturn.First().Name);
+            Assert.IsTrue(categories.SequenceEqual(categoriesToReturnModel));
             Assert.AreEqual(200, okResult.StatusCode);
         }
 
