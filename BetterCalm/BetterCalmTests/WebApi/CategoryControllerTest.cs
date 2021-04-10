@@ -17,24 +17,17 @@ namespace BetterCalmTests.WebApi
         [TestMethod]
         public void TestGetAllCategoriesOk()
         {
-            List<Playlist> playlists = new List<Playlist>()
-            {
-                new Playlist()
-                {
-                    Id = 1
-                }
-            };
             List<Category> categoriesToReturn = new List<Category>()
             {
                 new Category
                 {
                     Id = 1,
-                    Playlists = playlists
+                    Name = "Top 50 Uruguay"
                 },
                 new Category
                 {
                     Id = 2,
-                    Playlists = playlists
+                    Name = "Top 50 Usa"
                 }
             };
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
@@ -48,7 +41,7 @@ namespace BetterCalmTests.WebApi
 
             mock.VerifyAll();
             Assert.AreEqual(categories.First().Id, categoriesToReturn.First().Id);
-            Assert.AreEqual(categories.First().Playlists.First().Id, categoriesToReturn.First().Playlists.First().Id);
+            Assert.AreEqual(categories.First().Name, categoriesToReturn.First().Name);
             Assert.AreEqual(200, okResult.StatusCode);
         }
 
