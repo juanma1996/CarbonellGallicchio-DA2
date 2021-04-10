@@ -35,8 +35,12 @@ namespace BetterCalmTests.BusinessLogic
             };
             Mock<ICategoryRepository> mock = new Mock<ICategoryRepository>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(categoryToReturn);
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object);
+
+            List<Category> result = categoryLogic.GetAll();
 
             mock.VerifyAll();
+            Assert.AreEqual(categoryToReturn.Count, result.Count);
         }
     }
 }

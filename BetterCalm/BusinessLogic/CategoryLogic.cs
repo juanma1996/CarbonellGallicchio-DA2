@@ -2,30 +2,23 @@
 using Domain;
 using System;
 using System.Collections.Generic;
+using DataAccessInterface;
 
 namespace BusinessLogic
 {
     public class CategoryLogic : ICategoryLogic
     {
-        public CategoryLogic()
-        {
+        private readonly ICategoryRepository categoryRepository;
 
+        public CategoryLogic(ICategoryRepository categoryRepository)
+        {
+            this.categoryRepository = categoryRepository;
         }
 
         public List<Category> GetAll()
         {
-            try
-            {
-                List<Category> categories = new List<Category>();
-                Category category = new Category();
-                categories.Add(category);
-                return categories;
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
+            List<Category> categories = categoryRepository.GetAll();
+            return categories;
         }
     }
 }

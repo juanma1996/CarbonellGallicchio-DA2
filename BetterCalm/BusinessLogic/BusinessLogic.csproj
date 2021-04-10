@@ -6,6 +6,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\BusinessLogicInterface\BusinessLogicInterface.csproj" />
+	  <ProjectReference Include="..\DataAccessInterface\DataAccessInterface.csproj" />
 	</ItemGroup>
 
 </Project>
