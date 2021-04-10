@@ -29,39 +29,13 @@ namespace BetterCalm.WebApi.Controllers
             return Ok(categoriesOut);
         }
 
-        //[HttpGet("{categoryId}/playlist", Name = "GetPlaylist")]
-        //public IActionResult GetPlaylistByCategory([FromRoute]int categoryId)
-        //{
-        //    try
-        //    {
-        //        List<PlaylistBasicInfoModel> objectToReturn;
-        //        List<Playlist> playlists = new List<Playlist>();
-        //        Playlist playlist = new Playlist();
-        //        playlists.Add(playlist);
-        //        Category category = new Category()
-        //        {
-        //            Id = 1,
-        //            Playlists = playlists
-        //        };
-        //        List<Category> categories = new List<Category>();
-        //        categories.Add(category);
+        [HttpGet("{categoryId}/playlist", Name = "GetPlaylist")]
+        public IActionResult GetPlaylistByCategory([FromRoute] int categoryId)
+        {
 
-        //        Category foundCategory = categories.Where(c => c.Id.Equals(categoryId)).FirstOrDefault();
-        //        if (foundCategory == null)
-        //        {
-        //            throw new ArgumentException("Categoría inexistente");
-        //        }
-        //        else
-        //        {
-        //            objectToReturn = foundCategory.Playlists;
-        //        }
-
-        //        return Ok(objectToReturn);
-        //    }
-        //    catch (ArgumentException e)
-        //    {
-        //        return NotFound(e.Message);
-        //    }
-        //}
+            List<Playlist> playlists = categoryLogic.GetPlaylistByCategory(categoryId);
+            List<PlaylistBasicInfoModel> playlistsOut = mapper.Map<List<PlaylistBasicInfoModel>>(playlists);
+            return Ok(playlistsOut);
+        }
     }
 }
