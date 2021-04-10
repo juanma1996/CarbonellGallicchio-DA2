@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.Out;
 using Moq;
 using System.Collections.Generic;
+using System.Linq;
 using WebApi.Mapper;
 
 namespace BetterCalmTests.WebApi
@@ -23,16 +24,21 @@ namespace BetterCalmTests.WebApi
                     Id = 1
                 }
             };
-            List<Category> categoryToReturn = new List<Category>()
+            List<Category> categoriesToReturn = new List<Category>()
             {
                 new Category
                 {
                     Id = 1,
                     Playlists = playlists
+                },
+                new Category
+                {
+                    Id = 2,
+                    Playlists = playlists
                 }
             };
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll()).Returns(categoryToReturn);
+            mock.Setup(m => m.GetAll()).Returns(categoriesToReturn);
             ApiMapper mapper = new ApiMapper();
             CategoryController controller = new CategoryController(mock.Object, mapper);
 
@@ -41,7 +47,9 @@ namespace BetterCalmTests.WebApi
             var categories = okResult.Value as List<CategoryBasicInfoModel>;
 
             mock.VerifyAll();
-            Assert.AreEqual(categories.Count, 1);
+            Assert.AreEqual(categories.First().Id, categoriesToReturn.First().Id);
+            Assert.AreEqual(categories.First().Playlists.First().Id, categoriesToReturn.First().Playlists.First().Id);
+            Assert.AreEqual(200, okResult.StatusCode);
         }
 
         //[TestMethod]
