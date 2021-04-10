@@ -20,5 +20,11 @@ namespace BusinessLogic
             List<Category> categories = categoryRepository.GetAll();
             return categories;
         }
+
+        public List<Playlist> GetPlaylistsBy(int categoryId)
+        {
+            List<Playlist> playlist = categoryRepository.GetPlaylistsBy(categoryId);
+            return playlist;
+        }
     }
 }

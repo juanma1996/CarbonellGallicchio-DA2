@@ -6,5 +6,6 @@ namespace BusinessLogicInterface
     public interface ICategoryLogic
     {
         List<Category> GetAll();
+        List<Playlist> GetPlaylistsBy(int categoryId);
     }
 }

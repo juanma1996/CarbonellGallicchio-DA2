@@ -11,5 +11,12 @@ namespace DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public List<Playlist> GetPlaylistsBy(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
     }
+
 }

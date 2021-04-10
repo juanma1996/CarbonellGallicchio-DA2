@@ -61,15 +61,15 @@ namespace BetterCalmTests.WebApi
                 },
             };
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetPlaylistByCategory(1)).Returns(playlists);
+            mock.Setup(m => m.GetPlaylistsBy(1)).Returns(playlists);
             ApiMapper mapper = new ApiMapper();
             CategoryController controller = new CategoryController(mock.Object, mapper);
 
             var result = controller.GetPlaylistByCategory(1);
             var okResult = result as OkObjectResult;
-            var Resultplaylists = okResult.Value as List<Playlist>;
+            var ResultPlaylists = okResult.Value as List<PlaylistBasicInfoModel>;
 
-            Assert.AreEqual(Resultplaylists.Count, 2);
+            Assert.AreEqual(ResultPlaylists.Count, 2);
         }
 
         //[TestMethod]

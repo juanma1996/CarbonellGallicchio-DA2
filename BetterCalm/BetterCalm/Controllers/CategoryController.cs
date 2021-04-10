@@ -32,8 +32,7 @@ namespace BetterCalm.WebApi.Controllers
         [HttpGet("{categoryId}/playlist", Name = "GetPlaylist")]
         public IActionResult GetPlaylistByCategory([FromRoute] int categoryId)
         {
-
-            List<Playlist> playlists = categoryLogic.GetPlaylistByCategory(categoryId);
+            List<Playlist> playlists = categoryLogic.GetPlaylistsBy(categoryId);
             List<PlaylistBasicInfoModel> playlistsOut = mapper.Map<List<PlaylistBasicInfoModel>>(playlists);
             return Ok(playlistsOut);
         }
