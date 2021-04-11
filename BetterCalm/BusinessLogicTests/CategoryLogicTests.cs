@@ -1,20 +1,14 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using BusinessLogic;
-using BusinessLogicInterface;
-using DataAccessInterface;
 using Domain;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Model.Out;
+using DataAccessInterface;
 using Moq;
 
-namespace BetterCalmTests.BusinessLogic
+namespace BusinessLogic.Tests
 {
-    [TestClass]
-    public class CategoryLogicTest
+    [TestClass()]
+    public class CategoryLogicTests
     {
-
         [TestMethod]
         public void TestGetAllCategories()
         {
