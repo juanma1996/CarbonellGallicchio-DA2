@@ -1,7 +1,9 @@
 ﻿using BusinessLogic;
 using BusinessLogicInterface;
 using DataAccess;
+using DataAccess.Context;
 using DataAccessInterface;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Factory
@@ -21,6 +23,10 @@ namespace Factory
             services.AddScoped<IPlaylistLogic, PlaylistLogic>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryLogic, CategoryLogic>();
+        }
+        public void AddDbContextService()
+        {
+            services.AddDbContext<DbContext, BetterCalmContext>();
         }
     }
 }

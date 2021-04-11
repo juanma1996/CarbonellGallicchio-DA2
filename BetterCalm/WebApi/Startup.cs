@@ -31,6 +31,7 @@ namespace BetterCalm
             ServiceFactory serviceFactory = new ServiceFactory(services);
             services.AddScoped<IApiMapper, ApiMapper>();
             serviceFactory.AddCustomServices();
+            serviceFactory.AddDbContextService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
