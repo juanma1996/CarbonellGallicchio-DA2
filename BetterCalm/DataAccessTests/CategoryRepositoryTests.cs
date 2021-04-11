@@ -1,10 +1,18 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccessTests
+namespace DataAccess.Tests
 {
-    class CategoryRepositoryTests
+    [TestClass()]
+    public class CategoryRepositoryTests
     {
+        [TestMethod()]
+        public void GetAllTest()
+        {
+            Assert.Fail();
+        }
     }
 }
