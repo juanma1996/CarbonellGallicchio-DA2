@@ -69,19 +69,25 @@ namespace BetterCalmTests.WebApi
             var okResult = result as OkObjectResult;
             var ResultPlaylists = okResult.Value as List<PlaylistBasicInfoModel>;
 
+            mock.VerifyAll();
             Assert.AreEqual(ResultPlaylists.Count, 2);
         }
 
-        //[TestMethod]
-        //public void TestGetPlaylistByCategoryNotExistentId()
-        //{
-        //    CategoryController controller = new CategoryController();
+        [TestMethod]
+        public void TestGetPlaylistByCategoryNotExistentId()
+        {
+            List<Playlist> playlists = new List<Playlist>();
+            var id = 1;
+            Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetPlaylistsBy(id)).Returns((List<Playlist>)null);
+            ApiMapper mapper = new ApiMapper();
+            CategoryController controller = new CategoryController(mock.Object, mapper);
 
-        //    var result = controller.GetPlaylistByCategory(2);
+            var result = controller.GetPlaylistByCategory(id);
+            var objectResult = result as ObjectResult;
 
-        //    var notFoundObjectResult = result as NotFoundObjectResult;
-
-        //    Assert.AreEqual(notFoundObjectResult.Value, "Categoría inexistente");
-        //}
+            mock.VerifyAll();
+            Assert.AreEqual(400, objectResult.StatusCode);
+        }
     }
 }
