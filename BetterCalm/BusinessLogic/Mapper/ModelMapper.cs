@@ -2,9 +2,9 @@
 using Domain;
 using Model.Out;
 
-namespace WebApi.Mapper
+namespace BusinessLogic.Mapper
 {
-    public class ApiMapper : IApiMapper
+    public class ModelMapper : IModelMapper
     {
         public IMapper Configure()
         {

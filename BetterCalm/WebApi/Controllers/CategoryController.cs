@@ -1,32 +1,26 @@
-﻿using AutoMapper;
-using BusinessLogicInterface;
+﻿using BusinessLogicInterface;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Model.Out;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using WebApi.Mapper;
 
 namespace BetterCalm.WebApi.Controllers
 {
     public class CategoryController : BetterCalmControllerBase
     {
         private readonly ICategoryLogic categoryLogic;
-        private readonly IMapper mapper;
 
-        public CategoryController(ICategoryLogic categoryLogic,IApiMapper mapper)
+        public CategoryController(ICategoryLogic categoryLogic)
         {
             this.categoryLogic = categoryLogic;
-            this.mapper = mapper.Configure();
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            List<Category> categories = categoryLogic.GetAll();
-            List<CategoryBasicInfoModel> categoriesOut = mapper.Map<List<CategoryBasicInfoModel>>(categories);
-            return Ok(categoriesOut);
+            List<CategoryBasicInfoModel> categories = categoryLogic.GetAll();
+            return Ok(categories);
         }
 
         [HttpGet("{categoryId}/playlist", Name = "GetPlaylist")]
@@ -35,7 +29,8 @@ namespace BetterCalm.WebApi.Controllers
             try
             {
                 List<Playlist> playlists = categoryLogic.GetPlaylistsBy(categoryId);
-                List<PlaylistBasicInfoModel> playlistsOut = mapper.Map<List<PlaylistBasicInfoModel>>(playlists);
+                //List<PlaylistBasicInfoModel> playlistsOut = mapper.Map<List<PlaylistBasicInfoModel>>(playlists);
+                List<PlaylistBasicInfoModel> playlistsOut = null;
                 return Ok(playlistsOut);
             }
             catch (NullReferenceException e)

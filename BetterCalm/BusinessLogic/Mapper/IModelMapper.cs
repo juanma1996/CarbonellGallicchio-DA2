@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 
-namespace WebApi.Mapper
+namespace BusinessLogic.Mapper
 {
-    public interface IApiMapper
+    public interface IModelMapper
     {
         IMapper Configure();
     }

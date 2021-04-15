@@ -4,6 +4,8 @@ using Domain;
 using DataAccessInterface;
 using Moq;
 using System;
+using BusinessLogic.Mapper;
+using Model.Out;
 
 namespace BusinessLogic.Tests
 {
@@ -30,9 +32,10 @@ namespace BusinessLogic.Tests
             };
             Mock<ICategoryRepository> mock = new Mock<ICategoryRepository>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(categoryToReturn);
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object);
+            ModelMapper mapper = new ModelMapper();
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
 
-            List<Category> result = categoryLogic.GetAll();
+            List<CategoryBasicInfoModel> result = categoryLogic.GetAll();
 
             mock.VerifyAll();
             Assert.AreEqual(categoryToReturn.Count, result.Count);
@@ -54,7 +57,8 @@ namespace BusinessLogic.Tests
             };
             Mock<ICategoryRepository> mock = new Mock<ICategoryRepository>(MockBehavior.Strict);
             mock.Setup(m => m.GetPlaylistsBy(1)).Returns(playlists);
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object);
+            ModelMapper mapper = new ModelMapper();
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
 
             List<Playlist> result = categoryLogic.GetPlaylistsBy(1);
 
@@ -70,7 +74,8 @@ namespace BusinessLogic.Tests
             var id = 1;
             Mock<ICategoryRepository> mock = new Mock<ICategoryRepository>(MockBehavior.Strict);
             mock.Setup(m => m.GetPlaylistsBy(id)).Returns((List<Playlist>)null);
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object);
+            ModelMapper mapper = new ModelMapper();
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
 
             var result = categoryLogic.GetPlaylistsBy(1);
 

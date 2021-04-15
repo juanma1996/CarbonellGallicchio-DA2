@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Mapper;
 using BusinessLogicInterface;
 using DataAccess;
 using DataAccess.Context;
@@ -23,6 +24,7 @@ namespace Factory
             services.AddScoped<IPlaylistLogic, PlaylistLogic>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryLogic, CategoryLogic>();
+            services.AddScoped<IModelMapper, ModelMapper>();
         }
         public void AddDbContextService()
         {

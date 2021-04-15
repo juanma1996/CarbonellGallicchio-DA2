@@ -1,11 +1,12 @@
-﻿using Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Domain;
+using Model.Out;
 
 namespace BusinessLogicInterface
 {
     public interface ICategoryLogic
     {
-        List<Category> GetAll();
+        List<CategoryBasicInfoModel> GetAll();
         List<Playlist> GetPlaylistsBy(int categoryId);
     }
 }

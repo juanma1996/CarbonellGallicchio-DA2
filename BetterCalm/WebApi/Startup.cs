@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApi.Mapper;
 
 namespace BetterCalm
 {
@@ -29,7 +28,6 @@ namespace BetterCalm
         {
             services.AddControllers();
             ServiceFactory serviceFactory = new ServiceFactory(services);
-            services.AddScoped<IApiMapper, ApiMapper>();
             serviceFactory.AddCustomServices();
             serviceFactory.AddDbContextService();
         }

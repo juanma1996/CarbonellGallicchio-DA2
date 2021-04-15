@@ -8,7 +8,6 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebApi.Mapper;
 
 namespace BetterCalmTests.WebApi
 {
@@ -35,7 +34,6 @@ namespace BetterCalmTests.WebApi
             mock.Setup(m => m.GetAll()).Returns(categoriesToReturn);
             CategoryController controller = new CategoryController(mock.Object);
 
-
             var result = controller.Get();
             var okResult = result as OkObjectResult;
             var categories = okResult.Value as List<CategoryBasicInfoModel>;
@@ -61,8 +59,7 @@ namespace BetterCalmTests.WebApi
             };
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetPlaylistsBy(1)).Returns(playlists);
-            ApiMapper mapper = new ApiMapper();
-            CategoryController controller = new CategoryController(mock.Object, mapper);
+            CategoryController controller = new CategoryController(mock.Object);
 
             var result = controller.GetPlaylistByCategory(1);
             var okResult = result as OkObjectResult;
@@ -79,8 +76,7 @@ namespace BetterCalmTests.WebApi
             var id = 1;
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetPlaylistsBy(id)).Throws(new NullReferenceException("Not found object"));
-            ApiMapper mapper = new ApiMapper();
-            CategoryController controller = new CategoryController(mock.Object, mapper);
+            CategoryController controller = new CategoryController(mock.Object);
 
             var result = controller.GetPlaylistByCategory(id);
             var objectResult = result as ObjectResult;
