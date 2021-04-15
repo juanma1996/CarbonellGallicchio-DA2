@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Domain;
 using DataAccessInterface;
 using Moq;
+using System;
 
 namespace BusinessLogic.Tests
 {
@@ -59,6 +60,21 @@ namespace BusinessLogic.Tests
 
             mock.VerifyAll();
             Assert.AreEqual(result.Count, 2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void TestGetPlaylistByCategoryNotExistentId()
+        {
+            List<Playlist> playlists = new List<Playlist>();
+            var id = 1;
+            Mock<ICategoryRepository> mock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            mock.Setup(m => m.GetPlaylistsBy(id)).Returns((List<Playlist>)null);
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object);
+
+            var result = categoryLogic.GetPlaylistsBy(1);
+
+            mock.VerifyAll();
         }
     }
 }

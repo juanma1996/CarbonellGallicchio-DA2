@@ -80,7 +80,7 @@ namespace BetterCalmTests.WebApi
             List<Playlist> playlists = new List<Playlist>();
             var id = 1;
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetPlaylistsBy(id)).Throws(new NullReferenceException("prueba"));
+            mock.Setup(m => m.GetPlaylistsBy(id)).Throws(new NullReferenceException("Not found object"));
             ApiMapper mapper = new ApiMapper();
             CategoryController controller = new CategoryController(mock.Object, mapper);
 
