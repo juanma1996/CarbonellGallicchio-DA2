@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.Out;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebApi.Mapper;
@@ -79,7 +80,7 @@ namespace BetterCalmTests.WebApi
             List<Playlist> playlists = new List<Playlist>();
             var id = 1;
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetPlaylistsBy(id)).Returns((List<Playlist>)null);
+            mock.Setup(m => m.GetPlaylistsBy(id)).Throws(new NullReferenceException("prueba"));
             ApiMapper mapper = new ApiMapper();
             CategoryController controller = new CategoryController(mock.Object, mapper);
 
@@ -87,7 +88,7 @@ namespace BetterCalmTests.WebApi
             var objectResult = result as ObjectResult;
 
             mock.VerifyAll();
-            Assert.AreEqual(400, objectResult.StatusCode);
+            Assert.AreEqual(404, objectResult.StatusCode);
         }
     }
 }
