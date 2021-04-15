@@ -18,14 +18,14 @@ namespace BetterCalmTests.WebApi
         [TestMethod]
         public void TestGetAllCategoriesOk()
         {
-            List<Category> categoriesToReturn = new List<Category>()
+            List<CategoryBasicInfoModel> categoriesToReturn = new List<CategoryBasicInfoModel>()
             {
-                new Category
+                new CategoryBasicInfoModel
                 {
                     Id = 1,
                     Name = "Top 50 Uruguay"
                 },
-                new Category
+                new CategoryBasicInfoModel
                 {
                     Id = 2,
                     Name = "Top 50 Usa"
@@ -33,17 +33,15 @@ namespace BetterCalmTests.WebApi
             };
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(categoriesToReturn);
-            ApiMapper mapper = new ApiMapper();
-            CategoryController controller = new CategoryController(mock.Object, mapper);
+            CategoryController controller = new CategoryController(mock.Object);
 
 
             var result = controller.Get();
             var okResult = result as OkObjectResult;
             var categories = okResult.Value as List<CategoryBasicInfoModel>;
-            var categoriesToReturnModel = mapper.Configure().Map<List<CategoryBasicInfoModel>>(categoriesToReturn);
-
+            
             mock.VerifyAll();
-            Assert.IsTrue(categories.SequenceEqual(categoriesToReturnModel));
+            Assert.IsTrue(categories.SequenceEqual(categoriesToReturn));
             Assert.AreEqual(200, okResult.StatusCode);
         }
 
