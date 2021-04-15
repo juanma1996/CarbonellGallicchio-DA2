@@ -24,7 +24,17 @@ namespace BusinessLogic
         public List<Playlist> GetPlaylistsBy(int categoryId)
         {
             List<Playlist> playlist = categoryRepository.GetPlaylistsBy(categoryId);
+            ValidateNullPlaylist(playlist);
             return playlist;
         }
+
+        private void ValidateNullPlaylist(List<Playlist> playlists)
+        {
+            if (playlists == null)
+            {
+                throw new NullReferenceException("Doesn't exists playlist for this category");
+            }
+        }
+
     }
 }
