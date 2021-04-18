@@ -27,7 +27,14 @@ namespace DataAccess
 
         public List<Playlist> GetPlaylistsBy(int categoryId)
         {
-            return this.categories.Where(c => c.Id.Equals(categoryId)).FirstOrDefault().Playlists;
+            List<Playlist> playlists = null;
+            Category category = this.categories.Where(c => c.Id.Equals(categoryId)).FirstOrDefault();
+            if (category != null)
+            {
+                playlists = category.Playlists;
+            }
+
+            return playlists;
         }
 
     }
