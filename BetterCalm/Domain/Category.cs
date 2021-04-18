@@ -14,7 +14,7 @@ namespace Domain
 
             if (obj is Category category)
             {
-                result = this.Id == category.Id && this.Name.Equals(category.Name);
+                result = this.Id == category.Id && this.Name.Equals(category.Name) && this.Playlists.Equals(category.Playlists);
             }
 
             return result;

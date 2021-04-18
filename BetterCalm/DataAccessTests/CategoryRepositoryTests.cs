@@ -52,6 +52,7 @@ namespace DataAccess.Tests
                 new Category
                 {
                     Id = 1,
+                    Name= "Chilling",
                     Playlists = playlists
                 }
             };
@@ -67,12 +68,20 @@ namespace DataAccess.Tests
         [TestMethod()]
         public void TestGetAllCategoriesEqualError()
         {
+            List<Playlist> playlists = new List<Playlist>()
+            {
+                new Playlist()
+                {
+                    Id = 1
+                }
+            };
             List<Category> categoriesToReturn = new List<Category>()
             {
                 new Category
                 {
                     Id = 1,
                     Name= "Cat1",
+                    Playlists = playlists
                 }
             };
             List<Category> categoriesToCompare = new List<Category>()
@@ -81,6 +90,7 @@ namespace DataAccess.Tests
                 {
                     Id = 1,
                     Name= "Cat1",
+                    Playlists = playlists
                 }
             };
             categoriesToReturn.ForEach(c => context.Add(c));
