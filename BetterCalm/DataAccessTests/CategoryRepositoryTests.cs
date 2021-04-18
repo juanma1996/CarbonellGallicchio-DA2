@@ -5,6 +5,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Domain;
+using System.Linq;
 
 namespace DataAccess.Tests
 {
