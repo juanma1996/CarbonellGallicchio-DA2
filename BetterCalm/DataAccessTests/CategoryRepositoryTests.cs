@@ -67,45 +67,45 @@ namespace DataAccess.Tests
         [TestMethod()]
         public void TestGetPlaylistByCategoryOk()
         {
-            List<Playlist> playlists = new List<Playlist>()
+            List<Playlist> playlistsToReturn = new List<Playlist>()
             {
                 new Playlist()
                 {
                     Id = 1
                 }
             };
-            List<Category> category = new List<Category>()
+            List<Category> categoryWithPlaylistToReturn = new List<Category>()
             {
                 new Category
                 {
                     Id = 1,
-                    Playlists = playlists
+                    Playlists = playlistsToReturn
                 }
             };
-            category.ForEach(c => context.Add(c));
+            categoryWithPlaylistToReturn.ForEach(c => context.Add(c));
             context.SaveChanges();
-            List<Playlist> playlists2 = new List<Playlist>()
+            List<Playlist> anotherPlaylists = new List<Playlist>()
             {
                 new Playlist()
                 {
                     Id = 2
                 }
             };
-            List<Category> category2 = new List<Category>()
+            List<Category> anotherCategory = new List<Category>()
             {
                 new Category
                 {
                     Id = 2,
-                    Playlists = playlists2
+                    Playlists = anotherPlaylists
                 }
             };
-            category2.ForEach(c => context.Add(c));
+            anotherCategory.ForEach(c => context.Add(c));
             context.SaveChanges();
 
             CategoryRepository categoryRepository = new CategoryRepository(context);
             var result = categoryRepository.GetPlaylistsBy(1);
 
-            Assert.IsTrue(playlists.SequenceEqual(result));
+            Assert.IsTrue(playlistsToReturn.SequenceEqual(result));
         }
     }
 }
