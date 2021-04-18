@@ -11,11 +11,13 @@ namespace DataAccess
     {
         private readonly DbContext context;
         private readonly DbSet<Category> categories;
+        private readonly DbSet<Playlist> playlists;
 
         public CategoryRepository(DbContext context)
         {
             this.context = context;
             this.categories = context.Set<Category>();
+            this.playlists = context.Set<Playlist>();
         }
 
         public List<Category> GetAll()
@@ -25,7 +27,7 @@ namespace DataAccess
 
         public List<Playlist> GetPlaylistsBy(int categoryId)
         {
-            throw new NotImplementedException();
+            return this.categories.Where(c => c.Id.Equals(categoryId)).FirstOrDefault().Playlists;
         }
 
     }
