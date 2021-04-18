@@ -107,5 +107,32 @@ namespace DataAccess.Tests
 
             Assert.IsTrue(playlistsToReturn.SequenceEqual(result));
         }
+
+        [TestMethod()]
+        public void TestGetPlaylistByNotExistantCategoryShouldReturnNull()
+        {
+            List<Playlist> playlistsToReturn = new List<Playlist>()
+            {
+                new Playlist()
+                {
+                    Id = 1
+                }
+            };
+            List<Category> categoryWithPlaylistToReturn = new List<Category>()
+            {
+                new Category
+                {
+                    Id = 1,
+                    Playlists = playlistsToReturn
+                }
+            };
+            categoryWithPlaylistToReturn.ForEach(c => context.Add(c));
+            context.SaveChanges();
+
+            CategoryRepository categoryRepository = new CategoryRepository(context);
+            var result = categoryRepository.GetPlaylistsBy(2);
+
+            Assert.IsTrue(result == null);
+        }
     }
 }
