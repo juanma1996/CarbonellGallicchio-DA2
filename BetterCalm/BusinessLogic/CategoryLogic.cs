@@ -26,11 +26,12 @@ namespace BusinessLogic
             return categories;
         }
 
-        public List<Playlist> GetPlaylistsBy(int categoryId)
+        public List<PlaylistBasicInfoModel> GetPlaylistsBy(int categoryId)
         {
-            List<Playlist> playlist = categoryRepository.GetPlaylistsBy(categoryId);
-            ValidateNullPlaylist(playlist);
-            return playlist;
+            List<Playlist> playlists = categoryRepository.GetPlaylistsBy(categoryId);
+            ValidateNullPlaylist(playlists);
+            List<PlaylistBasicInfoModel> playlistsModel = mapper.Map<List<PlaylistBasicInfoModel>>(playlists);
+            return playlistsModel;
         }
 
         private void ValidateNullPlaylist(List<Playlist> playlists)

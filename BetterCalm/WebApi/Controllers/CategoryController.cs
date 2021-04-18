@@ -28,10 +28,8 @@ namespace BetterCalm.WebApi.Controllers
         {
             try
             {
-                List<Playlist> playlists = categoryLogic.GetPlaylistsBy(categoryId);
-                //List<PlaylistBasicInfoModel> playlistsOut = mapper.Map<List<PlaylistBasicInfoModel>>(playlists);
-                List<PlaylistBasicInfoModel> playlistsOut = null;
-                return Ok(playlistsOut);
+                List<PlaylistBasicInfoModel> playlists = categoryLogic.GetPlaylistsBy(categoryId);
+                return Ok(playlists);
             }
             catch (NullReferenceException e)
             {

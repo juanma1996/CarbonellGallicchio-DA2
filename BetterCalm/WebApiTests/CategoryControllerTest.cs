@@ -46,13 +46,13 @@ namespace BetterCalmTests.WebApi
         [TestMethod]
         public void TestGetPlaylistByCategoryOk()
         {
-            List<Playlist> playlists = new List<Playlist>()
+            List<PlaylistBasicInfoModel> playlists = new List<PlaylistBasicInfoModel>()
             {
-                new Playlist()
+                new PlaylistBasicInfoModel()
                 {
                     Id = 1,
                 },
-                new Playlist()
+                new PlaylistBasicInfoModel()
                 {
                     Id = 2,
                 },
@@ -72,7 +72,7 @@ namespace BetterCalmTests.WebApi
         [TestMethod]
         public void TestGetPlaylistByCategoryNotExistentId()
         {
-            List<Playlist> playlists = new List<Playlist>();
+            List<PlaylistBasicInfoModel> playlists = new List<PlaylistBasicInfoModel>();
             var id = 1;
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetPlaylistsBy(id)).Throws(new NullReferenceException("Not found object"));

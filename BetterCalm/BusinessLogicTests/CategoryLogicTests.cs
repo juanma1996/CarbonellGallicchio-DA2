@@ -60,7 +60,7 @@ namespace BusinessLogic.Tests
             ModelMapper mapper = new ModelMapper();
             CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
 
-            List<Playlist> result = categoryLogic.GetPlaylistsBy(1);
+            List<PlaylistBasicInfoModel> result = categoryLogic.GetPlaylistsBy(1);
 
             mock.VerifyAll();
             Assert.AreEqual(result.Count, 2);
