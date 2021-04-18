@@ -63,5 +63,49 @@ namespace DataAccess.Tests
 
             Assert.IsTrue(categoriesToReturn.SequenceEqual(result));
         }
+
+        [TestMethod()]
+        public void TestGetPlaylistByCategoryOk()
+        {
+            List<Playlist> playlists = new List<Playlist>()
+            {
+                new Playlist()
+                {
+                    Id = 1
+                }
+            };
+            List<Category> category = new List<Category>()
+            {
+                new Category
+                {
+                    Id = 1,
+                    Playlists = playlists
+                }
+            };
+            category.ForEach(c => context.Add(c));
+            context.SaveChanges();
+            List<Playlist> playlists2 = new List<Playlist>()
+            {
+                new Playlist()
+                {
+                    Id = 2
+                }
+            };
+            List<Category> category2 = new List<Category>()
+            {
+                new Category
+                {
+                    Id = 2,
+                    Playlists = playlists2
+                }
+            };
+            category2.ForEach(c => context.Add(c));
+            context.SaveChanges();
+
+            CategoryRepository categoryRepository = new CategoryRepository(context);
+            var result = categoryRepository.GetPlaylistsBy(1);
+
+            Assert.IsTrue(playlists.SequenceEqual(result));
+        }
     }
 }
