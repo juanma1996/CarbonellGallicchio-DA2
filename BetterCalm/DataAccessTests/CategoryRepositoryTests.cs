@@ -89,7 +89,7 @@ namespace DataAccess.Tests
             CategoryRepository categoryRepository = new CategoryRepository(context);
             var result = categoryRepository.GetAll();
 
-            Assert.IsTrue(categoriesToReturn.SequenceEqual(categoriesToCompare));
+            Assert.IsTrue(result.SequenceEqual(categoriesToCompare));
         }
 
         [TestMethod()]
