@@ -6,6 +6,7 @@ using Moq;
 using System;
 using BusinessLogic.Mapper;
 using Model.Out;
+using System.Linq;
 
 namespace BusinessLogic.Tests
 {
@@ -59,7 +60,7 @@ namespace BusinessLogic.Tests
             mock.Setup(m => m.GetPlaylistsBy(1)).Returns(playlists);
             ModelMapper mapper = new ModelMapper();
             CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
-
+            
             List<PlaylistBasicInfoModel> result = categoryLogic.GetPlaylistsBy(1);
 
             mock.VerifyAll();

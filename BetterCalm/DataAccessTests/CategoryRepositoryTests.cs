@@ -65,6 +65,34 @@ namespace DataAccess.Tests
         }
 
         [TestMethod()]
+        public void TestGetAllCategoriesEqualError()
+        {
+            List<Category> categoriesToReturn = new List<Category>()
+            {
+                new Category
+                {
+                    Id = 1,
+                    Name= "Cat1",
+                }
+            };
+            List<Category> categoriesToCompare = new List<Category>()
+            {
+                new Category
+                {
+                    Id = 1,
+                    Name= "Cat1",
+                }
+            };
+            categoriesToReturn.ForEach(c => context.Add(c));
+            context.SaveChanges();
+
+            CategoryRepository categoryRepository = new CategoryRepository(context);
+            var result = categoryRepository.GetAll();
+
+            Assert.IsTrue(categoriesToReturn.SequenceEqual(categoriesToCompare));
+        }
+
+        [TestMethod()]
         public void TestGetPlaylistByCategoryOk()
         {
             List<Playlist> playlistsToReturn = new List<Playlist>()
