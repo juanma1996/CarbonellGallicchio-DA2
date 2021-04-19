@@ -34,8 +34,7 @@ namespace BusinessLogic.Tests
             Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(categoryToReturn);
             ModelMapper mapper = new ModelMapper();
-            Validation validate = new Validation();
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper, validate);
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
 
             List<CategoryBasicInfoModel> result = categoryLogic.GetAll();
 
@@ -65,8 +64,7 @@ namespace BusinessLogic.Tests
             Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(1)).Returns(categoryToReturn);
             ModelMapper mapper = new ModelMapper();
-            Validation validate = new Validation();
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper, validate);
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
             
             List<PlaylistBasicInfoModel> result = categoryLogic.GetPlaylistsBy(1);
 
@@ -88,8 +86,7 @@ namespace BusinessLogic.Tests
             Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(id)).Returns((Category)null);
             ModelMapper mapper = new ModelMapper();
-            Validation validate = new Validation();
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper, validate);
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
 
             var result = categoryLogic.GetPlaylistsBy(2);
 

@@ -15,11 +15,11 @@ namespace BusinessLogic
         private readonly IMapper mapper;
         private readonly Validation validate;
 
-        public CategoryLogic(IRepository<Category> categoryRepository, IModelMapper mapper, Validation validate)
+        public CategoryLogic(IRepository<Category> categoryRepository, IModelMapper mapper)
         {
             this.categoryRepository = categoryRepository;
             this.mapper = mapper.Configure();
-            this.validate = validate;
+            this.validate = new Validation();
         }
 
         public List<CategoryBasicInfoModel> GetAll()
