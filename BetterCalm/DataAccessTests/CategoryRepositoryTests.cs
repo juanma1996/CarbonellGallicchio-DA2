@@ -143,7 +143,7 @@ namespace DataAccess.Tests
             context.SaveChanges();
 
             IRepository<Category> categoryRepository = new Repository<Category>(context);
-            var result = categoryRepository.GetBy(1);
+            var result = categoryRepository.GetById(1);
 
             Assert.IsTrue(playlistsToReturn.SequenceEqual(result.Playlists));
         }
@@ -177,7 +177,7 @@ namespace DataAccess.Tests
             context.SaveChanges();
 
             IRepository<Category> categoryRepository = new Repository<Category>(context);
-            var result = categoryRepository.GetBy(1);
+            var result = categoryRepository.GetById(1);
 
             Assert.IsTrue(result.Playlists.SequenceEqual(playlistsToCompare));
         }
@@ -204,7 +204,7 @@ namespace DataAccess.Tests
             context.SaveChanges();
 
             IRepository<Category> categoryRepository = new Repository<Category>(context);
-            var result = categoryRepository.GetBy(2);
+            var result = categoryRepository.GetById(2);
 
             Assert.IsTrue(result == null);
         }

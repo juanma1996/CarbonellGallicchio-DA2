@@ -28,7 +28,7 @@ namespace BusinessLogic
 
         public List<PlaylistBasicInfoModel> GetPlaylistsBy(int categoryId)
         {
-            Category category = categoryRepository.GetBy(categoryId);
+            Category category = categoryRepository.GetById(categoryId);
             ValidateNullCategory(category);
             List<Playlist> playlists = category.Playlists;
             ValidateNullPlaylist(playlists);

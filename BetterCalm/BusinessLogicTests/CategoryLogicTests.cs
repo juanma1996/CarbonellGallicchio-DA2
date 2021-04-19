@@ -62,7 +62,7 @@ namespace BusinessLogic.Tests
                 Playlists = playlists
             };
             Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetBy(1)).Returns(categoryToReturn);
+            mock.Setup(m => m.GetById(1)).Returns(categoryToReturn);
             ModelMapper mapper = new ModelMapper();
             CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
             
@@ -84,7 +84,7 @@ namespace BusinessLogic.Tests
             };
             var id = 2;
             Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetBy(id)).Returns((Category)null);
+            mock.Setup(m => m.GetById(id)).Returns((Category)null);
             ModelMapper mapper = new ModelMapper();
             CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
 

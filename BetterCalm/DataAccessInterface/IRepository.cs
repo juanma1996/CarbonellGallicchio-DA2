@@ -7,6 +7,6 @@ namespace DataAccessInterface
     public interface IRepository<T> where T : class
     {
         List<T> GetAll();
-        T GetBy(int id);
+        T GetById(int id);
     }
 }

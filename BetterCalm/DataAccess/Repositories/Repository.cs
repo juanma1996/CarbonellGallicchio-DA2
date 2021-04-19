@@ -27,7 +27,7 @@ namespace DataAccess.Repositories
         {
             return this.Entities.ToList();
         }
-        public T GetBy(int id)
+        public T GetById(int id)
         {
             return this.Entities.Find(id);
         }
