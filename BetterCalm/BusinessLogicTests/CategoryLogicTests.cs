@@ -31,7 +31,7 @@ namespace BusinessLogic.Tests
                     Playlists = playlists
                 }
             };
-            Mock<ICategoryRepository> mock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(categoryToReturn);
             ModelMapper mapper = new ModelMapper();
             CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
@@ -56,8 +56,13 @@ namespace BusinessLogic.Tests
                     Id = 2,
                 },
             };
-            Mock<ICategoryRepository> mock = new Mock<ICategoryRepository>(MockBehavior.Strict);
-            mock.Setup(m => m.GetPlaylistsBy(1)).Returns(playlists);
+            Category categoryToReturn = new Category()
+            {
+                Id = 1,
+                Playlists = playlists
+            };
+            Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetBy(1)).Returns(categoryToReturn);
             ModelMapper mapper = new ModelMapper();
             CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
             
@@ -72,13 +77,18 @@ namespace BusinessLogic.Tests
         public void TestGetPlaylistByCategoryNotExistentId()
         {
             List<Playlist> playlists = new List<Playlist>();
-            var id = 1;
-            Mock<ICategoryRepository> mock = new Mock<ICategoryRepository>(MockBehavior.Strict);
-            mock.Setup(m => m.GetPlaylistsBy(id)).Returns((List<Playlist>)null);
+            Category categoryToReturn = new Category()
+            {
+                Id = 1,
+                Playlists = playlists
+            };
+            var id = 2;
+            Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetBy(id)).Returns((Category)null);
             ModelMapper mapper = new ModelMapper();
             CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
 
-            var result = categoryLogic.GetPlaylistsBy(1);
+            var result = categoryLogic.GetPlaylistsBy(2);
 
             mock.VerifyAll();
         }

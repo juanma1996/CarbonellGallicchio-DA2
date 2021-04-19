@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Domain;
 using System.Linq;
+using DataAccessInterface;
+using DataAccess.Repositories;
 
 namespace DataAccess.Tests
 {
@@ -59,7 +61,7 @@ namespace DataAccess.Tests
             categoriesToReturn.ForEach(c => context.Add(c));
             context.SaveChanges();
 
-            CategoryRepository categoryRepository = new CategoryRepository(context);
+            IRepository<Category> categoryRepository = new Repository<Category>(context);
             var result = categoryRepository.GetAll();
 
             Assert.IsTrue(categoriesToReturn.SequenceEqual(result));
@@ -96,7 +98,7 @@ namespace DataAccess.Tests
             categoriesToReturn.ForEach(c => context.Add(c));
             context.SaveChanges();
 
-            CategoryRepository categoryRepository = new CategoryRepository(context);
+            IRepository<Category> categoryRepository = new Repository<Category>(context);
             var result = categoryRepository.GetAll();
 
             Assert.IsTrue(result.SequenceEqual(categoriesToCompare));
@@ -140,10 +142,10 @@ namespace DataAccess.Tests
             anotherCategory.ForEach(c => context.Add(c));
             context.SaveChanges();
 
-            CategoryRepository categoryRepository = new CategoryRepository(context);
-            var result = categoryRepository.GetPlaylistsBy(1);
+            IRepository<Category> categoryRepository = new Repository<Category>(context);
+            var result = categoryRepository.GetBy(1);
 
-            Assert.IsTrue(playlistsToReturn.SequenceEqual(result));
+            Assert.IsTrue(playlistsToReturn.SequenceEqual(result.Playlists));
         }
 
         [TestMethod()]
@@ -174,10 +176,10 @@ namespace DataAccess.Tests
             categoryWithPlaylistToReturn.ForEach(c => context.Add(c));
             context.SaveChanges();
 
-            CategoryRepository categoryRepository = new CategoryRepository(context);
-            var result = categoryRepository.GetPlaylistsBy(1);
+            IRepository<Category> categoryRepository = new Repository<Category>(context);
+            var result = categoryRepository.GetBy(1);
 
-            Assert.IsTrue(result.SequenceEqual(playlistsToCompare));
+            Assert.IsTrue(result.Playlists.SequenceEqual(playlistsToCompare));
         }
 
         [TestMethod()]
@@ -201,8 +203,8 @@ namespace DataAccess.Tests
             categoryWithPlaylistToReturn.ForEach(c => context.Add(c));
             context.SaveChanges();
 
-            CategoryRepository categoryRepository = new CategoryRepository(context);
-            var result = categoryRepository.GetPlaylistsBy(2);
+            IRepository<Category> categoryRepository = new Repository<Category>(context);
+            var result = categoryRepository.GetBy(2);
 
             Assert.IsTrue(result == null);
         }

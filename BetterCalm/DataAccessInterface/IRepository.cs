@@ -4,7 +4,9 @@ using System.Text;
 
 namespace DataAccessInterface
 {
-    public interface IPlaylistRepository
+    public interface IRepository<T> where T : class
     {
+        List<T> GetAll();
+        T GetBy(int id);
     }
 }

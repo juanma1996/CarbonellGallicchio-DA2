@@ -3,6 +3,7 @@ using BusinessLogic.Mapper;
 using BusinessLogicInterface;
 using DataAccess;
 using DataAccess.Context;
+using DataAccess.Repositories;
 using DataAccessInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,9 +21,8 @@ namespace Factory
 
         public void AddCustomServices()
         {
-            services.AddScoped<IPlaylistRepository, PlaylistRepository>();
             services.AddScoped<IPlaylistLogic, PlaylistLogic>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICategoryLogic, CategoryLogic>();
             services.AddScoped<IModelMapper, ModelMapper>();
         }
