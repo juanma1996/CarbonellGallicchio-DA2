@@ -13,11 +13,13 @@ namespace BusinessLogic
     {
         private readonly IRepository<Category> categoryRepository;
         private readonly IMapper mapper;
+        private readonly Validation validate;
 
-        public CategoryLogic(IRepository<Category> categoryRepository, IModelMapper mapper)
+        public CategoryLogic(IRepository<Category> categoryRepository, IModelMapper mapper, Validation validate)
         {
             this.categoryRepository = categoryRepository;
             this.mapper = mapper.Configure();
+            this.validate = validate;
         }
 
         public List<CategoryBasicInfoModel> GetAll()
@@ -29,27 +31,11 @@ namespace BusinessLogic
         public List<PlaylistBasicInfoModel> GetPlaylistsBy(int categoryId)
         {
             Category category = categoryRepository.GetById(categoryId);
-            ValidateNullCategory(category);
+            validate.Validate(category);
             List<Playlist> playlists = category.Playlists;
-            ValidateNullPlaylist(playlists);
+            validate.Validate(playlists);
             List<PlaylistBasicInfoModel> playlistsModel = mapper.Map<List<PlaylistBasicInfoModel>>(playlists);
             return playlistsModel;
         }
-
-        private void ValidateNullCategory(Category category)
-        {
-            if (category == null)
-            {
-                throw new NullReferenceException("Doesn't exists category for this id");
-            }
-        }
-        private void ValidateNullPlaylist(List<Playlist> playlists)
-        {
-            if (playlists == null)
-            {
-                throw new NullReferenceException("Doesn't exists playlist for this category");
-            }
-        }
-
     }
 }
