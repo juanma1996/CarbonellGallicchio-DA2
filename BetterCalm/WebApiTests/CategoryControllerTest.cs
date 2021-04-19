@@ -39,7 +39,8 @@ namespace BetterCalmTests.WebApi
             var categories = okResult.Value as List<CategoryBasicInfoModel>;
             
             mock.VerifyAll();
-            Assert.IsTrue(categories.SequenceEqual(categoriesToReturn));
+            Assert.AreEqual(categories.First().Id, categoriesToReturn.First().Id);
+            Assert.AreEqual(categories.First().Name, categoriesToReturn.First().Name);
             Assert.AreEqual(200, okResult.StatusCode);
         }
 
