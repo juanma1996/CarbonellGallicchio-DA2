@@ -64,45 +64,11 @@ namespace DataAccess.Tests
             IRepository<Category> categoryRepository = new Repository<Category>(context);
             var result = categoryRepository.GetAll();
 
-            Assert.IsTrue(categoriesToReturn.SequenceEqual(result));
+            Assert.AreEqual(result.First().Id, categoriesToReturn.First().Id);
+            Assert.AreEqual(result.First().Name, categoriesToReturn.First().Name);
+            Assert.AreEqual(result.First().Playlists.First().Id, categoriesToReturn.First().Playlists.First().Id);
         }
 
-        [TestMethod()]
-        public void TestGetAllCategoriesEqualError()
-        {
-            List<Playlist> playlists = new List<Playlist>()
-            {
-                new Playlist()
-                {
-                    Id = 1
-                }
-            };
-            List<Category> categoriesToReturn = new List<Category>()
-            {
-                new Category
-                {
-                    Id = 1,
-                    Name= "Cat1",
-                    Playlists = playlists
-                }
-            };
-            List<Category> categoriesToCompare = new List<Category>()
-            {
-                new Category
-                {
-                    Id = 1,
-                    Name= "Cat1",
-                    Playlists = playlists
-                }
-            };
-            categoriesToReturn.ForEach(c => context.Add(c));
-            context.SaveChanges();
-
-            IRepository<Category> categoryRepository = new Repository<Category>(context);
-            var result = categoryRepository.GetAll();
-
-            Assert.IsTrue(result.SequenceEqual(categoriesToCompare));
-        }
 
         [TestMethod()]
         public void TestGetPlaylistByCategoryOk()
@@ -146,40 +112,7 @@ namespace DataAccess.Tests
             var result = categoryRepository.GetById(1);
 
             Assert.IsTrue(playlistsToReturn.SequenceEqual(result.Playlists));
-        }
 
-        [TestMethod()]
-        public void TestGetPlaylistByCategoryEqualError()
-        {
-            List<Playlist> playlistsToReturn = new List<Playlist>()
-            {
-                new Playlist()
-                {
-                    Id = 1
-                }
-            };
-            List<Category> categoryWithPlaylistToReturn = new List<Category>()
-            {
-                new Category
-                {
-                    Id = 1,
-                    Playlists = playlistsToReturn
-                }
-            };
-            List<Playlist> playlistsToCompare = new List<Playlist>()
-            {
-                new Playlist()
-                {
-                    Id = 1
-                }
-            };
-            categoryWithPlaylistToReturn.ForEach(c => context.Add(c));
-            context.SaveChanges();
-
-            IRepository<Category> categoryRepository = new Repository<Category>(context);
-            var result = categoryRepository.GetById(1);
-
-            Assert.IsTrue(result.Playlists.SequenceEqual(playlistsToCompare));
         }
 
         [TestMethod()]
