@@ -9,6 +9,7 @@ namespace DataAccess.Context
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
+        public DbSet<CategoryPlaylist> CategoryPlaylists { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
@@ -29,5 +30,22 @@ namespace DataAccess.Context
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
-    }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Category>().ToTable("Categories");
+            modelBuilder.Entity<Category>().HasKey(s => s.Id);
+            modelBuilder.Entity<Category>().Property(s => s.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Category>().HasMany(s => s.Playlists);
+
+            modelBuilder.Entity<Playlist>().ToTable("Playlists");
+            modelBuilder.Entity<Playlist>().HasKey(s => s.Id);
+            modelBuilder.Entity<Playlist>().Property(s => s.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Playlist>().HasMany(s => s.Categories);
+
+            modelBuilder.Entity<CategoryPlaylist>().ToTable("CategoryPlaylists");
+            modelBuilder.Entity<CategoryPlaylist>().HasMany(s => s.Categories).WithOne<Playlist>(p => p.Playlists).OnDelete(DeleteBehavior.Restrict); ;
+            modelBuilder.Entity<CategoryPlaylist>().HasMany(s => s.Playlists).WithOne(p => p.Categories).OnDelete(DeleteBehavior.Restrict); ;
+        }
 }
