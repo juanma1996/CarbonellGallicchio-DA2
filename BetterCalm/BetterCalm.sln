@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdapterInterface", "Adapter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessExceptions", "BusinessExceptions\BusinessExceptions.csproj", "{BE985F53-2BFD-4C4B-8978-98185050C174}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdapterExceptions", "AdapterExceptions\AdapterExceptions.csproj", "{3A5B8478-37D9-4B04-BCDD-934E000BFB96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{BE985F53-2BFD-4C4B-8978-98185050C174}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE985F53-2BFD-4C4B-8978-98185050C174}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE985F53-2BFD-4C4B-8978-98185050C174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A5B8478-37D9-4B04-BCDD-934E000BFB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A5B8478-37D9-4B04-BCDD-934E000BFB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A5B8478-37D9-4B04-BCDD-934E000BFB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A5B8478-37D9-4B04-BCDD-934E000BFB96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +129,7 @@ Global
 		{7D3345BA-0B55-48FA-AAF2-2FCA0A0901AB} = {BC868B3F-14FF-4C5B-9C42-DFB2DACD238F}
 		{82A95F2E-54E1-46AF-A1BD-256F3D06E0EC} = {BC868B3F-14FF-4C5B-9C42-DFB2DACD238F}
 		{BE985F53-2BFD-4C4B-8978-98185050C174} = {BC868B3F-14FF-4C5B-9C42-DFB2DACD238F}
+		{3A5B8478-37D9-4B04-BCDD-934E000BFB96} = {BC868B3F-14FF-4C5B-9C42-DFB2DACD238F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99DD942E-2C56-4283-85E0-45770B53620D}

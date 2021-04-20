@@ -1,6 +1,8 @@
 ﻿using Adapter.Mapper;
+using AdapterExceptions;
 using AdapterInterface;
 using AutoMapper;
+using BusinessExceptions;
 using BusinessLogicInterface;
 using Model.Out;
 using System.Collections.Generic;
@@ -24,7 +26,14 @@ namespace Adapter
         }
         public List<PlaylistBasicInfoModel> GetPlaylistsByCategoryId(int categoryId)
         {
-            return mapper.Map<List<PlaylistBasicInfoModel>>(categoryLogic.GetPlaylistsByCategoryId(categoryId));
+            try
+            {
+                return mapper.Map<List<PlaylistBasicInfoModel>>(categoryLogic.GetPlaylistsByCategoryId(categoryId));
+            }
+            catch (NullObjectException ex)
+            {
+                throw new NullObjectMappingException("The category validating is null, please check.");
+            }
         }
     }
 }

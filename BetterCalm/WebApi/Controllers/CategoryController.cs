@@ -1,5 +1,5 @@
-﻿using AdapterInterface;
-using BusinessExceptions;
+﻿using AdapterExceptions;
+using AdapterInterface;
 using BusinessLogicInterface;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +33,7 @@ namespace BetterCalm.WebApi.Controllers
                 List<PlaylistBasicInfoModel> playlists = categoryDomainToModelAdapter.GetPlaylistsByCategoryId(categoryId);
                 return Ok(playlists);
             }
-            catch (NullObjectException e)
+            catch (NullObjectMappingException e)
             {
                 return NotFound(e);
             }

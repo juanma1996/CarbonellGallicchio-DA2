@@ -11,6 +11,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AdapterInterface\AdapterInterface.csproj" />
     <ProjectReference Include="..\BusinessLogicInterface\BusinessLogicInterface.csproj" />
+    <ProjectReference Include="..\BusinessExceptions\BusinessExceptions.csproj" />
+    <ProjectReference Include="..\AdapterExceptions\AdapterExceptions.csproj" />
   </ItemGroup>
 
 </Project>
