@@ -45,7 +45,9 @@ namespace DataAccess.Context
             modelBuilder.Entity<Playlist>().HasMany(s => s.Categories);
 
             modelBuilder.Entity<CategoryPlaylist>().ToTable("CategoryPlaylists");
-            modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Category).WithMany(p => p.Playlists).HasForeignKey(sc => sc.Category.Id).OnDelete(DeleteBehavior.Restrict); ;
-            modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.Categories).HasForeignKey(sc => sc.Playlist.Id).OnDelete(DeleteBehavior.Restrict); ;
+            modelBuilder.Entity<CategoryPlaylist>().HasKey(cp => new { cp.CategoryId, cp.PlaylistId });
+            modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Category).WithMany(p => p.Playlists).HasForeignKey(sc => sc.CategoryId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.Categories).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Restrict);
         }
+    }
 }

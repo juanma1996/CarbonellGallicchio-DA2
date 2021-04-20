@@ -2,17 +2,21 @@
 using Domain;
 using System.Collections.Generic;
 using DataAccessInterface;
+using System.Linq;
 
 namespace BusinessLogic
 {
     public class CategoryLogic : ICategoryLogic
     {
         private readonly IRepository<Category> categoryRepository;
+        private readonly IRepository<Playlist> playlistRepository;
+        private readonly IRepository<CategoryPlaylist> categoryPlaylistRepository;
         private readonly Validation validate;
 
-        public CategoryLogic(IRepository<Category> categoryRepository, Validation validate)
+        public CategoryLogic(IRepository<Category> categoryRepository, IRepository<Playlist> playlistRepository, Validation validate)
         {
             this.categoryRepository = categoryRepository;
+            this.playlistRepository = playlistRepository;
             this.validate = validate;
         }
 
@@ -23,9 +27,8 @@ namespace BusinessLogic
 
         public List<Playlist> GetPlaylistsByCategoryId(int categoryId)
         {
-            Category category = categoryRepository.GetById(categoryId);
-            validate.Validate(category);
-            List<Playlist> playlists = category.Playlists;
+
+            var playlists = playlistRepository.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == categoryId));
             validate.Validate(playlists);
             return playlists;
         }

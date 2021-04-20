@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Repositories
@@ -23,13 +24,17 @@ namespace DataAccess.Repositories
             }
         }
 
-        public List<T> GetAll()
+        public List<T> GetAll(Expression<Func<T, bool>> predicate = null)
         {
-            return this.Entities.ToList();
+            return predicate != null ? this.Entities.Where(predicate).ToList() : this.Entities.ToList();
         }
         public T GetById(int id)
         {
             return this.Entities.Find(id);
+        }
+        public T Get(Expression<Func<T, bool>> predicate)
+        {
+            return this.Entities.Where(predicate).First();
         }
     }
 }

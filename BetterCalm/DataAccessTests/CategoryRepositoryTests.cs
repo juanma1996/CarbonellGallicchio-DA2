@@ -42,104 +42,134 @@ namespace DataAccess.Tests
         [TestMethod()]
         public void TestGetAllCategories()
         {
-            List<Playlist> playlists = new List<Playlist>()
-            {
-                new Playlist()
-                {
-                    Id = 1
-                }
-            };
+            int categoryId = 1;
+            int playlistId = 1;
             List<Category> categoriesToReturn = new List<Category>()
             {
                 new Category
                 {
-                    Id = 1,
-                    Name= "Chilling",
-                    Playlists = playlists
+                    Id = categoryId,
+                    Name= "Chilling"
                 }
             };
             categoriesToReturn.ForEach(c => context.Add(c));
             context.SaveChanges();
+            List<Playlist> playlistsToReturn = new List<Playlist>()
+            {
+                new Playlist()
+                {
+                    Id = playlistId,
+                    Categories =  new List<CategoryPlaylist>()
+                    {
+                        new CategoryPlaylist
+                        {
+                            CategoryId = categoryId
+                        }
+                    }
+                }
+            };
+            playlistsToReturn.ForEach(c => context.Add(c));
+            context.SaveChanges();
+
 
             IRepository<Category> categoryRepository = new Repository<Category>(context);
             var result = categoryRepository.GetAll();
 
             Assert.AreEqual(result.First().Id, categoriesToReturn.First().Id);
             Assert.AreEqual(result.First().Name, categoriesToReturn.First().Name);
-            Assert.AreEqual(result.First().Playlists.First().Id, categoriesToReturn.First().Playlists.First().Id);
+            Assert.AreEqual(result.First().Playlists.First().Playlist.Id, categoriesToReturn.First().Playlists.First().Playlist.Id);
         }
 
 
         [TestMethod()]
         public void TestGetPlaylistByCategoryOk()
         {
+            int categoryId = 1;
+            List<Category> category = new List<Category>()
+            {
+                new Category
+                {
+                    Id = categoryId
+                }
+            };
+            category.ForEach(c => context.Add(c));
+            context.SaveChanges();
             List<Playlist> playlistsToReturn = new List<Playlist>()
             {
                 new Playlist()
                 {
-                    Id = 1
-                }
-            };
-            List<Category> categoryWithPlaylistToReturn = new List<Category>()
-            {
-                new Category
-                {
-                    Id = 1,
-                    Playlists = playlistsToReturn
-                }
-            };
-            categoryWithPlaylistToReturn.ForEach(c => context.Add(c));
-            context.SaveChanges();
-            List<Playlist> anotherPlaylists = new List<Playlist>()
-            {
+                    Categories =  new List<CategoryPlaylist>()
+                    {
+                        new CategoryPlaylist
+                        {
+                            CategoryId = categoryId
+                        }
+                    }
+                },
                 new Playlist()
                 {
-                    Id = 2
+                    Categories =  new List<CategoryPlaylist>()
+                    {
+                        new CategoryPlaylist
+                        {
+                            CategoryId = categoryId
+                        }
+                    }
                 }
             };
-            List<Category> anotherCategory = new List<Category>()
-            {
-                new Category
-                {
-                    Id = 2,
-                    Playlists = anotherPlaylists
-                }
-            };
-            anotherCategory.ForEach(c => context.Add(c));
+            playlistsToReturn.ForEach(c => context.Add(c));
             context.SaveChanges();
 
-            IRepository<Category> categoryRepository = new Repository<Category>(context);
-            var result = categoryRepository.GetById(1);
+            IRepository<Playlist> playlistRepository = new Repository<Playlist>(context);
+            var result = playlistRepository.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == categoryId));
 
-            Assert.IsTrue(playlistsToReturn.SequenceEqual(result.Playlists));
-
+            Assert.IsTrue(playlistsToReturn.SequenceEqual(result));
         }
 
         [TestMethod()]
-        public void TestGetPlaylistByNotExistantCategoryShouldReturnNull()
+        public void TestGetPlaylistByNotExistantCategoryShouldReturnEmpty()
         {
+            int categoryId = 1;
+            int notExistentCategoryId = 2;
+            List<Category> category = new List<Category>()
+            {
+                new Category
+                {
+                    Id = categoryId
+                }
+            };
+            category.ForEach(c => context.Add(c));
+            context.SaveChanges();
             List<Playlist> playlistsToReturn = new List<Playlist>()
             {
                 new Playlist()
                 {
-                    Id = 1
-                }
-            };
-            List<Category> categoryWithPlaylistToReturn = new List<Category>()
-            {
-                new Category
+                    Categories =  new List<CategoryPlaylist>()
+                    {
+                        new CategoryPlaylist
+                        {
+                            CategoryId = categoryId
+                        }
+                    }
+                },
+                new Playlist()
                 {
-                    Id = 1,
-                    Playlists = playlistsToReturn
+                    Categories =  new List<CategoryPlaylist>()
+                    {
+                        new CategoryPlaylist
+                        {
+                            CategoryId = categoryId
+                        }
+                    }
                 }
             };
-            categoryWithPlaylistToReturn.ForEach(c => context.Add(c));
+            playlistsToReturn.ForEach(c => context.Add(c));
             context.SaveChanges();
 
-            IRepository<Category> categoryRepository = new Repository<Category>(context);
-            var result = categoryRepository.GetById(2);
+            IRepository<Playlist> playlistRepository = new Repository<Playlist>(context);
+            var result = playlistRepository.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == notExistentCategoryId));
 
-            Assert.IsTrue(result == null);
+            Assert.IsTrue(result.Count == 0);
         }
     }
 }

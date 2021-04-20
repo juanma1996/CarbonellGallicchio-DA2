@@ -5,6 +5,7 @@ using DataAccessInterface;
 using Moq;
 using System;
 using BusinessExceptions;
+using System.Linq;
 
 namespace BusinessLogic.Tests
 {
@@ -14,25 +15,17 @@ namespace BusinessLogic.Tests
         [TestMethod]
         public void TestGetAllCategories()
         {
-            List<Playlist> playlists = new List<Playlist>()
-            {
-                new Playlist()
-                {
-                    Id = 1
-                }
-            };
             List<Category> categoryToReturn = new List<Category>()
             {
                 new Category
                 {
-                    Id = 1,
-                    Playlists = playlists
+                    Id = 1
                 }
             };
             Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll()).Returns(categoryToReturn);
+            mock.Setup(m => m.GetAll(null)).Returns(categoryToReturn);
             Validation validate = new Validation();
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, validate);
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, null, validate);
 
             List<Category> result = categoryLogic.GetAll();
 
@@ -43,52 +36,59 @@ namespace BusinessLogic.Tests
         [TestMethod]
         public void TestGetPlaylistByCategoryOk()
         {
+            int categoryId = 1;
+            Category category = new Category
+            {
+                Id = categoryId
+
+            };
             List<Playlist> playlists = new List<Playlist>()
             {
                 new Playlist()
                 {
-                    Id = 1,
+                    Categories =  new List<CategoryPlaylist>()
+                    {
+                        new CategoryPlaylist
+                        {
+                            CategoryId = categoryId
+                        }
+                    }
                 },
                 new Playlist()
                 {
-                    Id = 2,
-                },
+                    Categories =  new List<CategoryPlaylist>()
+                    {
+                        new CategoryPlaylist
+                        {
+                            CategoryId = categoryId
+                        }
+                    }
+                }
             };
-            Category categoryToReturn = new Category()
-            {
-                Id = 1,
-                Playlists = playlists
-            };
-            Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetById(1)).Returns(categoryToReturn);
+            Mock<IRepository<Playlist>> mock = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == categoryId))).Returns(playlists);
             Validation validate = new Validation();
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, validate);
-            
+            CategoryLogic categoryLogic = new CategoryLogic(null, mock.Object, validate);
+
             List<Playlist> result = categoryLogic.GetPlaylistsByCategoryId(1);
 
             mock.VerifyAll();
             Assert.AreEqual(result.Count, 2);
         }
-
         [TestMethod]
-        [ExpectedException(typeof(NullObjectException))]
         public void TestGetPlaylistByCategoryNotExistentId()
         {
             List<Playlist> playlists = new List<Playlist>();
-            Category categoryToReturn = new Category()
-            {
-                Id = 1,
-                Playlists = playlists
-            };
-            var id = 2;
-            Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetById(id)).Returns((Category)null);
+            var categoryId = 2;
+            Mock<IRepository<Playlist>> mock = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == categoryId))).Returns(new List<Playlist>());
             Validation validate = new Validation();
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, validate);
+            CategoryLogic categoryLogic = new CategoryLogic(null, mock.Object, validate);
 
             var result = categoryLogic.GetPlaylistsByCategoryId(2);
 
             mock.VerifyAll();
+            Assert.AreEqual(result.Count, 0);
         }
     }
 }
