@@ -1,6 +1,8 @@
 ﻿using System;
 using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
+using Microsoft.AspNetCore.Mvc;
+using Model.Out;
 
 namespace WebApi.Controllers
 {
@@ -12,9 +14,11 @@ namespace WebApi.Controllers
             this.psychologistDomainToModelAdapter = psychologistDomainToModelAdapter;
         }
 
-        public object GetById(int psychologistId)
+        [HttpGet("{Id}/")]
+        public IActionResult GetById(int psychologistId)
         {
-            throw new NotImplementedException();
+            PsychologistBasicInfoModel psychologist = psychologistDomainToModelAdapter.GetById(psychologistId);
+            return Ok(psychologist);
         }
     }
 }
