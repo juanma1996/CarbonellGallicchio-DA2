@@ -8,7 +8,7 @@ namespace Adapter
 {
     public class AudioContentLogicAdapter : IAudioContentLogicAdapter
     {
-        public AudioContentBasicInfoModel Get(int id)
+        public AudioContentBasicInfoModel Get(int audioContentId)
         {
             throw new NotImplementedException();
         }

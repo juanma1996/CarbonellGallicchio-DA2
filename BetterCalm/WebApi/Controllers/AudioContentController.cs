@@ -18,9 +18,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public object Get(int v)
+        public object Get(int audioContentId)
         {
-            return Ok(audioContentLogicAdapter.Get(v));
+            return Ok(audioContentLogicAdapter.Get(audioContentId));
         }
     }
 }
