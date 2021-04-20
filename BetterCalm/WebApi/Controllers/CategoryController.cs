@@ -1,4 +1,5 @@
-﻿using BusinessLogicInterface;
+﻿using BusinessExceptions;
+using BusinessLogicInterface;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Model.Out;
@@ -31,7 +32,7 @@ namespace BetterCalm.WebApi.Controllers
                 List<PlaylistBasicInfoModel> playlists = categoryLogic.GetPlaylistsBy(categoryId);
                 return Ok(playlists);
             }
-            catch (NullReferenceException e)
+            catch (NullObjectException e)
             {
                 return NotFound(e);
             }

@@ -7,6 +7,7 @@ using System;
 using BusinessLogic.Mapper;
 using Model.Out;
 using System.Linq;
+using BusinessExceptions;
 
 namespace BusinessLogic.Tests
 {
@@ -73,7 +74,7 @@ namespace BusinessLogic.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
+        [ExpectedException(typeof(NullObjectException))]
         public void TestGetPlaylistByCategoryNotExistentId()
         {
             List<Playlist> playlists = new List<Playlist>();

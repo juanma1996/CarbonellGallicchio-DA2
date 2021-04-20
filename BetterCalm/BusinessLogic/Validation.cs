@@ -1,4 +1,6 @@
 ﻿using System;
+using BusinessExceptions;
+
 namespace BusinessLogic
 {
     public class Validation
@@ -11,7 +13,7 @@ namespace BusinessLogic
         {
             if (objectToValidate == null)
             {
-                throw new NullReferenceException("The object validating is null");
+                throw new NullObjectException("The object validating is null, please check.");
             }
         }
     }

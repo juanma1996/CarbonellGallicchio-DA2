@@ -19,6 +19,7 @@
 	  <ProjectReference Include="..\BusinessLogicInterface\BusinessLogicInterface.csproj" />
 	  <ProjectReference Include="..\DataAccessInterface\DataAccessInterface.csproj" />
 	  <ProjectReference Include="..\Model\Model.csproj" />
+	  <ProjectReference Include="..\BusinessExceptions\BusinessExceptions.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
