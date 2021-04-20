@@ -28,7 +28,7 @@ namespace WebApiTests
             };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.Get(audioContentId)).Returns(audioContentToReturn);
-            AudioContentController controller = new AudioContentController();
+            AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Get(audioContentId);
             var okResult = result as OkObjectResult;
