@@ -5,6 +5,6 @@ namespace Domain
     public class Playlist
     {
         public int Id { get; set; }
-        public List<Category> Categories { get; set; }
+        public List<CategoryPlaylist> Categories { get; set; }
     }
 }

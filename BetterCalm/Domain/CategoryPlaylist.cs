@@ -6,7 +6,7 @@ namespace Domain
 {
     public class CategoryPlaylist
     {
-        public List<Category> Categories { get; set; }
-        public List<Playlist> Playlists { get; set; }
+        public Category Category { get; set; }
+        public Playlist Playlist { get; set; }
     }
 }
