@@ -1,6 +1,7 @@
 ﻿using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Model.In;
 using Model.Out;
 using Moq;
 using System;
@@ -35,6 +36,41 @@ namespace WebApiTests
             var audioContent = okResult.Value as AudioContentBasicInfoModel;
 
             Assert.AreEqual(audioContentToReturn.Id, audioContent.Id);
+        }
+
+        [TestMethod]
+        public void TestPostAudioContentOk()
+        {
+            AudioContentModel audioContentModel = new AudioContentModel()
+            {
+                Name = "Canción",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+                Categories = new List<CategoryBasicInfoModel>()
+                {
+                    new CategoryBasicInfoModel
+                    {
+                        Id = 1
+                    }
+                },
+                Playlists = new List<PlaylistBasicInfoModel>()
+                {
+                    new PlaylistBasicInfoModel
+                    {
+                        Id = 1
+                    }
+                },
+            };
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<AudioContentModel>()));
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var result = controller.Post(audioContentModel);
+            var objectResult = result as ObjectResult;
+
+            Assert.AreEqual(201, objectResult.StatusCode);
         }
     }
 }
