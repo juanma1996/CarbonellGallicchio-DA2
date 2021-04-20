@@ -4,9 +4,6 @@ using Domain;
 using DataAccessInterface;
 using Moq;
 using System;
-using BusinessLogic.Mapper;
-using Model.Out;
-using System.Linq;
 using BusinessExceptions;
 
 namespace BusinessLogic.Tests
@@ -34,10 +31,10 @@ namespace BusinessLogic.Tests
             };
             Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(categoryToReturn);
-            ModelMapper mapper = new ModelMapper();
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
+            Validation validate = new Validation();
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, validate);
 
-            List<CategoryBasicInfoModel> result = categoryLogic.GetAll();
+            List<Category> result = categoryLogic.GetAll();
 
             mock.VerifyAll();
             Assert.AreEqual(categoryToReturn.Count, result.Count);
@@ -64,10 +61,10 @@ namespace BusinessLogic.Tests
             };
             Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(1)).Returns(categoryToReturn);
-            ModelMapper mapper = new ModelMapper();
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
+            Validation validate = new Validation();
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, validate);
             
-            List<PlaylistBasicInfoModel> result = categoryLogic.GetPlaylistsBy(1);
+            List<Playlist> result = categoryLogic.GetPlaylistsByCategoryId(1);
 
             mock.VerifyAll();
             Assert.AreEqual(result.Count, 2);
@@ -86,10 +83,10 @@ namespace BusinessLogic.Tests
             var id = 2;
             Mock<IRepository<Category>> mock = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(id)).Returns((Category)null);
-            ModelMapper mapper = new ModelMapper();
-            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, mapper);
+            Validation validate = new Validation();
+            CategoryLogic categoryLogic = new CategoryLogic(mock.Object, validate);
 
-            var result = categoryLogic.GetPlaylistsBy(2);
+            var result = categoryLogic.GetPlaylistsByCategoryId(2);
 
             mock.VerifyAll();
         }

@@ -16,6 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Adapter\Adapter.csproj" />
 	  <ProjectReference Include="..\BusinessLogicInterface\BusinessLogicInterface.csproj" />
 	  <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
 	  <ProjectReference Include="..\DataAccessInterface\DataAccessInterface.csproj" />

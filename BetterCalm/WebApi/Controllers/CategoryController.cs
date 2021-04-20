@@ -1,4 +1,5 @@
-﻿using BusinessExceptions;
+﻿using AdapterInterface;
+using BusinessExceptions;
 using BusinessLogicInterface;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -10,17 +11,17 @@ namespace BetterCalm.WebApi.Controllers
 {
     public class CategoryController : BetterCalmControllerBase
     {
-        private readonly ICategoryLogic categoryLogic;
+        private readonly ICategoryLogicAdapter categoryDomainToModelAdapter;
 
-        public CategoryController(ICategoryLogic categoryLogic)
+        public CategoryController(ICategoryLogicAdapter categoryDomainToModelAdapter)
         {
-            this.categoryLogic = categoryLogic;
+            this.categoryDomainToModelAdapter = categoryDomainToModelAdapter;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            List<CategoryBasicInfoModel> categories = categoryLogic.GetAll();
+            List<CategoryBasicInfoModel> categories = categoryDomainToModelAdapter.GetAll();
             return Ok(categories);
         }
 
@@ -29,7 +30,7 @@ namespace BetterCalm.WebApi.Controllers
         {
             try
             {
-                List<PlaylistBasicInfoModel> playlists = categoryLogic.GetPlaylistsBy(categoryId);
+                List<PlaylistBasicInfoModel> playlists = categoryDomainToModelAdapter.GetPlaylistsByCategoryId(categoryId);
                 return Ok(playlists);
             }
             catch (NullObjectException e)

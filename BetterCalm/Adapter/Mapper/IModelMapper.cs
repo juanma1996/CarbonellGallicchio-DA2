@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace BusinessLogic.Mapper
+namespace Adapter.Mapper
 {
     public interface IModelMapper
     {

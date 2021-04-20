@@ -1,41 +1,33 @@
 ﻿using BusinessLogicInterface;
 using Domain;
-using System;
-using Model.Out;
 using System.Collections.Generic;
 using DataAccessInterface;
-using AutoMapper;
-using BusinessLogic.Mapper;
 
 namespace BusinessLogic
 {
     public class CategoryLogic : ICategoryLogic
     {
         private readonly IRepository<Category> categoryRepository;
-        private readonly IMapper mapper;
         private readonly Validation validate;
 
-        public CategoryLogic(IRepository<Category> categoryRepository, IModelMapper mapper)
+        public CategoryLogic(IRepository<Category> categoryRepository, Validation validate)
         {
             this.categoryRepository = categoryRepository;
-            this.mapper = mapper.Configure();
-            this.validate = new Validation();
+            this.validate = validate;
         }
 
-        public List<CategoryBasicInfoModel> GetAll()
+        public List<Category> GetAll()
         {
-            List<CategoryBasicInfoModel> categories = mapper.Map<List<CategoryBasicInfoModel>>(categoryRepository.GetAll());
-            return categories;
+            return categoryRepository.GetAll();
         }
 
-        public List<PlaylistBasicInfoModel> GetPlaylistsBy(int categoryId)
+        public List<Playlist> GetPlaylistsByCategoryId(int categoryId)
         {
             Category category = categoryRepository.GetById(categoryId);
             validate.Validate(category);
             List<Playlist> playlists = category.Playlists;
             validate.Validate(playlists);
-            List<PlaylistBasicInfoModel> playlistsModel = mapper.Map<List<PlaylistBasicInfoModel>>(playlists);
-            return playlistsModel;
+            return playlists;
         }
     }
 }

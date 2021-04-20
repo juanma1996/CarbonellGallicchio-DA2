@@ -1,6 +1,5 @@
 ﻿using BetterCalm.WebApi.Controllers;
-using BusinessLogicInterface;
-using Domain;
+using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.Out;
@@ -30,7 +29,7 @@ namespace BetterCalmTests.WebApi
                     Name = "Top 50 Usa"
                 }
             };
-            Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            Mock<ICategoryLogicAdapter> mock = new Mock<ICategoryLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(categoriesToReturn);
             CategoryController controller = new CategoryController(mock.Object);
 
@@ -58,8 +57,8 @@ namespace BetterCalmTests.WebApi
                     Id = 2,
                 },
             };
-            Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetPlaylistsBy(1)).Returns(playlists);
+            Mock<ICategoryLogicAdapter> mock = new Mock<ICategoryLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetPlaylistsByCategoryId(1)).Returns(playlists);
             CategoryController controller = new CategoryController(mock.Object);
 
             var result = controller.GetPlaylistByCategory(1);
@@ -75,8 +74,8 @@ namespace BetterCalmTests.WebApi
         {
             List<PlaylistBasicInfoModel> playlists = new List<PlaylistBasicInfoModel>();
             var id = 1;
-            Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetPlaylistsBy(id)).Throws(new NullReferenceException("Not found object"));
+            Mock<ICategoryLogicAdapter> mock = new Mock<ICategoryLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetPlaylistsByCategoryId(id)).Throws(new NullReferenceException("Not found object"));
             CategoryController controller = new CategoryController(mock.Object);
 
             var result = controller.GetPlaylistByCategory(id);

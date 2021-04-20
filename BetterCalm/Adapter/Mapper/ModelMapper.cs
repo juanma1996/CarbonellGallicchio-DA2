@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Domain;
 using Model.Out;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace BusinessLogic.Mapper
+namespace Adapter.Mapper
 {
     public class ModelMapper : IModelMapper
     {

@@ -1,7 +1,8 @@
-﻿using BusinessLogic;
-using BusinessLogic.Mapper;
+﻿using Adapter;
+using Adapter.Mapper;
+using AdapterInterface;
+using BusinessLogic;
 using BusinessLogicInterface;
-using DataAccess;
 using DataAccess.Context;
 using DataAccess.Repositories;
 using DataAccessInterface;
@@ -25,6 +26,7 @@ namespace Factory
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICategoryLogic, CategoryLogic>();
             services.AddScoped<IModelMapper, ModelMapper>();
+            services.AddScoped<ICategoryLogicAdapter, CategoryLogicAdapter>();
         }
         public void AddDbContextService()
         {
