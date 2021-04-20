@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BetterCalmTests.WebApi
+namespace WebApiTests
 {
     [TestClass]
     public class CategoryControllerTest
