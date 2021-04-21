@@ -9,5 +9,6 @@ namespace AdapterInterface
         PsychologistBasicInfoModel GetById(int psychologistId);
         PsychologistBasicInfoModel Add(PsychologistModel psychologistModel);
         void Delete(int psychologistId);
+        void Update(int psychologistId, PsychologistModel psychologistModel);
     }
 }

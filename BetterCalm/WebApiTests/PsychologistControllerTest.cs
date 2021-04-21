@@ -104,5 +104,27 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestUpdatePsychologistOk()
+        {
+            var psychologistId = 1;
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>()));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var response = controller.Update(psychologistId, psycologistModel);
+            var statusCodeResult = response as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(204, statusCodeResult.StatusCode);
+        }
     }
 }

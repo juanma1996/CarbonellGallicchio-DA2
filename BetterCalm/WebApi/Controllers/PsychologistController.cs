@@ -43,5 +43,11 @@ namespace WebApi.Controllers
             psychologistDomainToModelAdapter.Delete(psychologistId);
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update([FromRoute]int psychologistId,[FromBody] PsychologistModel psycologistModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
