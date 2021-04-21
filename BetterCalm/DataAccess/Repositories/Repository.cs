@@ -46,5 +46,10 @@ namespace DataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void Update(T domain)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

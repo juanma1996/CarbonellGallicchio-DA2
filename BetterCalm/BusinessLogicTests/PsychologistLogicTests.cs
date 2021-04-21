@@ -5,7 +5,7 @@ using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace BusinessLogicTests
+namespace BusinessLogic.Tests
 {
     [TestClass]
     public class PsychologistLogicTests
@@ -79,6 +79,25 @@ namespace BusinessLogicTests
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
 
             psychologistLogic.DeleteById(psychologistId);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void TestUpdatePsychologistOk()
+        {
+            Psychologist psycologistModel = new Psychologist
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(psycologistModel));
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            psychologistLogic.Update(psycologistModel);
 
             mock.VerifyAll();
         }

@@ -29,5 +29,10 @@ namespace BusinessLogic
             Psychologist psychologist = psychologistRepository.GetById(psychologistId);
             psychologistRepository.Delete(psychologist);
         }
+
+        public void Update(Psychologist psychologist)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

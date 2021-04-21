@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using Domain;
 
 namespace DataAccessInterface
 {
@@ -12,5 +13,6 @@ namespace DataAccessInterface
         T Get(Expression<Func<T, bool>> predicate);
         T Add(T domain);
         void Delete(T domain);
+        void Update(T domain);
     }
 }
