@@ -21,5 +21,9 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
+        public void Update(int v, AudioContentModel audioContentModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

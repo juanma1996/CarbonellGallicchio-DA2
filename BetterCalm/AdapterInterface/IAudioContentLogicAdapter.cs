@@ -8,5 +8,6 @@ namespace AdapterInterface
         AudioContentBasicInfoModel Get(int audioContentId);
         AudioContentBasicInfoModel Add(AudioContentModel audioContentModel);
         void Delete(int audioContentId);
+        void Update(int v, AudioContentModel audioContentModel);
     }
 }

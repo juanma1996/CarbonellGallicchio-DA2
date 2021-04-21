@@ -94,5 +94,42 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestUpdateAudioContentOk()
+        {
+            int audioContentId = 1;
+            AudioContentModel audioContentModel = new AudioContentModel()
+            {
+                Name = "Canción",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+                Categories = new List<CategoryBasicInfoModel>()
+                {
+                    new CategoryBasicInfoModel
+                    {
+                        Id = 1
+                    }
+                },
+                Playlists = new List<PlaylistBasicInfoModel>()
+                {
+                    new PlaylistBasicInfoModel
+                    {
+                        Id = 1
+                    }
+                },
+            };
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<AudioContentModel>()));
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var response = controller.Update(audioContentId, audioContentModel);
+            var statusCodeResult = response as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(204, statusCodeResult.StatusCode);
+        }
     }
 }

@@ -37,5 +37,10 @@ namespace WebApi.Controllers
             audioContentLogicAdapter.Delete(audioContentId);
             return NoContent();
         }
+
+        public object Update(int audioContentId, AudioContentModel audioContentModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
