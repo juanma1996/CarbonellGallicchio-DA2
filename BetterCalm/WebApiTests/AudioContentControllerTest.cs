@@ -28,7 +28,7 @@ namespace WebApiTests
                 AudioUrl = "www.audio.com"
             };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Get(audioContentId)).Returns(audioContentToReturn);
+            mock.Setup(m => m.GetById(audioContentId)).Returns(audioContentToReturn);
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Get(audioContentId);
@@ -85,7 +85,7 @@ namespace WebApiTests
         {
             int audioContentId = 1;
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Delete(audioContentId));
+            mock.Setup(m => m.DeleteById(audioContentId));
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var response = controller.DeleteById(audioContentId);
@@ -122,7 +122,7 @@ namespace WebApiTests
                 },
             };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<AudioContentModel>()));
+            mock.Setup(m => m.UpdateById(It.IsAny<int>(), It.IsAny<AudioContentModel>()));
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var response = controller.Update(audioContentId, audioContentModel);

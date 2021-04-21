@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}", Name = "GetAudioContentById")]
         public IActionResult Get(int audioContentId)
         {
-            return Ok(audioContentLogicAdapter.Get(audioContentId));
+            return Ok(audioContentLogicAdapter.GetById(audioContentId));
         }
 
         [HttpPost]
@@ -34,14 +34,14 @@ namespace WebApi.Controllers
         [HttpDelete("{audioContentId}")]
         public IActionResult DeleteById(int audioContentId)
         {
-            audioContentLogicAdapter.Delete(audioContentId);
+            audioContentLogicAdapter.DeleteById(audioContentId);
             return NoContent();
         }
 
         [HttpPut("{audioContentId}")]
         public IActionResult Update(int audioContentId, AudioContentModel audioContentModel)
         {
-            audioContentLogicAdapter.Update(audioContentId, audioContentModel);
+            audioContentLogicAdapter.UpdateById(audioContentId, audioContentModel);
             return NoContent();
         }
     }

@@ -5,9 +5,9 @@ namespace AdapterInterface
 {
     public interface IAudioContentLogicAdapter
     {
-        AudioContentBasicInfoModel Get(int audioContentId);
+        AudioContentBasicInfoModel GetById(int audioContentId);
         AudioContentBasicInfoModel Add(AudioContentModel audioContentModel);
-        void Delete(int audioContentId);
-        void Update(int v, AudioContentModel audioContentModel);
+        void DeleteById(int audioContentId);
+        void UpdateById(int v, AudioContentModel audioContentModel);
     }
 }

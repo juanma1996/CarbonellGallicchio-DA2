@@ -9,7 +9,7 @@ namespace Adapter
 {
     public class AudioContentLogicAdapter : IAudioContentLogicAdapter
     {
-        public AudioContentBasicInfoModel Get(int audioContentId)
+        public AudioContentBasicInfoModel GetById(int audioContentId)
         {
             throw new NotImplementedException();
         }
@@ -17,11 +17,11 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
-        public void Delete(int audioContentId)
+        public void DeleteById(int audioContentId)
         {
             throw new NotImplementedException();
         }
-        public void Update(int v, AudioContentModel audioContentModel)
+        public void UpdateById(int audioContentModelId, AudioContentModel audioContentModel)
         {
             throw new NotImplementedException();
         }

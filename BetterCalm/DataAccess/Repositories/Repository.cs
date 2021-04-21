@@ -38,7 +38,12 @@ namespace DataAccess.Repositories
             return this.Entities.Where(predicate).First();
         }
 
-        public T Add(AudioContent audioContent)
+        public T Add(T domain)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(T domain)
         {
             throw new NotImplementedException();
         }
