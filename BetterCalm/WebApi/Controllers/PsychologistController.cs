@@ -1,4 +1,5 @@
 ﻿using System;
+using AdapterExceptions;
 using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -17,8 +18,15 @@ namespace WebApi.Controllers
         [HttpGet("{Id}/")]
         public IActionResult GetById(int psychologistId)
         {
-            PsychologistBasicInfoModel psychologist = psychologistDomainToModelAdapter.GetById(psychologistId);
-            return Ok(psychologist);
+            try
+            {
+                PsychologistBasicInfoModel psychologist = psychologistDomainToModelAdapter.GetById(psychologistId);
+                return Ok(psychologist);
+            }
+            catch (NullObjectMappingException e)
+            {
+                return NotFound(e);
+            }
         }
     }
 }

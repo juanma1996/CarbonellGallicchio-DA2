@@ -1,4 +1,5 @@
 ﻿using System;
+using AdapterExceptions;
 using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -45,11 +46,11 @@ namespace WebApiTests
         {
             var psychologistId = 1;
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.GetById(psychologistId)).Throws(new NullReferenceException("prueba"));
+            mock.Setup(m => m.GetById(psychologistId)).Throws(new NullObjectMappingException("prueba"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.GetById(psychologistId);
-            var okResult = result as OkObjectResult;
+            var okResult = result as ObjectResult;
 
             mock.VerifyAll();
             Assert.AreEqual(404, okResult.StatusCode);
