@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace BusinessLogic.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class CategoryLogicTests
     {
         [TestMethod]
