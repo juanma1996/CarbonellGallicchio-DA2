@@ -60,5 +60,18 @@ namespace BusinessLogicTests
             mock.VerifyAll();
             Assert.AreEqual(psychologistToReturn.Id, result.Id);
         }
+
+        [TestMethod]
+        public void TestDeletePsychologistOk()
+        {
+            int psychologistId = 1;
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Delete(psychologistId));
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            psychologistLogic.Delete(psychologistId);
+
+            mock.VerifyAll();
+        }
     }
 }

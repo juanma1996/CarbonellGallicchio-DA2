@@ -11,5 +11,6 @@ namespace DataAccessInterface
         T GetById(int id);
         T Get(Expression<Func<T, bool>> predicate);
         T Add(T domain);
+        void Delete(int id);
     }
 }
