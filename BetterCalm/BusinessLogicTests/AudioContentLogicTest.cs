@@ -93,5 +93,41 @@ namespace BusinessLogicTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        public void TestUpdateAudioContentOk()
+        {
+            int audioContentId = 1;
+            AudioContent audioContentUpdated = new AudioContent()
+            {
+                Id = audioContentId,
+                Name = "Canción",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+                Categories = new List<Category>()
+                {
+                    new Category
+                    {
+                        Id = 1
+                    }
+                },
+                Playlists = new List<Playlist>()
+                {
+                    new Playlist
+                    {
+                        Id = 1
+                    }
+                },
+            };
+            Mock<IRepository<AudioContent>> mock = new Mock<IRepository<AudioContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
+            AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object);
+
+            audioContentLogic.Update(audioContentUpdated);
+
+            mock.VerifyAll();
+        }
     }
 }

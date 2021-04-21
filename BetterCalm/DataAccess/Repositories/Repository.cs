@@ -47,5 +47,10 @@ namespace DataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void Update(AudioContent audioContent)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

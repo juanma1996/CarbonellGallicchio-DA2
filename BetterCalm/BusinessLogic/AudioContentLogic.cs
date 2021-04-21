@@ -29,5 +29,10 @@ namespace BusinessLogic
             AudioContent audioContentToDelete = audioContentRepository.GetById(audioContentId);
             audioContentRepository.Delete(audioContentToDelete);
         }
+
+        public void Update(object audioContentModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
