@@ -38,9 +38,11 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        public object Update(int audioContentId, AudioContentModel audioContentModel)
+        [HttpPut("{audioContentId}")]
+        public IActionResult Update(int audioContentId, AudioContentModel audioContentModel)
         {
-            throw new NotImplementedException();
+            audioContentLogicAdapter.Update(audioContentId, audioContentModel);
+            return NoContent();
         }
     }
 }
