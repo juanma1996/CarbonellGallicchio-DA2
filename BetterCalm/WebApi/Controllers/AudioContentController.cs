@@ -23,11 +23,18 @@ namespace WebApi.Controllers
         {
             return Ok(audioContentLogicAdapter.Get(audioContentId));
         }
+
         [HttpPost]
         public IActionResult Post([FromBody]AudioContentModel audioContentModel)
         {
             var audioContentCreated = audioContentLogicAdapter.Add(audioContentModel);
             return CreatedAtRoute("GetAudioContentById", audioContentCreated.Id, audioContentCreated);
+        }
+
+        [HttpDelete("{audioContentId}")]
+        public object DeleteById(int audioContentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

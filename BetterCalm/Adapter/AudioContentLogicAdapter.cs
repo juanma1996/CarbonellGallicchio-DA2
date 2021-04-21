@@ -17,5 +17,9 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
+        public void Delete(int audioContentId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

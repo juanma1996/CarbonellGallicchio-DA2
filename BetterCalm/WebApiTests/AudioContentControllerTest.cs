@@ -79,5 +79,20 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(audioContentId, audioContentBasicInfoModel.Id);
         }
+
+        [TestMethod]
+        public void TestDeleteAudioContentOk()
+        {
+            int audioContentId = 1;
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Delete(audioContentId));
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var response = controller.DeleteById(audioContentId);
+            var statusCodeResult = response as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(204, statusCodeResult.StatusCode);
+        }
     }
 }
