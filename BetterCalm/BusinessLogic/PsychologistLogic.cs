@@ -21,7 +21,7 @@ namespace BusinessLogic
 
         public Psychologist Add(Psychologist psycologist)
         {
-            throw new NotImplementedException();
+            return psychologistRepository.Add(psycologist);
         }
     }
 }
