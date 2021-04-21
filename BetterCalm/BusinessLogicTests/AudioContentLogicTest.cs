@@ -75,5 +75,23 @@ namespace BusinessLogicTests
             mock.VerifyAll();
             Assert.AreEqual(audioContentId, audioContentToReturn.Id);
         }
+
+        [TestMethod]
+        public void TestDeleteAudioContentOk()
+        {
+            int audioContentId = 1;
+            AudioContent audioContentToReturn = new AudioContent
+            {
+                Id = audioContentId
+            };
+            Mock<IRepository<AudioContent>> mock = new Mock<IRepository<AudioContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(audioContentId)).Returns(audioContentToReturn);
+            mock.Setup(m => m.Delete(It.IsAny<AudioContent>()));
+            AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object);
+
+            var result = audioContentLogic.DeleteById(audioContentId);
+
+            mock.VerifyAll();
+        }
     }
 }

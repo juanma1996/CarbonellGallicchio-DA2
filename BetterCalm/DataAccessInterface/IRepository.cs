@@ -11,6 +11,7 @@ namespace DataAccessInterface
         List<T> GetAll(Expression<Func<T, bool>> predicate = null);
         T GetById(int id);
         T Get(Expression<Func<T, bool>> predicate);
-        T Add(AudioContent audioContent);
+        T Add(T domain);
+        void Delete(T domain);
     }
 }
