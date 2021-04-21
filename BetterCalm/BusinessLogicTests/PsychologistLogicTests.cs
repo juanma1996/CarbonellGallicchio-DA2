@@ -35,5 +35,30 @@ namespace BusinessLogicTests
             Assert.AreEqual(psychologistToReturn.ConsultationMode, result.ConsultationMode);
             Assert.AreEqual(psychologistToReturn.CreationDate, result.CreationDate);
         }
+
+        [TestMethod]
+        public void TestCreatePsychologistOk()
+        {
+            int psychologistId = 1;
+            Psychologist psycologistModel = new Psychologist
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Psychologist psychologistToReturn = new Psychologist
+            {
+                Id = psychologistId
+            };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(psycologistModel)).Returns(psychologistToReturn);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            Psychologist result = psychologistLogic.Add(psycologistModel);
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistToReturn.Id, result.Id);
+        }
     }
 }

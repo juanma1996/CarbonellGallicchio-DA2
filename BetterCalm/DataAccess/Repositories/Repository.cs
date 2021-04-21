@@ -36,5 +36,10 @@ namespace DataAccess.Repositories
         {
             return this.Entities.Where(predicate).First();
         }
+
+        public T Add(T domain)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

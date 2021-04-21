@@ -1,10 +1,11 @@
 ﻿using System;
+using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
 
 namespace BusinessLogic
 {
-    public class PsychologistLogic
+    public class PsychologistLogic : IPsychologistLogic
     {
         private readonly IRepository<Psychologist> psychologistRepository;
        
@@ -16,6 +17,11 @@ namespace BusinessLogic
         public Psychologist GetById(int psychologistId)
         {
             return psychologistRepository.GetById(psychologistId);
+        }
+
+        public Psychologist Add(Psychologist psycologist)
+        {
+            throw new NotImplementedException();
         }
     }
 }
