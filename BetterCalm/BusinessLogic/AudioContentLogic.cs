@@ -15,13 +15,11 @@ namespace BusinessLogic
         {
             this.audioContentRepository = audioContentRepository;
         }
-
         public AudioContent GetById(int audioContentId)
         {
             return audioContentRepository.GetById(audioContentId);
         }
-
-        public object Create(AudioContent audioContentModel)
+        public AudioContent Create(AudioContent audioContentModel)
         {
             return audioContentRepository.Add(audioContentModel);
         }
