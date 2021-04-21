@@ -89,7 +89,7 @@ namespace BusinessLogicTests
             mock.Setup(m => m.Delete(It.IsAny<AudioContent>()));
             AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object);
 
-            var result = audioContentLogic.DeleteById(audioContentId);
+            audioContentLogic.DeleteById(audioContentId);
 
             mock.VerifyAll();
         }
