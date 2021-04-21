@@ -3,6 +3,7 @@ using AdapterExceptions;
 using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Model.In;
 using Model.Out;
 
 namespace WebApi.Controllers
@@ -27,6 +28,11 @@ namespace WebApi.Controllers
             {
                 return NotFound(e);
             }
+        }
+
+        public object Post(PsychologistModel psycologistIn)
+        {
+            throw new NotImplementedException();
         }
     }
 }

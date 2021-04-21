@@ -3,6 +3,7 @@ using AdapterExceptions;
 using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Model.In;
 using Model.Out;
 using Moq;
 using WebApi.Controllers;
@@ -54,6 +55,39 @@ namespace WebApiTests
 
             mock.VerifyAll();
             Assert.AreEqual(404, okResult.StatusCode);
+        }
+
+        [TestMethod]
+        public void TestPostPsychologistOk()
+        {
+            int psychologistId = 1;
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            PsychologistBasicInfoModel psychologistToReturn = new PsychologistBasicInfoModel
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Returns(psychologistToReturn);
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Post(psycologistModel);
+            var okResult = result as CreatedAtRouteResult;
+            var psychologistBasicInfoModel = okResult.Value as PsychologistBasicInfoModel;
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistId, psychologistBasicInfoModel.Id);
+
         }
     }
 }
