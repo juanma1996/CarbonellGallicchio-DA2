@@ -26,7 +26,7 @@ namespace BusinessLogic
 
         public void Delete(int psychologistId)
         {
-            throw new NotImplementedException();
+            psychologistRepository.Delete(psychologistId);
         }
     }
 }
