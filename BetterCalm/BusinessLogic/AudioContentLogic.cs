@@ -18,7 +18,7 @@ namespace BusinessLogic
 
         public AudioContent GetById(int audioContentId)
         {
-            throw new NotImplementedException();
+            return @object.GetById(audioContentId);
         }
     }
 }
