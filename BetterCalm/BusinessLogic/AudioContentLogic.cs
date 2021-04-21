@@ -30,9 +30,9 @@ namespace BusinessLogic
             audioContentRepository.Delete(audioContentToDelete);
         }
 
-        public void Update(object audioContentModel)
+        public void Update(AudioContent audioContentModel)
         {
-            throw new NotImplementedException();
+            audioContentRepository.Update(audioContentModel);
         }
     }
 }
