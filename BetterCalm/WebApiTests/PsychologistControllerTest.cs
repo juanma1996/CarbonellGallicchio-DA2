@@ -39,5 +39,20 @@ namespace WebApiTests
             Assert.AreEqual(psychologistToReturn.CreationDate, psychologist.CreationDate);
             Assert.AreEqual(200, okResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestGetPsychologistNotExistentId()
+        {
+            var psychologistId = 1;
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(psychologistId)).Throws(new NullReferenceException("prueba"));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.GetById(psychologistId);
+            var okResult = result as OkObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(404, okResult.StatusCode);
+        }
     }
 }
