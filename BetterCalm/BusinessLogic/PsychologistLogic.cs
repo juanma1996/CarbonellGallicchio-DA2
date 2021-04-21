@@ -32,7 +32,7 @@ namespace BusinessLogic
 
         public void Update(Psychologist psychologist)
         {
-            throw new NotImplementedException();
+            psychologistRepository.Update(psychologist);
         }
     }
 }
