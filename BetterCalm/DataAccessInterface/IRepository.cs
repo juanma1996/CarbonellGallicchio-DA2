@@ -13,6 +13,6 @@ namespace DataAccessInterface
         T Get(Expression<Func<T, bool>> predicate);
         T Add(T domain);
         void Delete(T domain);
-        void Update(AudioContent audioContent);
+        void Update(T domain);
     }
 }

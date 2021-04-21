@@ -48,7 +48,7 @@ namespace DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(AudioContent audioContent)
+        public void Update(T domain)
         {
             throw new NotImplementedException();
         }
