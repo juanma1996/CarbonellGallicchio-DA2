@@ -41,6 +41,7 @@ namespace WebApiTests
         [TestMethod]
         public void TestPostAudioContentOk()
         {
+            int audioContentId = 1;
             AudioContentModel audioContentModel = new AudioContentModel()
             {
                 Name = "Canción",
@@ -63,14 +64,20 @@ namespace WebApiTests
                     }
                 },
             };
+            AudioContentBasicInfoModel audioContentToReturn = new AudioContentBasicInfoModel()
+            {
+                Id = audioContentId
+            };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<AudioContentModel>()));
+            mock.Setup(m => m.Add(It.IsAny<AudioContentModel>())).Returns(audioContentToReturn);
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Post(audioContentModel);
-            var objectResult = result as ObjectResult;
+            var createdAtRouteResult = result as CreatedAtRouteResult;
+            var audioContentBasicInfoModel = createdAtRouteResult.Value as AudioContentBasicInfoModel;
 
-            Assert.AreEqual(201, objectResult.StatusCode);
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentId, audioContentBasicInfoModel.Id);
         }
     }
 }

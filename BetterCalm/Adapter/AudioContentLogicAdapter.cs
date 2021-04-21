@@ -13,7 +13,7 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
-        public void Add(AudioContentModel audioContentModel)
+        public AudioContentBasicInfoModel Add(AudioContentModel audioContentModel)
         {
             throw new NotImplementedException();
         }

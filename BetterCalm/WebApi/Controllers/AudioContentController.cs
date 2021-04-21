@@ -18,15 +18,16 @@ namespace WebApi.Controllers
             this.audioContentLogicAdapter = audioContentLogicAdapter;
         }
 
-        [HttpGet]
+        [HttpGet("{id}", Name = "GetAudioContentById")]
         public object Get(int audioContentId)
         {
             return Ok(audioContentLogicAdapter.Get(audioContentId));
         }
-
-        public object Post(AudioContentModel audioContentModel)
+        [HttpPost]
+        public object Post([FromBody] AudioContentModel audioContentModel)
         {
-            throw new NotImplementedException();
+            var audioContentCreated = audioContentLogicAdapter.Add(audioContentModel);
+            return CreatedAtRoute("GetAudioContentById", audioContentCreated.Id, audioContentCreated);
         }
     }
 }
