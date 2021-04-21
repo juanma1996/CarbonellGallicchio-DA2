@@ -15,7 +15,7 @@ namespace BusinessLogic
 
         public Psychologist GetById(int psychologistId)
         {
-            throw new NotImplementedException();
+            return psychologistRepository.GetById(psychologistId);
         }
     }
 }
