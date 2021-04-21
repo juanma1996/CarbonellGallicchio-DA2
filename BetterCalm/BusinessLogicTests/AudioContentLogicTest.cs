@@ -35,5 +35,45 @@ namespace BusinessLogicTests
             Assert.AreEqual(audioContentToReturn.Id, result.Id);
             Assert.AreEqual(audioContentToReturn.Name, result.Name);
         }
+
+        [TestMethod]
+        public void TestCreateAudioContentOk()
+        {
+            int audioContentId = 1;
+            AudioContent audioContentModel = new AudioContent()
+            {
+                Name = "Canción",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+                Categories = new List<Category>()
+                {
+                    new Category
+                    {
+                        Id = 1
+                    }
+                },
+                Playlists = new List<Playlist>()
+                {
+                    new Playlist
+                    {
+                        Id = 1
+                    }
+                },
+            };
+            AudioContent audioContentToReturn = new AudioContent()
+            {
+                Id = audioContentId
+            };
+            Mock<IRepository<AudioContent>> mock = new Mock<IRepository<AudioContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<AudioContent>())).Returns(audioContentToReturn);
+            AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object);
+
+            var result = audioContentLogic.Create(audioContentModel);
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentId, audioContentToReturn.Id);
+        }
     }
 }

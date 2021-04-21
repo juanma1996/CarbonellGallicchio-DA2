@@ -9,16 +9,21 @@ namespace BusinessLogic
 {
     public class AudioContentLogic : IAudioContentLogic
     {
-        private IRepository<AudioContent> @object;
+        private IRepository<AudioContent> audioContentRepository;
 
-        public AudioContentLogic(IRepository<AudioContent> @object)
+        public AudioContentLogic(IRepository<AudioContent> audioContentRepository)
         {
-            this.@object = @object;
+            this.audioContentRepository = audioContentRepository;
         }
 
         public AudioContent GetById(int audioContentId)
         {
-            return @object.GetById(audioContentId);
+            return audioContentRepository.GetById(audioContentId);
+        }
+
+        public object Create(AudioContent audioContentModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }
