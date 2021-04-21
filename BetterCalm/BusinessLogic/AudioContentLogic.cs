@@ -23,7 +23,7 @@ namespace BusinessLogic
 
         public object Create(AudioContent audioContentModel)
         {
-            throw new NotImplementedException();
+            return audioContentRepository.Add(audioContentModel);
         }
     }
 }

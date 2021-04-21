@@ -1,5 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccessInterface;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,11 @@ namespace DataAccess.Repositories
         public T Get(Expression<Func<T, bool>> predicate)
         {
             return this.Entities.Where(predicate).First();
+        }
+
+        public T Add(AudioContent audioContent)
+        {
+            throw new NotImplementedException();
         }
     }
 }
