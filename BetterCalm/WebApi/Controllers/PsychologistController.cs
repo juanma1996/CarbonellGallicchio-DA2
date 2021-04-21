@@ -45,9 +45,10 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update([FromRoute]int psychologistId,[FromBody] PsychologistModel psycologistModel)
+        public IActionResult Update([FromRoute]int psychologistId,[FromBody] PsychologistModel psychologistModel)
         {
-            throw new NotImplementedException();
+            psychologistDomainToModelAdapter.Update(psychologistId, psychologistModel);
+            return NoContent();
         }
     }
 }
