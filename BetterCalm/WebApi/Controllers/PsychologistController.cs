@@ -16,7 +16,7 @@ namespace WebApi.Controllers
             this.psychologistDomainToModelAdapter = psychologistDomainToModelAdapter;
         }
 
-        [HttpGet("{Id}/")]
+        [HttpGet("{id}", Name = "GetPsychologistById")]
         public IActionResult GetById(int psychologistId)
         {
             try
@@ -30,9 +30,11 @@ namespace WebApi.Controllers
             }
         }
 
-        public object Post(PsychologistModel psycologistIn)
+        [HttpPost]
+        public IActionResult Post(PsychologistModel psycologistIn)
         {
-            throw new NotImplementedException();
+            var psychologistCreated = psychologistDomainToModelAdapter.Add(psycologistIn);
+            return CreatedAtRoute("GetPsychologistById", psychologistCreated.Id, psychologistCreated);
         }
     }
 }
