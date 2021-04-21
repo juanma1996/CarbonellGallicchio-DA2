@@ -20,5 +20,10 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
+
+        public void Delete(int psychologistId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

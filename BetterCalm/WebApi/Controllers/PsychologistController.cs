@@ -36,5 +36,11 @@ namespace WebApi.Controllers
             var psychologistCreated = psychologistDomainToModelAdapter.Add(psycologistIn);
             return CreatedAtRoute("GetPsychologistById", psychologistCreated.Id, psychologistCreated);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(int psychologistId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
