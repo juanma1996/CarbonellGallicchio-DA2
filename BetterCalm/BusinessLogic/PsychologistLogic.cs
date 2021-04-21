@@ -24,9 +24,10 @@ namespace BusinessLogic
             return psychologistRepository.Add(psycologist);
         }
 
-        public void Delete(int psychologistId)
+        public void DeleteById(int psychologistId)
         {
-            psychologistRepository.Delete(psychologistId);
+            Psychologist psychologist = psychologistRepository.GetById(psychologistId);
+            psychologistRepository.Delete(psychologist);
         }
     }
 }

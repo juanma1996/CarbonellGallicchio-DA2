@@ -52,7 +52,7 @@ namespace BusinessLogicTests
                 Id = psychologistId
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(psycologistModel)).Returns(psychologistToReturn);
+            mock.Setup(m => m.Add(It.IsAny<Psychologist>())).Returns(psychologistToReturn);
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
 
             Psychologist result = psychologistLogic.Add(psycologistModel);
@@ -65,11 +65,20 @@ namespace BusinessLogicTests
         public void TestDeletePsychologistOk()
         {
             int psychologistId = 1;
+            Psychologist psychologistToReturn = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
-            mock.Setup(m => m.Delete(psychologistId));
+            mock.Setup(m => m.GetById(psychologistId)).Returns(psychologistToReturn);
+            mock.Setup(m => m.Delete(psychologistToReturn));
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
 
-            psychologistLogic.Delete(psychologistId);
+            psychologistLogic.DeleteById(psychologistId);
 
             mock.VerifyAll();
         }

@@ -42,7 +42,7 @@ namespace DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(T domain)
         {
             throw new NotImplementedException();
         }
