@@ -248,5 +248,49 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(400, badResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestUpdatePsychologistInvalidDirection()
+        {
+            var psychologistId = 1;
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "Juan",
+                Direction = "",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid direction"));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Update(psychologistId, psycologistModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
+
+        [TestMethod]
+        public void TestUpdatePsychologistInvalidConsultationMode()
+        {
+            var psychologistId = 1;
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "Juan",
+                Direction = "Rio Negro",
+                ConsultationMode = "",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid conultation mode"));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Update(psychologistId, psycologistModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
     }
 }
