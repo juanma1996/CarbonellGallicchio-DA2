@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using BusinessExceptions;
+using BusinessLogic;
 using DataAccessInterface;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -128,6 +129,18 @@ namespace BusinessLogicTests
             audioContentLogic.Update(audioContentUpdated);
 
             mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestGetAudioContentNotExistent()
+        {
+            int audioContentId = 1;
+            Mock<IRepository<AudioContent>> mock = new Mock<IRepository<AudioContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(It.IsAny<int>())).Returns((AudioContent)null);
+            AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object);
+
+            AudioContent result = audioContentLogic.GetById(audioContentId);
         }
     }
 }
