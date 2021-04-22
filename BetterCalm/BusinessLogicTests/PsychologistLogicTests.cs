@@ -99,6 +99,21 @@ namespace BusinessLogicTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestDeletePsychologistNotExistentId()
+        {
+            int psychologistId = 1;
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(psychologistId)).Returns((Psychologist)null);
+            mock.Setup(m => m.Delete(It.IsAny<Psychologist>()));
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            psychologistLogic.DeleteById(psychologistId);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
         public void TestUpdatePsychologistOk()
         {
             Psychologist psycologistModel = new Psychologist
