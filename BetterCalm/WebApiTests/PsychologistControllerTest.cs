@@ -114,10 +114,10 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var response = controller.DeleteById(psychologistId);
-            var statusCodeResult = response as StatusCodeResult;
+            var okResult = response as ObjectResult;
 
             mock.VerifyAll();
-            Assert.AreEqual(404, statusCodeResult.StatusCode);
+            Assert.AreEqual(404, okResult.StatusCode);
         }
 
         [TestMethod]

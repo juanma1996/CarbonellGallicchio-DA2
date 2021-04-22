@@ -40,8 +40,15 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteById(int psychologistId)
         {
-            psychologistDomainToModelAdapter.Delete(psychologistId);
-            return NoContent();
+            try
+            {
+                psychologistDomainToModelAdapter.Delete(psychologistId);
+                return NoContent();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e);
+            }
         }
 
         [HttpPut("{id}")]
