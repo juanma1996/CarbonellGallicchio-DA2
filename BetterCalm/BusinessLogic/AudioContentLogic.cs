@@ -10,6 +10,7 @@ namespace BusinessLogic
     public class AudioContentLogic : IAudioContentLogic
     {
         private IRepository<AudioContent> audioContentRepository;
+        private readonly Validation validation = new Validation();
 
         public AudioContentLogic(IRepository<AudioContent> audioContentRepository)
         {
@@ -17,7 +18,10 @@ namespace BusinessLogic
         }
         public AudioContent GetById(int audioContentId)
         {
-            return audioContentRepository.GetById(audioContentId);
+            AudioContent audioContent = audioContentRepository.GetById(audioContentId);
+            validation.Validate(audioContent);
+            return audioContent;
+
         }
         public AudioContent Create(AudioContent audioContentModel)
         {
