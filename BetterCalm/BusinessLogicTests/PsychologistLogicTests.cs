@@ -116,19 +116,20 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestUpdatePsychologistOk()
         {
-            Psychologist psycologistModel = new Psychologist
+            var psychologistId = 1;
+            Psychologist psychologistModel = new Psychologist
             {
-                Name = "Juan",
+                Id = psychologistId,
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
-            mock.Setup(m => m.Exists(a => a.Id == psycologistModel.Id)).Returns(true);
-            mock.Setup(m => m.Update(psycologistModel));
+            mock.Setup(m => m.Exists(a => a.Id == psychologistModel.Id)).Returns(true);
+            mock.Setup(m => m.Update(psychologistModel));
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
 
-            psychologistLogic.Update(psycologistModel);
+            psychologistLogic.Update(psychologistModel);
 
             mock.VerifyAll();
         }
@@ -138,7 +139,7 @@ namespace BusinessLogicTests
         public void TestUpdatePsychologistNotExistent()
         {
             var psychologistId = 1;
-            Psychologist psycologistModel = new Psychologist
+            Psychologist psychologistModel = new Psychologist
             {
                 Id = psychologistId,
                 Name = "Juan",
@@ -147,11 +148,11 @@ namespace BusinessLogicTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
-            mock.Setup(m => m.Exists(a => a.Id == psycologistModel.Id)).Returns(false);
+            mock.Setup(m => m.Exists(a => a.Id == psychologistModel.Id)).Returns(false);
             mock.Setup(m => m.Update(It.IsAny<Psychologist>()));
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
 
-            psychologistLogic.Update(psycologistModel);
+            psychologistLogic.Update(psychologistModel);
 
             mock.VerifyAll();
         }
