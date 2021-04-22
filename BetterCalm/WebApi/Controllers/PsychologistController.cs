@@ -38,7 +38,7 @@ namespace WebApi.Controllers
                 var psychologistCreated = psychologistDomainToModelAdapter.Add(psycologistIn);
                 return CreatedAtRoute("GetPsychologistById", psychologistCreated.Id, psychologistCreated);
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 return this.BadRequest(e.Message);
             }

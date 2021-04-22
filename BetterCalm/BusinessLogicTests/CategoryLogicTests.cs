@@ -6,8 +6,9 @@ using Moq;
 using System;
 using BusinessExceptions;
 using System.Linq;
+using BusinessLogic;
 
-namespace BusinessLogic.Tests
+namespace BusinessLogicTests
 {
     [TestClass()]
     public class CategoryLogicTests

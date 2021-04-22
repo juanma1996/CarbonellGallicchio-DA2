@@ -5,7 +5,7 @@ using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace BusinessLogic.Tests
+namespace BusinessLogicTests
 {
     [TestClass]
     public class PsychologistLogicTests
