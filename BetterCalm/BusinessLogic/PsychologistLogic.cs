@@ -8,6 +8,7 @@ namespace BusinessLogic
     public class PsychologistLogic : IPsychologistLogic
     {
         private readonly IRepository<Psychologist> psychologistRepository;
+        private readonly Validation validation = new Validation();
        
         public PsychologistLogic(IRepository<Psychologist> psychologistRepository)
         {
@@ -16,7 +17,9 @@ namespace BusinessLogic
 
         public Psychologist GetById(int psychologistId)
         {
-            return psychologistRepository.GetById(psychologistId);
+            Psychologist psychologist = psychologistRepository.GetById(psychologistId);
+            validation.Validate(psychologist);
+            return psychologist;
         }
 
         public Psychologist Add(Psychologist psycologist)
