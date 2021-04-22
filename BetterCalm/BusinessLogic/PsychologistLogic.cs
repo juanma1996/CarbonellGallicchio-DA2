@@ -30,6 +30,7 @@ namespace BusinessLogic
         public void DeleteById(int psychologistId)
         {
             Psychologist psychologist = psychologistRepository.GetById(psychologistId);
+            validation.Validate(psychologist);
             psychologistRepository.Delete(psychologist);
         }
 
