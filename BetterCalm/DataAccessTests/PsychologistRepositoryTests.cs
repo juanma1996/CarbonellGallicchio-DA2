@@ -59,6 +59,40 @@ namespace DataAccessTests
             Assert.AreEqual(psycologistModel.ConsultationMode, psychologist.ConsultationMode);
             Assert.AreEqual(psycologistModel.CreationDate, psychologist.CreationDate);
         }
-    
+
+        [TestMethod]
+        public void TestUpdatePsychologistOk()
+        {
+            var psychologistId = 1;
+            Psychologist psycologistModel = new Psychologist
+            {
+                Id = psychologistId,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            context.Add(psycologistModel);
+            context.SaveChanges();
+
+            Psychologist psycologistUpdated = new Psychologist
+            {
+                Id = psychologistId,
+                Name = "Ricardo",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
+
+            psychologistRepository.Update(psycologistUpdated);
+            Psychologist psychologist = psychologistRepository.GetById(psychologistId);
+
+            Assert.AreEqual(psychologistId, psychologist.Id);
+            Assert.AreEqual(psycologistUpdated.Name, psychologist.Name);
+            Assert.AreEqual(psycologistUpdated.ConsultationMode, psychologist.ConsultationMode);
+            Assert.AreEqual(psycologistUpdated.CreationDate, psychologist.CreationDate);
+        }
+
     }
 }
