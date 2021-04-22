@@ -106,6 +106,21 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        public void TestDeletePsychologistNotFound()
+        {
+            int psychologistId = 1;
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Delete(psychologistId)).Throws(new ArgumentException());
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var response = controller.DeleteById(psychologistId);
+            var statusCodeResult = response as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(404, statusCodeResult.StatusCode);
+        }
+
+        [TestMethod]
         public void TestUpdatePsychologistOk()
         {
             var psychologistId = 1;
