@@ -10,6 +10,7 @@ namespace DataAccess.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
         public DbSet<CategoryPlaylist> CategoryPlaylists { get; set; }
+        public DbSet<Psychologist> Psychologists { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
