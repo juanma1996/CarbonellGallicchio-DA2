@@ -112,6 +112,48 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        public void TestPostPsychologistInvalidDirection()
+        {
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "Fede",
+                Direction = "",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid direction"));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Post(psycologistModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
+
+        [TestMethod]
+        public void TestPostPsychologistInvalidConsultationMode()
+        {
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid consultation mode"));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Post(psycologistModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
+
+        [TestMethod]
         public void TestDeletePsychologistOk()
         {
             int psychologistId = 1;
