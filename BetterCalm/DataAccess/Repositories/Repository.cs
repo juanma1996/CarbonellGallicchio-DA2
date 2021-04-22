@@ -39,7 +39,9 @@ namespace DataAccess.Repositories
 
         public T Add(T domain)
         {
-            throw new NotImplementedException();
+            this.Entities.Add(domain);
+            this.context.SaveChanges();
+            return domain;
         }
 
         public void Delete(T domain)

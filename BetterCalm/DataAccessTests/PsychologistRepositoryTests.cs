@@ -51,13 +51,13 @@ namespace DataAccessTests
             };
             IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
 
-            psychologistRepository.Add(psycologistModel);
-            var result = psychologistRepository.GetById(psychologistId);
+            var result = psychologistRepository.Add(psycologistModel);
+            var psychologist = psychologistRepository.GetById(psychologistId);
 
-            Assert.AreEqual(psychologistId, result.Id);
-            Assert.AreEqual(psycologistModel.Name, result.Name);
-            Assert.AreEqual(psycologistModel.ConsultationMode, result.ConsultationMode);
-            Assert.AreEqual(psycologistModel.CreationDate, result.CreationDate);
+            Assert.AreEqual(psychologistId, psychologist.Id);
+            Assert.AreEqual(psycologistModel.Name, psychologist.Name);
+            Assert.AreEqual(psycologistModel.ConsultationMode, psychologist.ConsultationMode);
+            Assert.AreEqual(psycologistModel.CreationDate, psychologist.CreationDate);
         }
     
     }
