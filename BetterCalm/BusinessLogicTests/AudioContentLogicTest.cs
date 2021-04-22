@@ -133,14 +133,17 @@ namespace BusinessLogicTests
 
         [TestMethod]
         [ExpectedException(typeof(NullObjectException))]
-        public void TestGetAudioContentNotExistent()
+        public void TestDeleteAudioContentNotExistent()
         {
             int audioContentId = 1;
             Mock<IRepository<AudioContent>> mock = new Mock<IRepository<AudioContent>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(It.IsAny<int>())).Returns((AudioContent)null);
+            mock.Setup(m => m.Delete(It.IsAny<AudioContent>()));
             AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object);
 
-            AudioContent result = audioContentLogic.GetById(audioContentId);
+            audioContentLogic.DeleteById(audioContentId);
+
+            mock.VerifyAll();
         }
     }
 }
