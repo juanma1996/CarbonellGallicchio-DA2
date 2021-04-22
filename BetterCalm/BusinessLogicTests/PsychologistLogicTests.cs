@@ -131,5 +131,27 @@ namespace BusinessLogicTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestUpdatePsychologistNotExistent()
+        {
+            var psychologistId = 1;
+            Psychologist psycologistModel = new Psychologist
+            {
+                Id = psychologistId,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<Psychologist>()));
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            psychologistLogic.Update(psycologistModel);
+
+            mock.VerifyAll();
+        }
     }
 }
