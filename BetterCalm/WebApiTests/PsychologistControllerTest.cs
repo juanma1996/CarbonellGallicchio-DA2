@@ -226,5 +226,27 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(404, okResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestUpdatePsychologistInvalidName()
+        {
+            var psychologistId = 1;
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid name"));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Update(psychologistId, psycologistModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
     }
 }
