@@ -29,7 +29,7 @@ namespace BusinessLogic
         }
         public void DeleteById(int audioContentId)
         {
-            AudioContent audioContentToDelete = audioContentRepository.GetById(audioContentId);
+            AudioContent audioContentToDelete = GetById(audioContentId);
             audioContentRepository.Delete(audioContentToDelete);
         }
         public void Update(AudioContent audioContentModel)
