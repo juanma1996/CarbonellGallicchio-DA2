@@ -33,8 +33,15 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Post(PsychologistModel psycologistIn)
         {
-            var psychologistCreated = psychologistDomainToModelAdapter.Add(psycologistIn);
-            return CreatedAtRoute("GetPsychologistById", psychologistCreated.Id, psychologistCreated);
+            try
+            {
+                var psychologistCreated = psychologistDomainToModelAdapter.Add(psycologistIn);
+                return CreatedAtRoute("GetPsychologistById", psychologistCreated.Id, psychologistCreated);
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
         }
 
         [HttpDelete("{id}")]
