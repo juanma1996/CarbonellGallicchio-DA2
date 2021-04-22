@@ -91,6 +91,27 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        public void TestPostPsychologistInvalidName()
+        {
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid name"));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Post(psycologistModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
+
+        [TestMethod]
         public void TestDeletePsychologistOk()
         {
             int psychologistId = 1;
