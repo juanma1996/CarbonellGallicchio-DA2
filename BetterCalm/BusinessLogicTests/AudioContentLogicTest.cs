@@ -123,6 +123,7 @@ namespace BusinessLogicTests
                 },
             };
             Mock<IRepository<AudioContent>> mock = new Mock<IRepository<AudioContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.Exists(a => a.Id == audioContentUpdated.Id)).Returns(true);
             mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
             AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object);
 
@@ -175,6 +176,7 @@ namespace BusinessLogicTests
                 },
             };
             Mock<IRepository<AudioContent>> mock = new Mock<IRepository<AudioContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.Exists(a => a.Id == audioContentUpdated.Id)).Returns(false);
             mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
             AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object);
 

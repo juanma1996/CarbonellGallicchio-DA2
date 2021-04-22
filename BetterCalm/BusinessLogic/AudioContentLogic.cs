@@ -34,7 +34,14 @@ namespace BusinessLogic
         }
         public void Update(AudioContent audioContentModel)
         {
-            audioContentRepository.Update(audioContentModel);
+            if (!audioContentRepository.Exists(a => a.Id == audioContentModel.Id))
+            {
+                validation.NullObjectException();
+            }
+            else
+            {
+                audioContentRepository.Update(audioContentModel);
+            }
         }
     }
 }
