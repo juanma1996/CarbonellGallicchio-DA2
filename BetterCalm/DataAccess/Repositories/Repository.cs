@@ -51,5 +51,10 @@ namespace DataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public bool Exists(Expression<Func<T, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

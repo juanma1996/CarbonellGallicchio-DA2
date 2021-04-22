@@ -36,7 +36,14 @@ namespace BusinessLogic
 
         public void Update(Psychologist psychologist)
         {
-            psychologistRepository.Update(psychologist);
+            if (!psychologistRepository.Exists(a => a.Id == psychologist.Id))
+            {
+                validation.NullObjectException();
+            }
+            else
+            {
+                psychologistRepository.Update(psychologist);
+            }
         }
     }
 }

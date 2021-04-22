@@ -124,6 +124,7 @@ namespace BusinessLogicTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Exists(a => a.Id == psycologistModel.Id)).Returns(true);
             mock.Setup(m => m.Update(psycologistModel));
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
 
@@ -146,6 +147,7 @@ namespace BusinessLogicTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Exists(a => a.Id == psycologistModel.Id)).Returns(false);
             mock.Setup(m => m.Update(It.IsAny<Psychologist>()));
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
 
