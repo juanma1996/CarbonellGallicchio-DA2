@@ -1,4 +1,5 @@
 ﻿using System;
+using BusinessExceptions;
 using BusinessLogic;
 using DataAccessInterface;
 using Domain;
@@ -34,6 +35,20 @@ namespace BusinessLogicTests
             Assert.AreEqual(psychologistToReturn.Direction, result.Direction);
             Assert.AreEqual(psychologistToReturn.ConsultationMode, result.ConsultationMode);
             Assert.AreEqual(psychologistToReturn.CreationDate, result.CreationDate);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestGetPsychologistNotExistentId()
+        {
+            var psychologistId = 1;
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(psychologistId)).Returns((Psychologist)null);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            Psychologist result = psychologistLogic.GetById(psychologistId);
+
+            mock.VerifyAll();
         }
 
         [TestMethod]
