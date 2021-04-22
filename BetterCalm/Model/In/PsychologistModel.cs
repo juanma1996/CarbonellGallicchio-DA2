@@ -7,7 +7,9 @@ namespace Model.In
     {
         [Required]
         public string Name { get; set; }
+        [Required]
         public string ConsultationMode { get; set; }
+        [Required]
         public string Direction { get; set; }
         public DateTime CreationDate { get; set; }
     }
