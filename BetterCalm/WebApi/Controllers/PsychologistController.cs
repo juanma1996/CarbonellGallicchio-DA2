@@ -61,8 +61,15 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Update([FromRoute]int psychologistId,[FromBody] PsychologistModel psychologistModel)
         {
-            psychologistDomainToModelAdapter.Update(psychologistId, psychologistModel);
-            return NoContent();
+            try
+            {
+                psychologistDomainToModelAdapter.Update(psychologistId, psychologistModel);
+                return NoContent();
+            }
+            catch (NullObjectMappingException e)
+            {
+                return NotFound(e);
+            }
         }
     }
 }
