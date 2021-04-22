@@ -66,6 +66,10 @@ namespace WebApi.Controllers
                 psychologistDomainToModelAdapter.Update(psychologistId, psychologistModel);
                 return NoContent();
             }
+            catch (ArgumentException e)
+            {
+                return this.BadRequest(e.Message);
+            }
             catch (NullObjectMappingException e)
             {
                 return NotFound(e);
