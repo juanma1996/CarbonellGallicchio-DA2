@@ -41,6 +41,8 @@ namespace BusinessLogicTests
         public void TestCreateAudioContentOk()
         {
             int audioContentId = 1;
+            int categoryId = 1;
+            int playlistId = 1;
             AudioContent audioContentModel = new AudioContent()
             {
                 Name = "Canción",
@@ -48,18 +50,18 @@ namespace BusinessLogicTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 AudioUrl = "www.audio.com",
-                Categories = new List<Category>()
+                Categories = new List<AudioContentCategory>()
                 {
-                    new Category
+                    new AudioContentCategory()
                     {
-                        Id = 1
+                        CategoryId = categoryId
                     }
                 },
-                Playlists = new List<Playlist>()
+                Playlists = new List<AudioContentPlaylist>()
                 {
-                    new Playlist
+                    new AudioContentPlaylist()
                     {
-                        Id = 1
+                        PlaylistId = playlistId
                     }
                 },
             };
@@ -99,6 +101,16 @@ namespace BusinessLogicTests
         public void TestUpdateAudioContentOk()
         {
             int audioContentId = 1;
+            int categoryId = 1;
+            int playlistId = 1;
+            Category newCategory = new Category
+            {
+                Id = categoryId
+            };
+            Playlist newPlaylist = new Playlist
+            {
+                Id = playlistId
+            };
             AudioContent audioContentUpdated = new AudioContent()
             {
                 Id = audioContentId,
@@ -107,18 +119,18 @@ namespace BusinessLogicTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 AudioUrl = "www.audio.com",
-                Categories = new List<Category>()
+                Categories = new List<AudioContentCategory>()
                 {
-                    new Category
+                    new AudioContentCategory()
                     {
-                        Id = 1
+                        CategoryId = categoryId
                     }
                 },
-                Playlists = new List<Playlist>()
+                Playlists = new List<AudioContentPlaylist>()
                 {
-                    new Playlist
+                    new AudioContentPlaylist()
                     {
-                        Id = 1
+                        PlaylistId = playlistId
                     }
                 },
             };
@@ -152,6 +164,16 @@ namespace BusinessLogicTests
         public void TestUpdateAudioContentNotExistent()
         {
             int audioContentId = 1;
+            int categoryId = 1;
+            int playlistId = 1;
+            Category newCategory = new Category
+            {
+                Id = categoryId
+            };
+            Playlist newPlaylist = new Playlist
+            {
+                Id = playlistId
+            };
             AudioContent audioContentUpdated = new AudioContent()
             {
                 Id = audioContentId,
@@ -160,18 +182,18 @@ namespace BusinessLogicTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 AudioUrl = "www.audio.com",
-                Categories = new List<Category>()
+                Categories = new List<AudioContentCategory>()
                 {
-                    new Category
+                    new AudioContentCategory()
                     {
-                        Id = 1
+                        CategoryId = categoryId
                     }
                 },
-                Playlists = new List<Playlist>()
+                Playlists = new List<AudioContentPlaylist>()
                 {
-                    new Playlist
+                    new AudioContentPlaylist()
                     {
-                        Id = 1
+                        PlaylistId = playlistId
                     }
                 },
             };
