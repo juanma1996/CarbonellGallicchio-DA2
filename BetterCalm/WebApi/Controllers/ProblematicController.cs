@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using AdapterInterface;
+using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Model.Out;
 
 namespace WebApi.Controllers
 {
-    public class ProblematicController
+    public class ProblematicController : BetterCalmControllerBase
     {
         private readonly IProblematicLogicAdapter problematicDomainToModel;
         public ProblematicController(IProblematicLogicAdapter problematicDomainToModel)
@@ -15,7 +18,8 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            throw new NotImplementedException();
+            List<ProblematicBasicInfoModel> problematics = problematicDomainToModel.GetAll();
+            return Ok(problematics);
         }
     }
 }
