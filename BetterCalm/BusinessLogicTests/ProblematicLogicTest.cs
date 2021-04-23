@@ -28,7 +28,7 @@ namespace BusinessLogicTests
             };
             Mock<IRepository<Problematic>> mock = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll(null)).Returns(problematicsToReturn);
-            ProblematicLogic problematicLogic = new ProblematicLogic();
+            ProblematicLogic problematicLogic = new ProblematicLogic(mock.Object);
 
             List<Problematic> problematics = problematicLogic.GetAll();
 
