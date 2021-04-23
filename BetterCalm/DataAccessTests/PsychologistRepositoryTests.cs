@@ -98,5 +98,24 @@ namespace DataAccessTests
             Assert.AreEqual(psycologistUpdated.CreationDate, psychologist.CreationDate);
         }
 
+        [TestMethod]
+        public void TestDeletePsychologistOk()
+        {
+            var psychologistId = 1;
+            Psychologist psycologistModel = new Psychologist
+            {
+                Id = psychologistId,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            context.Add(psycologistModel);
+            context.SaveChanges();
+            IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
+            psychologistRepository.Delete(psycologistModel);
+
+            Assert.AreEqual(0, psychologistRepository.GetAll().Count);
+        }
     }
 }
