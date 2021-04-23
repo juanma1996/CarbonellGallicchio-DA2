@@ -127,5 +127,25 @@ namespace DataAccessTests
 
             Assert.AreEqual(0, psychologistRepository.GetAll().Count);
         }
+
+        [TestMethod]
+        public void TestExistsPsychologistOk()
+        {
+            var psychologistId = 1;
+            Psychologist psycologistModel = new Psychologist
+            {
+                Id = psychologistId,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            context.Add(psycologistModel);
+            context.SaveChanges();
+            IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
+
+            Boolean result = psychologistRepository.Exists(p => p.Id == psychologistId);
+            Assert.IsTrue(result);
+        }
     }
 }
