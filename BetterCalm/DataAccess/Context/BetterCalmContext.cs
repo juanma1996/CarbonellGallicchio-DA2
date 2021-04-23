@@ -10,6 +10,7 @@ namespace DataAccess.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
         public DbSet<CategoryPlaylist> CategoryPlaylists { get; set; }
+        public DbSet<Problematic> Problematics { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
@@ -48,6 +49,11 @@ namespace DataAccess.Context
             modelBuilder.Entity<CategoryPlaylist>().HasKey(cp => new { cp.CategoryId, cp.PlaylistId });
             modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Category).WithMany(p => p.Playlists).HasForeignKey(sc => sc.CategoryId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.Categories).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Problematic>().ToTable("Problematics");
+            modelBuilder.Entity<Problematic>().HasKey(s => s.Id);
+            modelBuilder.Entity<Problematic>().Property(s => s.Id).ValueGeneratedOnAdd();
+
         }
     }
 }
