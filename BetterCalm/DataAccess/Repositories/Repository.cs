@@ -46,7 +46,8 @@ namespace DataAccess.Repositories
 
         public void Delete(T domain)
         {
-            throw new NotImplementedException();
+            this.context.Remove(domain);
+            this.context.SaveChanges();
         }
 
         public void Update(T domain)
