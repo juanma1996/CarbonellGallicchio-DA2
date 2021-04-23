@@ -83,7 +83,11 @@ namespace DataAccessTests
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
             };
-            IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
+            BetterCalmContext newContext = new BetterCalmContext(
+                        new DbContextOptionsBuilder<BetterCalmContext>()
+                        .UseSqlite(connection)
+                        .Options);
+            IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(newContext);
 
             psychologistRepository.Update(psycologistUpdated);
             Psychologist psychologist = psychologistRepository.GetById(psychologistId);
