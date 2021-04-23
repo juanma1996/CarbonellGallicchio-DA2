@@ -101,10 +101,8 @@ namespace DataAccessTests
         [TestMethod]
         public void TestDeletePsychologistOk()
         {
-            var psychologistId = 1;
             Psychologist psycologistModel = new Psychologist
             {
-                Id = psychologistId,
                 Name = "Juan",
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
@@ -112,8 +110,20 @@ namespace DataAccessTests
             };
             context.Add(psycologistModel);
             context.SaveChanges();
-            IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
-            psychologistRepository.Delete(psycologistModel);
+            Psychologist psycologistToDelete = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            BetterCalmContext newContext = new BetterCalmContext(
+                        new DbContextOptionsBuilder<BetterCalmContext>()
+                        .UseSqlite(connection)
+                        .Options);
+            IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(newContext);
+            psychologistRepository.Delete(psycologistToDelete);
 
             Assert.AreEqual(0, psychologistRepository.GetAll().Count);
         }
