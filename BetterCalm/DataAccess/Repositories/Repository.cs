@@ -51,7 +51,8 @@ namespace DataAccess.Repositories
 
         public void Update(T domain)
         {
-            throw new NotImplementedException();
+            this.context.Entry<T>(domain).State = EntityState.Modified;
+            this.context.SaveChanges();
         }
 
         public bool Exists(Expression<Func<T, bool>> predicate)
