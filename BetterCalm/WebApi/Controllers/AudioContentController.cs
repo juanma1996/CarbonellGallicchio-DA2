@@ -28,15 +28,22 @@ namespace WebApi.Controllers
             }
             catch (NullObjectMappingException e)
             {
-                return NotFound(e);
+                return NotFound(e.Message);
             }
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] AudioContentModel audioContentModel)
         {
-            var audioContentCreated = audioContentLogicAdapter.Add(audioContentModel);
-            return CreatedAtRoute("GetAudioContentById", audioContentCreated.Id, audioContentCreated);
+            try
+            {
+                var audioContentCreated = audioContentLogicAdapter.Add(audioContentModel);
+                return CreatedAtRoute("GetAudioContentById", audioContentCreated.Id, audioContentCreated);
+            }
+            catch (ArgumentInvalidMappingException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpDelete("{audioContentId}")]

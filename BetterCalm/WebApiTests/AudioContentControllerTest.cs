@@ -180,7 +180,7 @@ namespace WebApiTests
             var objectResult = result as ObjectResult;
 
             mock.VerifyAll();
-            Assert.AreEqual(404, objectResult.StatusCode);
+            Assert.AreEqual(400, objectResult.StatusCode);
         }
     }
 }
