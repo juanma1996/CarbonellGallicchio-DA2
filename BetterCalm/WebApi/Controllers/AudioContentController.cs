@@ -1,4 +1,5 @@
-﻿using AdapterInterface;
+﻿using AdapterExceptions;
+using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
@@ -21,7 +22,14 @@ namespace WebApi.Controllers
         [HttpGet("{id}", Name = "GetAudioContentById")]
         public IActionResult Get(int audioContentId)
         {
-            return Ok(audioContentLogicAdapter.GetById(audioContentId));
+            try
+            {
+                return Ok(audioContentLogicAdapter.GetById(audioContentId));
+            }
+            catch (NullObjectMappingException e)
+            {
+                return NotFound(e);
+            }
         }
 
         [HttpPost]
