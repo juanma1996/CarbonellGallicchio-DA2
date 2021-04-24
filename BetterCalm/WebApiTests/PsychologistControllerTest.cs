@@ -236,6 +236,50 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        public void TestPostPsychologistExcessOfProblematics()
+        {
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<ProblematicModel>
+                {
+                    new ProblematicModel
+                    {
+                        Name = "Depresion"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Ansiedad"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Estres"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Enojo"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Otros"
+                    },
+                }
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException());
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Post(psycologistModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
+
+        [TestMethod]
         public void TestDeletePsychologistOk()
         {
             int psychologistId = 1;
