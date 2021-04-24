@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BusinessExceptions;
 using BusinessLogic;
 using DataAccessInterface;
@@ -61,6 +62,13 @@ namespace BusinessLogicTests
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 1,
+                    }
+                }
             };
             Psychologist psychologistToReturn = new Psychologist
             {
@@ -123,6 +131,13 @@ namespace BusinessLogicTests
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 1,
+                    }
+                }
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(a => a.Id == psychologistModel.Id)).Returns(true);
