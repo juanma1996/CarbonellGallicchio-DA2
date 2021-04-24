@@ -90,6 +90,25 @@ namespace WebApiTests
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<ProblematicModel>
+                {
+                    new ProblematicModel
+                    {
+                        Name = "Depresion"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Ansiedad"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Estres"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Otros"
+                    },
+                }
             };
             PsychologistBasicInfoModel psychologistToReturn = new PsychologistBasicInfoModel
             {
@@ -110,7 +129,7 @@ namespace WebApiTests
 
             mock.VerifyAll();
             Assert.AreEqual(psychologistId, psychologistBasicInfoModel.Id);
-
+            Assert.AreEqual(psycologistModel.Problematics.Count, psychologistBasicInfoModel.Problematics.Count);
         }
 
         [TestMethod]

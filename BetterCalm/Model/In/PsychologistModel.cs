@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Model.Out;
 
 namespace Model.In
 {
@@ -11,6 +13,7 @@ namespace Model.In
         public string ConsultationMode { get; set; }
         [Required]
         public string Direction { get; set; }
+        public List<ProblematicModel> Problematics { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }
