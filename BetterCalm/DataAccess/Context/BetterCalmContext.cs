@@ -11,6 +11,7 @@ namespace DataAccess.Context
         public DbSet<Playlist> Playlists { get; set; }
         public DbSet<CategoryPlaylist> CategoryPlaylists { get; set; }
         public DbSet<Psychologist> Psychologists { get; set; }
+        public DbSet<Problematic> Problematics { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
@@ -56,6 +57,12 @@ namespace DataAccess.Context
             modelBuilder.Entity<Psychologist>().Property(p => p.ConsultationMode).IsRequired();
             modelBuilder.Entity<Psychologist>().Property(p => p.Direction).IsRequired();
             modelBuilder.Entity<Psychologist>().Property(s => s.Id).ValueGeneratedOnAdd();
+            
+            modelBuilder.Entity<Problematic>().ToTable("Problematics");
+            modelBuilder.Entity<Problematic>().HasKey(p => p.Id);
+            modelBuilder.Entity<Problematic>().Property(p => p.Name).IsRequired();
+            modelBuilder.Entity<Problematic>().Property(p => p.Id).ValueGeneratedOnAdd();
+
         }
     }
 }

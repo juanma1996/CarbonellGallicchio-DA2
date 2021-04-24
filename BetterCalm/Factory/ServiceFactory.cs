@@ -29,6 +29,8 @@ namespace Factory
             services.AddScoped<ICategoryLogicAdapter, CategoryLogicAdapter>();
             services.AddScoped<IPsychologistLogicAdapter, PsychologistLogicAdapter>();
             services.AddScoped<IPsychologistLogic, PsychologistLogic>();
+            services.AddScoped<IProblematicLogic, ProblematicLogic>();
+            services.AddScoped<IProblematicLogicAdapter, ProblematicLogicAdapter>();
         }
         public void AddDbContextService()
         {
