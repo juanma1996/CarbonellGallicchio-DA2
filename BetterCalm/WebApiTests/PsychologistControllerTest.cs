@@ -319,6 +319,29 @@ namespace WebApiTests
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<ProblematicModel>
+                {
+                    new ProblematicModel
+                    {
+                        Name = "Depresion"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Ansiedad"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Estres"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Enojo"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Otros"
+                    },
+                }
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>()));
@@ -410,6 +433,28 @@ namespace WebApiTests
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid conultation mode"));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Update(psychologistId, psycologistModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
+
+        [TestMethod]
+        public void TestUpdatePsychologistNoProblematics()
+        {
+            var psychologistId = 1;
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException());
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Update(psychologistId, psycologistModel);
