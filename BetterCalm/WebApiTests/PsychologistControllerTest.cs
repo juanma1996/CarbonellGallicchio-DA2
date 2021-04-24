@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AdapterExceptions;
 using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +26,25 @@ namespace WebApiTests
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<ProblematicBasicInfoModel>
+                {
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Depresion"
+                    },
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Ansiedad"
+                    },
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Estres"
+                    },
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Otros"
+                    },
+                }
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(psychologistId)).Returns(psychologistToReturn);
@@ -39,6 +60,8 @@ namespace WebApiTests
             Assert.AreEqual(psychologistToReturn.Direction, psychologist.Direction);
             Assert.AreEqual(psychologistToReturn.ConsultationMode, psychologist.ConsultationMode);
             Assert.AreEqual(psychologistToReturn.CreationDate, psychologist.CreationDate);
+            Assert.AreEqual(psychologistToReturn.Problematics.First().Name, psychologist.Problematics.First().Name);
+            Assert.AreEqual(psychologistToReturn.Problematics.Count, psychologist.Problematics.Count);
             Assert.AreEqual(200, okResult.StatusCode);
         }
 
