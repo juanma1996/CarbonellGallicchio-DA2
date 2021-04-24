@@ -40,22 +40,26 @@ namespace DataAccess.Repositories
 
         public T Add(T domain)
         {
-            throw new NotImplementedException();
+            this.Entities.Add(domain);
+            this.context.SaveChanges();
+            return domain;
         }
 
         public void Delete(T domain)
         {
-            throw new NotImplementedException();
+            this.context.Remove(domain);
+            this.context.SaveChanges();
         }
 
         public void Update(T domain)
         {
-            throw new NotImplementedException();
+            this.context.Entry<T>(domain).State = EntityState.Modified;
+            this.context.SaveChanges();
         }
 
         public bool Exists(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return this.Entities.Any(predicate);
         }
     }
 }

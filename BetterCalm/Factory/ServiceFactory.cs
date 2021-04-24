@@ -29,6 +29,8 @@ namespace Factory
             services.AddScoped<ICategoryLogicAdapter, CategoryLogicAdapter>();
             services.AddScoped<IAudioContentLogicAdapter, AudioContentLogicAdapter>();
             services.AddScoped<IAudioContentLogic, AudioContentLogic>();
+            services.AddScoped<IPsychologistLogicAdapter, PsychologistLogicAdapter>();
+            services.AddScoped<IPsychologistLogic, PsychologistLogic>();
             services.AddScoped<IProblematicLogic, ProblematicLogic>();
             services.AddScoped<IProblematicLogicAdapter, ProblematicLogicAdapter>();
         }
