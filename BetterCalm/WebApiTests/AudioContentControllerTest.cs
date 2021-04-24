@@ -1,4 +1,5 @@
-﻿using AdapterInterface;
+﻿using AdapterExceptions;
+using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
@@ -131,5 +132,20 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestGetAudioContentNotExistentId()
+        {
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(It.IsAny<int>())).Throws(new NullObjectMappingException("Not found object"));
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var result = controller.Get(It.IsAny<int>());
+            var objectResult = result as ObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(404, objectResult.StatusCode);
+        }
+
     }
 }
