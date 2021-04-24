@@ -147,5 +147,40 @@ namespace WebApiTests
             Assert.AreEqual(404, objectResult.StatusCode);
         }
 
+        [TestMethod]
+        public void TestCreateAudioContentNotValidName()
+        {
+            AudioContentModel audioContentModel = new AudioContentModel()
+            {
+                Name = "",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+                Categories = new List<CategoryBasicInfoModel>()
+                {
+                    new CategoryBasicInfoModel
+                    {
+                        Id = 1
+                    }
+                },
+                Playlists = new List<PlaylistBasicInfoModel>()
+                {
+                    new PlaylistBasicInfoModel
+                    {
+                        Id = 1
+                    }
+                },
+            };
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<AudioContentModel>())).Throws(new ArgumentInvalidMappingException("Name is required"));
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var result = controller.Post(audioContentModel);
+            var objectResult = result as ObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(404, objectResult.StatusCode);
+        }
     }
 }
