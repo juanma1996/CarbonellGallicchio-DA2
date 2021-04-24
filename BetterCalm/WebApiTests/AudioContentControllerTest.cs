@@ -7,7 +7,6 @@ using Model.Out;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using WebApi.Controllers;
 
 namespace WebApiTests
