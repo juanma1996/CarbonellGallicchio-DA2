@@ -51,7 +51,10 @@ namespace DataAccess.Context
             modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.Categories).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Psychologist>().ToTable("Psychologists");
-            modelBuilder.Entity<Psychologist>().HasKey(s => s.Id);
+            modelBuilder.Entity<Psychologist>().HasKey(p => p.Id);
+            modelBuilder.Entity<Psychologist>().Property(p => p.Name).IsRequired();
+            modelBuilder.Entity<Psychologist>().Property(p => p.ConsultationMode).IsRequired();
+            modelBuilder.Entity<Psychologist>().Property(p => p.Direction).IsRequired();
             modelBuilder.Entity<Psychologist>().Property(s => s.Id).ValueGeneratedOnAdd();
         }
     }
