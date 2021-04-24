@@ -182,5 +182,20 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(400, objectResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestDeleteAudioContentNotExistentId()
+        {
+            int audioContentId = 1;
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.DeleteById(It.IsAny<int>())).Throws(new NullObjectMappingException("Not found object"));
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var result = controller.DeleteById(audioContentId);
+            var objectResult = result as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(404, objectResult.StatusCode);
+        }
     }
 }
