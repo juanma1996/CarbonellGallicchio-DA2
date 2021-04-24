@@ -72,6 +72,10 @@ namespace WebApi.Controllers
             {
                 return NotFound(e.Message);
             }
+            catch (ArgumentInvalidMappingException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
