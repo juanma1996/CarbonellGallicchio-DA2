@@ -51,6 +51,7 @@ namespace DataAccess.Context
 
             modelBuilder.Entity<AudioContent>().ToTable("AudioContents");
             modelBuilder.Entity<AudioContent>().HasKey(s => s.Id);
+            modelBuilder.Entity<AudioContent>().Property(p => p.Name).IsRequired();
             modelBuilder.Entity<AudioContent>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<AudioContent>().HasMany(s => s.Categories);
             modelBuilder.Entity<AudioContent>().HasMany(s => s.Playlists);
