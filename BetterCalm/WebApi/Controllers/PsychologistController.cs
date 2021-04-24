@@ -74,6 +74,10 @@ namespace WebApi.Controllers
             {
                 return this.BadRequest(e.Message);
             }
+            catch(AmountOfProblematicsException e)
+            {
+                return this.BadRequest(e.Message);
+            }
             catch (NullObjectMappingException e)
             {
                 return NotFound(e);
