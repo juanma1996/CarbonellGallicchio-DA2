@@ -49,8 +49,15 @@ namespace WebApi.Controllers
         [HttpDelete("{audioContentId}")]
         public IActionResult DeleteById(int audioContentId)
         {
-            audioContentLogicAdapter.DeleteById(audioContentId);
-            return NoContent();
+            try
+            {
+                audioContentLogicAdapter.DeleteById(audioContentId);
+                return NoContent();
+            }
+            catch (NullObjectMappingException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
         [HttpPut("{audioContentId}")]

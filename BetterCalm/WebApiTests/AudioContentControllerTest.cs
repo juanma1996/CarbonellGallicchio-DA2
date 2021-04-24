@@ -192,7 +192,7 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.DeleteById(audioContentId);
-            var objectResult = result as StatusCodeResult;
+            var objectResult = result as ObjectResult;
 
             mock.VerifyAll();
             Assert.AreEqual(404, objectResult.StatusCode);
