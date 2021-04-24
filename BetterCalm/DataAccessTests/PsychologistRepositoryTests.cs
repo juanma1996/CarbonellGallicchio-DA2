@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 using DataAccess.Context;
 using DataAccess.Repositories;
 using DataAccessInterface;
@@ -42,12 +44,26 @@ namespace DataAccessTests
         public void TestAddPsychologistOk()
         {
             int psychologistId = 1;
+            Problematic problematic = new Problematic
+            {
+                Id = 1,
+                Name = "Depresion",
+            };
+            this.context.Add(problematic);
+            this.context.SaveChanges();
             Psychologist psycologistModel = new Psychologist
             {
                 Name = "Juan",
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 1,
+                    }
+                }
             };
             IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
 
@@ -58,12 +74,20 @@ namespace DataAccessTests
             Assert.AreEqual(psycologistModel.Name, psychologist.Name);
             Assert.AreEqual(psycologistModel.ConsultationMode, psychologist.ConsultationMode);
             Assert.AreEqual(psycologistModel.CreationDate, psychologist.CreationDate);
+            Assert.AreEqual(psycologistModel.Problematics.First().ProblematicId, psychologist.Problematics.First().ProblematicId);
         }
 
         [TestMethod]
         public void TestUpdatePsychologistOk()
         {
             var psychologistId = 1;
+            Problematic problematic = new Problematic
+            {
+                Id = 1,
+                Name = "Depresion",
+            };
+            this.context.Add(problematic);
+            this.context.SaveChanges();
             Psychologist psycologistModel = new Psychologist
             {
                 Id = psychologistId,
@@ -71,6 +95,13 @@ namespace DataAccessTests
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 1,
+                    }
+                }
             };
             context.Add(psycologistModel);
             context.SaveChanges();
@@ -82,6 +113,13 @@ namespace DataAccessTests
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 1,
+                    }
+                }
             };
             BetterCalmContext newContext = new BetterCalmContext(
                         new DbContextOptionsBuilder<BetterCalmContext>()
@@ -96,6 +134,7 @@ namespace DataAccessTests
             Assert.AreEqual(psycologistUpdated.Name, psychologist.Name);
             Assert.AreEqual(psycologistUpdated.ConsultationMode, psychologist.ConsultationMode);
             Assert.AreEqual(psycologistUpdated.CreationDate, psychologist.CreationDate);
+            Assert.AreEqual(psycologistUpdated.Problematics.First().ProblematicId, psychologist.Problematics.First().ProblematicId);
         }
 
         [TestMethod]
