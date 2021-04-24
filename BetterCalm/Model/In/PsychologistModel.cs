@@ -13,6 +13,7 @@ namespace Model.In
         public string ConsultationMode { get; set; }
         [Required]
         public string Direction { get; set; }
+        [Required]
         public List<ProblematicModel> Problematics { get; set; }
         public DateTime CreationDate { get; set; }
     }
