@@ -1,12 +1,14 @@
 ﻿using Model.Out;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Model.In
 {
     public class AudioContentModel
     {
+        [Required]
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
         public string CreatorName { get; set; }
