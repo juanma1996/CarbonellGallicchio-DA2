@@ -16,5 +16,10 @@ namespace BusinessLogic
                 throw new NullObjectException("The object validating is null, please check.");
             }
         }
+
+        public void NullObjectException()
+        {
+            throw new NullObjectException();
+        }
     }
 }

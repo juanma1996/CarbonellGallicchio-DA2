@@ -6,5 +6,6 @@ namespace Domain
     {
         public int Id { get; set; }
         public List<CategoryPlaylist> Categories { get; set; }
+        public List<AudioContentPlaylist> AudioContents { get; set; }
     }
 }

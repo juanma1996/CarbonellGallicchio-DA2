@@ -10,7 +10,6 @@ namespace BusinessLogic
     {
         private readonly IRepository<Category> categoryRepository;
         private readonly IRepository<Playlist> playlistRepository;
-        private readonly IRepository<CategoryPlaylist> categoryPlaylistRepository;
         private readonly Validation validate;
 
         public CategoryLogic(IRepository<Category> categoryRepository, IRepository<Playlist> playlistRepository, Validation validate)

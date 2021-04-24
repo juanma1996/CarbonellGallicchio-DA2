@@ -1,5 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccessInterface;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,26 @@ namespace DataAccess.Repositories
         public T Get(Expression<Func<T, bool>> predicate)
         {
             return this.Entities.Where(predicate).First();
+        }
+
+        public T Add(T domain)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(T domain)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(T domain)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Exists(Expression<Func<T, bool>> predicate)
+        {
+            throw new NotImplementedException();
         }
     }
 }
