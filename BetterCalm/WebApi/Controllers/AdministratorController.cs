@@ -21,7 +21,8 @@ namespace WebApi.Controllers
 
         public object Post(AdministratorModel administratorModel)
         {
-            throw new NotImplementedException();
+            administratorDomainToModelAdapter.Add(administratorModel);
+            return NoContent();
         }
     }
 }
