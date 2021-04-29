@@ -33,5 +33,23 @@ namespace BusinessLogicTests
             Assert.AreEqual(administratorToReturn.Email, result.Email);
             Assert.AreEqual(administratorToReturn.Password, result.Password);
         }
+
+        [TestMethod]
+        public void TestCreateAdministratorOk()
+        {
+            Administrator administrator = new Administrator
+            {
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Administrator>()));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+
+            administratorLogic.Add(administrator);
+
+            mock.VerifyAll();
+        }
     }
 }
