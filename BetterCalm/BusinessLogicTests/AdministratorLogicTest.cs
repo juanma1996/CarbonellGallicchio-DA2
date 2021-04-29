@@ -44,10 +44,10 @@ namespace BusinessLogicTests
                 Password = "Password01",
             };
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<Administrator>()));
+            mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(administrator);
             AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
 
-            administratorLogic.Add(administrator);
+            Administrator response = administratorLogic.Add(administrator);
 
             mock.VerifyAll();
         }
