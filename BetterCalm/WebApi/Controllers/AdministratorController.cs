@@ -19,10 +19,15 @@ namespace WebApi.Controllers
             return Ok(administratorDomainToModelAdapter.GetById(administratorId));
         }
 
-        public object Post(AdministratorModel administratorModel)
+        public IActionResult Post(AdministratorModel administratorModel)
         {
             administratorDomainToModelAdapter.Add(administratorModel);
             return NoContent();
+        }
+
+        public IActionResult DeleteById(int administratorId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

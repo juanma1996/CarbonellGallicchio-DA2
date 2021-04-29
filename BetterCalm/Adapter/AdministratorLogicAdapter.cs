@@ -19,5 +19,10 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
+
+        public void Delete(int administratorId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

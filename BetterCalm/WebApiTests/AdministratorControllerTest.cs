@@ -65,5 +65,20 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestDeleteAdministratorOk()
+        {
+            int administratorId = 1;
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Delete(administratorId));
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var response = controller.DeleteById(administratorId);
+            var statusCodeResult = response as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(204, statusCodeResult.StatusCode);
+        }
     }
 }
