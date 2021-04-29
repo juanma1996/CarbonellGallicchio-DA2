@@ -27,7 +27,8 @@ namespace WebApi.Controllers
 
         public IActionResult DeleteById(int administratorId)
         {
-            throw new NotImplementedException();
+            administratorDomainToModelAdapter.Delete(administratorId);
+            return NoContent();
         }
     }
 }
