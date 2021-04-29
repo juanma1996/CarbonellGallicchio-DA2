@@ -20,9 +20,9 @@ namespace BusinessLogic
             return administratorRepository.GetById(administratorId);
         }
 
-        public void Add(Administrator administrator)
+        public Administrator Add(Administrator administrator)
         {
-            throw new NotImplementedException();
+            return administratorRepository.Add(administrator);
         }
     }
 }
