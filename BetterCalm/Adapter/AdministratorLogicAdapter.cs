@@ -1,4 +1,5 @@
 ﻿using System;
+using Model.In;
 using Model.Out;
 
 namespace Adapter
@@ -10,6 +11,11 @@ namespace Adapter
         }
 
         public AdministratorBasicInfoModel GetById(int administratorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(AdministratorModel administrator)
         {
             throw new NotImplementedException();
         }

@@ -2,6 +2,7 @@
 using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Model.In;
 
 namespace WebApi.Controllers
 {
@@ -16,6 +17,11 @@ namespace WebApi.Controllers
         public IActionResult GetById(int administratorId)
         {
             return Ok(administratorDomainToModelAdapter.GetById(administratorId));
+        }
+
+        public object Post(AdministratorModel administratorModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }
