@@ -17,7 +17,9 @@ namespace BusinessLogic
 
         public Administrator GetById(int administratorId)
         {
-            return administratorRepository.GetById(administratorId);
+            Administrator administrator = administratorRepository.GetById(administratorId);
+            validation.Validate(administrator);
+            return administrator;
         }
 
         public Administrator Add(Administrator administrator)
