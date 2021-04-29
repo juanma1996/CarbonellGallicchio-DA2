@@ -33,7 +33,8 @@ namespace WebApi.Controllers
 
         public IActionResult Update(AdministratorModel administratorModel)
         {
-            throw new NotImplementedException();
+            administratorDomainToModelAdapter.Update(administratorModel);
+            return NoContent();
         }
     }
 }
