@@ -30,5 +30,10 @@ namespace WebApi.Controllers
             administratorDomainToModelAdapter.Delete(administratorId);
             return NoContent();
         }
+
+        public IActionResult Update(AdministratorModel administratorModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

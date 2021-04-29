@@ -9,5 +9,6 @@ namespace AdapterInterface
         AdministratorBasicInfoModel GetById(int administratorId);
         void Add(AdministratorModel administratorModel);
         void Delete(int administratorId);
+        void Update(AdministratorModel administratorModel);
     }
 }

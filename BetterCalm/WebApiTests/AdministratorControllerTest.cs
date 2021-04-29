@@ -80,5 +80,26 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestUpdateAdministratorOk()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Id = 1,
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>()));
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var response = controller.Update(administratorModel);
+            var statusCodeResult = response as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(204, statusCodeResult.StatusCode);
+        }
     }
 }

@@ -24,5 +24,10 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
+
+        public void Update(AdministratorModel administrator)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
