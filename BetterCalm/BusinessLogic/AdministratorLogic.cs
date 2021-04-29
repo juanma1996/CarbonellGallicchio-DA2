@@ -17,7 +17,7 @@ namespace BusinessLogic
 
         public Administrator GetById(int administratorId)
         {
-            throw new NotImplementedException();
+            return administratorRepository.GetById(administratorId);
         }
     }
 }
