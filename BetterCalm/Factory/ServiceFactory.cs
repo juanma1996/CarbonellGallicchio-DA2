@@ -33,6 +33,7 @@ namespace Factory
             services.AddScoped<IPsychologistLogic, PsychologistLogic>();
             services.AddScoped<IProblematicLogic, ProblematicLogic>();
             services.AddScoped<IProblematicLogicAdapter, ProblematicLogicAdapter>();
+            services.AddScoped<IAdministratorLogicAdapter, AdministratorLogicAdapter>();
         }
         public void AddDbContextService()
         {
