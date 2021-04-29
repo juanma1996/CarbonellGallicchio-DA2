@@ -72,5 +72,25 @@ namespace BusinessLogicTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        public void TestUpdateAdministratorOk()
+        {
+            var administratorId = 1;
+            Administrator administratorModel = new Administrator
+            {
+                Id = administratorId,
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(administratorModel));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+
+            administratorLogic.Update(administratorModel);
+
+            mock.VerifyAll();
+        }
     }
 }

@@ -30,5 +30,10 @@ namespace BusinessLogic
             Administrator administrator = administratorRepository.GetById(administratorId);
             administratorRepository.Delete(administrator);
         }
+
+        public void Update(Administrator administratorModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace BusinessLogicInterface
         Administrator GetById(int administratorId);
         Administrator Add(Administrator administrator);
         void DeleteById(int administratorId);
+        void Update(Administrator administratorModel);
     }
 }
