@@ -33,7 +33,7 @@ namespace BusinessLogic
 
         public void Update(Administrator administratorModel)
         {
-            throw new NotImplementedException();
+            administratorRepository.Update(administratorModel);
         }
     }
 }
