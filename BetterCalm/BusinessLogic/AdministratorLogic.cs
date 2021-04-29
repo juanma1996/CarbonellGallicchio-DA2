@@ -27,7 +27,8 @@ namespace BusinessLogic
 
         public void DeleteById(int administratorId)
         {
-            throw new NotImplementedException();
+            Administrator administrator = administratorRepository.GetById(administratorId);
+            administratorRepository.Delete(administrator);
         }
     }
 }
