@@ -1,4 +1,5 @@
 ﻿using System;
+using BusinessExceptions;
 using BusinessLogic;
 using DataAccessInterface;
 using Domain;
@@ -32,6 +33,20 @@ namespace BusinessLogicTests
             Assert.AreEqual(administratorToReturn.Name, result.Name);
             Assert.AreEqual(administratorToReturn.Email, result.Email);
             Assert.AreEqual(administratorToReturn.Password, result.Password);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestGetAdministratorNotExistentId()
+        {
+            var administratorId = 1;
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(administratorId)).Returns((Administrator)null);
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+
+            Administrator result = administratorLogic.GetById(administratorId);
+
+            mock.VerifyAll();
         }
 
         [TestMethod]
