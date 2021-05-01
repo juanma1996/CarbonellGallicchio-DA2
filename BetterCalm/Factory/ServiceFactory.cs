@@ -38,6 +38,8 @@ namespace Factory
             services.AddScoped<ISessionLogic, SessionLogics>();
             services.AddScoped<IAdministratorLogicAdapter, AdministratorLogicAdapter>();
             services.AddScoped<IAdministratorLogic, AdministratorLogic>();
+            services.AddScoped<IConsultationLogicAdapter, ConsultationLogicAdapter>();
+            services.AddScoped<IConsultationLogic, ConsultationLogic>();
         }
         public void AddDbContextService()
         {
