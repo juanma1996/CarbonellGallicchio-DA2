@@ -17,7 +17,9 @@ namespace SessionLogicTests
             string token = new Guid().ToString();
             Mock<IRepository<Session>> mock = new Mock<IRepository<Session>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(s => s.Token == Guid.Parse(token))).Returns(true);
-            SessionLogics sessionLogic = new SessionLogics(mock.Object);
+            Mock<IRepository<Administrator>> mockAdministrator = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mockAdministrator.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(It.IsAny<Administrator>);
+            SessionLogics sessionLogic = new SessionLogics(mock.Object, mockAdministrator.Object);
 
             bool result = sessionLogic.IsValidToken(token);
 
@@ -31,7 +33,9 @@ namespace SessionLogicTests
             string token = new Guid().ToString();
             Mock<IRepository<Session>> mock = new Mock<IRepository<Session>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(s => s.Token == Guid.Parse(token))).Returns(false);
-            SessionLogics sessionLogic = new SessionLogics(mock.Object);
+            Mock<IRepository<Administrator>> mockAdministrator = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mockAdministrator.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(It.IsAny<Administrator>);
+            SessionLogics sessionLogic = new SessionLogics(mock.Object, mockAdministrator.Object);
 
             bool result = sessionLogic.IsValidToken(token);
 
@@ -45,7 +49,9 @@ namespace SessionLogicTests
             string token = "not guid";
             Mock<IRepository<Session>> mock = new Mock<IRepository<Session>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(It.IsAny<Expression<Func<Session, bool>>>())).Returns(false);
-            SessionLogics sessionLogic = new SessionLogics(mock.Object);
+            Mock<IRepository<Administrator>> mockAdministrator = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mockAdministrator.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(It.IsAny<Administrator>);
+            SessionLogics sessionLogic = new SessionLogics(mock.Object, mockAdministrator.Object);
 
             bool result = sessionLogic.IsValidToken(token);
 
@@ -64,7 +70,9 @@ namespace SessionLogicTests
             };
             Mock<IRepository<Session>> mock = new Mock<IRepository<Session>>(MockBehavior.Strict);
             mock.Setup(m => m.Add(It.IsAny<Session>())).Returns(sessionToReturn);
-            SessionLogics sessionLogic = new SessionLogics(mock.Object);
+            Mock<IRepository<Administrator>> mockAdministrator = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mockAdministrator.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(It.IsAny<Administrator>);
+            SessionLogics sessionLogic = new SessionLogics(mock.Object, mockAdministrator.Object);
 
             Session result = sessionLogic.Add(email, password);
 
@@ -90,8 +98,10 @@ namespace SessionLogicTests
                 Administrator = admin
             };
             Mock<IRepository<Session>> mock = new Mock<IRepository<Session>>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(sessionToReturn)).Returns(sessionToReturn);
-            SessionLogics sessionLogic = new SessionLogics(mock.Object);
+            mock.Setup(m => m.Add(It.IsAny<Session>())).Returns(sessionToReturn);
+            Mock<IRepository<Administrator>> mockAdministrator = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mockAdministrator.Setup(m => m.Get(a => a.Email == email && a.Password == password)).Returns(admin);
+            SessionLogics sessionLogic = new SessionLogics(mock.Object, mockAdministrator.Object);
 
             Session result = sessionLogic.Add(email, password);
 
