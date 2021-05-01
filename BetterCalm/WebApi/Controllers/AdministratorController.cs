@@ -62,6 +62,10 @@ namespace WebApi.Controllers
                 administratorDomainToModelAdapter.Update(administratorModel);
                 return NoContent();
             }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
             catch (NullObjectMappingException e)
             {
                 return NotFound(e);
