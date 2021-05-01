@@ -158,6 +158,21 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        public void TestDeleteAdministratorNotFound()
+        {
+            int administratorId = 1;
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Delete(administratorId)).Throws(new ArgumentException());
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var response = controller.DeleteById(administratorId);
+            var result = response as ObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(404, result.StatusCode);
+        }
+
+        [TestMethod]
         public void TestUpdateAdministratorOk()
         {
             AdministratorModel administratorModel = new AdministratorModel
