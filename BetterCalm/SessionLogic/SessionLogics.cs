@@ -30,5 +30,10 @@ namespace SessionLogic
             Guid guidOutput;
             return Guid.TryParse(token,out guidOutput);
         }
+
+        public Session Add(string email, string password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

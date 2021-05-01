@@ -51,5 +51,25 @@ namespace SessionLogicTests
 
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void TestLogInCorrectly()
+        {
+            string email = "oneMail@gmail.com";
+            string password = "onePassword";
+            Guid tokenToReturn = Guid.NewGuid();
+            Session sessionToReturn = new Session
+            {
+                Token = tokenToReturn
+            };
+            Mock<IRepository<Session>> mock = new Mock<IRepository<Session>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Session>())).Returns(sessionToReturn);
+            SessionLogics sessionLogic = new SessionLogics(mock.Object);
+
+            Session result = sessionLogic.Add(email, password);
+
+            mock.VerifyAll();
+            Assert.AreEqual(tokenToReturn, result.Token);
+        }
     }
 }
