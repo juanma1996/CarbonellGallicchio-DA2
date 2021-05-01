@@ -44,8 +44,15 @@ namespace WebApi.Controllers
 
         public IActionResult DeleteById(int administratorId)
         {
-            administratorDomainToModelAdapter.Delete(administratorId);
-            return NoContent();
+            try
+            {
+                administratorDomainToModelAdapter.Delete(administratorId);
+                return NoContent();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e);
+            }
         }
 
         public IActionResult Update(AdministratorModel administratorModel)
