@@ -62,7 +62,7 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult Update([FromBody] PsychologistModel psychologistModel)
         {
             try
