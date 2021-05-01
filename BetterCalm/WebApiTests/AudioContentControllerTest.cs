@@ -98,7 +98,6 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdateAudioContentOk()
         {
-            int audioContentId = 1;
             AudioContentModel audioContentModel = new AudioContentModel()
             {
                 Name = "Canción",
@@ -122,10 +121,10 @@ namespace WebApiTests
                 },
             };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.UpdateById(It.IsAny<int>(), It.IsAny<AudioContentModel>()));
+            mock.Setup(m => m.Update(It.IsAny<AudioContentModel>()));
             AudioContentController controller = new AudioContentController(mock.Object);
 
-            var response = controller.Update(audioContentId, audioContentModel);
+            var response = controller.Update(audioContentModel);
             var statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -200,7 +199,6 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdateAudioContentNotExistentId()
         {
-            int audioContentId = 1;
             AudioContentModel audioContentModel = new AudioContentModel()
             {
                 Name = "Canción",
@@ -224,10 +222,10 @@ namespace WebApiTests
                 },
             };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.UpdateById(It.IsAny<int>(), It.IsAny<AudioContentModel>())).Throws(new NullObjectMappingException("Not found object"));
+            mock.Setup(m => m.Update(It.IsAny<AudioContentModel>())).Throws(new NullObjectMappingException("Not found object"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
-            var result = controller.Update(audioContentId, audioContentModel);
+            var result = controller.Update(audioContentModel);
             var objectResult = result as ObjectResult;
 
             mock.VerifyAll();
@@ -237,7 +235,6 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdateAudioContentNotValidName()
         {
-            int audioContentId = 1;
             AudioContentModel audioContentModel = new AudioContentModel()
             {
                 Name = "",
@@ -261,10 +258,10 @@ namespace WebApiTests
                 },
             };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.UpdateById(It.IsAny<int>(), It.IsAny<AudioContentModel>())).Throws(new ArgumentInvalidMappingException("Name is required"));
+            mock.Setup(m => m.Update(It.IsAny<AudioContentModel>())).Throws(new ArgumentInvalidMappingException("Name is required"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
-            var result = controller.Update(audioContentId, audioContentModel);
+            var result = controller.Update(audioContentModel);
             var objectResult = result as ObjectResult;
 
             mock.VerifyAll();

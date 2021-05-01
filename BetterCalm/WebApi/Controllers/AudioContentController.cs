@@ -57,11 +57,11 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{audioContentId}")]
-        public IActionResult Update(int audioContentId, AudioContentModel audioContentModel)
+        public IActionResult Update(AudioContentModel audioContentModel)
         {
             try
             {
-                audioContentLogicAdapter.UpdateById(audioContentId, audioContentModel);
+                audioContentLogicAdapter.Update(audioContentModel);
                 return NoContent();
             }
             catch (NullObjectMappingException e)
