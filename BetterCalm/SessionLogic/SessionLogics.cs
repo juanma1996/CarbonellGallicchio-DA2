@@ -33,7 +33,11 @@ namespace SessionLogic
 
         public Session Add(string email, string password)
         {
-            throw new NotImplementedException();
+            Session newSession = new Session()
+            {
+                Token = Guid.NewGuid()
+            };
+            return sessionRepository.Add(newSession);
         }
     }
 }
