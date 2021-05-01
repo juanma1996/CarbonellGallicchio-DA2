@@ -103,6 +103,46 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        public void TestPostAdministratorInvalidEmail()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "Juan",
+                Email = "",
+                Password = "Password01",
+            };
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new ArgumentException("Invalid Email"));
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var result = controller.Post(administratorModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
+
+        [TestMethod]
+        public void TestPostAdministratorInvalidPassword()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "",
+            };
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new ArgumentException("Invalid password"));
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var result = controller.Post(administratorModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
+
+        [TestMethod]
         public void TestDeleteAdministratorOk()
         {
             int administratorId = 1;
