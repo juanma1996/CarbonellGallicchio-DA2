@@ -19,7 +19,7 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
-        public void UpdateById(int audioContentModelId, AudioContentModel audioContentModel)
+        public void Update(AudioContentModel audioContentModel)
         {
             throw new NotImplementedException();
         }
