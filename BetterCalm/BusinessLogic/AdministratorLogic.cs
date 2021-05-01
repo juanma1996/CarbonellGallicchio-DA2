@@ -30,6 +30,7 @@ namespace BusinessLogic
         public void DeleteById(int administratorId)
         {
             Administrator administrator = administratorRepository.GetById(administratorId);
+            validation.Validate(administrator);
             administratorRepository.Delete(administrator);
         }
 
