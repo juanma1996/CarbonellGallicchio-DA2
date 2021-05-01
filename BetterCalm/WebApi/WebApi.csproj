@@ -24,6 +24,7 @@
     <ProjectReference Include="..\BusinessLogicInterface\BusinessLogicInterface.csproj" />
     <ProjectReference Include="..\Factory\Factory.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\SessionInterface\SessionInterface.csproj" />
   </ItemGroup>
 
   <ItemGroup>
