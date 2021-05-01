@@ -16,6 +16,7 @@ namespace WebApi.Controllers
             this.administratorDomainToModelAdapter = administratorDomainToModelAdapter;
         }
 
+        [HttpGet("{id}", Name = "GetAdministratorsById")]
         public IActionResult GetById(int administratorId)
         {
             try
@@ -29,7 +30,8 @@ namespace WebApi.Controllers
             }
         }
 
-        public IActionResult Post(AdministratorModel administratorModel)
+        [HttpPost]
+        public IActionResult Post([FromBody]AdministratorModel administratorModel)
         {
             try
             {
@@ -42,6 +44,7 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpDelete("{administratorId}")]
         public IActionResult DeleteById(int administratorId)
         {
             try
@@ -55,7 +58,8 @@ namespace WebApi.Controllers
             }
         }
 
-        public IActionResult Update(AdministratorModel administratorModel)
+        [HttpPut]
+        public IActionResult Update([FromBody]AdministratorModel administratorModel)
         {
             try
             {
