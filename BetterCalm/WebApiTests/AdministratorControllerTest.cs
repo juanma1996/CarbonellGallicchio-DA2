@@ -1,4 +1,5 @@
 ﻿using System;
+using AdapterExceptions;
 using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -36,6 +37,21 @@ namespace WebApiTests
             Assert.AreEqual(administratorToReturn.Name, administrator.Name);
             Assert.AreEqual(administratorToReturn.Email, administrator.Email);
             Assert.AreEqual(administratorToReturn.Password, administrator.Password);
+        }
+
+        [TestMethod]
+        public void TestGetAdministratorNotExistent()
+        {
+            var administratorId = 1;
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(administratorId)).Throws(new NullObjectMappingException("The Administrator doesn't exists"));
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var result = controller.GetById(administratorId);
+            var okResult = result as ObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(404, okResult.StatusCode);
         }
 
         [TestMethod]
