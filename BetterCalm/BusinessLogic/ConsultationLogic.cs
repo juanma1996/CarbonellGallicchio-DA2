@@ -15,7 +15,9 @@ namespace BusinessLogic
 
         public Psychologist Add(Consultation consultationModel)
         {
-            throw new NotImplementedException();
+            Consultation consultation = consultationRepository.Add(consultationModel);
+            Psychologist psychologist = consultation.Psychologist;
+            return psychologist;
         }
     }
 }
