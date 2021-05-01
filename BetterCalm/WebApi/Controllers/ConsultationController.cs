@@ -15,6 +15,7 @@ namespace WebApi.Controllers
             this.consultationDomainToModelAdapter = consultationDomainToModelAdapter;
         }
 
+        [HttpPost]
         public IActionResult Post(ConsultationModel consultationModel)
         {
             PsychologistBasicInfoModel psychologist = consultationDomainToModelAdapter.Add(consultationModel);
