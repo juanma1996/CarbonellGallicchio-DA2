@@ -47,7 +47,6 @@ namespace WebApiTests
         public void TestPostSessionEmailNotExistent()
         {
             string mail = "oneMail@gmail.com";
-            Guid token = Guid.NewGuid();
             SessionModel sessionModel = new SessionModel()
             {
                 Email = mail,
@@ -62,6 +61,26 @@ namespace WebApiTests
 
             mock.VerifyAll();
             Assert.AreEqual(404, objectResult.StatusCode);
+        }
+
+        [TestMethod]
+        public void TestPostSessionIncorrectPasswordForEmail()
+        {
+            string mail = "oneMail@gmail.com";
+            SessionModel sessionModel = new SessionModel()
+            {
+                Email = mail,
+                Password = "onePassword"
+            };
+            Mock<ISessionLogicAdapter> mock = new Mock<ISessionLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new ArgumentInvalidMappingException("Incorrect password for email"));
+            SessionController controller = new SessionController(mock.Object);
+
+            var result = controller.Post(sessionModel);
+            var objectResult = result as ObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, objectResult.StatusCode);
         }
     }
 }
