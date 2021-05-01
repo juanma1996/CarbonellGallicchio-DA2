@@ -63,11 +63,11 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update([FromRoute]int psychologistId,[FromBody] PsychologistModel psychologistModel)
+        public IActionResult Update([FromBody] PsychologistModel psychologistModel)
         {
             try
             {
-                psychologistDomainToModelAdapter.Update(psychologistId, psychologistModel);
+                psychologistDomainToModelAdapter.Update(psychologistModel);
                 return NoContent();
             }
             catch (ArgumentException e)

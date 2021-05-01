@@ -312,9 +312,9 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdatePsychologistOk()
         {
-            var psychologistId = 1;
             PsychologistModel psycologistModel = new PsychologistModel
             {
+                Id = 1,
                 Name = "Juan",
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
@@ -344,10 +344,10 @@ namespace WebApiTests
                 }
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>()));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>()));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var response = controller.Update(psychologistId, psycologistModel);
+            var response = controller.Update(psycologistModel);
             var statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -357,19 +357,19 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdatePsychologistNotFound()
         {
-            var psychologistId = 1;
             PsychologistModel psycologistModel = new PsychologistModel
             {
+                Id = 1,
                 Name = "Juan",
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new NullObjectMappingException("Unexistant psychologist"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new NullObjectMappingException("Unexistant psychologist"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var response = controller.Update(psychologistId, psycologistModel);
+            var response = controller.Update(psycologistModel);
             var okResult = response as ObjectResult;
 
             mock.VerifyAll();
@@ -379,19 +379,19 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdatePsychologistInvalidName()
         {
-            var psychologistId = 1;
             PsychologistModel psycologistModel = new PsychologistModel
             {
+                Id = 1,
                 Name = "",
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid name"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid name"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.Update(psychologistId, psycologistModel);
+            var result = controller.Update(psycologistModel);
             var badResult = result as BadRequestObjectResult;
 
             mock.VerifyAll();
@@ -401,19 +401,19 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdatePsychologistInvalidDirection()
         {
-            var psychologistId = 1;
             PsychologistModel psycologistModel = new PsychologistModel
             {
+                Id = 1,
                 Name = "Juan",
                 Direction = "",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid direction"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid direction"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.Update(psychologistId, psycologistModel);
+            var result = controller.Update(psycologistModel);
             var badResult = result as BadRequestObjectResult;
 
             mock.VerifyAll();
@@ -423,19 +423,19 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdatePsychologistInvalidConsultationMode()
         {
-            var psychologistId = 1;
             PsychologistModel psycologistModel = new PsychologistModel
             {
+                Id = 1,
                 Name = "Juan",
                 Direction = "Rio Negro",
                 ConsultationMode = "",
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid conultation mode"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid conultation mode"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.Update(psychologistId, psycologistModel);
+            var result = controller.Update(psycologistModel);
             var badResult = result as BadRequestObjectResult;
 
             mock.VerifyAll();
@@ -445,19 +445,19 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdatePsychologistNoProblematics()
         {
-            var psychologistId = 1;
             PsychologistModel psycologistModel = new PsychologistModel
             {
+                Id = 1,
                 Name = "Juan",
                 Direction = "Rio negro",
                 ConsultationMode = "Presencial",
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<int>(), It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException());
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException());
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.Update(psychologistId, psycologistModel);
+            var result = controller.Update(psycologistModel);
             var badResult = result as BadRequestObjectResult;
 
             mock.VerifyAll();

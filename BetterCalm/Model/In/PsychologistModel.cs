@@ -7,6 +7,7 @@ namespace Model.In
 {
     public class PsychologistModel
     {
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
