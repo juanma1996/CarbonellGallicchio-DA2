@@ -1,4 +1,5 @@
-﻿using AdapterInterface;
+﻿using AdapterExceptions;
+using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
@@ -40,6 +41,27 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(sessionToReturn.Email, sessionBasicInfoModel.Email);
             Assert.AreEqual(sessionToReturn.Token, sessionBasicInfoModel.Token);
+        }
+
+        [TestMethod]
+        public void TestPostSessionEmailNotExistent()
+        {
+            string mail = "oneMail@gmail.com";
+            Guid token = Guid.NewGuid();
+            SessionModel sessionModel = new SessionModel()
+            {
+                Email = mail,
+                Password = "onePassword"
+            };
+            Mock<ISessionLogicAdapter> mock = new Mock<ISessionLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new NullObjectMappingException("Email not registered"));
+            SessionController controller = new SessionController(mock.Object);
+
+            var result = controller.Post(sessionModel);
+            var objectResult = result as ObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(404, objectResult.StatusCode);
         }
     }
 }
