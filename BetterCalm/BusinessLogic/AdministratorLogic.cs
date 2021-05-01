@@ -45,5 +45,10 @@ namespace BusinessLogic
                 administratorRepository.Update(administratorModel);
             }
         }
+
+        public Administrator GetByEmailAndPassword(string email, string password)
+        {
+            return administratorRepository.Get(a => a.Email == email && a.Password == password);
+        }
     }
 }

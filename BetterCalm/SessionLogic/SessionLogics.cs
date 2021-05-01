@@ -1,4 +1,5 @@
-﻿using DataAccessInterface;
+﻿using BusinessLogicInterface;
+using DataAccessInterface;
 using Domain;
 using SessionInterface;
 using System;
@@ -8,12 +9,12 @@ namespace SessionLogic
     public class SessionLogics : ISessionLogic
     {
         private readonly IRepository<Session> sessionRepository;
-        private readonly IRepository<Administrator> administratorRepository;
+        private readonly IAdministratorLogic administratorLogic;
 
-        public SessionLogics(IRepository<Session> sessionRepository, IRepository<Administrator> administratorRepository)
+        public SessionLogics(IRepository<Session> sessionRepository, IAdministratorLogic administratorLogic)
         {
             this.sessionRepository = sessionRepository;
-            this.administratorRepository = administratorRepository;
+            this.administratorLogic = administratorLogic;
         }
 
         public bool IsValidToken(string token)
@@ -35,18 +36,13 @@ namespace SessionLogic
 
         public Session Add(string email, string password)
         {
-            Administrator admin = GetByEmailAndPassword(email, password);
+            Administrator admin = administratorLogic.GetByEmailAndPassword(email, password);
             Session newSession = new Session()
             {
                 Token = Guid.NewGuid(),
                 Administrator = admin
             };
             return sessionRepository.Add(newSession);
-        }
-
-        private Administrator GetByEmailAndPassword(string email, string password)
-        {
-            return administratorRepository.Get(a => a.Email == email && a.Password == password);
         }
     }
 }

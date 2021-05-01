@@ -9,5 +9,6 @@ namespace BusinessLogicInterface
         Administrator Add(Administrator administrator);
         void DeleteById(int administratorId);
         void Update(Administrator administratorModel);
+        Administrator GetByEmailAndPassword(string email, string password);
     }
 }
