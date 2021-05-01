@@ -1,5 +1,6 @@
 ﻿using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,11 @@ namespace WebApi.Controllers
             this.sessionLogicAdapter = sessionLogicAdapter;
         }
 
-        public object Post(SessionModel sessionModel)
+        [HttpPost]
+        public IActionResult Post(SessionModel sessionModel)
         {
-            throw new NotImplementedException();
+            var sessionCreated = sessionLogicAdapter.Add(sessionModel);
+            return CreatedAtRoute("", sessionCreated);
         }
     }
 }
