@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Filters;
 
 namespace BetterCalm
 {
@@ -28,8 +29,9 @@ namespace BetterCalm
         {
             services.AddControllers();
             ServiceFactory serviceFactory = new ServiceFactory(services);
-            serviceFactory.AddCustomServices();
             serviceFactory.AddDbContextService();
+            serviceFactory.AddCustomServices();
+            services.AddScoped<AuthorizationAttributeFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

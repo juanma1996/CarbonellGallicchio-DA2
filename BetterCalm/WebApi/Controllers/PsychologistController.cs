@@ -5,6 +5,7 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
@@ -29,7 +30,7 @@ namespace WebApi.Controllers
                 return NotFound(e);
             }
         }
-
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPost]
         public IActionResult Post(PsychologistModel psycologistIn)
         {
@@ -47,7 +48,7 @@ namespace WebApi.Controllers
                 return this.BadRequest(e.Message);
             }
         }
-
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpDelete("{id}")]
         public IActionResult DeleteById(int psychologistId)
         {
@@ -61,7 +62,7 @@ namespace WebApi.Controllers
                 return NotFound(e);
             }
         }
-
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPut]
         public IActionResult Update([FromBody] PsychologistModel psychologistModel)
         {
@@ -74,7 +75,7 @@ namespace WebApi.Controllers
             {
                 return this.BadRequest(e.Message);
             }
-            catch(AmountOfProblematicsException e)
+            catch (AmountOfProblematicsException e)
             {
                 return this.BadRequest(e.Message);
             }

@@ -3,6 +3,7 @@ using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
@@ -28,6 +29,7 @@ namespace WebApi.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPost]
         public IActionResult Post([FromBody] AudioContentModel audioContentModel)
         {
@@ -41,7 +43,7 @@ namespace WebApi.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpDelete("{audioContentId}")]
         public IActionResult DeleteById(int audioContentId)
         {
@@ -55,7 +57,7 @@ namespace WebApi.Controllers
                 return NotFound(e.Message);
             }
         }
-
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPut]
         public IActionResult Update(AudioContentModel audioContentModel)
         {

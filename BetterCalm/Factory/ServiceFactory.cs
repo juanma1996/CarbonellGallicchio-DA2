@@ -8,6 +8,8 @@ using DataAccess.Repositories;
 using DataAccessInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using SessionInterface;
+using SessionLogic;
 
 namespace Factory
 {
@@ -33,6 +35,7 @@ namespace Factory
             services.AddScoped<IPsychologistLogic, PsychologistLogic>();
             services.AddScoped<IProblematicLogic, ProblematicLogic>();
             services.AddScoped<IProblematicLogicAdapter, ProblematicLogicAdapter>();
+            services.AddScoped<ISessionLogic, SessionLogics>();
             services.AddScoped<IAdministratorLogicAdapter, AdministratorLogicAdapter>();
             services.AddScoped<IAdministratorLogic, AdministratorLogic>();
         }

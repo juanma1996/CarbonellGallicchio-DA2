@@ -12,8 +12,8 @@ namespace DataAccess.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly BetterCalmContext context;
-        public Repository(BetterCalmContext context)
+        private readonly DbContext context;
+        public Repository(DbContext context)
         {
             this.context = context;
         }

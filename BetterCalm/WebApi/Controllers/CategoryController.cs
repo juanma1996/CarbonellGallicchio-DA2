@@ -1,10 +1,7 @@
 ﻿using AdapterExceptions;
 using AdapterInterface;
-using BusinessLogicInterface;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Model.Out;
-using System;
 using System.Collections.Generic;
 
 namespace BetterCalm.WebApi.Controllers
