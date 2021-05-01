@@ -57,8 +57,15 @@ namespace WebApi.Controllers
 
         public IActionResult Update(AdministratorModel administratorModel)
         {
-            administratorDomainToModelAdapter.Update(administratorModel);
-            return NoContent();
+            try
+            {
+                administratorDomainToModelAdapter.Update(administratorModel);
+                return NoContent();
+            }
+            catch (NullObjectMappingException e)
+            {
+                return NotFound(e);
+            }
         }
     }
 }
