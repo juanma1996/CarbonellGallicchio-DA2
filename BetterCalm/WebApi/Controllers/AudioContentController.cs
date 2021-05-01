@@ -1,10 +1,11 @@
 ﻿using AdapterExceptions;
 using AdapterInterface;
+using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using WebApi.Filters;
 
-namespace BetterCalm.WebApi.Controllers
+namespace WebApi.Controllers
 {
     public class AudioContentController : BetterCalmControllerBase
     {
