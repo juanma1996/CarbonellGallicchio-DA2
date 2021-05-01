@@ -36,7 +36,14 @@ namespace BusinessLogic
 
         public void Update(Administrator administratorModel)
         {
-            administratorRepository.Update(administratorModel);
+            if (!administratorRepository.Exists(a => a.Id == administratorModel.Id))
+            {
+                validation.NullObjectException();
+            }
+            else
+            {
+                administratorRepository.Update(administratorModel);
+            }
         }
     }
 }

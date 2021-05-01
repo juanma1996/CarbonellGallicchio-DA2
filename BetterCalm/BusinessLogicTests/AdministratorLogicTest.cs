@@ -115,6 +115,29 @@ namespace BusinessLogicTests
                 Password = "Password01",
             };
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.Exists(a => a.Id == administratorModel.Id)).Returns(true);
+            mock.Setup(m => m.Update(administratorModel));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+
+            administratorLogic.Update(administratorModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestUpdateAdministratorNotExistent()
+        {
+            var administratorId = 1;
+            Administrator administratorModel = new Administrator
+            {
+                Id = administratorId,
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.Exists(a => a.Id == administratorModel.Id)).Returns(false);
             mock.Setup(m => m.Update(administratorModel));
             AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
 
