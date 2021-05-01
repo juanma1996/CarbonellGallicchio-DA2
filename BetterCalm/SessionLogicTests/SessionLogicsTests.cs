@@ -1,3 +1,4 @@
+using BusinessExceptions;
 using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
@@ -108,6 +109,64 @@ namespace SessionLogicTests
 
             mock.VerifyAll();
             Assert.AreEqual(admin.Id, result.Administrator.Id);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestLogInNotExistAdministratorWithEmail()
+        {
+            string email = "oneMail@gmail.com";
+            string password = "onePassword";
+            Guid tokenToReturn = Guid.NewGuid();
+            Administrator admin = new Administrator()
+            {
+                Id = 1,
+                Email = email,
+                Password = password
+            };
+            Session sessionToReturn = new Session
+            {
+                Token = tokenToReturn,
+                Administrator = admin
+            };
+            Mock<IRepository<Session>> mock = new Mock<IRepository<Session>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Session>())).Returns(sessionToReturn);
+            Mock<IAdministratorLogic> mockAdministrator = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdministrator.Setup(m => m.GetByEmailAndPassword(email, password)).Throws(new NullObjectException("Email not registered"));
+            SessionLogics sessionLogic = new SessionLogics(mock.Object, mockAdministrator.Object);
+
+            Session result = sessionLogic.Add(email, password);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestLogInNotValidPasswordforEmail()
+        {
+            string email = "oneMail@gmail.com";
+            string password = "onePassword";
+            Guid tokenToReturn = Guid.NewGuid();
+            Administrator admin = new Administrator()
+            {
+                Id = 1,
+                Email = email,
+                Password = password
+            };
+            Session sessionToReturn = new Session
+            {
+                Token = tokenToReturn,
+                Administrator = admin
+            };
+            Mock<IRepository<Session>> mock = new Mock<IRepository<Session>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Session>())).Returns(sessionToReturn);
+            Mock<IAdministratorLogic> mockAdministrator = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdministrator.Setup(m => m.GetByEmailAndPassword(email, password)).Throws(new NullObjectException("Password not valid for email"));
+            SessionLogics sessionLogic = new SessionLogics(mock.Object, mockAdministrator.Object);
+
+            Session result = sessionLogic.Add(email, password);
+
+            mock.VerifyAll();
         }
     }
 }
