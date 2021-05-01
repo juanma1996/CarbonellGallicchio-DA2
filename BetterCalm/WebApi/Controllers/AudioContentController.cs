@@ -56,7 +56,7 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPut("{audioContentId}")]
+        [HttpPut]
         public IActionResult Update(AudioContentModel audioContentModel)
         {
             try
