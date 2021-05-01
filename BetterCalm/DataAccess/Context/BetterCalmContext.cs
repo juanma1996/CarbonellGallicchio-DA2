@@ -95,6 +95,15 @@ namespace DataAccess.Context
             modelBuilder.Entity<PsychologistProblematic>().HasKey(pp => new { pp.PsychologistId, pp.ProblematicId});
             modelBuilder.Entity<PsychologistProblematic>().HasOne(p => p.Psychologist).WithMany(pr =>pr.Problematics).HasForeignKey(sc => sc.PsychologistId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<PsychologistProblematic>().HasOne(p => p.Problematic).WithMany(pr => pr.Psychologists).HasForeignKey(sc => sc.ProblematicId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Consultation>().ToTable("Consultations");
+            modelBuilder.Entity<Consultation>().HasKey(p => p.Id);
+            modelBuilder.Entity<Consultation>().Property(p => p.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Consultation>().HasOne(p => p.Psychologist);
+            modelBuilder.Entity<Consultation>().HasOne(p => p.Pacient);
+
+            modelBuilder.Entity<Pacient>().ToTable("Pacients");
+            modelBuilder.Entity<Pacient>().HasKey(p => p.Id);
         }
     }
 }
