@@ -192,5 +192,26 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestUpdateAdministratorNotFound()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Id = 1,
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new NullObjectMappingException("The Administrator doesn't exists"));
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var response = controller.Update(administratorModel);
+            var result = response as ObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(404, result.StatusCode);
+        }
     }
 }
