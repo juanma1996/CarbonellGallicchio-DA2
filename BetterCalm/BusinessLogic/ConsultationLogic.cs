@@ -8,16 +8,18 @@ namespace BusinessLogic
     public class ConsultationLogic : IConsultationLogic
     {
         private readonly IRepository<Consultation> consultationRepository;
-        public ConsultationLogic(IRepository<Consultation> consultationRepository)
+        private readonly IPsychologistLogic psychologistLogic;
+        public ConsultationLogic(IRepository<Consultation> consultationRepository, IPsychologistLogic psychologistLogic)
         {
             this.consultationRepository = consultationRepository;
+            this.psychologistLogic = psychologistLogic;
         }
 
         public Psychologist Add(Consultation consultationModel)
         {
+            consultationModel.Psychologist = psychologistLogic.GetAvailableByProblematicId(consultationModel.ProblematicId);
             Consultation consultation = consultationRepository.Add(consultationModel);
-            Psychologist psychologist = consultation.Psychologist;
-            return psychologist;
+            return consultation.Psychologist;
         }
     }
 }

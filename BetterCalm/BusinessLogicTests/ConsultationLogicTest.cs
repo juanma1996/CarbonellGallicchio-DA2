@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLogic;
+using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,7 +15,6 @@ namespace BusinessLogicTests
         public void TestAddConsultationOk()
         {
             var problematicId = 1;
-
             Consultation consultationModel = new Consultation
             {
                 ProblematicId = problematicId,
@@ -69,7 +69,9 @@ namespace BusinessLogicTests
             //Add pacient to repository.
             Mock<IRepository<Consultation>> mock = new Mock<IRepository<Consultation>>(MockBehavior.Strict);
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
-            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object);
+            Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            psychologistMock.Setup(p => p.GetAvailableByProblematicId(problematicId)).Returns(psychologist);
+            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
 
             Psychologist returnedPsychologist = consultationLogic.Add(consultationModel);
 

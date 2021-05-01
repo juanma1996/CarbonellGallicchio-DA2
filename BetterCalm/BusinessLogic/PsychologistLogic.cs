@@ -45,5 +45,10 @@ namespace BusinessLogic
                 psychologistRepository.Update(psychologist);
             }
         }
+
+        public Psychologist GetAvailableByProblematicId(int problematicId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

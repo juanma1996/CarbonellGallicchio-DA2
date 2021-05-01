@@ -9,5 +9,6 @@ namespace BusinessLogicInterface
         Psychologist Add(Psychologist psycologist);
         void DeleteById(int psychologistId);
         void Update(Psychologist psycologist);
+        Psychologist GetAvailableByProblematicId(int problematicId);
     }
 }
