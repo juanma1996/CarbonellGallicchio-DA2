@@ -1,8 +1,10 @@
 ﻿using System;
+using AdapterExceptions;
 using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
+using Model.Out;
 
 namespace WebApi.Controllers
 {
@@ -16,7 +18,15 @@ namespace WebApi.Controllers
 
         public IActionResult GetById(int administratorId)
         {
-            return Ok(administratorDomainToModelAdapter.GetById(administratorId));
+            try
+            {
+                AdministratorBasicInfoModel administrator = administratorDomainToModelAdapter.GetById(administratorId);
+                return Ok(administrator);
+            }
+            catch (NullObjectMappingException e)
+            {
+                return NotFound(e);
+            }
         }
 
         public IActionResult Post(AdministratorModel administratorModel)
