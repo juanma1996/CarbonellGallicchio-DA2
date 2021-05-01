@@ -71,5 +71,32 @@ namespace SessionLogicTests
             mock.VerifyAll();
             Assert.AreEqual(tokenToReturn, result.Token);
         }
+
+        [TestMethod]
+        public void TestLogInCorrectlyGetAdminId()
+        {
+            string email = "oneMail@gmail.com";
+            string password = "onePassword";
+            Guid tokenToReturn = Guid.NewGuid();
+            Administrator admin = new Administrator()
+            {
+                Id = 1,
+                Email = email,
+                Password = password
+            };
+            Session sessionToReturn = new Session
+            {
+                Token = tokenToReturn,
+                Administrator = admin
+            };
+            Mock<IRepository<Session>> mock = new Mock<IRepository<Session>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(sessionToReturn)).Returns(sessionToReturn);
+            SessionLogics sessionLogic = new SessionLogics(mock.Object);
+
+            Session result = sessionLogic.Add(email, password);
+
+            mock.VerifyAll();
+            Assert.AreEqual(admin.Id, result.Administrator.Id);
+        }
     }
 }
