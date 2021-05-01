@@ -89,6 +89,21 @@ namespace BusinessLogicTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestDeleteAdministratorNotExistentId()
+        {
+            var administratorId = 1;
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(administratorId)).Returns((Administrator)null);
+            mock.Setup(m => m.Delete(It.IsAny<Administrator>()));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+
+            administratorLogic.DeleteById(administratorId);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
         public void TestUpdateAdministratorOk()
         {
             var administratorId = 1;
