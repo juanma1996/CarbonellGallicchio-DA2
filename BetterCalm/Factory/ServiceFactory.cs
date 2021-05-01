@@ -34,6 +34,7 @@ namespace Factory
             services.AddScoped<IProblematicLogic, ProblematicLogic>();
             services.AddScoped<IProblematicLogicAdapter, ProblematicLogicAdapter>();
             services.AddScoped<IAdministratorLogicAdapter, AdministratorLogicAdapter>();
+            services.AddScoped<IAdministratorLogic, AdministratorLogic>();
         }
         public void AddDbContextService()
         {
