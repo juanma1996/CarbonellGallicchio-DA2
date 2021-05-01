@@ -213,5 +213,25 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(404, result.StatusCode);
         }
+
+        [TestMethod]
+        public void TestUpdateAdministratorInvalidName()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new ArgumentException("Invalid name"));
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var result = controller.Update(administratorModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        } 
     }
 }
