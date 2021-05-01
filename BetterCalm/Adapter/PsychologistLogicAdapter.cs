@@ -26,7 +26,7 @@ namespace Adapter
             throw new NotImplementedException();
         }
 
-        public void Update(int psychologistId, PsychologistModel psychologistModel)
+        public void Update(PsychologistModel psychologistModel)
         {
             throw new NotImplementedException();
         }
