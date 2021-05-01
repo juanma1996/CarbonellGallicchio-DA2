@@ -101,5 +101,24 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(400, objectResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestPostSessionEmptyPassword()
+        {
+            SessionModel sessionModel = new SessionModel()
+            {
+                Email = "oneMail@gmail.com",
+                Password = ""
+            };
+            Mock<ISessionLogicAdapter> mock = new Mock<ISessionLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new ArgumentInvalidMappingException("Password can't be null"));
+            SessionController controller = new SessionController(mock.Object);
+
+            var result = controller.Post(sessionModel);
+            var objectResult = result as ObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, objectResult.StatusCode);
+        }
     }
 }
