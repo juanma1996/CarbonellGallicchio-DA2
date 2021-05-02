@@ -38,10 +38,6 @@ namespace WebApi.Controllers
                 administratorDomainToModelAdapter.Add(administratorModel);
                 return NoContent();
             }
-            catch (ArgumentException e)
-            {
-                return BadRequest(e.Message);
-            }
             catch (ArgumentInvalidMappingException e)
             {
                 return BadRequest(e.Message);
@@ -56,7 +52,7 @@ namespace WebApi.Controllers
                 administratorDomainToModelAdapter.Delete(administratorId);
                 return NoContent();
             }
-            catch (ArgumentException e)
+            catch (ArgumentInvalidMappingException e)
             {
                 return NotFound(e);
             }
@@ -70,7 +66,7 @@ namespace WebApi.Controllers
                 administratorDomainToModelAdapter.Update(administratorModel);
                 return NoContent();
             }
-            catch (ArgumentException e)
+            catch (ArgumentInvalidMappingException e)
             {
                 return BadRequest(e.Message);
             }
