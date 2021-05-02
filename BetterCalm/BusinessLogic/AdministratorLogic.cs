@@ -24,6 +24,11 @@ namespace BusinessLogic
 
         public Administrator Add(Administrator administrator)
         {
+            if (administratorRepository.Exists(a => a.Email == administrator.Email))
+            {
+                validation.NullObjectException();
+            }
+
             return administratorRepository.Add(administrator);
         }
 

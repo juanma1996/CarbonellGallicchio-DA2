@@ -61,6 +61,7 @@ namespace BusinessLogicTests
             };
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(administrator);
+            mock.Setup(m => m.Exists(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(false);
             AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
 
             Administrator response = administratorLogic.Add(administrator);
@@ -212,6 +213,7 @@ namespace BusinessLogicTests
                 Password = "Password01",
             };
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.Exists(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(true);
             mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(administrator);
             AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
 
