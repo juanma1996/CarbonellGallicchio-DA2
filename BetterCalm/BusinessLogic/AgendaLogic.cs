@@ -29,5 +29,10 @@ namespace BusinessLogic
             };
             return agendaRepository.Add(newAgenda);
         }
+
+        public void Update(Agenda agendaToUse)
+        {
+            agendaRepository.Update(agendaToUse);
+        }
     }
 }

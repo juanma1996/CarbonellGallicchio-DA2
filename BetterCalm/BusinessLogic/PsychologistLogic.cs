@@ -11,10 +11,12 @@ namespace BusinessLogic
     {
         private readonly IRepository<Psychologist> psychologistRepository;
         private readonly Validation validation = new Validation();
+        private readonly IAgendaLogic agendaLogic;
 
-        public PsychologistLogic(IRepository<Psychologist> psychologistRepository)
+        public PsychologistLogic(IRepository<Psychologist> psychologistRepository, IAgendaLogic agendaLogic)
         {
             this.psychologistRepository = psychologistRepository;
+            this.agendaLogic = agendaLogic;
         }
 
         public Psychologist GetById(int psychologistId)
@@ -61,7 +63,30 @@ namespace BusinessLogic
 
         public Psychologist GetAvailableByProblematicIdAndDate(int problematicId, DateTime date)
         {
-            throw new NotImplementedException();
+            List<Agenda> agendas = new List<Agenda>();
+            List<Psychologist> psychologists = GetAvailablesByProblematicId(problematicId);
+            while (agendas.Count > 0)
+            {
+                if (date.DayOfWeek != DayOfWeek.Sunday && date.DayOfWeek != DayOfWeek.Saturday)
+                {
+                    psychologists.ForEach(item =>
+                            {
+                                Agenda agenda = agendaLogic.GetAgendaByPsychologistIdAndDate(item.Id, date);
+                                if (agenda is null)
+                                {
+                                    agenda = agendaLogic.Add(item.Id, date);
+                                }
+                                if (agenda.IsAvaible)
+                                {
+                                    agendas.Add(agenda);
+                                }
+                            }); 
+                }
+                date = date.AddDays(1);
+            }
+            Agenda agendaToUse = agendas.OrderBy(a => a.Psychologist.CreationDate).First();
+            agendaLogic.Update(agendaToUse);
+            return agendaToUse.Psychologist;
         }
     }
 }
