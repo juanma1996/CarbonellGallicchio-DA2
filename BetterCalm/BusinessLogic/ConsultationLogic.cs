@@ -17,7 +17,7 @@ namespace BusinessLogic
 
         public Psychologist Add(Consultation consultationModel)
         {
-            consultationModel.Psychologist = psychologistLogic.GetAvailableByProblematicId(consultationModel.ProblematicId);
+            consultationModel.Psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(consultationModel.ProblematicId, DateTime.Now);
             Consultation consultation = consultationRepository.Add(consultationModel);
             return consultation.Psychologist;
         }
