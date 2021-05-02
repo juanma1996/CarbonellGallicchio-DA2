@@ -21,6 +21,7 @@ namespace Adapter.Mapper
                 mapper.AddProfile<ProblematicProfile>();
                 mapper.AddProfile<ConsultationProfile>();
                 mapper.AddProfile<PsychologistProfile>();
+                mapper.AddProfile<AudioContentProfile>();
             });
 
             return config.CreateMapper();
