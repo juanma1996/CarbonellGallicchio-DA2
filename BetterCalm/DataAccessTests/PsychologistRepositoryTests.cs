@@ -196,5 +196,62 @@ namespace DataAccessTests
             Boolean result = psychologistRepository.Exists(p => p.Id == psychologistId);
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void TestGetAvailableByProblematicIdTwoOptions()
+        {
+            var problematicId = 1;
+            Problematic problematic = new Problematic
+            {
+                Id = problematicId,
+                Name = "Depresion",
+            };
+            this.context.Add(problematic);
+            this.context.SaveChanges();
+            Psychologist antiquePsychologist = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(1999, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            context.Add(antiquePsychologist);
+            context.SaveChanges();
+            Psychologist newerPsychologist = new Psychologist
+            {
+                Id = 2,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            context.Add(newerPsychologist);
+            context.SaveChanges();
+            IRepository<PsychologistProblematic> psychologistRepository = new Repository<PsychologistProblematic>(context);
+
+            Psychologist psychologist = psychologistRepository.GetAll(p => p.ProblematicId == problematicId).OrderBy(p => p.Psychologist.CreationDate).First().Psychologist;
+
+            Assert.AreEqual(antiquePsychologist.Id, psychologist.Id);
+            Assert.AreEqual(antiquePsychologist.Name, psychologist.Name);
+            Assert.AreEqual(antiquePsychologist.Direction, psychologist.Direction);
+            Assert.AreEqual(antiquePsychologist.ConsultationMode, psychologist.ConsultationMode);
+            Assert.AreEqual(antiquePsychologist.CreationDate, psychologist.CreationDate);
+            Assert.IsTrue(psychologist.Problematics.Exists(p => p.ProblematicId == problematicId));
+        }
     }
 }

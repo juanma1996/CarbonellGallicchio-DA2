@@ -24,6 +24,7 @@ namespace BusinessLogic
 
         public Psychologist Add(Psychologist psycologist)
         {
+            psycologist.CreationDate = DateTime.Today;
             return psychologistRepository.Add(psycologist);
         }
 
@@ -48,7 +49,7 @@ namespace BusinessLogic
 
         public Psychologist GetAvailableByProblematicId(int problematicId)
         {
-            throw new NotImplementedException();
+            return psychologistRepository.Get(p => p.Problematics.Exists(pr => pr.ProblematicId == problematicId));
         }
     }
 }
