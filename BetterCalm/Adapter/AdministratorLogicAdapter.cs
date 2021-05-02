@@ -1,5 +1,11 @@
 ﻿using System;
+using Adapter.Mapper;
+using AdapterExceptions;
 using AdapterInterface;
+using AutoMapper;
+using BusinessExceptions;
+using BusinessLogicInterface;
+using Domain;
 using Model.In;
 using Model.Out;
 
@@ -7,28 +13,35 @@ namespace Adapter
 {
     public class AdministratorLogicAdapter : IAdministratorLogicAdapter
     {
-        public AdministratorLogicAdapter()
+        private readonly IAdministratorLogic administratorLogic;
+        private readonly IMapper mapper;
+        public AdministratorLogicAdapter(IAdministratorLogic administratorLogic, IModelMapper mapper)
         {
+            this.administratorLogic = administratorLogic;
+            this.mapper = mapper.Configure();
         }
 
         public AdministratorBasicInfoModel GetById(int administratorId)
         {
-            throw new NotImplementedException();
+            Administrator administrator = administratorLogic.GetById(administratorId);
+            return mapper.Map<AdministratorBasicInfoModel>(administrator);
         }
 
         public void Add(AdministratorModel administrator)
         {
-            throw new NotImplementedException();
+            Administrator administratorIn = mapper.Map<Administrator>(administrator);
+            administratorLogic.Add(administratorIn);
         }
 
         public void Delete(int administratorId)
         {
-            throw new NotImplementedException();
+            administratorLogic.DeleteById(administratorId);
         }
 
         public void Update(AdministratorModel administrator)
         {
-            throw new NotImplementedException();
+            Administrator administratorToUpdate = mapper.Map<Administrator>(administrator);
+            administratorLogic.Update(administratorToUpdate);
         }
     }
 }
