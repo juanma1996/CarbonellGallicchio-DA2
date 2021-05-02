@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Adapter.Mapper.Profiles;
+using AutoMapper;
 using Domain;
 using Model.Out;
 using System;
@@ -15,6 +16,9 @@ namespace Adapter.Mapper
             {
                 mapper.CreateMap<Category, CategoryBasicInfoModel>();
                 mapper.CreateMap<Playlist, PlaylistBasicInfoModel>();
+                mapper.AddProfile<PacientProfile>();
+                mapper.AddProfile<AdministratorProfile>();
+                mapper.AddProfile<ProblematicProfile>();
             });
 
             return config.CreateMapper();
