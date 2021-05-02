@@ -273,5 +273,25 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(400, badResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestPostAdministratorEmailAlreadyExistant()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "Juan",
+                Email = "oneMail@gmail.com",
+                Password = "Password01",
+            };
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new ArgumentInvalidMappingException("Email already exists"));
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var result = controller.Post(administratorModel);
+            var badResult = result as BadRequestObjectResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(400, badResult.StatusCode);
+        }
     }
 }
