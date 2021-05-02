@@ -24,6 +24,11 @@ namespace BusinessLogic
 
         public Administrator Add(Administrator administrator)
         {
+            if (administratorRepository.Exists(a => a.Email == administrator.Email))
+            {
+                validation.NullObjectException();
+            }
+
             return administratorRepository.Add(administrator);
         }
 
@@ -48,7 +53,9 @@ namespace BusinessLogic
 
         public Administrator GetByEmailAndPassword(string email, string password)
         {
-            return administratorRepository.Get(a => a.Email == email && a.Password == password);
+            Administrator administrator = administratorRepository.Get(a => a.Email == email && a.Password == password);
+            validation.Validate(administrator);
+            return administrator;
         }
     }
 }
