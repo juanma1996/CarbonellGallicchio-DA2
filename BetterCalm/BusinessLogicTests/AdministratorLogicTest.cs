@@ -170,5 +170,20 @@ namespace BusinessLogicTests
             Assert.AreEqual(administratorToReturn.Email, result.Email);
             Assert.AreEqual(administratorToReturn.Password, result.Password);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestGetAdministratorByNotExistantEmail()
+        {
+            string email = "Juan@gmail.com";
+            string password = "Password01";
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns((Administrator)null);
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+
+            Administrator result = administratorLogic.GetByEmailAndPassword(email, password);
+
+            mock.VerifyAll();
+        }
     }
 }
