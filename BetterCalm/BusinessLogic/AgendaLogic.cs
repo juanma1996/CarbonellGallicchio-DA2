@@ -38,6 +38,7 @@ namespace BusinessLogic
         public Agenda Assign(Agenda agendaToReturn)
         {
             agendaToReturn.Count++;
+            agendaToReturn.IsAvaible = agendaToReturn.Count < 5;
             return agendaToReturn;
         }
     }
