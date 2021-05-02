@@ -11,6 +11,7 @@ namespace BusinessLogicInterface
         void DeleteById(int psychologistId);
         void Update(Psychologist psycologist);
         Psychologist GetAvailableByProblematicId(int problematicId);
-        List<Psychologist> GetAvailablesByProblematicId(int problematicId);
+        List<Psychologist> GetAllByProblematicId(int problematicId);
+        Psychologist GetAvailableByProblematicIdAndDate(int problematicId, DateTime date);
     }
 }

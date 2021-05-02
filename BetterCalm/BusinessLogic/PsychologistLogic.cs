@@ -56,7 +56,7 @@ namespace BusinessLogic
             return psychologistRepository.Get(p => p.Problematics.Exists(pr => pr.ProblematicId == problematicId));
         }
 
-        public List<Psychologist> GetAvailablesByProblematicId(int problematicId)
+        public List<Psychologist> GetAllByProblematicId(int problematicId)
         {
             return psychologistRepository.GetAll(p => p.Problematics.Any(r => r.ProblematicId == problematicId));
         }
@@ -64,7 +64,7 @@ namespace BusinessLogic
         public Psychologist GetAvailableByProblematicIdAndDate(int problematicId, DateTime date)
         {
             List<Agenda> agendas = new List<Agenda>();
-            List<Psychologist> psychologists = GetAvailablesByProblematicId(problematicId);
+            List<Psychologist> psychologists = GetAllByProblematicId(problematicId);
             validation.ValidateList(psychologists);
             while (agendas.Count == 0)
             {

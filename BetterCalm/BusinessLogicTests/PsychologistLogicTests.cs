@@ -308,7 +308,7 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object);
 
-            List<Psychologist> result = psychologistLogic.GetAvailablesByProblematicId(problematicId);
+            List<Psychologist> result = psychologistLogic.GetAllByProblematicId(problematicId);
 
             mock.VerifyAll();
             Assert.AreEqual(psychologists.Count, result.Count);
@@ -347,6 +347,7 @@ namespace BusinessLogicTests
             mockAgendaLogic.Setup(m => m.GetAgendaByPsychologistIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(agenda);
             mockAgendaLogic.Setup(m => m.Add(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(It.IsAny<Agenda>());
             mockAgendaLogic.Setup(m => m.Update(It.IsAny<Agenda>()));
+            mockAgendaLogic.Setup(m => m.Assign(It.IsAny<Agenda>())).Returns(It.IsAny<Agenda>());
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object);
 
             Psychologist psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(problematicId, date);
