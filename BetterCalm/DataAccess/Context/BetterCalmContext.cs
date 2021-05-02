@@ -20,6 +20,7 @@ namespace DataAccess.Context
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Consultation> Consultations { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<Agenda> Agendas { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
@@ -110,6 +111,11 @@ namespace DataAccess.Context
             modelBuilder.Entity<Session>().HasKey(p => p.Id);
             modelBuilder.Entity<Session>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Session>().HasOne(p => p.Administrator);
+
+            modelBuilder.Entity<Agenda>().ToTable("Agendas");
+            modelBuilder.Entity<Agenda>().HasKey(p => p.Id);
+            modelBuilder.Entity<Agenda>().Property(p => p.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Agenda>().HasOne(p => p.Psychologist);
         }
     }
 }
