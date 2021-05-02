@@ -185,5 +185,39 @@ namespace BusinessLogicTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestGetAdministratorByIncorrectPassword()
+        {
+            string email = "Juan@gmail.com";
+            string password = "Password01";
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns((Administrator)null);
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+
+            Administrator result = administratorLogic.GetByEmailAndPassword(email, password);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestCreateAdministratorWithAlreadyExistantEmail()
+        {
+            Administrator administrator = new Administrator
+            {
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(administrator);
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+
+            Administrator response = administratorLogic.Add(administrator);
+
+            mock.VerifyAll();
+        }
     }
 }
