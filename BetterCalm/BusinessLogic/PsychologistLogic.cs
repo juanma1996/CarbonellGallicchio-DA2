@@ -65,6 +65,7 @@ namespace BusinessLogic
         {
             List<Agenda> agendas = new List<Agenda>();
             List<Psychologist> psychologists = GetAvailablesByProblematicId(problematicId);
+            validation.ValidateList(psychologists);
             while (agendas.Count == 0)
             {
                 if (date.DayOfWeek != DayOfWeek.Sunday && date.DayOfWeek != DayOfWeek.Saturday)
@@ -80,7 +81,7 @@ namespace BusinessLogic
                                 {
                                     agendas.Add(agenda);
                                 }
-                            }); 
+                            });
                 }
                 date = date.AddDays(1);
             }
