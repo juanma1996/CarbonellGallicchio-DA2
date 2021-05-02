@@ -42,6 +42,10 @@ namespace WebApi.Controllers
             {
                 return BadRequest(e.Message);
             }
+            catch (ArgumentInvalidMappingException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpDelete("{administratorId}")]
