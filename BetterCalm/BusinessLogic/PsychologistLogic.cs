@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
@@ -10,7 +11,7 @@ namespace BusinessLogic
     {
         private readonly IRepository<Psychologist> psychologistRepository;
         private readonly Validation validation = new Validation();
-       
+
         public PsychologistLogic(IRepository<Psychologist> psychologistRepository)
         {
             this.psychologistRepository = psychologistRepository;
@@ -55,7 +56,7 @@ namespace BusinessLogic
 
         public List<Psychologist> GetAvailablesByProblematicId(int problematicId)
         {
-            throw new NotImplementedException();
+            return psychologistRepository.GetAll(p => p.Problematics.Any(r => r.ProblematicId == problematicId));
         }
     }
 }
