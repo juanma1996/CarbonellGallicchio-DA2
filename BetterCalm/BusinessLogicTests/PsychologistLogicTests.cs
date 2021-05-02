@@ -206,5 +206,54 @@ namespace BusinessLogicTests
             Assert.AreEqual(psychologistToReturn.CreationDate, psychologist.CreationDate);
             Assert.IsTrue(psychologist.Problematics.Exists(p => p.ProblematicId == problematicId));
         }
+
+        [TestMethod]
+        public void TestGetAvailableByProblematicIdTwoOptions()
+        {
+            var problematicId = 1;
+            Psychologist antiquePsychologist = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(1999, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            Psychologist newerPsychologist = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Get(It.IsAny<Expression<Func<Psychologist, bool>>>())).Returns(antiquePsychologist);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            Psychologist psychologist = psychologistLogic.GetAvailableByProblematicId(problematicId);
+
+            mock.VerifyAll();
+            Assert.AreEqual(antiquePsychologist.Id, psychologist.Id);
+            Assert.AreEqual(antiquePsychologist.Name, psychologist.Name);
+            Assert.AreEqual(antiquePsychologist.Direction, psychologist.Direction);
+            Assert.AreEqual(antiquePsychologist.ConsultationMode, psychologist.ConsultationMode);
+            Assert.AreEqual(antiquePsychologist.CreationDate, psychologist.CreationDate);
+            Assert.IsTrue(psychologist.Problematics.Exists(p => p.ProblematicId == problematicId));
+        }
     }
 }
