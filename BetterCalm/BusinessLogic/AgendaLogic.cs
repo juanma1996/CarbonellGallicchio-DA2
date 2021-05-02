@@ -7,14 +7,19 @@ namespace BusinessLogic
 {
     public class AgendaLogic : IAgendaLogic
     {
-        private IRepository<Agenda> @object;
+        private IRepository<Agenda> agendaRepository;
 
-        public AgendaLogic(IRepository<Agenda> @object)
+        public AgendaLogic(IRepository<Agenda> agendaRepository)
         {
-            this.@object = @object;
+            this.agendaRepository = agendaRepository;
         }
 
         public Agenda GetAgendaByPsychologistIdAndDate(int psychologistId, DateTime date)
+        {
+            return agendaRepository.Get(a => a.Psychologist.Id == psychologistId && a.Date == date);
+        }
+
+        public Agenda Add(int psychologistId, DateTime date)
         {
             throw new NotImplementedException();
         }

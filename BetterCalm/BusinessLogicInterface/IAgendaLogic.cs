@@ -8,5 +8,6 @@ namespace BusinessLogicInterface
     public interface IAgendaLogic
     {
         Agenda GetAgendaByPsychologistIdAndDate(int psychologistId, DateTime date);
+        Agenda Add(int psychologistId, DateTime date);
     }
 }
