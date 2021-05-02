@@ -13,6 +13,7 @@
     <ProjectReference Include="..\BusinessLogicInterface\BusinessLogicInterface.csproj" />
     <ProjectReference Include="..\BusinessExceptions\BusinessExceptions.csproj" />
     <ProjectReference Include="..\AdapterExceptions\AdapterExceptions.csproj" />
+    <ProjectReference Include="..\SessionInterface\SessionInterface.csproj" />
   </ItemGroup>
 
   <ItemGroup>
