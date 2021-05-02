@@ -37,7 +37,8 @@ namespace BusinessLogic
 
         public Agenda Assign(Agenda agendaToReturn)
         {
-            throw new NotImplementedException();
+            agendaToReturn.Count++;
+            return agendaToReturn;
         }
     }
 }
