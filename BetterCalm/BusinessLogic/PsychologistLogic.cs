@@ -48,7 +48,7 @@ namespace BusinessLogic
 
         public Psychologist GetAvailableByProblematicId(int problematicId)
         {
-            throw new NotImplementedException();
+            return psychologistRepository.Get(p => p.Problematics.Exists(pr => pr.ProblematicId == problematicId));
         }
     }
 }
