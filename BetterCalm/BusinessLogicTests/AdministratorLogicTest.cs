@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using BusinessExceptions;
 using BusinessLogic;
 using DataAccessInterface;
@@ -144,6 +145,30 @@ namespace BusinessLogicTests
             administratorLogic.Update(administratorModel);
 
             mock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void TestGetAdministratorByEmailAndPasswordOk()
+        {
+            string email = "Juan@gmail.com";
+            string password = "Password01";
+            Administrator administratorToReturn = new Administrator
+            {
+                Name = "Juan",
+                Email = email,
+                Password = password,
+            };
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(administratorToReturn);
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+
+            Administrator result = administratorLogic.GetByEmailAndPassword(email, password);
+
+            mock.VerifyAll();
+            Assert.AreEqual(administratorToReturn.Id, result.Id);
+            Assert.AreEqual(administratorToReturn.Name, result.Name);
+            Assert.AreEqual(administratorToReturn.Email, result.Email);
+            Assert.AreEqual(administratorToReturn.Password, result.Password);
         }
     }
 }
