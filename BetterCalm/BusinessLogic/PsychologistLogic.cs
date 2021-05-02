@@ -58,5 +58,10 @@ namespace BusinessLogic
         {
             return psychologistRepository.GetAll(p => p.Problematics.Any(r => r.ProblematicId == problematicId));
         }
+
+        public Psychologist GetAvailableByProblematicIdAndDate(int problematicId, DateTime date)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

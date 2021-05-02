@@ -302,5 +302,39 @@ namespace BusinessLogicTests
             mock.VerifyAll();
             Assert.AreEqual(psychologists.Count, result.Count);
         }
+
+        [TestMethod]
+        public void TestGetAvailableByProblematicIdAndDateOk()
+        {
+            int problematicId = 1;
+            DateTime date = DateTime.Now;
+            Psychologist psychologistToReturn = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Get(It.IsAny<Expression<Func<Psychologist, bool>>>())).Returns(psychologistToReturn);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            Psychologist psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(problematicId, date);
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistToReturn.Id, psychologist.Id);
+            Assert.AreEqual(psychologistToReturn.Name, psychologist.Name);
+            Assert.AreEqual(psychologistToReturn.Direction, psychologist.Direction);
+            Assert.AreEqual(psychologistToReturn.ConsultationMode, psychologist.ConsultationMode);
+            Assert.AreEqual(psychologistToReturn.CreationDate, psychologist.CreationDate);
+        }
     }
 }
