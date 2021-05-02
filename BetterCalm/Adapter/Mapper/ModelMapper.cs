@@ -14,8 +14,8 @@ namespace Adapter.Mapper
         {
             var config = new MapperConfiguration(mapper =>
             {
-                mapper.CreateMap<Category, CategoryBasicInfoModel>();
-                mapper.CreateMap<Playlist, PlaylistBasicInfoModel>();
+                mapper.AddProfile<CategoryProfile>();
+                mapper.AddProfile<PlaylistProfile>();
                 mapper.AddProfile<PacientProfile>();
                 mapper.AddProfile<AdministratorProfile>();
                 mapper.AddProfile<ProblematicProfile>();
