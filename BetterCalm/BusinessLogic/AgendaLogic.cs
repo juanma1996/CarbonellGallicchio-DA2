@@ -21,7 +21,13 @@ namespace BusinessLogic
 
         public Agenda Add(int psychologistId, DateTime date)
         {
-            throw new NotImplementedException();
+            Agenda newAgenda = new Agenda()
+            {
+                Psychologist = new Psychologist { Id = psychologistId },
+                IsAvaible = true,
+                Date = date,
+            };
+            return agendaRepository.Add(newAgenda);
         }
     }
 }
