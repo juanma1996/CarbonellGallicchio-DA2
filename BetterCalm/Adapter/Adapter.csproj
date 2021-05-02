@@ -15,4 +15,7 @@
     <ProjectReference Include="..\AdapterExceptions\AdapterExceptions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mapper\Profiles\" />
+  </ItemGroup>
 </Project>
