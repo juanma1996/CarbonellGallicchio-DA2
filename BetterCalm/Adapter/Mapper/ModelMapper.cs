@@ -20,6 +20,7 @@ namespace Adapter.Mapper
                 mapper.AddProfile<AdministratorProfile>();
                 mapper.AddProfile<ProblematicProfile>();
                 mapper.AddProfile<ConsultationProfile>();
+                mapper.AddProfile<PsychologistProfile>();
             });
 
             return config.CreateMapper();
