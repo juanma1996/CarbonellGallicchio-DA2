@@ -19,6 +19,7 @@ namespace Adapter.Mapper
                 mapper.AddProfile<PacientProfile>();
                 mapper.AddProfile<AdministratorProfile>();
                 mapper.AddProfile<ProblematicProfile>();
+                mapper.AddProfile<ConsultationProfile>();
             });
 
             return config.CreateMapper();
