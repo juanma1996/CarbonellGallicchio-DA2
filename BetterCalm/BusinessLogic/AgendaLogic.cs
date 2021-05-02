@@ -34,5 +34,10 @@ namespace BusinessLogic
         {
             agendaRepository.Update(agendaToUse);
         }
+
+        public Agenda Assign(Agenda agendaToReturn)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

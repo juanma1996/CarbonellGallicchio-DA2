@@ -10,5 +10,6 @@ namespace BusinessLogicInterface
         Agenda GetAgendaByPsychologistIdAndDate(int psychologistId, DateTime date);
         Agenda Add(int psychologistId, DateTime date);
         void Update(Agenda agendaToUse);
+        Agenda Assign(Agenda agendaToReturn);
     }
 }

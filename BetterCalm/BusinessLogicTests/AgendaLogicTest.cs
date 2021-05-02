@@ -67,5 +67,44 @@ namespace BusinessLogicTests
             Assert.AreEqual(agendaToReturn.Psychologist.Id, result.Psychologist.Id);
             Assert.AreEqual(agendaToReturn.Date, result.Date);
         }
+
+        [TestMethod]
+        public void TestAssingAgendaOk()
+        {
+            int psychologistId = 1;
+            DateTime date = DateTime.Now;
+            Agenda agendaToReturn = new Agenda
+            {
+                Id = 1,
+                Psychologist = new Psychologist()
+                {
+                    Id = psychologistId
+                },
+                Date = date,
+                Count = 0,
+                IsAvaible = true,
+            };
+            Agenda agenda = new Agenda
+            {
+                Id = 1,
+                Psychologist = new Psychologist()
+                {
+                    Id = psychologistId
+                },
+                Date = date,
+                Count = 1,
+                IsAvaible = true,
+            };
+            Mock<IRepository<Agenda>> mock = new Mock<IRepository<Agenda>>(MockBehavior.Strict);
+            AgendaLogic agendaLogic = new AgendaLogic(mock.Object);
+
+            Agenda result = agendaLogic.Assign(agendaToReturn);
+
+            mock.VerifyAll();
+            Assert.AreEqual(agenda.Id, result.Id);
+            Assert.AreEqual(agenda.Psychologist.Id, result.Psychologist.Id);
+            Assert.AreEqual(agenda.Date, result.Date);
+            Assert.AreEqual(agenda.Count, result.Count);
+        }
     }
 }
