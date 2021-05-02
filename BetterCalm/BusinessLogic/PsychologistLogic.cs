@@ -65,7 +65,7 @@ namespace BusinessLogic
         {
             List<Agenda> agendas = new List<Agenda>();
             List<Psychologist> psychologists = GetAvailablesByProblematicId(problematicId);
-            while (agendas.Count > 0)
+            while (agendas.Count == 0)
             {
                 if (date.DayOfWeek != DayOfWeek.Sunday && date.DayOfWeek != DayOfWeek.Saturday)
                 {
@@ -85,6 +85,7 @@ namespace BusinessLogic
                 date = date.AddDays(1);
             }
             Agenda agendaToUse = agendas.OrderBy(a => a.Psychologist.CreationDate).First();
+            agendaLogic.Assign(agendaToUse);
             agendaLogic.Update(agendaToUse);
             return agendaToUse.Psychologist;
         }
