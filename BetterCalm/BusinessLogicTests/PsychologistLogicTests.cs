@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using BusinessExceptions;
 using BusinessLogic;
 using DataAccessInterface;
@@ -170,6 +171,40 @@ namespace BusinessLogicTests
             psychologistLogic.Update(psychologistModel);
 
             mock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void TestGetAvailableByProblematicIdOk()
+        {
+            var problematicId = 1;
+            Psychologist psychologistToReturn = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Get(It.IsAny<Expression<Func<Psychologist, bool>>>())).Returns(psychologistToReturn);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            Psychologist psychologist = psychologistLogic.GetAvailableByProblematicId(problematicId);
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistToReturn.Id, psychologist.Id);
+            Assert.AreEqual(psychologistToReturn.Name, psychologist.Name);
+            Assert.AreEqual(psychologistToReturn.Direction, psychologist.Direction);
+            Assert.AreEqual(psychologistToReturn.ConsultationMode, psychologist.ConsultationMode);
+            Assert.AreEqual(psychologistToReturn.CreationDate, psychologist.CreationDate);
+            Assert.IsTrue(psychologist.Problematics.Exists(p => p.ProblematicId == problematicId));
         }
     }
 }
