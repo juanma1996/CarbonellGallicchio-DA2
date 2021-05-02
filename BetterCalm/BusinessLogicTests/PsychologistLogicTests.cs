@@ -358,5 +358,43 @@ namespace BusinessLogicTests
             Assert.AreEqual(psychologistToReturn.ConsultationMode, psychologist.ConsultationMode);
             Assert.AreEqual(psychologistToReturn.CreationDate, psychologist.CreationDate);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullObjectException))]
+        public void TestGetAvailableByProblematicIdAndDateNoPsychologist()
+        {
+            int problematicId = 1;
+            DateTime date = DateTime.Now;
+            List<Psychologist> psychologists = new List<Psychologist>();
+            Psychologist psychologistToReturn = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            Agenda agenda = new Agenda()
+            {
+                IsAvaible = true,
+                Psychologist = psychologistToReturn
+            };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<Psychologist, bool>>>())).Returns(psychologists);
+            Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
+            mockAgendaLogic.Setup(m => m.GetAgendaByPsychologistIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(agenda);
+            mockAgendaLogic.Setup(m => m.Add(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(It.IsAny<Agenda>());
+            mockAgendaLogic.Setup(m => m.Update(It.IsAny<Agenda>()));
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object);
+
+            Psychologist psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(problematicId, date);
+        }
     }
 }
