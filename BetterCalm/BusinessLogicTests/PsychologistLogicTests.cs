@@ -255,5 +255,52 @@ namespace BusinessLogicTests
             Assert.AreEqual(antiquePsychologist.CreationDate, psychologist.CreationDate);
             Assert.IsTrue(psychologist.Problematics.Exists(p => p.ProblematicId == problematicId));
         }
+
+        [TestMethod]
+        public void TestGetAvailablesByProblematicId()
+        {
+            var problematicId = 1;
+            List<Psychologist> psychologists = new List<Psychologist>();
+            Psychologist onePsychologist = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(1999, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            psychologists.Add(onePsychologist);
+            Psychologist anotherPsychologist = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            psychologists.Add(anotherPsychologist);
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<Psychologist, bool>>>())).Returns(psychologists);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object);
+
+            List<Psychologist> result = psychologistLogic.GetAvailablesByProblematicId(problematicId);
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologists.Count, result.Count);
+        }
     }
 }

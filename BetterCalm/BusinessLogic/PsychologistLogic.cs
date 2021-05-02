@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
@@ -50,6 +51,11 @@ namespace BusinessLogic
         public Psychologist GetAvailableByProblematicId(int problematicId)
         {
             return psychologistRepository.Get(p => p.Problematics.Exists(pr => pr.ProblematicId == problematicId));
+        }
+
+        public List<Psychologist> GetAvailablesByProblematicId(int problematicId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

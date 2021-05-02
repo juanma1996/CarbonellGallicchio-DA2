@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Domain;
 
 namespace BusinessLogicInterface
@@ -10,5 +11,6 @@ namespace BusinessLogicInterface
         void DeleteById(int psychologistId);
         void Update(Psychologist psycologist);
         Psychologist GetAvailableByProblematicId(int problematicId);
+        List<Psychologist> GetAvailablesByProblematicId(int problematicId);
     }
 }
