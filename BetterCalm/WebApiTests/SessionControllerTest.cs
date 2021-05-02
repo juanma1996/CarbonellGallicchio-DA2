@@ -44,6 +44,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestPostSessionEmailNotExistent()
         {
             string mail = "oneMail@gmail.com";
@@ -57,13 +58,10 @@ namespace WebApiTests
             SessionController controller = new SessionController(mock.Object);
 
             var result = controller.Post(sessionModel);
-            var objectResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, objectResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostSessionIncorrectPasswordForEmail()
         {
             string mail = "oneMail@gmail.com";
@@ -77,13 +75,10 @@ namespace WebApiTests
             SessionController controller = new SessionController(mock.Object);
 
             var result = controller.Post(sessionModel);
-            var objectResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, objectResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostSessionEmptyEmail()
         {
             SessionModel sessionModel = new SessionModel()
@@ -96,13 +91,10 @@ namespace WebApiTests
             SessionController controller = new SessionController(mock.Object);
 
             var result = controller.Post(sessionModel);
-            var objectResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, objectResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostSessionEmptyPassword()
         {
             SessionModel sessionModel = new SessionModel()
@@ -115,10 +107,6 @@ namespace WebApiTests
             SessionController controller = new SessionController(mock.Object);
 
             var result = controller.Post(sessionModel);
-            var objectResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, objectResult.StatusCode);
         }
     }
 }

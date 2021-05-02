@@ -25,15 +25,8 @@ namespace BetterCalm.WebApi.Controllers
         [HttpGet("{categoryId}/playlist", Name = "GetPlaylist")]
         public IActionResult GetPlaylistByCategory([FromRoute] int categoryId)
         {
-            try
-            {
-                List<PlaylistBasicInfoModel> playlists = categoryDomainToModelAdapter.GetPlaylistsByCategoryId(categoryId);
-                return Ok(playlists);
-            }
-            catch (NullObjectMappingException e)
-            {
-                return NotFound(e);
-            }
+            List<PlaylistBasicInfoModel> playlists = categoryDomainToModelAdapter.GetPlaylistsByCategoryId(categoryId);
+            return Ok(playlists);
         }
     }
 }

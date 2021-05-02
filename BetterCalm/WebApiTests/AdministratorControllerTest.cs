@@ -39,6 +39,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestGetAdministratorNotExistent()
         {
             var administratorId = 1;
@@ -47,10 +48,6 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.GetById(administratorId);
-            var okResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, okResult.StatusCode);
         }
 
         [TestMethod]
@@ -82,6 +79,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostAdministratorInvalidName()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -95,13 +93,10 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostAdministratorInvalidEmail()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -115,13 +110,10 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostAdministratorInvalidPassword()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -135,10 +127,6 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
@@ -157,18 +145,15 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestDeleteAdministratorNotFound()
         {
             int administratorId = 1;
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Delete(administratorId)).Throws(new ArgumentInvalidMappingException());
+            mock.Setup(m => m.Delete(administratorId)).Throws(new NullObjectMappingException());
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var response = controller.DeleteById(administratorId);
-            var result = response as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, result.StatusCode);
         }
 
         [TestMethod]
@@ -193,6 +178,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestUpdateAdministratorNotFound()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -207,13 +193,10 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var response = controller.Update(administratorModel);
-            var result = response as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, result.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestUpdateAdministratorInvalidName()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -227,13 +210,10 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Update(administratorModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestUpdateAdministratorInvalidEmail()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -247,13 +227,10 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Update(administratorModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestUpdateAdministratorInvalidPassword()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -267,13 +244,10 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Update(administratorModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostAdministratorEmailAlreadyExistant()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -287,10 +261,6 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
     }
 }

@@ -132,6 +132,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestGetAudioContentNotExistentId()
         {
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
@@ -139,13 +140,10 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Get(It.IsAny<int>());
-            var objectResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, objectResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestCreateAudioContentNotValidName()
         {
             AudioContentModel audioContentModel = new AudioContentModel()
@@ -175,13 +173,10 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Post(audioContentModel);
-            var objectResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, objectResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestDeleteAudioContentNotExistentId()
         {
             int audioContentId = 1;
@@ -190,13 +185,10 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.DeleteById(audioContentId);
-            var objectResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, objectResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestUpdateAudioContentNotExistentId()
         {
             AudioContentModel audioContentModel = new AudioContentModel()
@@ -226,13 +218,10 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Update(audioContentModel);
-            var objectResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, objectResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestUpdateAudioContentNotValidName()
         {
             AudioContentModel audioContentModel = new AudioContentModel()
@@ -262,10 +251,6 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Update(audioContentModel);
-            var objectResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, objectResult.StatusCode);
         }
     }
 }

@@ -66,6 +66,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestGetPsychologistNotExistentId()
         {
             var psychologistId = 1;
@@ -74,10 +75,6 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.GetById(psychologistId);
-            var okResult = result as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, okResult.StatusCode);
         }
 
         [TestMethod]
@@ -152,6 +149,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostPsychologistInvalidName()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -162,17 +160,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid name"));
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid name"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostPsychologistInvalidDirection()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -183,17 +178,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid direction"));
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid direction"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestPostPsychologistInvalidConsultationMode()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -204,17 +196,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid consultation mode"));
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid consultation mode"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AmountOfProblematicsException))]
         public void TestPostPsychologistNoProblematics()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -229,13 +218,10 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AmountOfProblematicsException))]
         public void TestPostPsychologistExcessOfProblematics()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -273,10 +259,6 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
@@ -295,18 +277,15 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestDeletePsychologistNotFound()
         {
             int psychologistId = 1;
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Delete(psychologistId)).Throws(new ArgumentException());
+            mock.Setup(m => m.Delete(psychologistId)).Throws(new NullObjectMappingException());
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var response = controller.DeleteById(psychologistId);
-            var okResult = response as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, okResult.StatusCode);
         }
 
         [TestMethod]
@@ -355,6 +334,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullObjectMappingException))]
         public void TestUpdatePsychologistNotFound()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -370,13 +350,10 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var response = controller.Update(psycologistModel);
-            var okResult = response as ObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(404, okResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestUpdatePsychologistInvalidName()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -388,17 +365,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid name"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid name"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Update(psycologistModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestUpdatePsychologistInvalidDirection()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -410,17 +384,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid direction"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid direction"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Update(psycologistModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentInvalidMappingException))]
         public void TestUpdatePsychologistInvalidConsultationMode()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -432,17 +403,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentException("Invalid conultation mode"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid conultation mode"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Update(psycologistModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AmountOfProblematicsException))]
         public void TestUpdatePsychologistNoProblematics()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -458,10 +426,6 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Update(psycologistModel);
-            var badResult = result as BadRequestObjectResult;
-
-            mock.VerifyAll();
-            Assert.AreEqual(400, badResult.StatusCode);
         }
     }
 }

@@ -22,19 +22,8 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Post(SessionModel sessionModel)
         {
-            try
-            {
-                var sessionCreated = sessionLogicAdapter.Add(sessionModel);
-                return CreatedAtRoute("", sessionCreated);
-            }
-            catch (NullObjectMappingException e)
-            {
-                return NotFound(e);
-            }
-            catch (ArgumentInvalidMappingException e)
-            {
-                return BadRequest(e);
-            }
+            var sessionCreated = sessionLogicAdapter.Add(sessionModel);
+            return CreatedAtRoute("", sessionCreated);
         }
     }
 }

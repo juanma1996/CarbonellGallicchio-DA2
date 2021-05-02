@@ -20,69 +20,29 @@ namespace WebApi.Controllers
         [HttpGet("{id}", Name = "GetPsychologistById")]
         public IActionResult GetById(int psychologistId)
         {
-            try
-            {
-                PsychologistBasicInfoModel psychologist = psychologistDomainToModelAdapter.GetById(psychologistId);
-                return Ok(psychologist);
-            }
-            catch (NullObjectMappingException e)
-            {
-                return NotFound(e);
-            }
+            PsychologistBasicInfoModel psychologist = psychologistDomainToModelAdapter.GetById(psychologistId);
+            return Ok(psychologist);
         }
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPost]
         public IActionResult Post(PsychologistModel psycologistIn)
         {
-            try
-            {
-                var psychologistCreated = psychologistDomainToModelAdapter.Add(psycologistIn);
-                return CreatedAtRoute("GetPsychologistById", psychologistCreated.Id, psychologistCreated);
-            }
-            catch (ArgumentException e)
-            {
-                return this.BadRequest(e.Message);
-            }
-            catch (AmountOfProblematicsException e)
-            {
-                return this.BadRequest(e.Message);
-            }
+            var psychologistCreated = psychologistDomainToModelAdapter.Add(psycologistIn);
+            return CreatedAtRoute("GetPsychologistById", psychologistCreated.Id, psychologistCreated);
         }
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpDelete("{id}")]
         public IActionResult DeleteById(int psychologistId)
         {
-            try
-            {
-                psychologistDomainToModelAdapter.Delete(psychologistId);
-                return NoContent();
-            }
-            catch (ArgumentException e)
-            {
-                return NotFound(e);
-            }
+            psychologistDomainToModelAdapter.Delete(psychologistId);
+            return NoContent();
         }
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPut]
         public IActionResult Update([FromBody] PsychologistModel psychologistModel)
         {
-            try
-            {
-                psychologistDomainToModelAdapter.Update(psychologistModel);
-                return NoContent();
-            }
-            catch (ArgumentException e)
-            {
-                return this.BadRequest(e.Message);
-            }
-            catch (AmountOfProblematicsException e)
-            {
-                return this.BadRequest(e.Message);
-            }
-            catch (NullObjectMappingException e)
-            {
-                return NotFound(e);
-            }
+            psychologistDomainToModelAdapter.Update(psychologistModel);
+            return NoContent();
         }
     }
 }

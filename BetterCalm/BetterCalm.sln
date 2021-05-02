@@ -45,10 +45,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SessionLogic", "SessionLogi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SessionLogicTests", "SessionLogicTests\SessionLogicTests.csproj", "{7C5A87E6-2711-498D-9FCB-764DF0610631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionInterface", "ExceptionInterface\ExceptionInterface.csproj", "{4A66894A-FEAD-4918-8324-719B092694B0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionLogic", "ExceptionLogic\ExceptionLogic.csproj", "{FB92BFC5-C6E3-4DEE-997B-184EAB03C59C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,14 +127,6 @@ Global
 		{7C5A87E6-2711-498D-9FCB-764DF0610631}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C5A87E6-2711-498D-9FCB-764DF0610631}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C5A87E6-2711-498D-9FCB-764DF0610631}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A66894A-FEAD-4918-8324-719B092694B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A66894A-FEAD-4918-8324-719B092694B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A66894A-FEAD-4918-8324-719B092694B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A66894A-FEAD-4918-8324-719B092694B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB92BFC5-C6E3-4DEE-997B-184EAB03C59C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB92BFC5-C6E3-4DEE-997B-184EAB03C59C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB92BFC5-C6E3-4DEE-997B-184EAB03C59C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB92BFC5-C6E3-4DEE-997B-184EAB03C59C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,8 +151,6 @@ Global
 		{D222410F-2EB2-4C0C-AAA2-685268DD9CC1} = {BC868B3F-14FF-4C5B-9C42-DFB2DACD238F}
 		{4DE146D9-F2A4-4518-9451-53F6C57C6C0B} = {BC868B3F-14FF-4C5B-9C42-DFB2DACD238F}
 		{7C5A87E6-2711-498D-9FCB-764DF0610631} = {385E0035-EDE2-457F-87BE-BC6F61B59EA5}
-		{4A66894A-FEAD-4918-8324-719B092694B0} = {BC868B3F-14FF-4C5B-9C42-DFB2DACD238F}
-		{FB92BFC5-C6E3-4DEE-997B-184EAB03C59C} = {BC868B3F-14FF-4C5B-9C42-DFB2DACD238F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99DD942E-2C56-4283-85E0-45770B53620D}

@@ -19,61 +19,29 @@ namespace WebApi.Controllers
         [HttpGet("{id}", Name = "GetAdministratorsById")]
         public IActionResult GetById(int administratorId)
         {
-            try
-            {
-                AdministratorBasicInfoModel administrator = administratorDomainToModelAdapter.GetById(administratorId);
-                return Ok(administrator);
-            }
-            catch (NullObjectMappingException e)
-            {
-                return NotFound(e);
-            }
+            AdministratorBasicInfoModel administrator = administratorDomainToModelAdapter.GetById(administratorId);
+            return Ok(administrator);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]AdministratorModel administratorModel)
+        public IActionResult Post([FromBody] AdministratorModel administratorModel)
         {
-            try
-            {
-                administratorDomainToModelAdapter.Add(administratorModel);
-                return NoContent();
-            }
-            catch (ArgumentInvalidMappingException e)
-            {
-                return BadRequest(e.Message);
-            }
+            administratorDomainToModelAdapter.Add(administratorModel);
+            return NoContent();
         }
 
         [HttpDelete("{administratorId}")]
         public IActionResult DeleteById(int administratorId)
         {
-            try
-            {
-                administratorDomainToModelAdapter.Delete(administratorId);
-                return NoContent();
-            }
-            catch (ArgumentInvalidMappingException e)
-            {
-                return NotFound(e);
-            }
+            administratorDomainToModelAdapter.Delete(administratorId);
+            return NoContent();
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]AdministratorModel administratorModel)
+        public IActionResult Update([FromBody] AdministratorModel administratorModel)
         {
-            try
-            {
-                administratorDomainToModelAdapter.Update(administratorModel);
-                return NoContent();
-            }
-            catch (ArgumentInvalidMappingException e)
-            {
-                return BadRequest(e.Message);
-            }
-            catch (NullObjectMappingException e)
-            {
-                return NotFound(e);
-            }
+            administratorDomainToModelAdapter.Update(administratorModel);
+            return NoContent();
         }
     }
 }
