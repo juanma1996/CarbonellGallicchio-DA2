@@ -1,4 +1,5 @@
-﻿using Model.In;
+﻿using AdapterExceptions;
+using Model.In;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,10 @@ namespace Validator
 {
     public class AudioContentModelValidator : IValidator<AudioContentModel>
     {
-        public void Validate(AudioContentModel someObject)
+        public void Validate(AudioContentModel audioContentModel)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(audioContentModel.Name))
+                throw new InvalidAttributeException("The audio content name can't be empty");
         }
     }
 }
