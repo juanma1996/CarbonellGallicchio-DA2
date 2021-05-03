@@ -1,6 +1,8 @@
 ﻿using Adapter.Mapper;
+using AdapterExceptions;
 using AdapterInterface;
 using AutoMapper;
+using BusinessExceptions;
 using BusinessLogicInterface;
 using Domain;
 using Model.In;
@@ -21,8 +23,15 @@ namespace Adapter
 
         public AudioContentBasicInfoModel GetById(int audioContentId)
         {
-            AudioContent audioContent = audioContentLogic.GetById(audioContentId);
-            return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+            try
+            {
+                AudioContent audioContent = audioContentLogic.GetById(audioContentId);
+                return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
         public AudioContentBasicInfoModel Add(AudioContentModel audioContentModel)
         {
@@ -32,11 +41,26 @@ namespace Adapter
         }
         public void DeleteById(int audioContentId)
         {
-            audioContentLogic.DeleteById(audioContentId);
+            try
+            {
+                audioContentLogic.DeleteById(audioContentId);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
         public void Update(AudioContentModel audioContentModel)
         {
-            AudioContent audioContentToUpdate = mapper.Map<AudioContent>(audioContentModel);
+            try
+            {
+                AudioContent audioContentToUpdate = mapper.Map<AudioContent>(audioContentModel);
+                audioContentLogic.Update(audioContentToUpdate);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
     }
 }

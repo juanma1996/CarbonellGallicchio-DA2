@@ -1,7 +1,9 @@
 ﻿using System;
 using Adapter.Mapper;
+using AdapterExceptions;
 using AdapterInterface;
 using AutoMapper;
+using BusinessExceptions;
 using BusinessLogicInterface;
 using Domain;
 using Model.In;
@@ -21,10 +23,16 @@ namespace Adapter
 
         public PsychologistBasicInfoModel Add(ConsultationModel consultationModel)
         {
-
-            Consultation consultation = mapper.Map<Consultation>(consultationModel);
-            Psychologist psychologist = consultationLogic.Add(consultation);
-            return mapper.Map<PsychologistBasicInfoModel>(psychologist);
+            try
+            {
+                Consultation consultation = mapper.Map<Consultation>(consultationModel);
+                Psychologist psychologist = consultationLogic.Add(consultation);
+                return mapper.Map<PsychologistBasicInfoModel>(psychologist);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
     }
 }
