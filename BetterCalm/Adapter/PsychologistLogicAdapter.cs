@@ -8,6 +8,7 @@ using BusinessLogicInterface;
 using Domain;
 using Model.In;
 using Model.Out;
+using ValidatorInterface;
 
 namespace Adapter
 {
@@ -15,10 +16,13 @@ namespace Adapter
     {
         private readonly IPsychologistLogic psychologistLogic;
         private readonly IMapper mapper;
-        public PsychologistLogicAdapter(IPsychologistLogic psychologistLogic, IModelMapper mapper)
+        private readonly IValidator<PsychologistModel> psychologistModelValidator;
+        public PsychologistLogicAdapter(IPsychologistLogic psychologistLogic, IModelMapper mapper,
+            IValidator<PsychologistModel> psychologistModelValidator)
         {
             this.psychologistLogic = psychologistLogic;
             this.mapper = mapper.Configure();
+            this.psychologistModelValidator = psychologistModelValidator;
         }
 
         public PsychologistBasicInfoModel GetById(int psychologistId)
@@ -37,6 +41,7 @@ namespace Adapter
 
         public PsychologistBasicInfoModel Add(PsychologistModel psychologistModel)
         {
+            psychologistModelValidator.Validate(psychologistModel);
             Psychologist psychologistIn = mapper.Map<Psychologist>(psychologistModel);
             Psychologist psychologistOut = psychologistLogic.Add(psychologistIn);
             PsychologistBasicInfoModel psychologistToReturn = mapper.Map<PsychologistBasicInfoModel>(psychologistOut);
@@ -59,6 +64,7 @@ namespace Adapter
         {
             try
             {
+                psychologistModelValidator.Validate(psychologistModel);
                 Psychologist psychologistToUpdate = mapper.Map<Psychologist>(psychologistModel);
                 psychologistLogic.Update(psychologistToUpdate);
             }
