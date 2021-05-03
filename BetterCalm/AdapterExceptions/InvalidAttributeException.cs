@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AdapterExceptions
 {
-    public class InvalidNameException : Exception
+    public class InvalidAttributeException : Exception
     {
         private string errorMessage;
         public string ErrorMessage
@@ -18,7 +18,7 @@ namespace AdapterExceptions
                 this.errorMessage = value;
             }
         }
-        public InvalidNameException(string msg)
+        public InvalidAttributeException(string msg)
         {
             this.errorMessage = msg;
         }

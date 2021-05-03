@@ -9,7 +9,7 @@ namespace Validator
         public void Validate(AdministratorModel administratorModel)
         {
             if (string.IsNullOrEmpty(administratorModel.Name))
-                throw new InvalidNameException("The administrator name can't be empty");
+                throw new InvalidAttributeException("The administrator name can't be empty");
         }
     }
 }

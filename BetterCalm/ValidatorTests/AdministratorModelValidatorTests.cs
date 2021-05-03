@@ -9,7 +9,7 @@ namespace ValidatorTests
     public class AdministratorModelValidatorTests
     {
         [TestMethod]
-        [ExpectedException(typeof(InvalidNameException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestAdministratorModelWithEmptyName()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -17,6 +17,21 @@ namespace ValidatorTests
                 Name = "",
                 Email = "Juan@gmail.com",
                 Password = "Password01",
+            };
+            AdministratorModelValidator validator = new AdministratorModelValidator();
+
+            validator.Validate(administratorModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestAdministratorModelWithEmptyPassword()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "",
             };
             AdministratorModelValidator validator = new AdministratorModelValidator();
 
