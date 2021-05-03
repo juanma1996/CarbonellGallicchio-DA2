@@ -1,4 +1,5 @@
-﻿using Model.In;
+﻿using AdapterExceptions;
+using Model.In;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,10 @@ namespace Validator
 {
     public class PsychologistModelValidator : IValidator<PsychologistModel>
     {
-        public void Validate(PsychologistModel someObject)
+        public void Validate(PsychologistModel psychologistModel)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(psychologistModel.Name))
+                throw new InvalidAttributeException("The psychologist name can't be empty");
         }
     }
 }

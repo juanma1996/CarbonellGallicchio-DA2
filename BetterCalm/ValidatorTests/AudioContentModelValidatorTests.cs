@@ -12,13 +12,13 @@ namespace ValidatorTests
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestAdministratorModelWithEmptyName()
         {
-            AudioContentModel administratorModel = new AudioContentModel
+            AudioContentModel audioContentModel = new AudioContentModel
             {
                 Name = ""
             };
             AudioContentModelValidator validator = new AudioContentModelValidator();
 
-            validator.Validate(administratorModel);
+            validator.Validate(audioContentModel);
         }
     }
 }
