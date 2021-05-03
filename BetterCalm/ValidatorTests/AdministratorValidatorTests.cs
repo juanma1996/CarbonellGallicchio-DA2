@@ -10,7 +10,7 @@ namespace ValidatorTests
     {
         [TestMethod]
         [ExpectedException(typeof(NullObjectException))]
-        public void TestAdministratorModelWithEmptyName()
+        public void TestNullAdministrator()
         {
             Administrator administrator = null;
             AdministratorValidator validator = new AdministratorValidator();

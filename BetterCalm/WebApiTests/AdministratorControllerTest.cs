@@ -79,7 +79,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostAdministratorInvalidName()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -96,7 +96,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostAdministratorInvalidEmail()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -113,7 +113,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostAdministratorInvalidPassword()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -196,7 +196,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdateAdministratorInvalidName()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -213,7 +213,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdateAdministratorInvalidEmail()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -230,7 +230,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdateAdministratorInvalidPassword()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -247,7 +247,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostAdministratorEmailAlreadyExistant()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -257,7 +257,7 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new ArgumentInvalidMappingException("Email already exists"));
+            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Email already exists"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);

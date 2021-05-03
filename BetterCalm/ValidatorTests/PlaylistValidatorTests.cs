@@ -13,7 +13,7 @@ namespace ValidatorTests
     {
         [TestMethod]
         [ExpectedException(typeof(NullObjectException))]
-        public void TestAdministratorModelWithEmptyName()
+        public void TestNullPlaylist()
         {
             Playlist playlist = null;
             PlaylistValidator validator = new PlaylistValidator();

@@ -6,16 +6,16 @@ using Validator;
 namespace ValidatorTests
 {
     [TestClass]
-    public class AudioContentValidatorTests
+    public class PsychologistValidatorTests
     {
         [TestMethod]
         [ExpectedException(typeof(NullObjectException))]
-        public void TestNullAudioContent()
+        public void TestNullPsychologist()
         {
-            AudioContent administratorModel = null;
-            AudioContentValidator validator = new AudioContentValidator();
+            Psychologist psychologist = null;
+            PsychologistValidator validator = new PsychologistValidator();
 
-            validator.Validate(administratorModel);
+            validator.Validate(psychologist);
         }
     }
 }

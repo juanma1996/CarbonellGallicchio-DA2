@@ -61,7 +61,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostSessionIncorrectPasswordForEmail()
         {
             string mail = "oneMail@gmail.com";
@@ -71,14 +71,14 @@ namespace WebApiTests
                 Password = "onePassword"
             };
             Mock<ISessionLogicAdapter> mock = new Mock<ISessionLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new ArgumentInvalidMappingException("Incorrect password for email"));
+            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new InvalidAttributeException("Incorrect password for email"));
             SessionController controller = new SessionController(mock.Object);
 
             var result = controller.Post(sessionModel);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostSessionEmptyEmail()
         {
             SessionModel sessionModel = new SessionModel()
@@ -87,14 +87,14 @@ namespace WebApiTests
                 Password = "onePassword"
             };
             Mock<ISessionLogicAdapter> mock = new Mock<ISessionLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new ArgumentInvalidMappingException("Email can't be null"));
+            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new InvalidAttributeException("Email can't be null"));
             SessionController controller = new SessionController(mock.Object);
 
             var result = controller.Post(sessionModel);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostSessionEmptyPassword()
         {
             SessionModel sessionModel = new SessionModel()
@@ -103,7 +103,7 @@ namespace WebApiTests
                 Password = ""
             };
             Mock<ISessionLogicAdapter> mock = new Mock<ISessionLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new ArgumentInvalidMappingException("Password can't be null"));
+            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new InvalidAttributeException("Password can't be null"));
             SessionController controller = new SessionController(mock.Object);
 
             var result = controller.Post(sessionModel);

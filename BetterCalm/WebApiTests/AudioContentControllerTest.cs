@@ -143,7 +143,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestCreateAudioContentNotValidName()
         {
             AudioContentModel audioContentModel = new AudioContentModel()
@@ -169,7 +169,7 @@ namespace WebApiTests
                 },
             };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<AudioContentModel>())).Throws(new ArgumentInvalidMappingException("Name is required"));
+            mock.Setup(m => m.Add(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name is required"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Post(audioContentModel);
@@ -221,7 +221,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdateAudioContentNotValidName()
         {
             AudioContentModel audioContentModel = new AudioContentModel()
@@ -247,7 +247,7 @@ namespace WebApiTests
                 },
             };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AudioContentModel>())).Throws(new ArgumentInvalidMappingException("Name is required"));
+            mock.Setup(m => m.Update(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name is required"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Update(audioContentModel);

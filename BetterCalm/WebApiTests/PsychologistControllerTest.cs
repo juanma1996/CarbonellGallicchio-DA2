@@ -149,7 +149,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostPsychologistInvalidName()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -160,14 +160,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid name"));
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid name"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostPsychologistInvalidDirection()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -178,14 +178,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid direction"));
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid direction"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPostPsychologistInvalidConsultationMode()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -196,7 +196,7 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid consultation mode"));
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid consultation mode"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
@@ -353,7 +353,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdatePsychologistInvalidName()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -365,14 +365,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid name"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid name"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Update(psycologistModel);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdatePsychologistInvalidDirection()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -384,14 +384,14 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid direction"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid direction"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Update(psycologistModel);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentInvalidMappingException))]
+        [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdatePsychologistInvalidConsultationMode()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -403,7 +403,7 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new ArgumentInvalidMappingException("Invalid conultation mode"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid conultation mode"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Update(psycologistModel);
