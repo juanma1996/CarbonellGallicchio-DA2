@@ -32,7 +32,7 @@ namespace Adapter
             }
             catch (NullObjectException ex)
             {
-                throw new NullObjectMappingException("The category validating is null, please check.");
+                throw new NotFoundException(ex.Message);
             }
         }
     }

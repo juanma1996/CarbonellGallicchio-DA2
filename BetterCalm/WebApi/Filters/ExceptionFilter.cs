@@ -29,7 +29,7 @@ namespace WebApi.Filters
                     Content = ex.Message
                 };
             }
-            catch (NullObjectMappingException ex)
+            catch (NotFoundException ex)
             {
                 context.Result = new ContentResult()
                 {

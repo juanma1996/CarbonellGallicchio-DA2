@@ -66,12 +66,12 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestGetPsychologistNotExistentId()
         {
             var psychologistId = 1;
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.GetById(psychologistId)).Throws(new NullObjectMappingException("prueba"));
+            mock.Setup(m => m.GetById(psychologistId)).Throws(new NotFoundException("prueba"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.GetById(psychologistId);
@@ -277,12 +277,12 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestDeletePsychologistNotFound()
         {
             int psychologistId = 1;
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Delete(psychologistId)).Throws(new NullObjectMappingException("Not psychologist found for given data"));
+            mock.Setup(m => m.Delete(psychologistId)).Throws(new NotFoundException("Not psychologist found for given data"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var response = controller.DeleteById(psychologistId);
@@ -334,7 +334,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestUpdatePsychologistNotFound()
         {
             PsychologistModel psycologistModel = new PsychologistModel
@@ -346,7 +346,7 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new NullObjectMappingException("Unexistant psychologist"));
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new NotFoundException("Unexistant psychologist"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var response = controller.Update(psycologistModel);

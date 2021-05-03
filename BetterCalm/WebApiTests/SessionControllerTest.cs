@@ -44,7 +44,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestPostSessionEmailNotExistent()
         {
             string mail = "oneMail@gmail.com";
@@ -54,7 +54,7 @@ namespace WebApiTests
                 Password = "onePassword"
             };
             Mock<ISessionLogicAdapter> mock = new Mock<ISessionLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new NullObjectMappingException("Email not registered"));
+            mock.Setup(m => m.Add(It.IsAny<SessionModel>())).Throws(new NotFoundException("Email not registered"));
             SessionController controller = new SessionController(mock.Object);
 
             var result = controller.Post(sessionModel);

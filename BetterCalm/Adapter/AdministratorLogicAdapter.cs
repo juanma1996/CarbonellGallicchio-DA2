@@ -23,8 +23,15 @@ namespace Adapter
 
         public AdministratorBasicInfoModel GetById(int administratorId)
         {
-            Administrator administrator = administratorLogic.GetById(administratorId);
-            return mapper.Map<AdministratorBasicInfoModel>(administrator);
+            try
+            {
+                Administrator administrator = administratorLogic.GetById(administratorId);
+                return mapper.Map<AdministratorBasicInfoModel>(administrator);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
 
         public void Add(AdministratorModel administrator)

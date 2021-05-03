@@ -39,12 +39,12 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestGetAdministratorNotExistent()
         {
             var administratorId = 1;
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.GetById(administratorId)).Throws(new NullObjectMappingException("The Administrator doesn't exists"));
+            mock.Setup(m => m.GetById(administratorId)).Throws(new NotFoundException("The Administrator doesn't exists"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.GetById(administratorId);
@@ -145,12 +145,12 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestDeleteAdministratorNotFound()
         {
             int administratorId = 1;
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Delete(administratorId)).Throws(new NullObjectMappingException(""));
+            mock.Setup(m => m.Delete(administratorId)).Throws(new NotFoundException(""));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var response = controller.DeleteById(administratorId);
@@ -178,7 +178,7 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestUpdateAdministratorNotFound()
         {
             AdministratorModel administratorModel = new AdministratorModel
@@ -189,7 +189,7 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new NullObjectMappingException("The Administrator doesn't exists"));
+            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new NotFoundException("The Administrator doesn't exists"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var response = controller.Update(administratorModel);

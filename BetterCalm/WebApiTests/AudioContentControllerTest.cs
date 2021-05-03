@@ -132,11 +132,11 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestGetAudioContentNotExistentId()
         {
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.GetById(It.IsAny<int>())).Throws(new NullObjectMappingException("Not found object"));
+            mock.Setup(m => m.GetById(It.IsAny<int>())).Throws(new NotFoundException("Not found object"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Get(It.IsAny<int>());
@@ -176,19 +176,19 @@ namespace WebApiTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestDeleteAudioContentNotExistentId()
         {
             int audioContentId = 1;
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.DeleteById(It.IsAny<int>())).Throws(new NullObjectMappingException("Not found object"));
+            mock.Setup(m => m.DeleteById(It.IsAny<int>())).Throws(new NotFoundException("Not found object"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.DeleteById(audioContentId);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectMappingException))]
+        [ExpectedException(typeof(NotFoundException))]
         public void TestUpdateAudioContentNotExistentId()
         {
             AudioContentModel audioContentModel = new AudioContentModel()
@@ -214,7 +214,7 @@ namespace WebApiTests
                 },
             };
             Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AudioContentModel>())).Throws(new NullObjectMappingException("Not found object"));
+            mock.Setup(m => m.Update(It.IsAny<AudioContentModel>())).Throws(new NotFoundException("Not found object"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Update(audioContentModel);
