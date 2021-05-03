@@ -9,6 +9,7 @@ using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
 using Moq;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace AdapterTests
@@ -120,6 +121,37 @@ namespace AdapterTests
             AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             audioContentLogicAdapter.Update(audioContentModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestCreateAudioContentWithInvalidPlaylist()
+        {
+            int audioContentId = 1;
+            AudioContentModel audioContentModel = new AudioContentModel()
+            {
+                Id = audioContentId,
+                Name = "Audio content",
+                Playlists = new List<PlaylistModel>()
+                {
+                    new PlaylistModel()
+                    {
+                        Id = 1,
+                        Name = "",
+                        Description = "Description"
+                    }
+                }
+            };
+            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper, mockValidator.Object);
+
+            audioContentLogicAdapter.Add(audioContentModel);
 
             mock.VerifyAll();
         }
