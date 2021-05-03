@@ -21,7 +21,7 @@ namespace WebApi.Filters
                     Content = ex.Message
                 };
             }
-            catch (ArgumentInvalidMappingException ex)
+            catch (InvalidAttributeException ex)
             {
                 context.Result = new ContentResult()
                 {

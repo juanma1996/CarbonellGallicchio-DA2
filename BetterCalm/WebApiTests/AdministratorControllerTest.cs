@@ -89,7 +89,7 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new ArgumentInvalidMappingException("Invalid name"));
+            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid name"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);
@@ -106,7 +106,7 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new ArgumentInvalidMappingException("Invalid Email"));
+            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid Email"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);
@@ -123,7 +123,7 @@ namespace WebApiTests
                 Password = "",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new ArgumentInvalidMappingException("Invalid password"));
+            mock.Setup(m => m.Add(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid password"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);
@@ -206,7 +206,7 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new ArgumentInvalidMappingException("Invalid name"));
+            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid name"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Update(administratorModel);
@@ -223,7 +223,7 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new ArgumentInvalidMappingException("Invalid Email"));
+            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid Email"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Update(administratorModel);
@@ -240,7 +240,7 @@ namespace WebApiTests
                 Password = "",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new ArgumentInvalidMappingException("Invalid password"));
+            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid password"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Update(administratorModel);
