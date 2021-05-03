@@ -7,6 +7,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdapterExceptions;
 
 namespace WebApiTests
 {
@@ -36,7 +37,7 @@ namespace WebApiTests
             var result = controller.Get();
             var okResult = result as OkObjectResult;
             var categories = okResult.Value as List<CategoryBasicInfoModel>;
-            
+
             mock.VerifyAll();
             Assert.AreEqual(categories.First().Id, categoriesToReturn.First().Id);
             Assert.AreEqual(categories.First().Name, categoriesToReturn.First().Name);
@@ -68,22 +69,23 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(ResultPlaylists.Count, 2);
         }
-        //TODO: decide if we're going to throw an exception or a empty list of Playlist. Also, this case cannot ocurr.
-        [Ignore]
+        
         [TestMethod]
         public void TestGetPlaylistByCategoryNotExistentId()
         {
             List<PlaylistBasicInfoModel> playlists = new List<PlaylistBasicInfoModel>();
             var id = 1;
             Mock<ICategoryLogicAdapter> mock = new Mock<ICategoryLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.GetPlaylistsByCategoryId(id)).Throws(new NullReferenceException("Not found object"));
+            mock.Setup(m => m.GetPlaylistsByCategoryId(id)).Returns(playlists);
             CategoryController controller = new CategoryController(mock.Object);
 
             var result = controller.GetPlaylistByCategory(id);
             var objectResult = result as ObjectResult;
 
             mock.VerifyAll();
-            Assert.AreEqual(404, objectResult.StatusCode);
+            Assert.AreEqual(0, playlists.Count);
         }
+
+        
     }
 }
