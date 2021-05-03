@@ -37,6 +37,14 @@ namespace ValidatorTests
                         Name = "Name",
                         Description = "Description"
                     }
+                },
+                Categories = new List<CategoryModel>()
+                {
+                    new CategoryModel()
+                    {
+                        Id = 1,
+                        Name = "Name"
+                    }
                 }
             };
             AudioContentModelValidator validator = new AudioContentModelValidator();
@@ -59,14 +67,6 @@ namespace ValidatorTests
                         Id = 1,
                         Name = "Name",
                         Description = "Description"
-                    }
-                },
-                Categories = new List<CategoryModel>()
-                {
-                    new CategoryModel()
-                    {
-                        Id = 1,
-                        Name = "Name"
                     }
                 }
             };
