@@ -8,6 +8,7 @@ using BusinessLogicInterface;
 using Domain;
 using Model.In;
 using Model.Out;
+using ValidatorInterface;
 
 namespace Adapter
 {
@@ -15,10 +16,13 @@ namespace Adapter
     {
         private readonly IAdministratorLogic administratorLogic;
         private readonly IMapper mapper;
-        public AdministratorLogicAdapter(IAdministratorLogic administratorLogic, IModelMapper mapper)
+        private readonly IValidator<AdministratorModel> administratorModelValidator;
+        public AdministratorLogicAdapter(IAdministratorLogic administratorLogic, IModelMapper mapper,
+            IValidator<AdministratorModel> administratorModelValidator)
         {
             this.administratorLogic = administratorLogic;
             this.mapper = mapper.Configure();
+            this.administratorModelValidator = administratorModelValidator;
         }
 
         public AdministratorBasicInfoModel GetById(int administratorId)
@@ -38,6 +42,7 @@ namespace Adapter
         {
             try
             {
+                administratorModelValidator.Validate(administrator);
                 Administrator administratorIn = mapper.Map<Administrator>(administrator);
                 administratorLogic.Add(administratorIn);
             }

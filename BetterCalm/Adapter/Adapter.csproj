@@ -14,6 +14,7 @@
     <ProjectReference Include="..\BusinessExceptions\BusinessExceptions.csproj" />
     <ProjectReference Include="..\AdapterExceptions\AdapterExceptions.csproj" />
     <ProjectReference Include="..\SessionInterface\SessionInterface.csproj" />
+    <ProjectReference Include="..\ValidatorInterface\ValidatorInterface.csproj" />
   </ItemGroup>
 
   <ItemGroup>

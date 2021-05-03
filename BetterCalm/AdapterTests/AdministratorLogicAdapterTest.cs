@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
 using Model.Out;
 using Moq;
+using ValidatorInterface;
 
 namespace AdapterTests
 {
@@ -32,7 +33,9 @@ namespace AdapterTests
             Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(administratorId)).Throws(new NullObjectException("Not exist Administrator"));
             ModelMapper mapper = new ModelMapper();
-            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AdministratorModel>> mockAdministratorModel = new Mock<IValidator<AdministratorModel>>(MockBehavior.Strict);
+            mockAdministratorModel.Setup(m => m.Validate(It.IsAny<AdministratorModel>()));
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper, mockAdministratorModel.Object);
 
             AdministratorBasicInfoModel result = administratorLogicAdapter.GetById(administratorId);
 
@@ -53,7 +56,9 @@ namespace AdapterTests
             Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Add(It.IsAny<Administrator>())).Throws(new AlreadyExistException("Administrator already exists"));
             ModelMapper mapper = new ModelMapper();
-            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AdministratorModel>> mockAdministratorModel = new Mock<IValidator<AdministratorModel>>(MockBehavior.Strict);
+            mockAdministratorModel.Setup(m => m.Validate(It.IsAny<AdministratorModel>()));
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper, mockAdministratorModel.Object);
 
             administratorLogicAdapter.Add(administrator);
 
@@ -68,7 +73,9 @@ namespace AdapterTests
             Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
             mock.Setup(m => m.DeleteById(administratorId)).Throws(new NullObjectException("Not exist Administrator"));
             ModelMapper mapper = new ModelMapper();
-            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AdministratorModel>> mockAdministratorModel = new Mock<IValidator<AdministratorModel>>(MockBehavior.Strict);
+            mockAdministratorModel.Setup(m => m.Validate(It.IsAny<AdministratorModel>()));
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper, mockAdministratorModel.Object);
 
             administratorLogicAdapter.Delete(administratorId);
 
@@ -89,7 +96,9 @@ namespace AdapterTests
             Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Update(It.IsAny<Administrator>())).Throws(new NullObjectException("Not exist Administrator"));
             ModelMapper mapper = new ModelMapper();
-            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AdministratorModel>> mockAdministratorModel = new Mock<IValidator<AdministratorModel>>(MockBehavior.Strict);
+            mockAdministratorModel.Setup(m => m.Validate(It.IsAny<AdministratorModel>()));
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper, mockAdministratorModel.Object);
 
             administratorLogicAdapter.Update(administrator);
 
@@ -109,7 +118,9 @@ namespace AdapterTests
             Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(It.IsAny<Administrator>());
             ModelMapper mapper = new ModelMapper();
-            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AdministratorModel>> mockAdministratorModel = new Mock<IValidator<AdministratorModel>>(MockBehavior.Strict);
+            mockAdministratorModel.Setup(m => m.Validate(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper, mockAdministratorModel.Object);
 
             administratorLogicAdapter.Add(administratorModel);
 
@@ -129,7 +140,9 @@ namespace AdapterTests
             Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(It.IsAny<Administrator>());
             ModelMapper mapper = new ModelMapper();
-            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AdministratorModel>> mockAdministratorModel = new Mock<IValidator<AdministratorModel>>(MockBehavior.Strict);
+            mockAdministratorModel.Setup(m => m.Validate(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper, mockAdministratorModel.Object);
 
             administratorLogicAdapter.Add(administratorModel);
 
@@ -149,7 +162,9 @@ namespace AdapterTests
             Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(It.IsAny<Administrator>());
             ModelMapper mapper = new ModelMapper();
-            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AdministratorModel>> mockAdministratorModel = new Mock<IValidator<AdministratorModel>>(MockBehavior.Strict);
+            mockAdministratorModel.Setup(m => m.Validate(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper, mockAdministratorModel.Object);
 
             administratorLogicAdapter.Add(administratorModel);
 
