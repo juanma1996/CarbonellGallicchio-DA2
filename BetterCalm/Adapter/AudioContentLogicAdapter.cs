@@ -63,6 +63,7 @@ namespace Adapter
             try
             {
                 audioContentModelValidator.Validate(audioContentModel);
+                audioContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
                 AudioContent audioContentToUpdate = mapper.Map<AudioContent>(audioContentModel);
                 audioContentLogic.Update(audioContentToUpdate);
             }
