@@ -9,6 +9,7 @@ using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
 using Moq;
+using ValidatorInterface;
 
 namespace AdapterTests
 {
@@ -31,7 +32,9 @@ namespace AdapterTests
             Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(It.IsAny<int>())).Throws(new NullObjectException("Not exist audio content"));
             ModelMapper mapper = new ModelMapper();
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             audioContentLogicAdapter.GetById(audioContentId);
 
@@ -46,7 +49,9 @@ namespace AdapterTests
             Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.DeleteById(It.IsAny<int>())).Throws(new NullObjectException("Not exist audio content"));
             ModelMapper mapper = new ModelMapper();
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             audioContentLogicAdapter.DeleteById(audioContentId);
 
@@ -66,7 +71,9 @@ namespace AdapterTests
             Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Update(It.IsAny<AudioContent>())).Throws(new NullObjectException("Not exist audio content"));
             ModelMapper mapper = new ModelMapper();
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             audioContentLogicAdapter.Update(audioContentModel);
 
@@ -86,7 +93,9 @@ namespace AdapterTests
             Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
             ModelMapper mapper = new ModelMapper();
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             audioContentLogicAdapter.Add(audioContentModel);
 
@@ -106,7 +115,9 @@ namespace AdapterTests
             Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
             ModelMapper mapper = new ModelMapper();
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             audioContentLogicAdapter.Update(audioContentModel);
 

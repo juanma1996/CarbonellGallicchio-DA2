@@ -8,6 +8,7 @@ using Domain;
 using Model.In;
 using Model.Out;
 using System;
+using ValidatorInterface;
 
 namespace Adapter
 {
@@ -15,10 +16,12 @@ namespace Adapter
     {
         private readonly IAudioContentLogic audioContentLogic;
         private readonly IMapper mapper;
-        public AudioContentLogicAdapter(IAudioContentLogic audioContentLogic, IModelMapper mapper)
+        private readonly IValidator<AudioContentModel> audioContentModelValidator;
+        public AudioContentLogicAdapter(IAudioContentLogic audioContentLogic, IModelMapper mapper, IValidator<AudioContentModel> audioContentModelValidator)
         {
             this.audioContentLogic = audioContentLogic;
             this.mapper = mapper.Configure();
+            this.audioContentModelValidator = audioContentModelValidator;
         }
 
         public AudioContentBasicInfoModel GetById(int audioContentId)
@@ -35,6 +38,7 @@ namespace Adapter
         }
         public AudioContentBasicInfoModel Add(AudioContentModel audioContentModel)
         {
+            audioContentModelValidator.Validate(audioContentModel);
             AudioContent audioContentIn = mapper.Map<AudioContent>(audioContentModel);
             AudioContent audioContent = audioContentLogic.Create(audioContentIn);
             return mapper.Map<AudioContentBasicInfoModel>(audioContent);
@@ -54,6 +58,7 @@ namespace Adapter
         {
             try
             {
+                audioContentModelValidator.Validate(audioContentModel);
                 AudioContent audioContentToUpdate = mapper.Map<AudioContent>(audioContentModel);
                 audioContentLogic.Update(audioContentToUpdate);
             }
