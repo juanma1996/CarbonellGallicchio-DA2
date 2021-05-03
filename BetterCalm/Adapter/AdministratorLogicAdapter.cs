@@ -68,6 +68,7 @@ namespace Adapter
         {
             try
             {
+                administratorModelValidator.Validate(administrator);
                 Administrator administratorToUpdate = mapper.Map<Administrator>(administrator);
                 administratorLogic.Update(administratorToUpdate);
             }
