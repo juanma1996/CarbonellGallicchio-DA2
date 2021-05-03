@@ -1,16 +1,15 @@
-﻿using Model.In;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AdapterExceptions;
+using Model.In;
 using ValidatorInterface;
 
 namespace Validator
 {
     public class AdministratorModelValidator : IValidator<AdministratorModel>
     {
-        public void Validate(AdministratorModel someObject)
+        public void Validate(AdministratorModel administratorModel)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(administratorModel.Name))
+                throw new InvalidNameException("The administrator name can't be empty");
         }
     }
 }
