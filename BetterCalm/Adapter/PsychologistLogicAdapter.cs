@@ -1,7 +1,9 @@
 ﻿using System;
 using Adapter.Mapper;
+using AdapterExceptions;
 using AdapterInterface;
 using AutoMapper;
+using BusinessExceptions;
 using BusinessLogicInterface;
 using Domain;
 using Model.In;
@@ -21,9 +23,16 @@ namespace Adapter
 
         public PsychologistBasicInfoModel GetById(int psychologistId)
         {
-            Psychologist psychologist = psychologistLogic.GetById(psychologistId);
-            PsychologistBasicInfoModel psychologistToReturn = mapper.Map<PsychologistBasicInfoModel>(psychologist);
-            return psychologistToReturn;
+            try
+            {
+                Psychologist psychologist = psychologistLogic.GetById(psychologistId);
+                PsychologistBasicInfoModel psychologistToReturn = mapper.Map<PsychologistBasicInfoModel>(psychologist);
+                return psychologistToReturn;
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
 
         public PsychologistBasicInfoModel Add(PsychologistModel psychologistModel)
@@ -36,13 +45,27 @@ namespace Adapter
 
         public void Delete(int psychologistId)
         {
-            psychologistLogic.DeleteById(psychologistId);
+            try
+            {
+                psychologistLogic.DeleteById(psychologistId);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
 
         public void Update(PsychologistModel psychologistModel)
         {
-            Psychologist psychologistToUpdate = mapper.Map<Psychologist>(psychologistModel);
-            psychologistLogic.Update(psychologistToUpdate);
+            try
+            {
+                Psychologist psychologistToUpdate = mapper.Map<Psychologist>(psychologistModel);
+                psychologistLogic.Update(psychologistToUpdate);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
     }
 }

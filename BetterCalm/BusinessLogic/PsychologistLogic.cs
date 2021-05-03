@@ -32,14 +32,13 @@ namespace BusinessLogic
 
         public Psychologist Add(Psychologist psycologist)
         {
-            psycologist.CreationDate = DateTime.Today;
+            psycologist.CreationDate = DateTime.Now;
             return psychologistRepository.Add(psycologist);
         }
 
         public void DeleteById(int psychologistId)
         {
-            Psychologist psychologist = psychologistRepository.GetById(psychologistId);
-            psychologistValidator.Validate(psychologist);
+            Psychologist psychologist = GetById(psychologistId);
             psychologistRepository.Delete(psychologist);
         }
 
