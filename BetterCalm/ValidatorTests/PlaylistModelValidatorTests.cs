@@ -58,5 +58,19 @@ namespace ValidatorTests
 
             validator.Validate(playlist);
         }
+
+        [TestMethod]
+        public void TestPlaylistModelIsOk()
+        {
+            PlaylistModel playlist = new PlaylistModel()
+            {
+                Id = 1,
+                Name = "Juan Manuel",
+                Description = "Description"
+            };
+            PlaylistModelValidator validator = new PlaylistModelValidator();
+
+            validator.Validate(playlist);
+        }
     }
 }
