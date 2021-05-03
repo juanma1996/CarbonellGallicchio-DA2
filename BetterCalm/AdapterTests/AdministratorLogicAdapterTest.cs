@@ -95,5 +95,65 @@ namespace AdapterTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPostAdministratorInvalidName()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(It.IsAny<Administrator>());
+            ModelMapper mapper = new ModelMapper();
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+
+            administratorLogicAdapter.Add(administratorModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPostAdministratorInvalidPassword()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "",
+            };
+            Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(It.IsAny<Administrator>());
+            ModelMapper mapper = new ModelMapper();
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+
+            administratorLogicAdapter.Add(administratorModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPostAdministratorInvalidEmail()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "Juan",
+                Email = "",
+                Password = "Password01",
+            };
+            Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(It.IsAny<Administrator>());
+            ModelMapper mapper = new ModelMapper();
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+
+            administratorLogicAdapter.Add(administratorModel);
+
+            mock.VerifyAll();
+        }
     }
 }
