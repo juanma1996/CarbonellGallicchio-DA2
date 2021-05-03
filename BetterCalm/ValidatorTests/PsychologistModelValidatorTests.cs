@@ -13,7 +13,7 @@ namespace ValidatorTests
     {
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestAdministratorModelWithEmptyName()
+        public void TestPsychologistModelWithEmptyName()
         {
             PsychologistModel psychologist = new PsychologistModel
             {
@@ -26,7 +26,7 @@ namespace ValidatorTests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestAdministratorModelWithEmptyConsultationMode()
+        public void TestPsychologistModelWithEmptyConsultationMode()
         {
             PsychologistModel psychologist = new PsychologistModel
             {
@@ -40,7 +40,7 @@ namespace ValidatorTests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestAdministratorModelWithEmptyDirection()
+        public void TestPsychologistModelWithEmptyDirection()
         {
             PsychologistModel psychologist = new PsychologistModel
             {
@@ -55,7 +55,7 @@ namespace ValidatorTests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestAdministratorModelWithZeroProblematics()
+        public void TestPsychologistModelWithZeroProblematics()
         {
             PsychologistModel psychologist = new PsychologistModel
             {

@@ -1,16 +1,17 @@
-﻿using Model.In;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AdapterExceptions;
+using Model.In;
 using ValidatorInterface;
 
 namespace Validator
 {
     public class SessionModelValidator : IValidator<SessionModel>
     {
-        public void Validate(SessionModel someObject)
+        public void Validate(SessionModel sessionModel)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(sessionModel.Email))
+                throw new InvalidAttributeException("The email can't be empty");
+            if (string.IsNullOrEmpty(sessionModel.Password))
+                throw new InvalidAttributeException("The password can't be empty");
         }
     }
 }

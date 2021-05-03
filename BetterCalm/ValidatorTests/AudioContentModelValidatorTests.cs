@@ -10,7 +10,7 @@ namespace ValidatorTests
     {
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestAdministratorModelWithEmptyName()
+        public void TestAudioContentModelWithEmptyName()
         {
             AudioContentModel audioContentModel = new AudioContentModel
             {

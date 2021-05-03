@@ -1,8 +1,5 @@
 ﻿using AdapterExceptions;
 using Model.In;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using ValidatorInterface;
 
 namespace Validator
