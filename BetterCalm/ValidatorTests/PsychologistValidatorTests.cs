@@ -17,5 +17,17 @@ namespace ValidatorTests
 
             validator.Validate(psychologist);
         }
+
+        [TestMethod]
+        public void TestPsychologistIsCorrect()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1
+            };
+            PsychologistValidator validator = new PsychologistValidator();
+
+            validator.Validate(psychologist);
+        }
     }
 }

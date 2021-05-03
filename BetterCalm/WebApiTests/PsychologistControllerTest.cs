@@ -282,7 +282,7 @@ namespace WebApiTests
         {
             int psychologistId = 1;
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Delete(psychologistId)).Throws(new NullObjectMappingException());
+            mock.Setup(m => m.Delete(psychologistId)).Throws(new NullObjectMappingException("Not psychologist found for given data"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var response = controller.DeleteById(psychologistId);

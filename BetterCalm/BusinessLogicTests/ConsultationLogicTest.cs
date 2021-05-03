@@ -142,7 +142,7 @@ namespace BusinessLogicTests
             Mock<IRepository<Consultation>> mock = new Mock<IRepository<Consultation>>(MockBehavior.Strict);
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
             Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
-            psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Throws(new NullObjectException());
+            psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Throws(new NullObjectException("There is no psychologist"));
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
 
             Psychologist returnedPsychologist = consultationLogic.Add(consultationModel);

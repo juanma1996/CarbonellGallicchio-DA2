@@ -20,5 +20,17 @@ namespace ValidatorTests
 
             validator.Validate(playlist);
         }
+
+        [TestMethod]
+        public void TestPlaylistIsCorrect()
+        {
+            Playlist playlist = new Playlist
+            {
+                Id = 1
+            };
+            PlaylistValidator validator = new PlaylistValidator();
+
+            validator.Validate(playlist);
+        }
     }
 }

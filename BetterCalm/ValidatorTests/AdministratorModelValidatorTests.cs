@@ -52,5 +52,19 @@ namespace ValidatorTests
 
             validator.Validate(administratorModel);
         }
+
+        [TestMethod]
+        public void TestAdministratorModelIsCorrect()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "Juan",
+                Email = "oneMail@gmail.com",
+                Password = "password",
+            };
+            AdministratorModelValidator validator = new AdministratorModelValidator();
+
+            validator.Validate(administratorModel);
+        }
     }
 }

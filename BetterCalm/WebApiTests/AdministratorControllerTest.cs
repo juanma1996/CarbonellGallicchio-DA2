@@ -150,7 +150,7 @@ namespace WebApiTests
         {
             int administratorId = 1;
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Delete(administratorId)).Throws(new NullObjectMappingException());
+            mock.Setup(m => m.Delete(administratorId)).Throws(new NullObjectMappingException(""));
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var response = controller.DeleteById(administratorId);

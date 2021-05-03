@@ -20,5 +20,17 @@ namespace ValidatorTests
 
             validator.Validate(audioContentModel);
         }
+
+        [TestMethod]
+        public void TestAudioContentModelIsCorrect()
+        {
+            AudioContentModel audioContentModel = new AudioContentModel
+            {
+                Name = "Juan"
+            };
+            AudioContentModelValidator validator = new AudioContentModelValidator();
+
+            validator.Validate(audioContentModel);
+        }
     }
 }

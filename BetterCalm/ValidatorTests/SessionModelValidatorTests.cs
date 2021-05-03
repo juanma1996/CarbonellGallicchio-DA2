@@ -38,5 +38,18 @@ namespace ValidatorTests
 
             validator.Validate(sessionModel);
         }
+
+        [TestMethod]
+        public void TestSessionModelIsCorrect()
+        {
+            SessionModel sessionModel = new SessionModel
+            {
+                Email = "oneMail",
+                Password = "password"
+            };
+            SessionModelValidator validator = new SessionModelValidator();
+
+            validator.Validate(sessionModel);
+        }
     }
 }

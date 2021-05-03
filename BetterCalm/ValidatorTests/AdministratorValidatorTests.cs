@@ -17,5 +17,19 @@ namespace ValidatorTests
 
             validator.Validate(administrator);
         }
+
+        [TestMethod]
+        public void TestAdministratorIsCorrect()
+        {
+            Administrator administrator = new Administrator
+            {
+                Name = "Juan",
+                Email = "oneMail@gmail.com",
+                Password = "password",
+            };
+            AdministratorValidator validator = new AdministratorValidator();
+
+            validator.Validate(administrator);
+        }
     }
 }

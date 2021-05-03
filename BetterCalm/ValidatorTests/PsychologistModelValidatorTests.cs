@@ -68,5 +68,28 @@ namespace ValidatorTests
 
             validator.Validate(psychologist);
         }
+
+        [TestMethod]
+        public void TestPsychologistModelIsCorrect()
+        {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1,
+                    Name = "Juan"
+                }
+            };
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = "One mode",
+                Direction = "Direction",
+                Problematics = problematics
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }
     }
 }

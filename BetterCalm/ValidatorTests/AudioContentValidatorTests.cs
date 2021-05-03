@@ -12,10 +12,22 @@ namespace ValidatorTests
         [ExpectedException(typeof(NullObjectException))]
         public void TestNullAudioContent()
         {
-            AudioContent administratorModel = null;
+            AudioContent audioContent = null;
             AudioContentValidator validator = new AudioContentValidator();
 
-            validator.Validate(administratorModel);
+            validator.Validate(audioContent);
+        }
+
+        [TestMethod]
+        public void TestAudioContentIsCorrect()
+        {
+            AudioContent audioContent = new AudioContent
+            {
+                Name = "Juan"
+            };
+            AudioContentValidator validator = new AudioContentValidator();
+
+            validator.Validate(audioContent);
         }
     }
 }
