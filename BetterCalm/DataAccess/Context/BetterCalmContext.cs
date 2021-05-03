@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace DataAccess.Context
@@ -25,6 +26,7 @@ namespace DataAccess.Context
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
 
+        [ExcludeFromCodeCoverage]
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
