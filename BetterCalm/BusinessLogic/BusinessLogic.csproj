@@ -18,5 +18,6 @@
 	  <ProjectReference Include="..\BusinessLogicInterface\BusinessLogicInterface.csproj" />
 	  <ProjectReference Include="..\DataAccessInterface\DataAccessInterface.csproj" />
 	  <ProjectReference Include="..\BusinessExceptions\BusinessExceptions.csproj" />
+	  <ProjectReference Include="..\ValidatorInterface\ValidatorInterface.csproj" />
 	</ItemGroup>
 </Project>

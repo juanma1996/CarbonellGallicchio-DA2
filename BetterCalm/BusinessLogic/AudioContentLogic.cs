@@ -1,22 +1,25 @@
-﻿using BusinessLogicInterface;
+﻿using BusinessExceptions;
+using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
+using ValidatorInterface;
 
 namespace BusinessLogic
 {
     public class AudioContentLogic : IAudioContentLogic
     {
         private IRepository<AudioContent> audioContentRepository;
-        private readonly Validation validation = new Validation();
+        private IValidator<AudioContent> audioContentValidator;
 
-        public AudioContentLogic(IRepository<AudioContent> audioContentRepository)
+        public AudioContentLogic(IRepository<AudioContent> audioContentRepository, IValidator<AudioContent> audioContentValidator)
         {
             this.audioContentRepository = audioContentRepository;
+            this.audioContentValidator = audioContentValidator;
         }
         public AudioContent GetById(int audioContentId)
         {
             AudioContent audioContent = audioContentRepository.GetById(audioContentId);
-            validation.Validate(audioContent);
+            audioContentValidator.Validate(audioContent);
             return audioContent;
 
         }
@@ -33,7 +36,7 @@ namespace BusinessLogic
         {
             if (!audioContentRepository.Exists(a => a.Id == audioContentModel.Id))
             {
-                validation.NullObjectException();
+                throw new NullObjectException("Audio content not exist for the given data");
             }
             else
             {

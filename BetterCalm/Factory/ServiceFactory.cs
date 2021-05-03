@@ -6,10 +6,14 @@ using BusinessLogicInterface;
 using DataAccess.Context;
 using DataAccess.Repositories;
 using DataAccessInterface;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Model.In;
 using SessionInterface;
 using SessionLogic;
+using Validator;
+using ValidatorInterface;
 
 namespace Factory
 {
@@ -41,6 +45,14 @@ namespace Factory
             services.AddScoped<IConsultationLogicAdapter, ConsultationLogicAdapter>();
             services.AddScoped<IConsultationLogic, ConsultationLogic>();
             services.AddScoped<IAgendaLogic, AgendaLogic>();
+            services.AddScoped<IValidator<AdministratorModel>, AdministratorModelValidator>();
+            services.AddScoped<IValidator<Administrator>, AdministratorValidator>();
+            services.AddScoped<IValidator<AudioContentModel>, AudioContentModelValidator>();
+            services.AddScoped<IValidator<AudioContent>, AudioContentValidator>();
+            services.AddScoped<IValidator<Playlist>, PlaylistValidator>();
+            services.AddScoped<IValidator<PsychologistModel>, PsychologistModelValidator>();
+            services.AddScoped<IValidator<Psychologist>, PsychologistValidator>();
+            services.AddScoped<IValidator<SessionModel>, SessionModelValidator>();
         }
         public void AddDbContextService()
         {

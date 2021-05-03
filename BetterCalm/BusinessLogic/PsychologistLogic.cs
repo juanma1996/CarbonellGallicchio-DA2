@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BusinessExceptions;
 using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
+using ValidatorInterface;
 
 namespace BusinessLogic
 {
     public class PsychologistLogic : IPsychologistLogic
     {
         private readonly IRepository<Psychologist> psychologistRepository;
-        private readonly Validation validation = new Validation();
+        private readonly IValidator<Psychologist> psychologistValidator;
         private readonly IAgendaLogic agendaLogic;
 
-        public PsychologistLogic(IRepository<Psychologist> psychologistRepository, IAgendaLogic agendaLogic)
+        public PsychologistLogic(IRepository<Psychologist> psychologistRepository, IAgendaLogic agendaLogic,
+            IValidator<Psychologist> psychologistValidator)
         {
             this.psychologistRepository = psychologistRepository;
             this.agendaLogic = agendaLogic;
@@ -22,7 +25,7 @@ namespace BusinessLogic
         public Psychologist GetById(int psychologistId)
         {
             Psychologist psychologist = psychologistRepository.GetById(psychologistId);
-            validation.Validate(psychologist);
+            psychologistValidator.Validate(psychologist);
             return psychologist;
         }
 
@@ -35,7 +38,7 @@ namespace BusinessLogic
         public void DeleteById(int psychologistId)
         {
             Psychologist psychologist = psychologistRepository.GetById(psychologistId);
-            validation.Validate(psychologist);
+            psychologistValidator.Validate(psychologist);
             psychologistRepository.Delete(psychologist);
         }
 
@@ -43,7 +46,7 @@ namespace BusinessLogic
         {
             if (!psychologistRepository.Exists(a => a.Id == psychologist.Id))
             {
-                validation.NullObjectException();
+                throw new NullObjectException("There is no psychologist registered for the given data");
             }
             else
             {
@@ -63,9 +66,17 @@ namespace BusinessLogic
 
         public Psychologist GetAvailableByProblematicIdAndDate(int problematicId, DateTime date)
         {
+            int daysToAdd = 1;
             List<Agenda> agendas = new List<Agenda>();
             List<Psychologist> psychologists = GetAllByProblematicId(problematicId);
-            validation.ValidateList(psychologists);
+            if (psychologists is null)
+            {
+                throw new NullObjectException("There is no psychologist registered for the given data");
+            }
+            else
+            {
+                psychologistValidator.Validate(psychologists.First());
+            }
             while (agendas.Count == 0)
             {
                 if (date.DayOfWeek != DayOfWeek.Sunday && date.DayOfWeek != DayOfWeek.Saturday)
@@ -83,7 +94,7 @@ namespace BusinessLogic
                                 }
                             });
                 }
-                date = date.AddDays(1);
+                date = date.AddDays(daysToAdd);
             }
             Agenda agendaToUse = agendas.OrderBy(a => a.Psychologist.CreationDate).First();
             agendaLogic.Assign(agendaToUse);

@@ -22,6 +22,7 @@
 	  <ProjectReference Include="..\DataAccessInterface\DataAccessInterface.csproj" />
 	  <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
 	  <ProjectReference Include="..\SessionLogic\SessionLogic.csproj" />
+	  <ProjectReference Include="..\Validator\Validator.csproj" />
 	</ItemGroup>
 
 </Project>

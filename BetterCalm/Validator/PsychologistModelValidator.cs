@@ -14,7 +14,7 @@ namespace Validator
                 throw new InvalidAttributeException("The psychologist's consultation mode can't be empty");
             if (string.IsNullOrEmpty(psychologistModel.Direction))
                 throw new InvalidAttributeException("The psychologist's direction can't be empty");
-            if (psychologistModel.Problematics == null || psychologistModel.Problematics.Count == 0)
+            if (psychologistModel.Problematics is null || psychologistModel.Problematics.Count == 0)
                 throw new InvalidAttributeException("The psychologist's problematics can't be zero");
         }
     }

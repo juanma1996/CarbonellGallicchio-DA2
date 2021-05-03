@@ -1,24 +1,26 @@
-﻿using System;
+﻿using BusinessExceptions;
 using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
+using ValidatorInterface;
 
 namespace BusinessLogic
 {
     public class AdministratorLogic : IAdministratorLogic
     {
         private readonly IRepository<Administrator> administratorRepository;
-        private readonly Validation validation = new Validation();
+        private readonly IValidator<Administrator> administratorvalidator;
 
-        public AdministratorLogic(IRepository<Administrator> administratorRepository)
+        public AdministratorLogic(IRepository<Administrator> administratorRepository, IValidator<Administrator> administratorvalidator)
         {
             this.administratorRepository = administratorRepository;
+            this.administratorvalidator = administratorvalidator;
         }
 
         public Administrator GetById(int administratorId)
         {
             Administrator administrator = administratorRepository.GetById(administratorId);
-            validation.Validate(administrator);
+            administratorvalidator.Validate(administrator);
             return administrator;
         }
 
@@ -26,7 +28,7 @@ namespace BusinessLogic
         {
             if (administratorRepository.Exists(a => a.Email == administrator.Email))
             {
-                validation.NullObjectException();
+                throw new NullObjectException("There is no administrator registered for the given data");
             }
 
             return administratorRepository.Add(administrator);
@@ -35,7 +37,7 @@ namespace BusinessLogic
         public void DeleteById(int administratorId)
         {
             Administrator administrator = administratorRepository.GetById(administratorId);
-            validation.Validate(administrator);
+            administratorvalidator.Validate(administrator);
             administratorRepository.Delete(administrator);
         }
 
@@ -43,7 +45,7 @@ namespace BusinessLogic
         {
             if (!administratorRepository.Exists(a => a.Id == administratorModel.Id))
             {
-                validation.NullObjectException();
+                throw new NullObjectException("There is no administrator registered for the given data");
             }
             else
             {
@@ -54,7 +56,7 @@ namespace BusinessLogic
         public Administrator GetByEmailAndPassword(string email, string password)
         {
             Administrator administrator = administratorRepository.Get(a => a.Email == email && a.Password == password);
-            validation.Validate(administrator);
+            administratorvalidator.Validate(administrator);
             return administrator;
         }
     }
