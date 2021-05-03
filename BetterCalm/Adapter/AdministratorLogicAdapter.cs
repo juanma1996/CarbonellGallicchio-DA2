@@ -36,8 +36,15 @@ namespace Adapter
 
         public void Add(AdministratorModel administrator)
         {
-            Administrator administratorIn = mapper.Map<Administrator>(administrator);
-            administratorLogic.Add(administratorIn);
+            try
+            {
+                Administrator administratorIn = mapper.Map<Administrator>(administrator);
+                administratorLogic.Add(administratorIn);
+            }
+            catch (AlreadyExistException e)
+            {
+                throw new EntityAlreadyExistException(e.Message);
+            }
         }
 
         public void Delete(int administratorId)
