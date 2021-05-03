@@ -83,5 +83,179 @@ namespace AdapterTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestAddPsychologistInvalidName()
+        {
+            PsychologistModel psychologistModel = new PsychologistModel()
+            {
+                Id = 1,
+                ConsultationMode = "some mode",
+                Direction = "one direction",
+                Name = "",
+                Problematics = new List<ProblematicModel>()
+                {
+                    new ProblematicModel()
+                    {
+                        Id = 1,
+                        Name = "Federico"
+                    }
+                }
+            };
+            Mock<IPsychologistLogic> mock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Psychologist>())).Returns(It.IsAny<Psychologist>());
+            ModelMapper mapper = new ModelMapper();
+            PsychologistLogicAdapter psychologistLogicAdapter = new PsychologistLogicAdapter(mock.Object, mapper);
+
+            psychologistLogicAdapter.Add(psychologistModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestAddPsychologistInvalidDirection()
+        {
+            PsychologistModel psychologistModel = new PsychologistModel()
+            {
+                Id = 1,
+                ConsultationMode = "some mode",
+                Direction = "",
+                Name = "Juan",
+                Problematics = new List<ProblematicModel>()
+                {
+                    new ProblematicModel()
+                    {
+                        Id = 1,
+                        Name = "Federico"
+                    }
+                }
+            };
+            Mock<IPsychologistLogic> mock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Psychologist>())).Returns(It.IsAny<Psychologist>());
+            ModelMapper mapper = new ModelMapper();
+            PsychologistLogicAdapter psychologistLogicAdapter = new PsychologistLogicAdapter(mock.Object, mapper);
+
+            psychologistLogicAdapter.Add(psychologistModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestAddPsychologistInvalidConsultationMode()
+        {
+            PsychologistModel psychologistModel = new PsychologistModel()
+            {
+                Id = 1,
+                ConsultationMode = "",
+                Direction = "One direction",
+                Name = "Juan",
+                Problematics = new List<ProblematicModel>()
+                {
+                    new ProblematicModel()
+                    {
+                        Id = 1,
+                        Name = "Federico"
+                    }
+                }
+            };
+            Mock<IPsychologistLogic> mock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Psychologist>())).Returns(It.IsAny<Psychologist>());
+            ModelMapper mapper = new ModelMapper();
+            PsychologistLogicAdapter psychologistLogicAdapter = new PsychologistLogicAdapter(mock.Object, mapper);
+
+            psychologistLogicAdapter.Add(psychologistModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestUpdatePsychologistInvalidName()
+        {
+            PsychologistModel psychologistModel = new PsychologistModel()
+            {
+                Id = 1,
+                ConsultationMode = "some mode",
+                Direction = "one direction",
+                Name = "",
+                Problematics = new List<ProblematicModel>()
+                {
+                    new ProblematicModel()
+                    {
+                        Id = 1,
+                        Name = "Federico"
+                    }
+                }
+            };
+            Mock<IPsychologistLogic> mock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<Psychologist>()));
+            ModelMapper mapper = new ModelMapper();
+            PsychologistLogicAdapter psychologistLogicAdapter = new PsychologistLogicAdapter(mock.Object, mapper);
+
+            psychologistLogicAdapter.Update(psychologistModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestUpdatePsychologistInvalidDirection()
+        {
+            PsychologistModel psychologistModel = new PsychologistModel()
+            {
+                Id = 1,
+                ConsultationMode = "some mode",
+                Direction = "",
+                Name = "Juan",
+                Problematics = new List<ProblematicModel>()
+                {
+                    new ProblematicModel()
+                    {
+                        Id = 1,
+                        Name = "Federico"
+                    }
+                }
+            };
+            Mock<IPsychologistLogic> mock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<Psychologist>()));
+            ModelMapper mapper = new ModelMapper();
+            PsychologistLogicAdapter psychologistLogicAdapter = new PsychologistLogicAdapter(mock.Object, mapper);
+
+            psychologistLogicAdapter.Update(psychologistModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestUpdatePsychologistInvalidConsultationMode()
+        {
+            PsychologistModel psychologistModel = new PsychologistModel()
+            {
+                Id = 1,
+                ConsultationMode = "",
+                Direction = "One direction",
+                Name = "Juan",
+                Problematics = new List<ProblematicModel>()
+                {
+                    new ProblematicModel()
+                    {
+                        Id = 1,
+                        Name = "Federico"
+                    }
+                }
+            };
+            Mock<IPsychologistLogic> mock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<Psychologist>()));
+            ModelMapper mapper = new ModelMapper();
+            PsychologistLogicAdapter psychologistLogicAdapter = new PsychologistLogicAdapter(mock.Object, mapper);
+
+            psychologistLogicAdapter.Update(psychologistModel);
+
+            mock.VerifyAll();
+        }
     }
 }
