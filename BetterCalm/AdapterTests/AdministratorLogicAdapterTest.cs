@@ -5,7 +5,9 @@ using AdapterExceptions;
 using AutoMapper;
 using BusinessExceptions;
 using BusinessLogicInterface;
+using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Model.In;
 using Model.Out;
 using Moq;
 
@@ -26,13 +28,34 @@ namespace AdapterTests
         [ExpectedException(typeof(NotFoundException))]
         public void TestGetAdministratorNotExistentId()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(administratorId)).Throws(new NullObjectException("Not exist Administrator"));
             ModelMapper mapper = new ModelMapper();
             AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
 
             AdministratorBasicInfoModel result = administratorLogicAdapter.GetById(administratorId);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EntityAlreadyExistException))]
+        public void TestAddAlreadyExistentAdministrator()
+        {
+            AdministratorModel administrator = new AdministratorModel()
+            {
+                Id = 1,
+                Email = "oneMailgmail.com",
+                Name = "Juan",
+                Password = "pass"
+            };
+            Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Administrator>())).Throws(new AlreadyExistException("Administrator already exists"));
+            ModelMapper mapper = new ModelMapper();
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+
+            administratorLogicAdapter.Add(administrator);
 
             mock.VerifyAll();
         }
