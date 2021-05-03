@@ -25,5 +25,36 @@ namespace ValidatorTests
 
             validator.Validate(playlist);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPlaylistModelEmptyDescription()
+        {
+            PlaylistModel playlist = new PlaylistModel()
+            {
+                Id = 1,
+                Name = "Juan Manuel",
+                Description = ""
+            };
+            PlaylistModelValidator validator = new PlaylistModelValidator();
+
+            validator.Validate(playlist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPlaylistModelToolargeDescription()
+        {
+            string largeDescription = "This is a description very large for the playlist description attribute";
+            PlaylistModel playlist = new PlaylistModel()
+            {
+                Id = 1,
+                Name = "Juan Manuel",
+                Description = largeDescription
+            };
+            PlaylistModelValidator validator = new PlaylistModelValidator();
+
+            validator.Validate(playlist);
+        }
     }
 }
