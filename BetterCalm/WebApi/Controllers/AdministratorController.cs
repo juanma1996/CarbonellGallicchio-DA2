@@ -5,6 +5,7 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
@@ -16,6 +17,7 @@ namespace WebApi.Controllers
             this.administratorDomainToModelAdapter = administratorDomainToModelAdapter;
         }
 
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpGet("{id}", Name = "GetAdministratorsById")]
         public IActionResult GetById(int administratorId)
         {
@@ -23,6 +25,7 @@ namespace WebApi.Controllers
             return Ok(administrator);
         }
 
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPost]
         public IActionResult Post([FromBody] AdministratorModel administratorModel)
         {
@@ -30,6 +33,7 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpDelete("{administratorId}")]
         public IActionResult DeleteById(int administratorId)
         {
@@ -37,6 +41,7 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPut]
         public IActionResult Update([FromBody] AdministratorModel administratorModel)
         {
