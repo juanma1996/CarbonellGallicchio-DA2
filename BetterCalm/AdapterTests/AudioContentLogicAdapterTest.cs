@@ -173,5 +173,39 @@ namespace AdapterTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestUpdateAudioContentWithInvalidPlaylist()
+        {
+            int audioContentId = 1;
+            AudioContentModel audioContentModel = new AudioContentModel()
+            {
+                Id = audioContentId,
+                Name = "Audio content",
+                Playlists = new List<PlaylistModel>()
+                {
+                    new PlaylistModel()
+                    {
+                        Id = 1,
+                        Name = "",
+                        Description = "Description"
+                    }
+                }
+            };
+            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Playlist name can't be empty"));
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            audioContentLogicAdapter.Update(audioContentModel);
+
+            mock.VerifyAll();
+        }
     }
 }
