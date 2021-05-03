@@ -17,11 +17,14 @@ namespace Adapter
         private readonly IAudioContentLogic audioContentLogic;
         private readonly IMapper mapper;
         private readonly IValidator<AudioContentModel> audioContentModelValidator;
-        public AudioContentLogicAdapter(IAudioContentLogic audioContentLogic, IModelMapper mapper, IValidator<AudioContentModel> audioContentModelValidator)
+        private readonly IValidator<PlaylistModel> playlistModelValidator;
+        public AudioContentLogicAdapter(IAudioContentLogic audioContentLogic, IModelMapper mapper,
+            IValidator<AudioContentModel> audioContentModelValidator, IValidator<PlaylistModel> playlistModelValidator)
         {
             this.audioContentLogic = audioContentLogic;
             this.mapper = mapper.Configure();
             this.audioContentModelValidator = audioContentModelValidator;
+            this.playlistModelValidator = playlistModelValidator;
         }
 
         public AudioContentBasicInfoModel GetById(int audioContentId)
@@ -39,6 +42,7 @@ namespace Adapter
         public AudioContentBasicInfoModel Add(AudioContentModel audioContentModel)
         {
             audioContentModelValidator.Validate(audioContentModel);
+            audioContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
             AudioContent audioContentIn = mapper.Map<AudioContent>(audioContentModel);
             AudioContent audioContent = audioContentLogic.Create(audioContentIn);
             return mapper.Map<AudioContentBasicInfoModel>(audioContent);
