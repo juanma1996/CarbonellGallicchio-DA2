@@ -45,7 +45,9 @@ namespace ValidatorTests
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPlaylistModelToolargeDescription()
         {
-            string largeDescription = "This is a description very large for the playlist description attribute";
+            string largeDescription = "This is a description very large for the playlist description" +
+                " attribute that must contain a string with one hundred and fifty " +
+                "characteres but this has more";
             PlaylistModel playlist = new PlaylistModel()
             {
                 Id = 1,

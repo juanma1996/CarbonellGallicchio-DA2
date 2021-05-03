@@ -10,6 +10,10 @@ namespace Validator
         {
             if (string.IsNullOrEmpty(playlistModel.Name))
                 throw new InvalidAttributeException("The playlist name can't be empty");
+            if (string.IsNullOrEmpty(playlistModel.Description))
+                throw new InvalidAttributeException("The playlist description can't be empty");
+            if (playlistModel.Description.Length > 150)
+                throw new InvalidAttributeException("The playlist descriptionis too large");
         }
     }
 }
