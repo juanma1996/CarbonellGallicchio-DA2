@@ -1,16 +1,15 @@
-﻿using Model.In;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AdapterExceptions;
+using Model.In;
 using ValidatorInterface;
 
 namespace Validator
 {
     public class PlaylistModelValidator : IValidator<PlaylistModel>
     {
-        public void Validate(PlaylistModel someObject)
+        public void Validate(PlaylistModel playlistModel)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(playlistModel.Name))
+                throw new InvalidAttributeException("The playlist name can't be empty");
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ValidatorTests
     {
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestNullPlaylist()
+        public void TestPlaylistModelInvalidName()
         {
             PlaylistModel playlist = new PlaylistModel()
             {
