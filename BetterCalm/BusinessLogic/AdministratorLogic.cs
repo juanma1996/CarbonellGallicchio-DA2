@@ -28,7 +28,7 @@ namespace BusinessLogic
         {
             if (administratorRepository.Exists(a => a.Email == administrator.Email))
             {
-                throw new NullObjectException("There is no administrator registered for the given data");
+                throw new AlreadyExistException("There is an administrator registered for the given data");
             }
 
             return administratorRepository.Add(administrator);

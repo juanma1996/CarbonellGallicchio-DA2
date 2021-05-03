@@ -224,7 +224,7 @@ namespace BusinessLogicTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullObjectException))]
+        [ExpectedException(typeof(AlreadyExistException))]
         public void TestCreateAdministratorWithAlreadyExistantEmail()
         {
             Administrator administrator = new Administrator
@@ -235,9 +235,7 @@ namespace BusinessLogicTests
             };
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(true);
-            mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(administrator);
             Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
-            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>())).Throws(new NullObjectException("Not exist Administrator"));
             AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             Administrator response = administratorLogic.Add(administrator);
