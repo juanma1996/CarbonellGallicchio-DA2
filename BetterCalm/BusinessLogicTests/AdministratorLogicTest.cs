@@ -6,6 +6,7 @@ using DataAccessInterface;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using ValidatorInterface;
 
 namespace BusinessLogicTests
 {
@@ -25,7 +26,9 @@ namespace BusinessLogicTests
             };
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(administratorId)).Returns(administratorToReturn);
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>()));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             Administrator result = administratorLogic.GetById(administratorId);
 
@@ -43,7 +46,9 @@ namespace BusinessLogicTests
             var administratorId = 1;
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(administratorId)).Returns((Administrator)null);
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>())).Throws(new NullObjectException("Not exist Administrator"));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             Administrator result = administratorLogic.GetById(administratorId);
 
@@ -62,7 +67,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(administrator);
             mock.Setup(m => m.Exists(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(false);
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>()));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             Administrator response = administratorLogic.Add(administrator);
 
@@ -83,7 +90,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(administratorId)).Returns(administratorToReturn);
             mock.Setup(m => m.Delete(administratorToReturn));
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>()));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             administratorLogic.DeleteById(administratorId);
 
@@ -98,7 +107,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(administratorId)).Returns((Administrator)null);
             mock.Setup(m => m.Delete(It.IsAny<Administrator>()));
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>())).Throws(new NullObjectException("Not exist Administrator"));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             administratorLogic.DeleteById(administratorId);
 
@@ -119,7 +130,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(a => a.Id == administratorModel.Id)).Returns(true);
             mock.Setup(m => m.Update(administratorModel));
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>()));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             administratorLogic.Update(administratorModel);
 
@@ -141,7 +154,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(a => a.Id == administratorModel.Id)).Returns(false);
             mock.Setup(m => m.Update(administratorModel));
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>())).Throws(new NullObjectException("Not exist Administrator"));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             administratorLogic.Update(administratorModel);
 
@@ -161,7 +176,9 @@ namespace BusinessLogicTests
             };
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(administratorToReturn);
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>()));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             Administrator result = administratorLogic.GetByEmailAndPassword(email, password);
 
@@ -180,7 +197,9 @@ namespace BusinessLogicTests
             string password = "Password01";
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns((Administrator)null);
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>())).Throws(new NullObjectException("Not exist Administrator"));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             Administrator result = administratorLogic.GetByEmailAndPassword(email, password);
 
@@ -195,7 +214,9 @@ namespace BusinessLogicTests
             string password = "Password01";
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.Get(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns((Administrator)null);
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>())).Throws(new NullObjectException("Not exist Administrator"));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             Administrator result = administratorLogic.GetByEmailAndPassword(email, password);
 
@@ -215,7 +236,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(true);
             mock.Setup(m => m.Add(It.IsAny<Administrator>())).Returns(administrator);
-            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>())).Throws(new NullObjectException("Not exist Administrator"));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
 
             Administrator response = administratorLogic.Add(administrator);
 

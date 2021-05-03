@@ -20,6 +20,7 @@ namespace BusinessLogic
         {
             this.psychologistRepository = psychologistRepository;
             this.agendaLogic = agendaLogic;
+            this.psychologistValidator = psychologistValidator;
         }
 
         public Psychologist GetById(int psychologistId)
@@ -69,7 +70,7 @@ namespace BusinessLogic
             int daysToAdd = 1;
             List<Agenda> agendas = new List<Agenda>();
             List<Psychologist> psychologists = GetAllByProblematicId(problematicId);
-            if (psychologists is null)
+            if (psychologists is null || psychologists.Count == 0)
             {
                 throw new NullObjectException("There is no psychologist registered for the given data");
             }

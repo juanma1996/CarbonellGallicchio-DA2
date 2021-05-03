@@ -30,7 +30,7 @@ namespace BusinessLogic
         public List<Playlist> GetPlaylistsByCategoryId(int categoryId)
         {
             List<Playlist> playlists = playlistRepository.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == categoryId));
-            if (playlists != null)
+            if (playlists != null && playlists.Count > 0)
             {
                 playlistValidator.Validate(playlists.First());
             }
