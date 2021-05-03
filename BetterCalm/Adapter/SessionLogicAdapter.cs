@@ -5,6 +5,7 @@ using Domain;
 using Model.In;
 using Model.Out;
 using SessionInterface;
+using ValidatorInterface;
 
 namespace Adapter
 {
@@ -12,14 +13,17 @@ namespace Adapter
     {
         private readonly ISessionLogic sessionLogic;
         private readonly IMapper mapper;
-        public SessionLogicAdapter(ISessionLogic sessionLogic, IModelMapper mapper)
+        private readonly IValidator<SessionModel> sessionModelValidator;
+        public SessionLogicAdapter(ISessionLogic sessionLogic, IModelMapper mapper, IValidator<SessionModel> sessionModelValidator)
         {
             this.sessionLogic = sessionLogic;
             this.mapper = mapper.Configure();
+            this.sessionModelValidator = sessionModelValidator;
         }
 
         public SessionBasicInfoModel Add(SessionModel sessionModel)
         {
+            sessionModelValidator.Validate(sessionModel);
             string Email = sessionModel.Email;
             string Password = sessionModel.Password;
             Session sessionOut = sessionLogic.Add(Email, Password);

@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
 using Moq;
 using SessionInterface;
+using ValidatorInterface;
 
 namespace AdapterTests
 {
@@ -25,7 +26,7 @@ namespace AdapterTests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestPostSessionEmptyEmail()
+        public void TestCreateSessionEmptyEmail()
         {
             SessionModel sessionModel = new SessionModel()
             {
@@ -35,14 +36,16 @@ namespace AdapterTests
             Mock<ISessionLogic> mock = new Mock<ISessionLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Add(It.IsAny<string>(), It.IsAny<string>())).Returns(It.IsAny<Session>());
             ModelMapper mapper = new ModelMapper();
-            SessionLogicAdapter sessionLogicAdapter = new SessionLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<SessionModel>> validatorMock = new Mock<IValidator<SessionModel>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(sessionModel)).Throws(new InvalidAttributeException("Email can't be null"));
+            SessionLogicAdapter sessionLogicAdapter = new SessionLogicAdapter(mock.Object, mapper, validatorMock.Object);
 
             var result = sessionLogicAdapter.Add(sessionModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestPostSessionEmptyPassword()
+        public void TestCreateSessionEmptyPassword()
         {
             SessionModel sessionModel = new SessionModel()
             {
@@ -52,7 +55,9 @@ namespace AdapterTests
             Mock<ISessionLogic> mock = new Mock<ISessionLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Add(It.IsAny<string>(), It.IsAny<string>())).Returns(It.IsAny<Session>());
             ModelMapper mapper = new ModelMapper();
-            SessionLogicAdapter sessionLogicAdapter = new SessionLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<SessionModel>> validatorMock = new Mock<IValidator<SessionModel>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(sessionModel)).Throws(new InvalidAttributeException("Password can't be null"));
+            SessionLogicAdapter sessionLogicAdapter = new SessionLogicAdapter(mock.Object, mapper, validatorMock.Object);
 
             var result = sessionLogicAdapter.Add(sessionModel);
         }
