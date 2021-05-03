@@ -23,5 +23,50 @@ namespace ValidatorTests
 
             validator.Validate(psychologist);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestAdministratorModelWithEmptyConsultationMode()
+        {
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = ""
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestAdministratorModelWithEmptyDirection()
+        {
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = "One mode",
+                Direction = ""
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestAdministratorModelWithZeroProblematics()
+        {
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = "One mode",
+                Direction = "Direction",
+                Problematics = new List<ProblematicModel>()
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }
     }
 }
