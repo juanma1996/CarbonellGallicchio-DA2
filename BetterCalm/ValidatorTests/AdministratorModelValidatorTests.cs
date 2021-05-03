@@ -40,7 +40,7 @@ namespace ValidatorTests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestAdministratorModelWithEmptyEmapil()
+        public void TestAdministratorModelWithEmptyEmail()
         {
             AdministratorModel administratorModel = new AdministratorModel
             {

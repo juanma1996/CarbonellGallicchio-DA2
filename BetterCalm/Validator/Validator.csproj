@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdapterExceptions\AdapterExceptions.csproj" />
+    <ProjectReference Include="..\BusinessExceptions\BusinessExceptions.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
     <ProjectReference Include="..\ValidatorInterface\ValidatorInterface.csproj" />
