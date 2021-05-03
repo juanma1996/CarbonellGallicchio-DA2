@@ -72,5 +72,45 @@ namespace AdapterTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestCreateAudioContentNotValidName()
+        {
+            int audioContentId = 1;
+            AudioContentModel audioContentModel = new AudioContentModel()
+            {
+                Id = audioContentId,
+                Name = ""
+            };
+            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
+            ModelMapper mapper = new ModelMapper();
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper);
+
+            audioContentLogicAdapter.Add(audioContentModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestUpdateAudioContentNotValidName()
+        {
+            int audioContentId = 1;
+            AudioContentModel audioContentModel = new AudioContentModel()
+            {
+                Id = audioContentId,
+                Name = ""
+            };
+            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
+            ModelMapper mapper = new ModelMapper();
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper);
+
+            audioContentLogicAdapter.Update(audioContentModel);
+
+            mock.VerifyAll();
+        }
     }
 }
