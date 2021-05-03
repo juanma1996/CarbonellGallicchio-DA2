@@ -59,5 +59,41 @@ namespace AdapterTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void TestDeleteAdministratorNotExistentId()
+        {
+            int administratorId = 1;
+            Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.DeleteById(administratorId)).Throws(new NullObjectException("Not exist Administrator"));
+            ModelMapper mapper = new ModelMapper();
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+
+            administratorLogicAdapter.Delete(administratorId);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void TestUpdateAdministratorNotExistentId()
+        {
+            AdministratorModel administrator = new AdministratorModel()
+            {
+                Id = 1,
+                Email = "oneMailgmail.com",
+                Name = "Juan",
+                Password = "pass"
+            };
+            Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<Administrator>())).Throws(new NullObjectException("Not exist Administrator"));
+            ModelMapper mapper = new ModelMapper();
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper);
+
+            administratorLogicAdapter.Update(administrator);
+
+            mock.VerifyAll();
+        }
     }
 }

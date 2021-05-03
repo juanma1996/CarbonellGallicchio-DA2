@@ -49,13 +49,27 @@ namespace Adapter
 
         public void Delete(int administratorId)
         {
-            administratorLogic.DeleteById(administratorId);
+            try
+            {
+                administratorLogic.DeleteById(administratorId);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
 
         public void Update(AdministratorModel administrator)
         {
-            Administrator administratorToUpdate = mapper.Map<Administrator>(administrator);
-            administratorLogic.Update(administratorToUpdate);
+            try
+            {
+                Administrator administratorToUpdate = mapper.Map<Administrator>(administrator);
+                administratorLogic.Update(administratorToUpdate);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.Message);
+            }
         }
     }
 }
