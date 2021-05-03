@@ -10,6 +10,8 @@ namespace Validator
         {
             if (string.IsNullOrEmpty(administratorModel.Name))
                 throw new InvalidAttributeException("The administrator name can't be empty");
+            if (string.IsNullOrEmpty(administratorModel.Password))
+                throw new InvalidAttributeException("The administrator password can't be empty");
         }
     }
 }
