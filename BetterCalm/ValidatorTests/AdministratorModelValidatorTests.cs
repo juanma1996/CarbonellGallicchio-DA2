@@ -37,5 +37,20 @@ namespace ValidatorTests
 
             validator.Validate(administratorModel);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestAdministratorModelWithEmptyEmapil()
+        {
+            AdministratorModel administratorModel = new AdministratorModel
+            {
+                Name = "Juan",
+                Email = "",
+                Password = "password",
+            };
+            AdministratorModelValidator validator = new AdministratorModelValidator();
+
+            validator.Validate(administratorModel);
+        }
     }
 }
