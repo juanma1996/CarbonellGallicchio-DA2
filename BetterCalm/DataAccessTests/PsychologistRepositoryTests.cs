@@ -46,7 +46,7 @@ namespace DataAccessTests
             int psychologistId = 1;
             Problematic problematic = new Problematic
             {
-                Id = 1,
+                Id = 9,
                 Name = "Depresion",
             };
             this.context.Add(problematic);
@@ -61,7 +61,7 @@ namespace DataAccessTests
                 {
                     new PsychologistProblematic
                     {
-                        ProblematicId = 1,
+                        ProblematicId = 9,
                     }
                 }
             };
@@ -83,7 +83,7 @@ namespace DataAccessTests
             var psychologistId = 1;
             Problematic problematic = new Problematic
             {
-                Id = 1,
+                Id = 9,
                 Name = "Depresion",
             };
             this.context.Add(problematic);
@@ -99,7 +99,7 @@ namespace DataAccessTests
                 {
                     new PsychologistProblematic
                     {
-                        ProblematicId = 1,
+                        ProblematicId = 9,
                     }
                 }
             };
@@ -117,7 +117,7 @@ namespace DataAccessTests
                 {
                     new PsychologistProblematic
                     {
-                        ProblematicId = 1,
+                        ProblematicId = 9,
                     }
                 }
             };
@@ -200,7 +200,7 @@ namespace DataAccessTests
         [TestMethod]
         public void TestGetAvailableByProblematicIdTwoOptions()
         {
-            var problematicId = 1;
+            var problematicId = 9;
             Problematic problematic = new Problematic
             {
                 Id = problematicId,
