@@ -121,6 +121,13 @@ namespace DataAccess.Context
             modelBuilder.Entity<Agenda>().HasKey(p => p.Id);
             modelBuilder.Entity<Agenda>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Agenda>().HasOne(p => p.Psychologist);
+
+            modelBuilder.Entity<Administrator>().ToTable("Administrators");
+            modelBuilder.Entity<Administrator>().HasKey(s => s.Id);
+            modelBuilder.Entity<Administrator>().Property(p => p.Name).IsRequired();
+            modelBuilder.Entity<Administrator>().Property(p => p.Email).IsRequired();
+            modelBuilder.Entity<Administrator>().Property(p => p.Password).IsRequired();
+            modelBuilder.Entity<Administrator>().Property(s => s.Id).ValueGeneratedOnAdd();
         }
     }
 }
