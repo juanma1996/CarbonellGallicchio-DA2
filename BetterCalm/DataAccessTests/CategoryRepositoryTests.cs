@@ -59,6 +59,8 @@ namespace DataAccess.Tests
                 new Playlist()
                 {
                     Id = playlistId,
+                    Name = "One playlist",
+                    Description = "One description",
                     Categories =  new List<CategoryPlaylist>()
                     {
                         new CategoryPlaylist
@@ -98,6 +100,8 @@ namespace DataAccess.Tests
             {
                 new Playlist()
                 {
+                    Name = "One playlist",
+                    Description = "One description",
                     Categories =  new List<CategoryPlaylist>()
                     {
                         new CategoryPlaylist
@@ -108,6 +112,8 @@ namespace DataAccess.Tests
                 },
                 new Playlist()
                 {
+                    Name = "Other playlist",
+                    Description = "Other description",
                     Categories =  new List<CategoryPlaylist>()
                     {
                         new CategoryPlaylist
@@ -144,6 +150,8 @@ namespace DataAccess.Tests
             {
                 new Playlist()
                 {
+                    Name = "Other playlist",
+                    Description = "Other description",
                     Categories =  new List<CategoryPlaylist>()
                     {
                         new CategoryPlaylist
@@ -154,6 +162,8 @@ namespace DataAccess.Tests
                 },
                 new Playlist()
                 {
+                    Name = "One playlist",
+                    Description = "One description",
                     Categories =  new List<CategoryPlaylist>()
                     {
                         new CategoryPlaylist
