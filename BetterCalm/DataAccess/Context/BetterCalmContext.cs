@@ -140,6 +140,8 @@ namespace DataAccess.Context
             modelBuilder.Entity<Administrator>().Property(p => p.Email).IsRequired();
             modelBuilder.Entity<Administrator>().Property(p => p.Password).IsRequired();
             modelBuilder.Entity<Administrator>().Property(s => s.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Administrator>().HasData(new Administrator() { Id = 1, Name = "SuperAdmin",
+                Email = "admin@gmail.com", Password="1234" });
         }
     }
 }
