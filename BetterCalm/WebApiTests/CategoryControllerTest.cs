@@ -86,6 +86,44 @@ namespace WebApiTests
             Assert.AreEqual(0, playlists.Count);
         }
 
-        
+        [TestMethod]
+        public void TestGetAllCategoriesCheckAudioContentListOk()
+        {
+            int audioContentId = 1;
+            string nameAudioContent = "Audio content name";
+            List<CategoryBasicInfoModel> categoriesToReturn = new List<CategoryBasicInfoModel>()
+            {
+                new CategoryBasicInfoModel
+                {
+                    Id = 1,
+                    Name = "Top 50 Uruguay",
+                    AudioContents = new List<AudioContentBasicInfoModel>
+                    {
+                        new AudioContentBasicInfoModel()
+                        {
+                            Id = audioContentId,
+                            Name = nameAudioContent
+                        }
+                    }
+                },
+                new CategoryBasicInfoModel
+                {
+                    Id = 2,
+                    Name = "Top 50 Usa"
+                }
+            };
+            Mock<ICategoryLogicAdapter> mock = new Mock<ICategoryLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(categoriesToReturn);
+            CategoryController controller = new CategoryController(mock.Object);
+
+            var result = controller.Get();
+            var okResult = result as OkObjectResult;
+            var categories = okResult.Value as List<CategoryBasicInfoModel>;
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentId, categories.First().AudioContents.First().Id);
+            Assert.AreEqual(nameAudioContent, categories.First().AudioContents.First().Name);
+            Assert.AreEqual(200, okResult.StatusCode);
+        }
     }
 }
