@@ -58,6 +58,9 @@ namespace DataAccess.Context
             modelBuilder.Entity<Playlist>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Playlist>().HasMany(s => s.Categories);
             modelBuilder.Entity<Playlist>().HasMany(s => s.AudioContents);
+            modelBuilder.Entity<Playlist>().Property(p => p.Name).IsRequired();
+            modelBuilder.Entity<Playlist>().Property(p => p.Description).IsRequired();
+            modelBuilder.Entity<Playlist>().Property(p => p.Description).HasMaxLength(150);
 
             modelBuilder.Entity<AudioContent>().ToTable("AudioContents");
             modelBuilder.Entity<AudioContent>().HasKey(s => s.Id);

@@ -49,16 +49,16 @@ namespace WebApiTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 AudioUrl = "www.audio.com",
-                Categories = new List<CategoryBasicInfoModel>()
+                Categories = new List<CategoryModel>()
                 {
-                    new CategoryBasicInfoModel
+                    new CategoryModel
                     {
                         Id = 1
                     }
                 },
-                Playlists = new List<PlaylistBasicInfoModel>()
+                Playlists = new List<PlaylistModel>()
                 {
-                    new PlaylistBasicInfoModel
+                    new PlaylistModel
                     {
                         Id = 1
                     }
@@ -105,16 +105,16 @@ namespace WebApiTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 AudioUrl = "www.audio.com",
-                Categories = new List<CategoryBasicInfoModel>()
+                Categories = new List<CategoryModel>()
                 {
-                    new CategoryBasicInfoModel
+                    new CategoryModel
                     {
                         Id = 1
                     }
                 },
-                Playlists = new List<PlaylistBasicInfoModel>()
+                Playlists = new List<PlaylistModel>()
                 {
-                    new PlaylistBasicInfoModel
+                    new PlaylistModel
                     {
                         Id = 1
                     }
@@ -153,16 +153,16 @@ namespace WebApiTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 AudioUrl = "www.audio.com",
-                Categories = new List<CategoryBasicInfoModel>()
+                Categories = new List<CategoryModel>()
                 {
-                    new CategoryBasicInfoModel
+                    new CategoryModel
                     {
                         Id = 1
                     }
                 },
-                Playlists = new List<PlaylistBasicInfoModel>()
+                Playlists = new List<PlaylistModel>()
                 {
-                    new PlaylistBasicInfoModel
+                    new PlaylistModel
                     {
                         Id = 1
                     }
@@ -198,16 +198,16 @@ namespace WebApiTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 AudioUrl = "www.audio.com",
-                Categories = new List<CategoryBasicInfoModel>()
+                Categories = new List<CategoryModel>()
                 {
-                    new CategoryBasicInfoModel
+                    new CategoryModel
                     {
                         Id = 1
                     }
                 },
-                Playlists = new List<PlaylistBasicInfoModel>()
+                Playlists = new List<PlaylistModel>()
                 {
-                    new PlaylistBasicInfoModel
+                    new PlaylistModel
                     {
                         Id = 1
                     }
@@ -231,16 +231,16 @@ namespace WebApiTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 AudioUrl = "www.audio.com",
-                Categories = new List<CategoryBasicInfoModel>()
+                Categories = new List<CategoryModel>()
                 {
-                    new CategoryBasicInfoModel
+                    new CategoryModel
                     {
                         Id = 1
                     }
                 },
-                Playlists = new List<PlaylistBasicInfoModel>()
+                Playlists = new List<PlaylistModel>()
                 {
-                    new PlaylistBasicInfoModel
+                    new PlaylistModel
                     {
                         Id = 1
                     }
@@ -251,6 +251,95 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Update(audioContentModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPostAudioContentPlaylistNameInvalid()
+        {
+            int audioContentId = 1;
+            AudioContentModel audioContentModel = new AudioContentModel()
+            {
+                Name = "Canción",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+                Categories = new List<CategoryModel>()
+                {
+                    new CategoryModel
+                    {
+                        Id = 1
+                    }
+                },
+                Playlists = new List<PlaylistModel>()
+                {
+                    new PlaylistModel
+                    {
+                        Id = 1,
+                        Name = ""
+                    }
+                },
+            };
+            AudioContentBasicInfoModel audioContentToReturn = new AudioContentBasicInfoModel()
+            {
+                Id = audioContentId
+            };
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var result = controller.Post(audioContentModel);
+            var createdAtRouteResult = result as CreatedAtRouteResult;
+            var audioContentBasicInfoModel = createdAtRouteResult.Value as AudioContentBasicInfoModel;
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentId, audioContentBasicInfoModel.Id);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPostAudioContentPlaylistDescriptionInvalid()
+        {
+            int audioContentId = 1;
+            AudioContentModel audioContentModel = new AudioContentModel()
+            {
+                Name = "Canción",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+                Categories = new List<CategoryModel>()
+                {
+                    new CategoryModel
+                    {
+                        Id = 1
+                    }
+                },
+                Playlists = new List<PlaylistModel>()
+                {
+                    new PlaylistModel
+                    {
+                        Id = 1,
+                        Name = "name",
+                        Description = ""
+                    }
+                },
+            };
+            AudioContentBasicInfoModel audioContentToReturn = new AudioContentBasicInfoModel()
+            {
+                Id = audioContentId
+            };
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Description can't be empty"));
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var result = controller.Post(audioContentModel);
+            var createdAtRouteResult = result as CreatedAtRouteResult;
+            var audioContentBasicInfoModel = createdAtRouteResult.Value as AudioContentBasicInfoModel;
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentId, audioContentBasicInfoModel.Id);
         }
     }
 }
