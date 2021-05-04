@@ -52,6 +52,10 @@ namespace DataAccess.Context
             modelBuilder.Entity<Category>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Category>().HasMany(s => s.Playlists);
             modelBuilder.Entity<Category>().HasMany(s => s.AudioContents);
+            modelBuilder.Entity<Category>().HasData(new Category() { Id = 1, Name = "Dormir" });
+            modelBuilder.Entity<Category>().HasData(new Category() { Id = 2, Name = "Meditar" });
+            modelBuilder.Entity<Category>().HasData(new Category() { Id = 3, Name = "Música" });
+            modelBuilder.Entity<Category>().HasData(new Category() { Id = 4, Name = "Cuerpo" });
 
             modelBuilder.Entity<Playlist>().ToTable("Playlists");
             modelBuilder.Entity<Playlist>().HasKey(s => s.Id);
@@ -97,6 +101,14 @@ namespace DataAccess.Context
             modelBuilder.Entity<Problematic>().Property(p => p.Name).IsRequired();
             modelBuilder.Entity<Problematic>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Problematic>().HasMany(p => p.Psychologists);
+            modelBuilder.Entity<Problematic>().HasData(new Problematic() { Id = 1, Name = "Depresión" });
+            modelBuilder.Entity<Problematic>().HasData(new Problematic() { Id = 2, Name = "Estrés" });
+            modelBuilder.Entity<Problematic>().HasData(new Problematic() { Id = 3, Name = "Ansiedad" });
+            modelBuilder.Entity<Problematic>().HasData(new Problematic() { Id = 4, Name = "Autoestima" });
+            modelBuilder.Entity<Problematic>().HasData(new Problematic() { Id = 5, Name = "Enojo" });
+            modelBuilder.Entity<Problematic>().HasData(new Problematic() { Id = 6, Name = "Relaciones" });
+            modelBuilder.Entity<Problematic>().HasData(new Problematic() { Id = 7, Name = "Duelo" });
+            modelBuilder.Entity<Problematic>().HasData(new Problematic() { Id = 8, Name = "Otros" });
 
             modelBuilder.Entity<PsychologistProblematic>().ToTable("PsychologistProblematics");
             modelBuilder.Entity<PsychologistProblematic>().HasKey(pp => new { pp.PsychologistId, pp.ProblematicId });
