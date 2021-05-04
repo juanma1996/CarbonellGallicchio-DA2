@@ -54,6 +54,7 @@ namespace Factory
             services.AddScoped<IValidator<Psychologist>, PsychologistValidator>();
             services.AddScoped<IValidator<SessionModel>, SessionModelValidator>();
             services.AddScoped<IValidator<PlaylistModel>, PlaylistModelValidator>();
+            services.AddScoped<ISessionLogicAdapter, SessionLogicAdapter>();
         }
         public void AddDbContextService()
         {
