@@ -34,7 +34,7 @@ namespace Adapter
             }
             catch (NullObjectException e)
             {
-                throw new NotFoundException(e.Message);
+                throw new NotFoundException(e.errorMessage);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Adapter
             }
             catch (AlreadyExistException e)
             {
-                throw new EntityAlreadyExistException(e.Message);
+                throw new EntityAlreadyExistException(e.errorMessage);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Adapter
             }
             catch (NullObjectException e)
             {
-                throw new NotFoundException(e.Message);
+                throw new NotFoundException(e.errorMessage);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Adapter
             }
             catch (NullObjectException e)
             {
-                throw new NotFoundException(e.Message);
+                throw new NotFoundException(e.errorMessage);
             }
         }
     }

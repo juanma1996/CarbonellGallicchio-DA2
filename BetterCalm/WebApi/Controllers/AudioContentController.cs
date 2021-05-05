@@ -7,6 +7,7 @@ using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
+    [Route("api/audioContents")]
     public class AudioContentController : BetterCalmControllerBase
     {
         private readonly IAudioContentLogicAdapter audioContentLogicAdapter;
@@ -30,15 +31,15 @@ namespace WebApi.Controllers
             return CreatedAtRoute("GetAudioContentById", audioContentCreated.Id, audioContentCreated);
         }
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
-        [HttpDelete("{audioContentId}")]
-        public IActionResult DeleteById(int audioContentId)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            audioContentLogicAdapter.DeleteById(audioContentId);
+            audioContentLogicAdapter.DeleteById(id);
             return NoContent();
         }
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPut]
-        public IActionResult Update(AudioContentModel audioContentModel)
+        public IActionResult Put(AudioContentModel audioContentModel)
         {
             audioContentLogicAdapter.Update(audioContentModel);
             return NoContent();

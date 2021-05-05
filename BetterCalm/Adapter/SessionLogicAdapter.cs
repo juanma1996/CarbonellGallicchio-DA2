@@ -1,6 +1,8 @@
 ﻿using Adapter.Mapper;
+using AdapterExceptions;
 using AdapterInterface;
 using AutoMapper;
+using BusinessExceptions;
 using Domain;
 using Model.In;
 using Model.Out;
@@ -23,12 +25,19 @@ namespace Adapter
 
         public SessionBasicInfoModel Add(SessionModel sessionModel)
         {
-            sessionModelValidator.Validate(sessionModel);
-            string Email = sessionModel.Email;
-            string Password = sessionModel.Password;
-            Session sessionOut = sessionLogic.Add(Email, Password);
-            SessionBasicInfoModel sessionToReturn = mapper.Map<SessionBasicInfoModel>(sessionOut);
-            return sessionToReturn;
+            try
+            {
+                sessionModelValidator.Validate(sessionModel);
+                string Email = sessionModel.Email;
+                string Password = sessionModel.Password;
+                Session sessionOut = sessionLogic.Add(Email, Password);
+                SessionBasicInfoModel sessionToReturn = mapper.Map<SessionBasicInfoModel>(sessionOut);
+                return sessionToReturn;
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.errorMessage);
+            }
         }
     }
 }

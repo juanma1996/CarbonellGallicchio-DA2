@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
+    [Route("api/sessions")]
     public class SessionController : BetterCalmControllerBase
     {
         private readonly ISessionLogicAdapter sessionLogicAdapter;

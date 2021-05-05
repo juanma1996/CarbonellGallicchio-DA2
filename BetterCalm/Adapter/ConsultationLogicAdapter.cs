@@ -31,7 +31,7 @@ namespace Adapter
             }
             catch (NullObjectException e)
             {
-                throw new NotFoundException(e.Message);
+                throw new NotFoundException(e.errorMessage);
             }
         }
     }

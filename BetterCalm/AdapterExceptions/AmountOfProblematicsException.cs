@@ -3,7 +3,7 @@ namespace AdapterExceptions
 {
     public class AmountOfProblematicsException : Exception
     {
-        private string errorMessage;
+        public string errorMessage;
 
         public AmountOfProblematicsException()
         {

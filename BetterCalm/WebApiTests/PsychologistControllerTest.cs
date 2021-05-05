@@ -50,7 +50,7 @@ namespace WebApiTests
             mock.Setup(m => m.GetById(psychologistId)).Returns(psychologistToReturn);
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.GetById(psychologistId);
+            var result = controller.Get(psychologistId);
             var okResult = result as OkObjectResult;
             var psychologist = okResult.Value as PsychologistBasicInfoModel;
 
@@ -74,7 +74,7 @@ namespace WebApiTests
             mock.Setup(m => m.GetById(psychologistId)).Throws(new NotFoundException("prueba"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.GetById(psychologistId);
+            var result = controller.Get(psychologistId);
         }
 
         [TestMethod]
@@ -269,7 +269,7 @@ namespace WebApiTests
             mock.Setup(m => m.Delete(psychologistId));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var response = controller.DeleteById(psychologistId);
+            var response = controller.Delete(psychologistId);
             var statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -285,7 +285,7 @@ namespace WebApiTests
             mock.Setup(m => m.Delete(psychologistId)).Throws(new NotFoundException("Not psychologist found for given data"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var response = controller.DeleteById(psychologistId);
+            var response = controller.Delete(psychologistId);
         }
 
         [TestMethod]
@@ -326,7 +326,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<PsychologistModel>()));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var response = controller.Update(psycologistModel);
+            var response = controller.Put(psycologistModel);
             var statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -349,7 +349,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new NotFoundException("Unexistant psychologist"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var response = controller.Update(psycologistModel);
+            var response = controller.Put(psycologistModel);
         }
 
         [TestMethod]
@@ -368,7 +368,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid name"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.Update(psycologistModel);
+            var result = controller.Put(psycologistModel);
         }
 
         [TestMethod]
@@ -387,7 +387,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid direction"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.Update(psycologistModel);
+            var result = controller.Put(psycologistModel);
         }
 
         [TestMethod]
@@ -406,7 +406,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid conultation mode"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.Update(psycologistModel);
+            var result = controller.Put(psycologistModel);
         }
 
         [TestMethod]
@@ -425,7 +425,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException());
             PsychologistController controller = new PsychologistController(mock.Object);
 
-            var result = controller.Update(psycologistModel);
+            var result = controller.Put(psycologistModel);
         }
     }
 }

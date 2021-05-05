@@ -9,6 +9,7 @@ using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
+    [Route("api/administrators")]
     public class AdministratorController : BetterCalmControllerBase
     {
         private readonly IAdministratorLogicAdapter administratorDomainToModelAdapter;
@@ -18,10 +19,10 @@ namespace WebApi.Controllers
         }
 
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
-        [HttpGet("{id}", Name = "GetAdministratorsById")]
-        public IActionResult GetById(int administratorId)
+        [HttpGet("{id}", Name = "GetAdministrator")]
+        public IActionResult Get(int id)
         {
-            AdministratorBasicInfoModel administrator = administratorDomainToModelAdapter.GetById(administratorId);
+            AdministratorBasicInfoModel administrator = administratorDomainToModelAdapter.GetById(id);
             return Ok(administrator);
         }
 
@@ -34,16 +35,16 @@ namespace WebApi.Controllers
         }
 
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
-        [HttpDelete("{administratorId}")]
-        public IActionResult DeleteById(int administratorId)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            administratorDomainToModelAdapter.Delete(administratorId);
+            administratorDomainToModelAdapter.Delete(id);
             return NoContent();
         }
 
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPut]
-        public IActionResult Update([FromBody] AdministratorModel administratorModel)
+        public IActionResult Put([FromBody]AdministratorModel administratorModel)
         {
             administratorDomainToModelAdapter.Update(administratorModel);
             return NoContent();

@@ -32,7 +32,7 @@ namespace Adapter
             }
             catch (NullObjectException ex)
             {
-                throw new NotFoundException(ex.Message);
+                throw new NotFoundException(ex.errorMessage);
             }
         }
     }

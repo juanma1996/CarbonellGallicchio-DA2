@@ -6,7 +6,7 @@ namespace AdapterExceptions
 {
     public class InvalidAttributeException : Exception
     {
-        private string errorMessage;
+        public string errorMessage;
         public InvalidAttributeException(string msg)
         {
             this.errorMessage = msg;

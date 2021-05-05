@@ -26,7 +26,7 @@ namespace DataAccess.Migrations
                         column: x => x.AdministratorId,
                         principalTable: "Administrators",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

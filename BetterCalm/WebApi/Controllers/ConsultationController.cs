@@ -7,6 +7,7 @@ using Model.Out;
 
 namespace WebApi.Controllers
 {
+    [Route("api/consultations")]
     public class ConsultationController : BetterCalmControllerBase
     {
         private readonly IConsultationLogicAdapter consultationDomainToModelAdapter;

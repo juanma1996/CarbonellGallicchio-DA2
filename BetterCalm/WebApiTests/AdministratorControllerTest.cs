@@ -27,7 +27,7 @@ namespace WebApiTests
             mock.Setup(m => m.GetById(administratorId)).Returns(administratorToReturn);
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var result = controller.GetById(administratorId);
+            var result = controller.Get(administratorId);
             var okResult = result as OkObjectResult;
             var administrator = okResult.Value as AdministratorBasicInfoModel;
 
@@ -47,7 +47,7 @@ namespace WebApiTests
             mock.Setup(m => m.GetById(administratorId)).Throws(new NotFoundException("The Administrator doesn't exists"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var result = controller.GetById(administratorId);
+            var result = controller.Get(administratorId);
         }
 
         [TestMethod]
@@ -137,7 +137,7 @@ namespace WebApiTests
             mock.Setup(m => m.Delete(administratorId));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var response = controller.DeleteById(administratorId);
+            var response = controller.Delete(administratorId);
             var statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -151,9 +151,9 @@ namespace WebApiTests
             int administratorId = 1;
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.Delete(administratorId)).Throws(new NotFoundException(""));
-            AdministratorController controller = new AdministratorController(mock.Object);
+            AdministratorController controller = new AdministratorController(mock .Object);
 
-            var response = controller.DeleteById(administratorId);
+            var response = controller.Delete(administratorId);
         }
 
         [TestMethod]
@@ -170,7 +170,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<AdministratorModel>()));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var response = controller.Update(administratorModel);
+            var response = controller.Put(administratorModel);
             var statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -192,7 +192,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new NotFoundException("The Administrator doesn't exists"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var response = controller.Update(administratorModel);
+            var response = controller.Put(administratorModel);
         }
 
         [TestMethod]
@@ -209,7 +209,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid name"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var result = controller.Update(administratorModel);
+            var result = controller.Put(administratorModel);
         }
 
         [TestMethod]
@@ -226,7 +226,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid Email"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var result = controller.Update(administratorModel);
+            var result = controller.Put(administratorModel);
         }
 
         [TestMethod]
@@ -243,7 +243,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid password"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var result = controller.Update(administratorModel);
+            var result = controller.Put(administratorModel);
         }
 
         [TestMethod]

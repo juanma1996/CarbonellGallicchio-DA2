@@ -36,7 +36,7 @@ namespace Adapter
             }
             catch (NullObjectException e)
             {
-                throw new NotFoundException(e.Message);
+                throw new NotFoundException(e.errorMessage);
             }
         }
         public AudioContentBasicInfoModel Add(AudioContentModel audioContentModel)
@@ -55,7 +55,7 @@ namespace Adapter
             }
             catch (NullObjectException e)
             {
-                throw new NotFoundException(e.Message);
+                throw new NotFoundException(e.errorMessage);
             }
         }
         public void Update(AudioContentModel audioContentModel)
@@ -69,7 +69,7 @@ namespace Adapter
             }
             catch (NullObjectException e)
             {
-                throw new NotFoundException(e.Message);
+                throw new NotFoundException(e.errorMessage);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace WebApi.Filters
                 context.Result = new ContentResult()
                 {
                     StatusCode = 400,
-                    Content = ex.Message
+                    Content = ex.errorMessage
                 };
             }
             catch (InvalidAttributeException ex)
@@ -26,7 +26,7 @@ namespace WebApi.Filters
                 context.Result = new ContentResult()
                 {
                     StatusCode = 400,
-                    Content = ex.Message
+                    Content = ex.errorMessage
                 };
             }
             catch (NotFoundException ex)
@@ -34,7 +34,15 @@ namespace WebApi.Filters
                 context.Result = new ContentResult()
                 {
                     StatusCode = 404,
-                    Content = ex.Message
+                    Content = ex.errorMessage
+                };
+            }
+            catch (EntityAlreadyExistException ex)
+            {
+                context.Result = new ContentResult()
+                {
+                    StatusCode = 400,
+                    Content = ex.errorMessage
                 };
             }
             catch (Exception)

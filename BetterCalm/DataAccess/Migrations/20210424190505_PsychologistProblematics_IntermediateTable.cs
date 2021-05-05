@@ -29,7 +29,7 @@ namespace DataAccess.Migrations
                         column: x => x.PsychologistId,
                         principalTable: "Psychologists",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace BetterCalm.WebApi.Controllers
 {
+    [Route("api/categories")]
     public class CategoryController : BetterCalmControllerBase
     {
         private readonly ICategoryLogicAdapter categoryDomainToModelAdapter;
@@ -22,10 +23,10 @@ namespace BetterCalm.WebApi.Controllers
             return Ok(categories);
         }
 
-        [HttpGet("{categoryId}/playlist", Name = "GetPlaylist")]
-        public IActionResult GetPlaylistByCategory([FromRoute] int categoryId)
+        [HttpGet("{id}/playlists", Name = "GetPlaylist")]
+        public IActionResult GetPlaylistByCategory([FromRoute] int id)
         {
-            List<PlaylistBasicInfoModel> playlists = categoryDomainToModelAdapter.GetPlaylistsByCategoryId(categoryId);
+            List<PlaylistBasicInfoModel> playlists = categoryDomainToModelAdapter.GetPlaylistsByCategoryId(id);
             return Ok(playlists);
         }
     }

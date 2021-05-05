@@ -6,6 +6,7 @@ using Model.Out;
 
 namespace WebApi.Controllers
 {
+    [Route("api/problematics")]
     public class ProblematicController : BetterCalmControllerBase
     {
         private readonly IProblematicLogicAdapter problematicDomainToModel;

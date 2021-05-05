@@ -35,7 +35,7 @@ namespace DataAccess.Repositories
         }
         public T Get(Expression<Func<T, bool>> predicate)
         {
-            return this.Entities.Where(predicate).First();
+            return this.Entities.Where(predicate).FirstOrDefault();
         }
 
         public T Add(T domain)

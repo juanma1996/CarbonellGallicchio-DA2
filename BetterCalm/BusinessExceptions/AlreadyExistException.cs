@@ -6,7 +6,7 @@ namespace BusinessExceptions
 {
     public class AlreadyExistException : Exception
     {
-        private string errorMessage;
+        public string errorMessage;
         public AlreadyExistException(string msg)
         {
             this.errorMessage = msg;

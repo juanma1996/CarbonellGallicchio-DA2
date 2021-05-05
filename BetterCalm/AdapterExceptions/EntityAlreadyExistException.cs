@@ -6,7 +6,7 @@ namespace AdapterExceptions
 {
     public class EntityAlreadyExistException : Exception
     {
-        private string errorMessage;
+        public string errorMessage;
         public EntityAlreadyExistException(string msg)
         {
             this.errorMessage = msg;

@@ -88,7 +88,7 @@ namespace WebApiTests
             mock.Setup(m => m.DeleteById(audioContentId));
             AudioContentController controller = new AudioContentController(mock.Object);
 
-            var response = controller.DeleteById(audioContentId);
+            var response = controller.Delete(audioContentId);
             var statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -124,7 +124,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<AudioContentModel>()));
             AudioContentController controller = new AudioContentController(mock.Object);
 
-            var response = controller.Update(audioContentModel);
+            var response = controller.Put(audioContentModel);
             var statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -140,6 +140,8 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Get(It.IsAny<int>());
+
+            mock.VerifyAll();
         }
 
         [TestMethod]
@@ -173,6 +175,8 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Post(audioContentModel);
+
+            mock.VerifyAll();
         }
 
         [TestMethod]
@@ -184,7 +188,9 @@ namespace WebApiTests
             mock.Setup(m => m.DeleteById(It.IsAny<int>())).Throws(new NotFoundException("Not found object"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
-            var result = controller.DeleteById(audioContentId);
+            var result = controller.Delete(audioContentId);
+
+            mock.VerifyAll();
         }
 
         [TestMethod]
@@ -217,7 +223,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<AudioContentModel>())).Throws(new NotFoundException("Not found object"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
-            var result = controller.Update(audioContentModel);
+            var result = controller.Put(audioContentModel);
         }
 
         [TestMethod]
@@ -250,7 +256,7 @@ namespace WebApiTests
             mock.Setup(m => m.Update(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name is required"));
             AudioContentController controller = new AudioContentController(mock.Object);
 
-            var result = controller.Update(audioContentModel);
+            var result = controller.Put(audioContentModel);
         }
 
         [TestMethod]
@@ -290,11 +296,6 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Post(audioContentModel);
-            var createdAtRouteResult = result as CreatedAtRouteResult;
-            var audioContentBasicInfoModel = createdAtRouteResult.Value as AudioContentBasicInfoModel;
-
-            mock.VerifyAll();
-            Assert.AreEqual(audioContentId, audioContentBasicInfoModel.Id);
         }
 
         [TestMethod]
@@ -335,11 +336,8 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Post(audioContentModel);
-            var createdAtRouteResult = result as CreatedAtRouteResult;
-            var audioContentBasicInfoModel = createdAtRouteResult.Value as AudioContentBasicInfoModel;
 
             mock.VerifyAll();
-            Assert.AreEqual(audioContentId, audioContentBasicInfoModel.Id);
         }
     }
 }
