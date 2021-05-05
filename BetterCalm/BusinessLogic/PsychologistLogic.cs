@@ -86,7 +86,7 @@ namespace BusinessLogic
                                 Agenda agenda = agendaLogic.GetAgendaByPsychologistIdAndDate(item.Id, date);
                                 if (agenda is null)
                                 {
-                                    agenda = agendaLogic.Add(item.Id, date);
+                                    agenda = agendaLogic.Add(item, date);
                                 }
                                 if (agenda.IsAvaible)
                                 {

@@ -41,7 +41,7 @@ namespace DataAccess.Migrations
                         column: x => x.AudioContentId,
                         principalTable: "AudioContents",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AudioContentCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
@@ -65,7 +65,7 @@ namespace DataAccess.Migrations
                         column: x => x.AudioContentId,
                         principalTable: "AudioContents",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AudioContentPlaylists_Playlists_PlaylistId",
                         column: x => x.PlaylistId,

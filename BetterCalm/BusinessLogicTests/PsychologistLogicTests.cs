@@ -366,7 +366,7 @@ namespace BusinessLogicTests
             mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<Psychologist, bool>>>())).Returns(psychologists);
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             mockAgendaLogic.Setup(m => m.GetAgendaByPsychologistIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(agenda);
-            mockAgendaLogic.Setup(m => m.Add(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(It.IsAny<Agenda>());
+            mockAgendaLogic.Setup(m => m.Add(It.IsAny<Psychologist>(), It.IsAny<DateTime>())).Returns(It.IsAny<Agenda>());
             mockAgendaLogic.Setup(m => m.Update(It.IsAny<Agenda>()));
             mockAgendaLogic.Setup(m => m.Assign(It.IsAny<Agenda>())).Returns(It.IsAny<Agenda>());
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
@@ -414,7 +414,7 @@ namespace BusinessLogicTests
             mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<Psychologist, bool>>>())).Returns(psychologists);
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             mockAgendaLogic.Setup(m => m.GetAgendaByPsychologistIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(agenda);
-            mockAgendaLogic.Setup(m => m.Add(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(It.IsAny<Agenda>());
+            mockAgendaLogic.Setup(m => m.Add(It.IsAny<Psychologist>(), It.IsAny<DateTime>())).Returns(It.IsAny<Agenda>());
             mockAgendaLogic.Setup(m => m.Update(It.IsAny<Agenda>()));
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>())).Throws(new NullObjectException("There is no psychologist for the given data"));

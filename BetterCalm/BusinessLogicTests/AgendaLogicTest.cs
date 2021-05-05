@@ -29,7 +29,7 @@ namespace BusinessLogicTests
                 IsAvaible = true,
             };
             Mock<IRepository<Agenda>> mock = new Mock<IRepository<Agenda>>(MockBehavior.Strict);
-            mock.Setup(m => m.Get(a => a.Psychologist.Id == psychologistId && a.Date == date)).Returns(agendaToReturn);
+            mock.Setup(m => m.Get(a => a.Psychologist.Id == psychologistId && a.Date.Date == date.Date)).Returns(agendaToReturn);
             AgendaLogic agendaLogic = new AgendaLogic(mock.Object);
 
             Agenda result = agendaLogic.GetAgendaByPsychologistIdAndDate(psychologistId, date);
@@ -45,13 +45,14 @@ namespace BusinessLogicTests
         {
             int psychologistId = 1;
             DateTime date = DateTime.Now;
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = psychologistId
+            };
             Agenda agendaToReturn = new Agenda
             {
                 Id = 1,
-                Psychologist = new Psychologist()
-                {
-                    Id = psychologistId
-                },
+                Psychologist = psychologist,
                 Date = date,
                 Count = 0,
                 IsAvaible = true,
@@ -60,7 +61,7 @@ namespace BusinessLogicTests
             mock.Setup(m => m.Add(It.IsAny<Agenda>())).Returns(agendaToReturn);
             AgendaLogic agendaLogic = new AgendaLogic(mock.Object);
 
-            Agenda result = agendaLogic.Add(psychologistId, date);
+            Agenda result = agendaLogic.Add(psychologist, date);
 
             mock.VerifyAll();
             Assert.AreEqual(agendaToReturn.Id, result.Id);

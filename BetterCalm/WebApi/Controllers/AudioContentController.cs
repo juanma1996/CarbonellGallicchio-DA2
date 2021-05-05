@@ -28,9 +28,9 @@ namespace WebApi.Controllers
         /// <response code="404">NotFound. Audio content not exist for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [HttpGet("{id}", Name = "GetAudioContentById")]
-        public IActionResult Get(int audioContentId)
+        public IActionResult Get(int id)
         {
-            return Ok(audioContentLogicAdapter.GetById(audioContentId));
+            return Ok(audioContentLogicAdapter.GetById(id));
         }
 
         // POST: 
@@ -52,7 +52,7 @@ namespace WebApi.Controllers
         public IActionResult Post([FromBody] AudioContentModel audioContentModel)
         {
             var audioContentCreated = audioContentLogicAdapter.Add(audioContentModel);
-            return CreatedAtRoute("GetAudioContentById", audioContentCreated.Id, audioContentCreated);
+            return CreatedAtRoute("GetAudioContentById", new { id = audioContentCreated.Id }, audioContentCreated);
         }
 
         // DELETE: 
