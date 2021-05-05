@@ -16,14 +16,14 @@ namespace BusinessLogic
 
         public Agenda GetAgendaByPsychologistIdAndDate(int psychologistId, DateTime date)
         {
-            return agendaRepository.Get(a => a.Psychologist.Id == psychologistId && a.Date == date);
+            return agendaRepository.Get(a => a.Psychologist.Id == psychologistId && a.Date.Date == date.Date);
         }
 
-        public Agenda Add(int psychologistId, DateTime date)
+        public Agenda Add(Psychologist psychologistId, DateTime date)
         {
             Agenda newAgenda = new Agenda()
             {
-                Psychologist = new Psychologist { Id = psychologistId },
+                Psychologist = psychologistId,
                 IsAvaible = true,
                 Date = date,
             };
