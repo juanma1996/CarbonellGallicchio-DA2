@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Adapter;
 using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -33,8 +31,8 @@ namespace WebApiTests
             ProblematicController controller = new ProblematicController(mock.Object);
 
             var result = controller.Get();
-            var okResult = result as OkObjectResult;
-            var problematics = okResult.Value as List<ProblematicBasicInfoModel>;
+            OkObjectResult okResult = result as OkObjectResult;
+            List<ProblematicBasicInfoModel> problematics = okResult.Value as List<ProblematicBasicInfoModel>;
 
             mock.VerifyAll();
             Assert.AreEqual(problematics.First().Id, problematicsToReturn.First().Id);

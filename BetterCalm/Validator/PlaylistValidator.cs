@@ -1,8 +1,5 @@
 ﻿using BusinessExceptions;
 using Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using ValidatorInterface;
 
 namespace Validator

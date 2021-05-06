@@ -1,9 +1,6 @@
 ﻿using AdapterExceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Validator;
 
 namespace ValidatorTests

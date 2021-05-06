@@ -61,7 +61,19 @@ namespace BusinessLogic
 
         public List<Psychologist> GetAllByProblematicId(int problematicId)
         {
-            return psychologistRepository.GetAll(p => p.Problematics.Any(r => r.ProblematicId == problematicId));
+            List<Psychologist> psychologists = null;
+            bool existPsychologistByProblematic = psychologistRepository.Exists(p => p.Problematics.
+                        Any(r => r.ProblematicId == problematicId));
+            if (problematicId != 8 && existPsychologistByProblematic)
+            {
+                psychologists = psychologistRepository.GetAll(p => p.Problematics.Any(r => r.ProblematicId == problematicId));
+            }
+            else
+            {
+                psychologists = psychologistRepository.GetAll();
+            }
+
+            return psychologists;
         }
 
         public Psychologist GetAvailableByProblematicIdAndDate(int problematicId, DateTime date)

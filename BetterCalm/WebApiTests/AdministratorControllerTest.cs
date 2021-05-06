@@ -15,7 +15,7 @@ namespace WebApiTests
         [TestMethod]
         public void TestGetAdministratorByIdOk()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             AdministratorBasicInfoModel administratorToReturn = new AdministratorBasicInfoModel
             {
                 Id = administratorId,
@@ -28,8 +28,8 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Get(administratorId);
-            var okResult = result as OkObjectResult;
-            var administrator = okResult.Value as AdministratorBasicInfoModel;
+            OkObjectResult okResult = result as OkObjectResult;
+            AdministratorBasicInfoModel administrator = okResult.Value as AdministratorBasicInfoModel;
 
             mock.VerifyAll();
             Assert.AreEqual(administratorToReturn.Id, administrator.Id);
@@ -42,7 +42,7 @@ namespace WebApiTests
         [ExpectedException(typeof(NotFoundException))]
         public void TestGetAdministratorNotExistent()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(administratorId)).Throws(new NotFoundException("The Administrator doesn't exists"));
             AdministratorController controller = new AdministratorController(mock.Object);
@@ -53,7 +53,7 @@ namespace WebApiTests
         [TestMethod]
         public void TestPostAdministratorOk()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             AdministratorModel administratorModel = new AdministratorModel
             {
                 Name = "Juan",
@@ -72,7 +72,7 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);
-            var statusCodeResult = result as StatusCodeResult;
+            StatusCodeResult statusCodeResult = result as StatusCodeResult;
 
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
@@ -138,7 +138,7 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var response = controller.Delete(administratorId);
-            var statusCodeResult = response as StatusCodeResult;
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
@@ -171,7 +171,7 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var response = controller.Put(administratorModel);
-            var statusCodeResult = response as StatusCodeResult;
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);

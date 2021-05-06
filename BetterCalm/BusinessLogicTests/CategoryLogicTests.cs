@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Domain;
 using DataAccessInterface;
 using Moq;
-using System;
 using BusinessExceptions;
 using System.Linq;
 using BusinessLogic;
@@ -83,15 +82,14 @@ namespace BusinessLogicTests
         [ExpectedException(typeof(NullObjectException))]
         public void TestGetPlaylistByCategoryNotExistentId()
         {
-            List<Playlist> playlists = new List<Playlist>();
-            var categoryId = 2;
+            int categoryId = 2;
             Mock<IRepository<Playlist>> mock = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == categoryId))).Returns(new List<Playlist>());
             Mock<IValidator<Playlist>> validatorMock = new Mock<IValidator<Playlist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Playlist>()));
             CategoryLogic categoryLogic = new CategoryLogic(null, mock.Object, validatorMock.Object);
 
-            var result = categoryLogic.GetPlaylistsByCategoryId(2);
+            List<Playlist> result = categoryLogic.GetPlaylistsByCategoryId(2);
 
             mock.VerifyAll();
             Assert.AreEqual(result.Count, 0);

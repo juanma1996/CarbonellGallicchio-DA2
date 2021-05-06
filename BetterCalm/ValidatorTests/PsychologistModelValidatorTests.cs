@@ -1,9 +1,7 @@
 ﻿using AdapterExceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Validator;
 
 namespace ValidatorTests
@@ -15,9 +13,28 @@ namespace ValidatorTests
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPsychologistModelWithEmptyName()
         {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1,
+                    Name = "Juan"
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
+                }
+            };
             PsychologistModel psychologist = new PsychologistModel
             {
-                Name = ""
+                Name = "",
+                ConsultationMode = "Virtual",
+                Direction = "Some description",
+                Problematics = problematics
             };
             PsychologistModelValidator validator = new PsychologistModelValidator();
 
@@ -28,10 +45,28 @@ namespace ValidatorTests
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPsychologistModelWithEmptyConsultationMode()
         {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1,
+                    Name = "Juan"
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
+                }
+            };
             PsychologistModel psychologist = new PsychologistModel
             {
                 Name = "Juan",
-                ConsultationMode = ""
+                ConsultationMode = "",
+                Direction = "Some direction",
+                Problematics = problematics
             };
             PsychologistModelValidator validator = new PsychologistModelValidator();
 
@@ -42,11 +77,28 @@ namespace ValidatorTests
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestPsychologistModelWithEmptyDirection()
         {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1,
+                    Name = "Juan"
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
+                }
+            };
             PsychologistModel psychologist = new PsychologistModel
             {
                 Name = "Juan",
-                ConsultationMode = "One mode",
-                Direction = ""
+                ConsultationMode = "Presencial",
+                Direction = "",
+                Problematics = problematics
             };
             PsychologistModelValidator validator = new PsychologistModelValidator();
 
@@ -54,14 +106,14 @@ namespace ValidatorTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidAttributeException))]
+        [ExpectedException(typeof(AmountOfProblematicsException))]
         public void TestPsychologistModelWithZeroProblematics()
         {
             PsychologistModel psychologist = new PsychologistModel
             {
                 Name = "Juan",
-                ConsultationMode = "One mode",
-                Direction = "Direction",
+                ConsultationMode = "Presencial",
+                Direction = "One direction",
                 Problematics = new List<ProblematicModel>()
             };
             PsychologistModelValidator validator = new PsychologistModelValidator();
@@ -70,7 +122,7 @@ namespace ValidatorTests
         }
 
         [TestMethod]
-        public void TestPsychologistModelIsCorrect()
+        public void TestPsychologistModelIsCorrectVirtualType()
         {
             List<ProblematicModel> problematics = new List<ProblematicModel>()
             {
@@ -78,12 +130,118 @@ namespace ValidatorTests
                 {
                     Id = 1,
                     Name = "Juan"
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
                 }
             };
             PsychologistModel psychologist = new PsychologistModel
             {
                 Name = "Juan",
-                ConsultationMode = "One mode",
+                ConsultationMode = "Virtual",
+                Direction = "Direction",
+                Problematics = problematics
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }
+
+        [TestMethod]
+        public void TestPsychologistModelIsCorrectPresenceType()
+        {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1,
+                    Name = "Juan"
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
+                }
+            };
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = "Presencial",
+                Direction = "Direction",
+                Problematics = problematics
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPsychologistModelIncorrectConsultationMode()
+        {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1,
+                    Name = "Juan"
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
+                }
+            };
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = "Not virtual either presence type consultation mode",
+                Direction = "Direction",
+                Problematics = problematics
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }        
+
+        [TestMethod]
+        [ExpectedException(typeof(AmountOfProblematicsException))]
+        public void TestPsychologistModelWithMoreThanThreeProblematics()
+        {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
+                },
+                new ProblematicModel()
+                {
+                    Id = 4
+                }
+            };
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = "Virtual",
                 Direction = "Direction",
                 Problematics = problematics
             };

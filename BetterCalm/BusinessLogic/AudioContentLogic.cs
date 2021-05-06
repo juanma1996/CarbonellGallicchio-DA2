@@ -12,13 +12,18 @@ namespace BusinessLogic
         private IRepository<AudioContent> audioContentRepository;
         private IValidator<AudioContent> audioContentValidator;
         private IRepository<CategoryPlaylist> categoryPlaylistRepository;
+        private IRepository<Category> categoryRepository;
+        private IRepository<Playlist> playlistRepository;
 
         public AudioContentLogic(IRepository<AudioContent> audioContentRepository,
-            IValidator<AudioContent> audioContentValidator, IRepository<CategoryPlaylist> categoryPlaylistRepository)
+            IValidator<AudioContent> audioContentValidator, IRepository<CategoryPlaylist> categoryPlaylistRepository,
+            IRepository<Category> categoryRepository, IRepository<Playlist> playlistRepository)
         {
             this.audioContentRepository = audioContentRepository;
             this.audioContentValidator = audioContentValidator;
             this.categoryPlaylistRepository = categoryPlaylistRepository;
+            this.categoryRepository = categoryRepository;
+            this.playlistRepository = playlistRepository;
         }
         public AudioContent GetById(int audioContentId)
         {
@@ -27,9 +32,10 @@ namespace BusinessLogic
             return audioContent;
 
         }
-        public AudioContent Create(AudioContent audioContentModel)
+        public AudioContent Create(AudioContent audioContent)
         {
-            AudioContent audioContent = audioContentRepository.Add(audioContentModel);
+            ValidateExistPlaylistAndCategoryByAudioContent(audioContent);
+            audioContentRepository.Add(audioContent);
             CreateCategoryPlaylist(audioContent.Playlists, audioContent.Categories);
 
             return audioContent;
@@ -41,13 +47,46 @@ namespace BusinessLogic
             {
                 foreach (AudioContentCategory audioContentCategory in audioContentCategories)
                 {
-                    CategoryPlaylist categoryPlaylist = new CategoryPlaylist()
+                    if (!categoryPlaylistRepository.Exists(p => p.CategoryId == audioContentCategory.CategoryId
+                    && p.PlaylistId == audioContentPlaylist.PlaylistId))
                     {
-                        CategoryId = audioContentCategory.CategoryId,
-                        PlaylistId = audioContentPlaylist.PlaylistId
-                    };
-                    categoryPlaylistRepository.Add(categoryPlaylist);
+
+                        CategoryPlaylist categoryPlaylist = new CategoryPlaylist()
+                        {
+                            CategoryId = audioContentCategory.CategoryId,
+                            PlaylistId = audioContentPlaylist.PlaylistId
+                        };
+                        categoryPlaylistRepository.Add(categoryPlaylist);
+                    }
                 }
+            }
+        }
+
+        private void ValidateExistPlaylistAndCategoryByAudioContent(AudioContent audioContent)
+        {
+            ValidateExistCategoryByAudioContent(audioContent);
+            ValidateExistPlaylistByAudioContent(audioContent);
+        }
+
+        private void ValidateExistPlaylistByAudioContent(AudioContent audioContent)
+        {
+            bool existPlaylist = true;
+            audioContent.Playlists.ForEach(p =>
+            existPlaylist = existPlaylist && (p.PlaylistId == default || playlistRepository.Exists(pl => pl.Id == p.PlaylistId)));
+            if (!existPlaylist)
+            {
+                throw new NullObjectException("Playlist not exist for the given data");
+            }
+        }
+
+        private void ValidateExistCategoryByAudioContent(AudioContent audioContent)
+        {
+            bool existCategory = true;
+            audioContent.Categories.ForEach(c =>
+            existCategory = existCategory && categoryRepository.Exists(ca => ca.Id == c.CategoryId));
+            if (!existCategory)
+            {
+                throw new NullObjectException("Category not exist for the given data");
             }
         }
 
@@ -56,15 +95,17 @@ namespace BusinessLogic
             AudioContent audioContentToDelete = GetById(audioContentId);
             audioContentRepository.Delete(audioContentToDelete);
         }
-        public void Update(AudioContent audioContentModel)
+        public void Update(AudioContent audioContent)
         {
-            if (!audioContentRepository.Exists(a => a.Id == audioContentModel.Id))
+            if (!audioContentRepository.Exists(a => a.Id == audioContent.Id))
             {
                 throw new NullObjectException("Audio content not exist for the given data");
             }
             else
             {
-                audioContentRepository.Update(audioContentModel);
+                ValidateExistPlaylistAndCategoryByAudioContent(audioContent);
+                audioContentRepository.Update(audioContent);
+                CreateCategoryPlaylist(audioContent.Playlists, audioContent.Categories);
             }
         }
     }

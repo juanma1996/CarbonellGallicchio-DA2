@@ -16,7 +16,7 @@ namespace WebApi.Filters
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var token = context.HttpContext.Request.Headers["Authorization"];
+            string token = context.HttpContext.Request.Headers["Authorization"];
 
             if (string.IsNullOrEmpty(token))
             {

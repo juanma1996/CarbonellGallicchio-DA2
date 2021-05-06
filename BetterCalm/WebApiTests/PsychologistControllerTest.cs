@@ -18,7 +18,7 @@ namespace WebApiTests
         [TestMethod]
         public void TestGetPsychologistByIdOk()
         {
-            var psychologistId = 1;
+            int psychologistId = 1;
             PsychologistBasicInfoModel psychologistToReturn = new PsychologistBasicInfoModel
             {
                 Id = 1,
@@ -51,8 +51,8 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Get(psychologistId);
-            var okResult = result as OkObjectResult;
-            var psychologist = okResult.Value as PsychologistBasicInfoModel;
+            OkObjectResult okResult = result as OkObjectResult;
+            PsychologistBasicInfoModel psychologist = okResult.Value as PsychologistBasicInfoModel;
 
             mock.VerifyAll();
             Assert.AreEqual(psychologistToReturn.Id, psychologist.Id);
@@ -69,7 +69,7 @@ namespace WebApiTests
         [ExpectedException(typeof(NotFoundException))]
         public void TestGetPsychologistNotExistentId()
         {
-            var psychologistId = 1;
+            int psychologistId = 1;
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(psychologistId)).Throws(new NotFoundException("prueba"));
             PsychologistController controller = new PsychologistController(mock.Object);
@@ -140,8 +140,8 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
-            var okResult = result as CreatedAtRouteResult;
-            var psychologistBasicInfoModel = okResult.Value as PsychologistBasicInfoModel;
+            CreatedAtRouteResult okResult = result as CreatedAtRouteResult;
+            PsychologistBasicInfoModel psychologistBasicInfoModel = okResult.Value as PsychologistBasicInfoModel;
 
             mock.VerifyAll();
             Assert.AreEqual(psychologistId, psychologistBasicInfoModel.Id);
@@ -214,7 +214,7 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException());
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException("The psychologist's problematics must be exactly three"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
@@ -255,7 +255,7 @@ namespace WebApiTests
                 }
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException());
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException("The psychologist's problematics must be exactly three"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Post(psycologistModel);
@@ -270,7 +270,7 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var response = controller.Delete(psychologistId);
-            var statusCodeResult = response as StatusCodeResult;
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
@@ -327,7 +327,7 @@ namespace WebApiTests
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var response = controller.Put(psycologistModel);
-            var statusCodeResult = response as StatusCodeResult;
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
@@ -422,7 +422,7 @@ namespace WebApiTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException());
+            mock.Setup(m => m.Update(It.IsAny<PsychologistModel>())).Throws(new AmountOfProblematicsException("The psychologist's problematics must be exactly three"));
             PsychologistController controller = new PsychologistController(mock.Object);
 
             var result = controller.Put(psycologistModel);

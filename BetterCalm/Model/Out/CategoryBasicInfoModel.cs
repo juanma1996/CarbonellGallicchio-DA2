@@ -1,5 +1,4 @@
-﻿using Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Model.Out
 {

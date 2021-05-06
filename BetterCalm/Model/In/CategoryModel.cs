@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Model.In
+﻿namespace Model.In
 {
     public class CategoryModel
     {

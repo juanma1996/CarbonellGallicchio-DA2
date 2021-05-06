@@ -7,7 +7,6 @@ using BusinessLogicInterface;
 using Domain;
 using Model.In;
 using Model.Out;
-using System;
 using ValidatorInterface;
 
 namespace Adapter
@@ -43,9 +42,16 @@ namespace Adapter
         {
             audioContentModelValidator.Validate(audioContentModel);
             audioContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
-            AudioContent audioContentIn = mapper.Map<AudioContent>(audioContentModel);
-            AudioContent audioContent = audioContentLogic.Create(audioContentIn);
-            return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+            try
+            {
+                AudioContent audioContentIn = mapper.Map<AudioContent>(audioContentModel);
+                AudioContent audioContent = audioContentLogic.Create(audioContentIn);
+                return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.errorMessage);
+            }
         }
         public void DeleteById(int audioContentId)
         {

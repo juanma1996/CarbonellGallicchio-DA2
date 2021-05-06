@@ -1,5 +1,4 @@
-﻿using System;
-namespace Model.In
+﻿namespace Model.In
 {
     public class ProblematicModel
     {

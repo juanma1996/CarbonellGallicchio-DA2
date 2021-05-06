@@ -1,6 +1,4 @@
-﻿using System;
-using AdapterExceptions;
-using AdapterInterface;
+﻿using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
@@ -55,7 +53,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Post(PsychologistModel psycologistIn)
         {
-            var psychologistCreated = psychologistDomainToModelAdapter.Add(psycologistIn);
+            PsychologistBasicInfoModel psychologistCreated = psychologistDomainToModelAdapter.Add(psycologistIn);
             return CreatedAtRoute("Get", new { id = psychologistCreated.Id }, psychologistCreated);
         }
 

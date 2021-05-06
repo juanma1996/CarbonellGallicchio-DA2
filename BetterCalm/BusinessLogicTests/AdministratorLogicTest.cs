@@ -16,7 +16,7 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestGetAdministratorByIdOk()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             Administrator administratorToReturn = new Administrator
             {
                 Id = administratorId,
@@ -43,7 +43,7 @@ namespace BusinessLogicTests
         [ExpectedException(typeof(NullObjectException))]
         public void TestGetAdministratorNotExistentId()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(administratorId)).Returns((Administrator)null);
             Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
@@ -79,7 +79,7 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestDeleteAdministratorOk()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             Administrator administratorToReturn = new Administrator
             {
                 Id = administratorId,
@@ -103,7 +103,7 @@ namespace BusinessLogicTests
         [ExpectedException(typeof(NullObjectException))]
         public void TestDeleteAdministratorNotExistentId()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(administratorId)).Returns((Administrator)null);
             mock.Setup(m => m.Delete(It.IsAny<Administrator>()));
@@ -119,7 +119,7 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestUpdateAdministratorOk()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             Administrator administratorModel = new Administrator
             {
                 Id = administratorId,
@@ -143,7 +143,7 @@ namespace BusinessLogicTests
         [ExpectedException(typeof(NullObjectException))]
         public void TestUpdateAdministratorNotExistent()
         {
-            var administratorId = 1;
+            int administratorId = 1;
             Administrator administratorModel = new Administrator
             {
                 Id = administratorId,

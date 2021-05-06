@@ -1,12 +1,8 @@
-﻿using AdapterExceptions;
-using AdapterInterface;
+﻿using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Model.Out;
 
 namespace WebApi.Controllers
 {
@@ -35,7 +31,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Post(SessionModel sessionModel)
         {
-            var sessionCreated = sessionLogicAdapter.Add(sessionModel);
+            SessionBasicInfoModel sessionCreated = sessionLogicAdapter.Add(sessionModel);
             return CreatedAtRoute("", sessionCreated);
         }
     }

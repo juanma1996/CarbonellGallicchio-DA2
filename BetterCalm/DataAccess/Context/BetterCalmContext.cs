@@ -38,7 +38,7 @@ namespace DataAccess.Context
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-                var connectionString = configuration.GetConnectionString(@"BetterCalmDB");
+                string connectionString = configuration.GetConnectionString(@"BetterCalmDB");
 
                 optionsBuilder.UseSqlServer(connectionString);
             }
@@ -75,18 +75,18 @@ namespace DataAccess.Context
 
             modelBuilder.Entity<CategoryPlaylist>().ToTable("CategoryPlaylists");
             modelBuilder.Entity<CategoryPlaylist>().HasKey(cp => new { cp.CategoryId, cp.PlaylistId });
-            modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Category).WithMany(p => p.Playlists).HasForeignKey(sc => sc.CategoryId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.Categories).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Category).WithMany(p => p.Playlists).HasForeignKey(sc => sc.CategoryId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.Categories).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<AudioContentCategory>().ToTable("AudioContentCategories");
             modelBuilder.Entity<AudioContentCategory>().HasKey(cp => new { cp.CategoryId, cp.AudioContentId });
-            modelBuilder.Entity<AudioContentCategory>().HasOne(s => s.Category).WithMany(p => p.AudioContents).HasForeignKey(sc => sc.CategoryId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<AudioContentCategory>().HasOne(s => s.AudioContent).WithMany(p => p.Categories).HasForeignKey(sc => sc.AudioContentId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<AudioContentCategory>().HasOne(s => s.Category).WithMany(p => p.AudioContents).HasForeignKey(sc => sc.CategoryId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<AudioContentCategory>().HasOne(s => s.AudioContent).WithMany(p => p.Categories).HasForeignKey(sc => sc.AudioContentId).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<AudioContentPlaylist>().ToTable("AudioContentPlaylists");
             modelBuilder.Entity<AudioContentPlaylist>().HasKey(cp => new { cp.AudioContentId, cp.PlaylistId });
-            modelBuilder.Entity<AudioContentPlaylist>().HasOne(s => s.AudioContent).WithMany(p => p.Playlists).HasForeignKey(sc => sc.AudioContentId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<AudioContentPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.AudioContents).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<AudioContentPlaylist>().HasOne(s => s.AudioContent).WithMany(p => p.Playlists).HasForeignKey(sc => sc.AudioContentId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<AudioContentPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.AudioContents).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Psychologist>().ToTable("Psychologists");
             modelBuilder.Entity<Psychologist>().HasKey(p => p.Id);
@@ -112,13 +112,13 @@ namespace DataAccess.Context
 
             modelBuilder.Entity<PsychologistProblematic>().ToTable("PsychologistProblematics");
             modelBuilder.Entity<PsychologistProblematic>().HasKey(pp => new { pp.PsychologistId, pp.ProblematicId });
-            modelBuilder.Entity<PsychologistProblematic>().HasOne(p => p.Psychologist).WithMany(pr => pr.Problematics).HasForeignKey(sc => sc.PsychologistId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<PsychologistProblematic>().HasOne(p => p.Problematic).WithMany(pr => pr.Psychologists).HasForeignKey(sc => sc.ProblematicId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<PsychologistProblematic>().HasOne<Psychologist>(p => p.Psychologist).WithMany(pr => pr.Problematics).HasForeignKey(sc => sc.PsychologistId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PsychologistProblematic>().HasOne<Problematic>(p => p.Problematic).WithMany(pr => pr.Psychologists).HasForeignKey(sc => sc.ProblematicId).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Consultation>().ToTable("Consultations");
             modelBuilder.Entity<Consultation>().HasKey(p => p.Id);
             modelBuilder.Entity<Consultation>().Property(p => p.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Consultation>().HasOne(p => p.Psychologist);
+            modelBuilder.Entity<Consultation>().HasOne(p => p.Psychologist).WithMany().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Consultation>().HasOne(p => p.Pacient);
 
             modelBuilder.Entity<Pacient>().ToTable("Pacients");
@@ -132,7 +132,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Agenda>().ToTable("Agendas");
             modelBuilder.Entity<Agenda>().HasKey(p => p.Id);
             modelBuilder.Entity<Agenda>().Property(p => p.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Agenda>().HasOne(p => p.Psychologist);
+            modelBuilder.Entity<Agenda>().HasOne(p => p.Psychologist).WithMany().OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Administrator>().ToTable("Administrators");
             modelBuilder.Entity<Administrator>().HasKey(s => s.Id);

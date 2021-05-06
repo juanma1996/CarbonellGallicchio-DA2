@@ -1,5 +1,4 @@
-﻿using System;
-using Adapter;
+﻿using Adapter;
 using Adapter.Mapper;
 using Adapter.Mapper.Profiles;
 using AdapterExceptions;
@@ -7,6 +6,7 @@ using AutoMapper;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
+using Model.Out;
 using Moq;
 using SessionInterface;
 using ValidatorInterface;
@@ -20,7 +20,7 @@ namespace AdapterTests
         public void TestSessionMapOk()
         {
             ModelMapper mapper = new ModelMapper();
-            var configuration = new MapperConfiguration(mapper => mapper.AddProfile(new SessionProfile()));
+            MapperConfiguration configuration = new MapperConfiguration(mapper => mapper.AddProfile(new SessionProfile()));
             configuration.AssertConfigurationIsValid();
         }
 
@@ -40,7 +40,7 @@ namespace AdapterTests
             validatorMock.Setup(m => m.Validate(sessionModel)).Throws(new InvalidAttributeException("Email can't be null"));
             SessionLogicAdapter sessionLogicAdapter = new SessionLogicAdapter(mock.Object, mapper, validatorMock.Object);
 
-            var result = sessionLogicAdapter.Add(sessionModel);
+            SessionBasicInfoModel result = sessionLogicAdapter.Add(sessionModel);
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@ namespace AdapterTests
             validatorMock.Setup(m => m.Validate(sessionModel)).Throws(new InvalidAttributeException("Password can't be null"));
             SessionLogicAdapter sessionLogicAdapter = new SessionLogicAdapter(mock.Object, mapper, validatorMock.Object);
 
-            var result = sessionLogicAdapter.Add(sessionModel);
+            SessionBasicInfoModel result = sessionLogicAdapter.Add(sessionModel);
         }
     }
 }
