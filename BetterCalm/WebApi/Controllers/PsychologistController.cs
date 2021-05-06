@@ -47,6 +47,7 @@ namespace WebApi.Controllers
         /// <response code="400">Error. The psychologist's consultation mode can't be empty.</response>
         /// <response code="400">Error. The psychologist's direction can't be empty.</response>
         /// <response code="400">Error. The psychologist's problematics can't be zero.</response>
+        /// <response code="400">Error. The psychologist's consultation mode must be 'Virtual' or 'Presencial.</response>
         /// <response code="401">Unauthorized. Must contain a token to access Api.</response>
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
