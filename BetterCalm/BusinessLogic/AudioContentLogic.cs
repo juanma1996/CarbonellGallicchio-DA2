@@ -34,25 +34,9 @@ namespace BusinessLogic
         }
         public AudioContent Create(AudioContent audioContent)
         {
-            bool existCategory = true;
-            bool existPlaylist = true;
-            audioContent.Categories.ForEach(c =>
-            existCategory = existCategory && categoryRepository.Exists(ca => ca.Id == c.CategoryId));
-            audioContent.Playlists.ForEach(p =>
-            existPlaylist = existPlaylist && (p.PlaylistId == default ||  playlistRepository.Exists(pl => pl.Id == p.PlaylistId)));
-            if (!existCategory)
-            {
-                throw new NullObjectException("Category not exist for the given data");
-            }
-            if (!existPlaylist)
-            {
-                throw new NullObjectException("Playlist not exist for the given data");
-            }
-            else
-            {
-                AudioContent audioContentAdded = audioContentRepository.Add(audioContent);
-                CreateCategoryPlaylist(audioContent.Playlists, audioContent.Categories);
-            }
+            ValidateExistPlaylistAndCategoryByAudioContent(audioContent);
+            audioContentRepository.Add(audioContent);
+            CreateCategoryPlaylist(audioContent.Playlists, audioContent.Categories);
 
             return audioContent;
         }
@@ -72,9 +56,37 @@ namespace BusinessLogic
                             CategoryId = audioContentCategory.CategoryId,
                             PlaylistId = audioContentPlaylist.PlaylistId
                         };
-                        categoryPlaylistRepository.Add(categoryPlaylist); 
+                        categoryPlaylistRepository.Add(categoryPlaylist);
                     }
                 }
+            }
+        }
+
+        private void ValidateExistPlaylistAndCategoryByAudioContent(AudioContent audioContent)
+        {
+            ValidateExistCategoryByAudioContent(audioContent);
+            ValidateExistPlaylistByAudioContent(audioContent);
+        }
+
+        private void ValidateExistPlaylistByAudioContent(AudioContent audioContent)
+        {
+            bool existPlaylist = true;
+            audioContent.Playlists.ForEach(p =>
+            existPlaylist = existPlaylist && (p.PlaylistId == default || playlistRepository.Exists(pl => pl.Id == p.PlaylistId)));
+            if (!existPlaylist)
+            {
+                throw new NullObjectException("Playlist not exist for the given data");
+            }
+        }
+
+        private void ValidateExistCategoryByAudioContent(AudioContent audioContent)
+        {
+            bool existCategory = true;
+            audioContent.Categories.ForEach(c =>
+            existCategory = existCategory && categoryRepository.Exists(ca => ca.Id == c.CategoryId));
+            if (!existCategory)
+            {
+                throw new NullObjectException("Category not exist for the given data");
             }
         }
 
@@ -91,6 +103,7 @@ namespace BusinessLogic
             }
             else
             {
+                ValidateExistPlaylistAndCategoryByAudioContent(audioContent);
                 audioContentRepository.Update(audioContent);
                 CreateCategoryPlaylist(audioContent.Playlists, audioContent.Categories);
             }

@@ -164,6 +164,8 @@ namespace BusinessLogicTests
             mockCategoryPlaylist.Setup(m => m.Exists(It.IsAny<Expression<Func<CategoryPlaylist, bool>>>())).Returns(false);
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
+            mockCategory.Setup(m => m.Exists(It.IsAny<Expression<Func<Category, bool>>>())).Returns(true);
+            mockPlaylist.Setup(m => m.Exists(It.IsAny<Expression<Func<Playlist, bool>>>())).Returns(true);
             AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object);
 

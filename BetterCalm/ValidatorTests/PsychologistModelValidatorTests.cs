@@ -96,7 +96,7 @@ namespace ValidatorTests
             PsychologistModel psychologist = new PsychologistModel
             {
                 Name = "Juan",
-                ConsultationMode = "Virtual",
+                ConsultationMode = "Presencial",
                 Direction = "",
                 Problematics = problematics
             };

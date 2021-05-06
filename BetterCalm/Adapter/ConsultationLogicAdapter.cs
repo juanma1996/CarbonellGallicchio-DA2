@@ -7,6 +7,7 @@ using BusinessLogicInterface;
 using Domain;
 using Model.In;
 using Model.Out;
+using ValidatorInterface;
 
 namespace Adapter
 {
@@ -14,16 +15,23 @@ namespace Adapter
     {
         private readonly IConsultationLogic consultationLogic;
         private readonly IMapper mapper;
-        public ConsultationLogicAdapter(IConsultationLogic consultationLogic, IModelMapper mapper)
+        private readonly IValidator<ConsultationModel> consultationModelValidator;
+        private readonly IValidator<PacientModel> pacientModelValidator;
+        public ConsultationLogicAdapter(IConsultationLogic consultationLogic, IModelMapper mapper,
+            IValidator<ConsultationModel> consultationModelValidator, IValidator<PacientModel> pacientModelValidator)
         {
             this.consultationLogic = consultationLogic;
             this.mapper = mapper.Configure();
+            this.consultationModelValidator = consultationModelValidator;
+            this.pacientModelValidator = pacientModelValidator;
         }
 
         public PsychologistBasicInfoModel Add(ConsultationModel consultationModel)
         {
             try
             {
+                consultationModelValidator.Validate(consultationModel);
+                pacientModelValidator.Validate(consultationModel.Pacient);
                 Consultation consultation = mapper.Map<Consultation>(consultationModel);
                 Psychologist psychologist = consultationLogic.Add(consultation);
                 return mapper.Map<PsychologistBasicInfoModel>(psychologist);
