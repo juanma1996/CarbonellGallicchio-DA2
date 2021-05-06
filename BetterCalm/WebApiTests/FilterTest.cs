@@ -18,6 +18,87 @@ namespace WebApiTests
     [TestClass]
     public class FilterTest
     {
+
+        [TestMethod]
+        public void AuthorizationAttributeFilterValidToken()
+        {
+            IHeaderDictionary headers = new HeaderDictionary();
+            headers.Add("Authorization", Guid.NewGuid().ToString());
+            Mock<HttpRequest> mockHttpRequest = new Mock<HttpRequest>();
+            mockHttpRequest.Setup(r => r.Headers).Returns(headers);
+            Mock<ISessionLogic> mockSessionLogic = new Mock<ISessionLogic>();
+            mockSessionLogic.Setup(s => s.IsValidToken(It.IsAny<string>())).Returns(true);
+            Mock<HttpContext> mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(h => h.Request).Returns(mockHttpRequest.Object);
+            mockHttpContext.Setup(h => h.RequestServices.GetService(It.IsAny<Type>())).Returns(mockSessionLogic.Object);
+            ActionContext actionContext = new ActionContext(
+                mockHttpContext.Object,
+                new Mock<Microsoft.AspNetCore.Routing.RouteData>().Object,
+                new Mock<ActionDescriptor>().Object);
+            AuthorizationFilterContext actionExecutingContext = new AuthorizationFilterContext(
+                actionContext,
+                new Mock<IList<IFilterMetadata>>().Object);
+            AuthorizationAttributeFilter filter = new AuthorizationAttributeFilter(mockSessionLogic.Object);
+
+            filter.OnAuthorization(actionExecutingContext);
+
+            Assert.IsNull(actionExecutingContext.Result);
+        }
+
+        [TestMethod]
+        public void AuthorizationAttributeFilterInvalidToken()
+        {
+            IHeaderDictionary headers = new HeaderDictionary();
+            headers.Add("Authorization", Guid.NewGuid().ToString());
+            Mock<HttpRequest> mockHttpRequest = new Mock<HttpRequest>();
+            mockHttpRequest.Setup(r => r.Headers).Returns(headers);
+            Mock<ISessionLogic> mockSessionLogic = new Mock<ISessionLogic>();
+            mockSessionLogic.Setup(s => s.IsValidToken(It.IsAny<string>())).Returns(false);
+            Mock<HttpContext> mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(h => h.Request).Returns(mockHttpRequest.Object);
+            mockHttpContext.Setup(h => h.RequestServices.GetService(It.IsAny<Type>())).Returns(mockSessionLogic.Object);
+            ActionContext actionContext = new ActionContext(
+                mockHttpContext.Object,
+                new Mock<Microsoft.AspNetCore.Routing.RouteData>().Object,
+                new Mock<ActionDescriptor>().Object);
+            AuthorizationFilterContext actionExecutingContext = new AuthorizationFilterContext(
+                actionContext,
+                new Mock<IList<IFilterMetadata>>().Object);
+            AuthorizationAttributeFilter filter = new AuthorizationAttributeFilter(mockSessionLogic.Object);
+
+            filter.OnAuthorization(actionExecutingContext);
+            var result = actionExecutingContext.Result as ContentResult;
+
+            Assert.AreEqual(403, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void AuthorizationAttributeFilterNotToken()
+        {
+            IHeaderDictionary headers = new HeaderDictionary();
+            headers.Add("Authorization", "");
+            Mock<HttpRequest> mockHttpRequest = new Mock<HttpRequest>();
+            mockHttpRequest.Setup(r => r.Headers).Returns(headers);
+            Mock<ISessionLogic> mockSessionLogic = new Mock<ISessionLogic>();
+            mockSessionLogic.Setup(s => s.IsValidToken(It.IsAny<string>())).Returns(false);
+            Mock<HttpContext> mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(h => h.Request).Returns(mockHttpRequest.Object);
+            mockHttpContext.Setup(h => h.RequestServices.GetService(It.IsAny<Type>())).Returns(mockSessionLogic.Object);
+            ActionContext actionContext = new ActionContext(
+                mockHttpContext.Object,
+                new Mock<Microsoft.AspNetCore.Routing.RouteData>().Object,
+                new Mock<ActionDescriptor>().Object);
+            AuthorizationFilterContext actionExecutingContext = new AuthorizationFilterContext(
+                actionContext,
+                new Mock<IList<IFilterMetadata>>().Object);
+            AuthorizationAttributeFilter filter = new AuthorizationAttributeFilter(mockSessionLogic.Object);
+
+            filter.OnAuthorization(actionExecutingContext);
+            var result = actionExecutingContext.Result as ContentResult;
+
+            Assert.AreEqual(401, result.StatusCode);
+        }
+
         [TestMethod]
         public void TestExceptionFilterAmountOfProblematicsException()
         {
