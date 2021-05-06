@@ -12,13 +12,18 @@ namespace BusinessLogic
         private IRepository<AudioContent> audioContentRepository;
         private IValidator<AudioContent> audioContentValidator;
         private IRepository<CategoryPlaylist> categoryPlaylistRepository;
+        private IRepository<Category> categoryRepository;
+        private IRepository<Playlist> playlistRepository;
 
         public AudioContentLogic(IRepository<AudioContent> audioContentRepository,
-            IValidator<AudioContent> audioContentValidator, IRepository<CategoryPlaylist> categoryPlaylistRepository)
+            IValidator<AudioContent> audioContentValidator, IRepository<CategoryPlaylist> categoryPlaylistRepository,
+            IRepository<Category> categoryRepository, IRepository<Playlist> playlistRepository)
         {
             this.audioContentRepository = audioContentRepository;
             this.audioContentValidator = audioContentValidator;
             this.categoryPlaylistRepository = categoryPlaylistRepository;
+            this.categoryRepository = categoryRepository;
+            this.playlistRepository = playlistRepository;
         }
         public AudioContent GetById(int audioContentId)
         {
@@ -29,8 +34,25 @@ namespace BusinessLogic
         }
         public AudioContent Create(AudioContent audioContent)
         {
-            AudioContent audioContentAdded = audioContentRepository.Add(audioContent);
-            CreateCategoryPlaylist(audioContent.Playlists, audioContent.Categories);
+            bool existCategory = true;
+            bool existPlaylist = true;
+            audioContent.Categories.ForEach(c =>
+            existCategory = existCategory && categoryRepository.Exists(ca => ca.Id == c.CategoryId));
+            audioContent.Playlists.ForEach(p =>
+            existPlaylist = existPlaylist && (p.PlaylistId == default ||  playlistRepository.Exists(pl => pl.Id == p.PlaylistId)));
+            if (!existCategory)
+            {
+                throw new NullObjectException("Category not exist for the given data");
+            }
+            if (!existPlaylist)
+            {
+                throw new NullObjectException("Playlist not exist for the given data");
+            }
+            else
+            {
+                AudioContent audioContentAdded = audioContentRepository.Add(audioContent);
+                CreateCategoryPlaylist(audioContent.Playlists, audioContent.Categories);
+            }
 
             return audioContent;
         }

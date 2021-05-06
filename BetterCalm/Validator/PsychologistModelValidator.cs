@@ -15,7 +15,7 @@ namespace Validator
             if (!psychologistModel.ConsultationMode.Equals("Virtual") &&
                 !psychologistModel.ConsultationMode.Equals("Presencial"))
                 throw new InvalidAttributeException("The psychologist's consultation mode must be 'Virtual' or 'Presencial'");
-            if (string.IsNullOrEmpty(psychologistModel.Direction))
+            if (psychologistModel.ConsultationMode.Equals("Presencial") && string.IsNullOrEmpty(psychologistModel.Direction))
                 throw new InvalidAttributeException("The psychologist's direction can't be empty");
             if (psychologistModel.Problematics is null || psychologistModel.Problematics.Count == 0)
                 throw new AmountOfProblematicsException("The psychologist's problematics can't be zero");

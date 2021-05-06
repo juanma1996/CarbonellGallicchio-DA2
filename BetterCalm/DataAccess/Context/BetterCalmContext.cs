@@ -118,7 +118,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Consultation>().ToTable("Consultations");
             modelBuilder.Entity<Consultation>().HasKey(p => p.Id);
             modelBuilder.Entity<Consultation>().Property(p => p.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Consultation>().HasOne(p => p.Psychologist);
+            modelBuilder.Entity<Consultation>().HasOne(p => p.Psychologist).WithMany().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Consultation>().HasOne(p => p.Pacient);
 
             modelBuilder.Entity<Pacient>().ToTable("Pacients");
@@ -132,7 +132,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Agenda>().ToTable("Agendas");
             modelBuilder.Entity<Agenda>().HasKey(p => p.Id);
             modelBuilder.Entity<Agenda>().Property(p => p.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Agenda>().HasOne(p => p.Psychologist);
+            modelBuilder.Entity<Agenda>().HasOne(p => p.Psychologist).WithMany().OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Administrator>().ToTable("Administrators");
             modelBuilder.Entity<Administrator>().HasKey(s => s.Id);
