@@ -28,7 +28,6 @@ namespace Factory
 
         public void AddCustomServices()
         {
-            services.AddScoped<IPlaylistLogic, PlaylistLogic>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICategoryLogic, CategoryLogic>();
             services.AddScoped<IModelMapper, ModelMapper>();

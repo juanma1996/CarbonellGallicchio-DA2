@@ -1,5 +1,4 @@
-﻿using System;
-using Adapter;
+﻿using Adapter;
 using Adapter.Mapper;
 using Adapter.Mapper.Profiles;
 using AdapterExceptions;
@@ -18,7 +17,7 @@ namespace AdapterTests
         public void TestCategoryMapOk()
         {
             ModelMapper mapper = new ModelMapper();
-            var configuration = new MapperConfiguration(mapper => mapper.AddProfile(new CategoryProfile()));
+            MapperConfiguration configuration = new MapperConfiguration(mapper => mapper.AddProfile(new CategoryProfile()));
             configuration.AssertConfigurationIsValid();
         }
 

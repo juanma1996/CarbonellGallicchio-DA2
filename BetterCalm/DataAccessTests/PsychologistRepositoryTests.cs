@@ -67,8 +67,8 @@ namespace DataAccessTests
             };
             IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
 
-            var result = psychologistRepository.Add(psycologistModel);
-            var psychologist = psychologistRepository.GetById(psychologistId);
+            psychologistRepository.Add(psycologistModel);
+            Psychologist psychologist = psychologistRepository.GetById(psychologistId);
 
             Assert.AreEqual(psychologistId, psychologist.Id);
             Assert.AreEqual(psycologistModel.Name, psychologist.Name);
@@ -80,14 +80,14 @@ namespace DataAccessTests
         [TestMethod]
         public void TestUpdatePsychologistOk()
         {
-            var psychologistId = 1;
+            int psychologistId = 1;
             Problematic problematic = new Problematic
             {
                 Id = 9,
                 Name = "Depresion",
             };
-            this.context.Add(problematic);
-            this.context.SaveChanges();
+            context.Add(problematic);
+            context.SaveChanges();
             Psychologist psycologistModel = new Psychologist
             {
                 Id = psychologistId,
@@ -170,7 +170,7 @@ namespace DataAccessTests
         [TestMethod]
         public void TestExistsPsychologistOk()
         {
-            var psychologistId = 1;
+            int psychologistId = 1;
             Psychologist psycologistModel = new Psychologist
             {
                 Id = psychologistId,
@@ -183,31 +183,31 @@ namespace DataAccessTests
             context.SaveChanges();
             IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
 
-            Boolean result = psychologistRepository.Exists(p => p.Id == psychologistId);
+            bool result = psychologistRepository.Exists(p => p.Id == psychologistId);
             Assert.IsTrue(result);
         }
 
         [TestMethod]
         public void TestExistsPsychologistNotFound()
         {
-            var psychologistId = 1;
+            int psychologistId = 1;
             IRepository<Psychologist> psychologistRepository = new Repository<Psychologist>(context);
 
-            Boolean result = psychologistRepository.Exists(p => p.Id == psychologistId);
+            bool result = psychologistRepository.Exists(p => p.Id == psychologistId);
             Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void TestGetAvailableByProblematicIdTwoOptions()
         {
-            var problematicId = 9;
+            int problematicId = 9;
             Problematic problematic = new Problematic
             {
                 Id = problematicId,
                 Name = "Depresion",
             };
-            this.context.Add(problematic);
-            this.context.SaveChanges();
+            context.Add(problematic);
+            context.SaveChanges();
             Psychologist antiquePsychologist = new Psychologist
             {
                 Id = 1,

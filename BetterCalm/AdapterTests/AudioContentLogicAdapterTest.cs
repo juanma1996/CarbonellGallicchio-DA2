@@ -21,7 +21,7 @@ namespace AdapterTests
         public void TestAudioContentMapOk()
         {
             ModelMapper mapper = new ModelMapper();
-            var configuration = new MapperConfiguration(mapper => mapper.AddProfile(new AudioContentProfile()));
+            MapperConfiguration configuration = new MapperConfiguration(mapper => mapper.AddProfile(new AudioContentProfile()));
             configuration.AssertConfigurationIsValid();
         }
 

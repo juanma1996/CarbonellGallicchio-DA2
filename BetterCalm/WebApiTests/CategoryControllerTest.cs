@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.Out;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using AdapterExceptions;
 
 namespace WebApiTests
 {
@@ -35,8 +33,8 @@ namespace WebApiTests
             CategoryController controller = new CategoryController(mock.Object);
 
             var result = controller.Get();
-            var okResult = result as OkObjectResult;
-            var categories = okResult.Value as List<CategoryBasicInfoModel>;
+            OkObjectResult okResult = result as OkObjectResult;
+            List<CategoryBasicInfoModel> categories = okResult.Value as List<CategoryBasicInfoModel>;
 
             mock.VerifyAll();
             Assert.AreEqual(categories.First().Id, categoriesToReturn.First().Id);
@@ -63,8 +61,8 @@ namespace WebApiTests
             CategoryController controller = new CategoryController(mock.Object);
 
             var result = controller.GetPlaylistByCategory(1);
-            var okResult = result as OkObjectResult;
-            var ResultPlaylists = okResult.Value as List<PlaylistBasicInfoModel>;
+            OkObjectResult okResult = result as OkObjectResult;
+            List<PlaylistBasicInfoModel> ResultPlaylists = okResult.Value as List<PlaylistBasicInfoModel>;
 
             mock.VerifyAll();
             Assert.AreEqual(ResultPlaylists.Count, 2);
@@ -74,13 +72,13 @@ namespace WebApiTests
         public void TestGetPlaylistByCategoryNotExistentId()
         {
             List<PlaylistBasicInfoModel> playlists = new List<PlaylistBasicInfoModel>();
-            var id = 1;
+            int id = 1;
             Mock<ICategoryLogicAdapter> mock = new Mock<ICategoryLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.GetPlaylistsByCategoryId(id)).Returns(playlists);
             CategoryController controller = new CategoryController(mock.Object);
 
             var result = controller.GetPlaylistByCategory(id);
-            var objectResult = result as ObjectResult;
+            ObjectResult objectResult = result as ObjectResult;
 
             mock.VerifyAll();
             Assert.AreEqual(0, playlists.Count);
@@ -117,8 +115,8 @@ namespace WebApiTests
             CategoryController controller = new CategoryController(mock.Object);
 
             var result = controller.Get();
-            var okResult = result as OkObjectResult;
-            var categories = okResult.Value as List<CategoryBasicInfoModel>;
+            OkObjectResult okResult = result as OkObjectResult;
+            List<CategoryBasicInfoModel> categories = okResult.Value as List<CategoryBasicInfoModel>;
 
             mock.VerifyAll();
             Assert.AreEqual(audioContentId, categories.First().AudioContents.First().Id);

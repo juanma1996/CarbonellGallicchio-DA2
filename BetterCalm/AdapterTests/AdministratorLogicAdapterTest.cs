@@ -21,7 +21,7 @@ namespace AdapterTests
         public void TestAdministratorMapOk()
         {
             ModelMapper mapper = new ModelMapper();
-            var configuration = new MapperConfiguration(mapper => mapper.AddProfile(new AdministratorProfile()));
+            MapperConfiguration configuration = new MapperConfiguration(mapper => mapper.AddProfile(new AdministratorProfile()));
             configuration.AssertConfigurationIsValid();
         }
 

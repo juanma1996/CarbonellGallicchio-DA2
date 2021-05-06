@@ -1,5 +1,4 @@
-﻿using System;
-using Adapter.Mapper;
+﻿using Adapter.Mapper;
 using AdapterExceptions;
 using AdapterInterface;
 using AutoMapper;

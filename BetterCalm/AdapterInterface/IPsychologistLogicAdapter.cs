@@ -1,5 +1,4 @@
-﻿using System;
-using Model.In;
+﻿using Model.In;
 using Model.Out;
 
 namespace AdapterInterface

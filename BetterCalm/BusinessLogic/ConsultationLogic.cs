@@ -19,7 +19,20 @@ namespace BusinessLogic
         {
             consultationModel.Psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(consultationModel.ProblematicId, DateTime.Now);
             Consultation consultation = consultationRepository.Add(consultationModel);
+            if (consultation.Psychologist.ConsultationMode.Equals("Virtual"))
+            {
+                consultation.Psychologist.Direction = GenerateMeetingId();
+            }
+
             return consultation.Psychologist;
+        }
+
+        private string GenerateMeetingId()
+        {
+            string direction = "https://bettercalm.com.uy/meeting_id/";
+            direction = direction + Guid.NewGuid().ToString();
+
+            return direction;
         }
     }
 }

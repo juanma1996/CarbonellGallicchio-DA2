@@ -12,10 +12,15 @@ namespace Validator
                 throw new InvalidAttributeException("The psychologist's name can't be empty");
             if (string.IsNullOrEmpty(psychologistModel.ConsultationMode))
                 throw new InvalidAttributeException("The psychologist's consultation mode can't be empty");
+            if (!psychologistModel.ConsultationMode.Equals("Virtual") &&
+                !psychologistModel.ConsultationMode.Equals("Presencial"))
+                throw new InvalidAttributeException("The psychologist's consultation mode must be 'Virtual' or 'Presencial'");
             if (string.IsNullOrEmpty(psychologistModel.Direction))
                 throw new InvalidAttributeException("The psychologist's direction can't be empty");
             if (psychologistModel.Problematics is null || psychologistModel.Problematics.Count == 0)
-                throw new InvalidAttributeException("The psychologist's problematics can't be zero");
+                throw new AmountOfProblematicsException("The psychologist's problematics can't be zero");
+            if (psychologistModel.Problematics.Count != 3)
+                throw new AmountOfProblematicsException("The psychologist's problematics must be exactly three");
         }
     }
 }

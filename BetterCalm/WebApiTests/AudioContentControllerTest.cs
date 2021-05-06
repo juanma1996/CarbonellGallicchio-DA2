@@ -32,8 +32,8 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Get(audioContentId);
-            var okResult = result as OkObjectResult;
-            var audioContent = okResult.Value as AudioContentBasicInfoModel;
+            OkObjectResult okResult = result as OkObjectResult;
+            AudioContentBasicInfoModel audioContent = okResult.Value as AudioContentBasicInfoModel;
 
             Assert.AreEqual(audioContentToReturn.Id, audioContent.Id);
         }
@@ -73,8 +73,8 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var result = controller.Post(audioContentModel);
-            var createdAtRouteResult = result as CreatedAtRouteResult;
-            var audioContentBasicInfoModel = createdAtRouteResult.Value as AudioContentBasicInfoModel;
+            CreatedAtRouteResult createdAtRouteResult = result as CreatedAtRouteResult;
+            AudioContentBasicInfoModel audioContentBasicInfoModel = createdAtRouteResult.Value as AudioContentBasicInfoModel;
 
             mock.VerifyAll();
             Assert.AreEqual(audioContentId, audioContentBasicInfoModel.Id);
@@ -89,7 +89,7 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var response = controller.Delete(audioContentId);
-            var statusCodeResult = response as StatusCodeResult;
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
@@ -125,7 +125,7 @@ namespace WebApiTests
             AudioContentController controller = new AudioContentController(mock.Object);
 
             var response = controller.Put(audioContentModel);
-            var statusCodeResult = response as StatusCodeResult;
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);

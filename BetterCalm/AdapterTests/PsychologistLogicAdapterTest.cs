@@ -22,7 +22,7 @@ namespace AdapterTests
         public void TestPsychologistMapOk()
         {
             ModelMapper mapper = new ModelMapper();
-            var configuration = new MapperConfiguration(mapper => mapper.AddProfile(new PsychologistProfile()));
+            MapperConfiguration configuration = new MapperConfiguration(mapper => mapper.AddProfile(new PsychologistProfile()));
             configuration.AssertConfigurationIsValid();
         }
 

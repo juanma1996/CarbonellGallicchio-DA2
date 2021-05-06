@@ -1,5 +1,4 @@
-﻿using System;
-using AdapterInterface;
+﻿using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;

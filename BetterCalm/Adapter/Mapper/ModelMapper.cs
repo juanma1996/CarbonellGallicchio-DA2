@@ -12,7 +12,7 @@ namespace Adapter.Mapper
     {
         public IMapper Configure()
         {
-            var config = new MapperConfiguration(mapper =>
+            MapperConfiguration config = new MapperConfiguration(mapper =>
             {
                 mapper.AddProfile<CategoryProfile>();
                 mapper.AddProfile<PlaylistProfile>();

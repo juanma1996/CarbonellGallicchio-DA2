@@ -6,8 +6,6 @@ using Model.In;
 using Model.Out;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WebApi.Controllers;
 
 namespace WebApiTests
@@ -35,8 +33,8 @@ namespace WebApiTests
             SessionController controller = new SessionController(mock.Object);
 
             var result = controller.Post(sessionModel);
-            var createdAtRouteResult = result as CreatedAtRouteResult;
-            var sessionBasicInfoModel = createdAtRouteResult.Value as SessionBasicInfoModel;
+            CreatedAtRouteResult createdAtRouteResult = result as CreatedAtRouteResult;
+            SessionBasicInfoModel sessionBasicInfoModel = createdAtRouteResult.Value as SessionBasicInfoModel;
 
             mock.VerifyAll();
             Assert.AreEqual(sessionToReturn.Email, sessionBasicInfoModel.Email);

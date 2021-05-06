@@ -75,7 +75,7 @@ namespace DataAccess.Tests
             context.SaveChanges();
 
             IRepository<Category> categoryRepository = new Repository<Category>(context);
-            var result = categoryRepository.GetAll();
+            List<Category> result = categoryRepository.GetAll();
 
             Assert.IsTrue(result.Count > 0);
         }
@@ -125,7 +125,7 @@ namespace DataAccess.Tests
             context.SaveChanges();
 
             IRepository<Playlist> playlistRepository = new Repository<Playlist>(context);
-            var result = playlistRepository.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == categoryId));
+            List<Playlist> result = playlistRepository.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == categoryId));
 
             Assert.IsTrue(playlistsToReturn.SequenceEqual(result));
         }
@@ -175,7 +175,7 @@ namespace DataAccess.Tests
             context.SaveChanges();
 
             IRepository<Playlist> playlistRepository = new Repository<Playlist>(context);
-            var result = playlistRepository.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == notExistentCategoryId));
+            List<Playlist> result = playlistRepository.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == notExistentCategoryId));
 
             Assert.IsTrue(result.Count == 0);
         }

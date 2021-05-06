@@ -1,5 +1,4 @@
-﻿using AdapterExceptions;
-using AdapterInterface;
+﻿using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Model.Out;
 using System.Collections.Generic;

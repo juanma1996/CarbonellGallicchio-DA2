@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq.Expressions;
 using ValidatorInterface;
 
 namespace BusinessLogicTests
@@ -77,6 +77,7 @@ namespace BusinessLogicTests
             validatorMock.Setup(m => m.Validate(It.IsAny<AudioContent>()));
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             mockCategoryPlaylist.Setup(m => m.Add(It.IsAny<CategoryPlaylist>())).Returns(It.IsAny<CategoryPlaylist>());
+            mockCategoryPlaylist.Setup(m => m.Exists(It.IsAny<Expression<Func<CategoryPlaylist, bool>>>())).Returns(false);
             AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object);
 
@@ -151,6 +152,8 @@ namespace BusinessLogicTests
             Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<AudioContent>()));
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
+            mockCategoryPlaylist.Setup(m => m.Add(It.IsAny<CategoryPlaylist>())).Returns(It.IsAny<CategoryPlaylist>());
+            mockCategoryPlaylist.Setup(m => m.Exists(It.IsAny<Expression<Func<CategoryPlaylist, bool>>>())).Returns(false);
             AudioContentLogic audioContentLogic = new AudioContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object);
 

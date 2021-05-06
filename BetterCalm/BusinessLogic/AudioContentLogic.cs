@@ -27,9 +27,9 @@ namespace BusinessLogic
             return audioContent;
 
         }
-        public AudioContent Create(AudioContent audioContentModel)
+        public AudioContent Create(AudioContent audioContent)
         {
-            AudioContent audioContent = audioContentRepository.Add(audioContentModel);
+            AudioContent audioContentAdded = audioContentRepository.Add(audioContent);
             CreateCategoryPlaylist(audioContent.Playlists, audioContent.Categories);
 
             return audioContent;
@@ -41,12 +41,17 @@ namespace BusinessLogic
             {
                 foreach (AudioContentCategory audioContentCategory in audioContentCategories)
                 {
-                    CategoryPlaylist categoryPlaylist = new CategoryPlaylist()
+                    if (!categoryPlaylistRepository.Exists(p => p.CategoryId == audioContentCategory.CategoryId
+                    && p.PlaylistId == audioContentPlaylist.PlaylistId))
                     {
-                        CategoryId = audioContentCategory.CategoryId,
-                        PlaylistId = audioContentPlaylist.PlaylistId
-                    };
-                    categoryPlaylistRepository.Add(categoryPlaylist);
+
+                        CategoryPlaylist categoryPlaylist = new CategoryPlaylist()
+                        {
+                            CategoryId = audioContentCategory.CategoryId,
+                            PlaylistId = audioContentPlaylist.PlaylistId
+                        };
+                        categoryPlaylistRepository.Add(categoryPlaylist); 
+                    }
                 }
             }
         }
@@ -56,15 +61,16 @@ namespace BusinessLogic
             AudioContent audioContentToDelete = GetById(audioContentId);
             audioContentRepository.Delete(audioContentToDelete);
         }
-        public void Update(AudioContent audioContentModel)
+        public void Update(AudioContent audioContent)
         {
-            if (!audioContentRepository.Exists(a => a.Id == audioContentModel.Id))
+            if (!audioContentRepository.Exists(a => a.Id == audioContent.Id))
             {
                 throw new NullObjectException("Audio content not exist for the given data");
             }
             else
             {
-                audioContentRepository.Update(audioContentModel);
+                audioContentRepository.Update(audioContent);
+                CreateCategoryPlaylist(audioContent.Playlists, audioContent.Categories);
             }
         }
     }

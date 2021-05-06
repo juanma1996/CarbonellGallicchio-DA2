@@ -1,8 +1,8 @@
-﻿using AdapterExceptions;
-using AdapterInterface;
+﻿using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
+using Model.Out;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] AudioContentModel audioContentModel)
         {
-            var audioContentCreated = audioContentLogicAdapter.Add(audioContentModel);
+            AudioContentBasicInfoModel audioContentCreated = audioContentLogicAdapter.Add(audioContentModel);
             return CreatedAtRoute("GetAudioContentById", new { id = audioContentCreated.Id }, audioContentCreated);
         }
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
