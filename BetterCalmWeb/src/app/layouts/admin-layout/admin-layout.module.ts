@@ -14,6 +14,8 @@ import { TablesComponent } from "../../pages/tables/tables.component";
 import { TypographyComponent } from "../../pages/typography/typography.component";
 import { CategoriesDashboardComponent } from "../../pages/categories/categories-dashboard/categories-dashboard.component";
 import { CategoryCardComponent } from "../../pages/categories/category-card/category-card.component";
+import {PlaylistsDashboardComponent} from '../../pages/playlists/playlists-dashboard/playlists-dashboard.component';
+import {PlaylistCardComponent} from '../../pages/playlists/playlist-card/playlist-card.component';
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -29,6 +31,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
   declarations: [
     CategoriesDashboardComponent,
     CategoryCardComponent,
+    PlaylistsDashboardComponent,
+    PlaylistCardComponent,
     DashboardComponent,
     UserComponent,
     TablesComponent,
