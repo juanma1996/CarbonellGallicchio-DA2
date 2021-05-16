@@ -8,19 +8,19 @@ import { Component, OnInit } from '@angular/core';
 export class CategoriesDashboardComponent implements OnInit {
   categories = [
     {
-      Id: 1,
+      id: 1,
       name: 'Sleep',
     },
     {
-      Id: 2,
+      id: 2,
       name: 'Meditate',
     },
     {
-      Id: 3,
+      id: 3,
       name: 'Music',
     },
     {
-      Id: 4,
+      id: 4,
       name: 'Body',
     },
   ]

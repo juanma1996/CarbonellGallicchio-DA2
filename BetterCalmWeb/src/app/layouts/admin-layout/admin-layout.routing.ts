@@ -13,7 +13,7 @@ import { PlaylistsDashboardComponent as PlaylistComponent } from "../../pages/pl
 
 export const AdminLayoutRoutes: Routes = [
   { path: "categories", component: CategoriesComponent },
-  { path: "playlists", component: PlaylistComponent },
+  { path: "playlists/:categoryId", component: PlaylistComponent },
   { path: "dashboard", component: DashboardComponent },
   { path: "icons", component: IconsComponent },
   { path: "maps", component: MapComponent },

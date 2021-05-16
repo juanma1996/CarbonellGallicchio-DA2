@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-playlists-dashboard',
@@ -31,13 +32,15 @@ export class PlaylistsDashboardComponent implements OnInit {
     },
   ]
 
-  constructor(private _location: Location) { }
+  constructor(private _location: Location, public route: ActivatedRoute) { }
 
   backClicked() {
     this._location.back();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('categoryId');
+    console.log(id);
+   }
 
 }
