@@ -9,11 +9,13 @@ import { TablesComponent } from "../../pages/tables/tables.component";
 import { TypographyComponent } from "../../pages/typography/typography.component";
 import { CategoriesDashboardComponent as CategoriesComponent } from "../../pages/categories/categories-dashboard/categories-dashboard.component";
 import { PlaylistsDashboardComponent as PlaylistComponent } from "../../pages/playlists/playlists-dashboard/playlists-dashboard.component";
+import { AudioContentDashboardComponent } from "../../pages/audio-content/audio-content-dashboard/audio-content-dashboard.component";
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "categories", component: CategoriesComponent },
   { path: "playlists/:categoryId", component: PlaylistComponent },
+  { path: "audioContent", component: AudioContentDashboardComponent },
   { path: "dashboard", component: DashboardComponent },
   { path: "icons", component: IconsComponent },
   { path: "maps", component: MapComponent },

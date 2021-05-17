@@ -16,7 +16,7 @@ import { CategoriesDashboardComponent } from "../../pages/categories/categories-
 import { CategoryCardComponent } from "../../pages/categories/category-card/category-card.component";
 import {PlaylistsDashboardComponent} from '../../pages/playlists/playlists-dashboard/playlists-dashboard.component';
 import {PlaylistCardComponent} from '../../pages/playlists/playlist-card/playlist-card.component';
-// import { RtlComponent } from "../../pages/rtl/rtl.component";
+import { AudioContentDashboardComponent } from "../../pages/audio-content/audio-content-dashboard/audio-content-dashboard.component";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -33,6 +33,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     CategoryCardComponent,
     PlaylistsDashboardComponent,
     PlaylistCardComponent,
+    AudioContentDashboardComponent,
     DashboardComponent,
     UserComponent,
     TablesComponent,
