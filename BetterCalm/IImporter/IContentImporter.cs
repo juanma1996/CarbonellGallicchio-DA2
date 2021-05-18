@@ -2,7 +2,7 @@
 {
     public interface IContentImporter
     {
-        ContentImporter ImportContent();
+        ContentImporterModel ImportContent();
         string GetId();
     }
 }
