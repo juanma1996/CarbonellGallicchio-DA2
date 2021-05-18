@@ -14,9 +14,10 @@ import { TablesComponent } from "../../pages/tables/tables.component";
 import { TypographyComponent } from "../../pages/typography/typography.component";
 import { CategoriesDashboardComponent } from "../../pages/categories/categories-dashboard/categories-dashboard.component";
 import { CategoryCardComponent } from "../../pages/categories/category-card/category-card.component";
-import {PlaylistsDashboardComponent} from '../../pages/playlists/playlists-dashboard/playlists-dashboard.component';
-import {PlaylistCardComponent} from '../../pages/playlists/playlist-card/playlist-card.component';
+import { PlaylistsDashboardComponent } from '../../pages/playlists/playlists-dashboard/playlists-dashboard.component';
+import { PlaylistCardComponent } from '../../pages/playlists/playlist-card/playlist-card.component';
 import { AudioContentDashboardComponent } from "../../pages/audio-content/audio-content-dashboard/audio-content-dashboard.component";
+import { ConsultationDashboardComponent } from "../../pages/consultation/consultation-dashboard/consultation-dashboard.component";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -34,6 +35,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     PlaylistsDashboardComponent,
     PlaylistCardComponent,
     AudioContentDashboardComponent,
+    ConsultationDashboardComponent,
     DashboardComponent,
     UserComponent,
     TablesComponent,
@@ -44,4 +46,4 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     // RtlComponent
   ]
 })
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }
