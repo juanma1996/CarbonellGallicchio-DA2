@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validator", "Validator\Vali
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidatorTests", "ValidatorTests\ValidatorTests.csproj", "{8378DF69-00E6-4A11-BA74-C6482A35B28C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterInterface", "IImporter\ImporterInterface.csproj", "{7B0B002C-1D7B-43D0-B9FC-8D470F15F389}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterInterface", "ImporterInterface\ImporterInterface.csproj", "{7B0B002C-1D7B-43D0-B9FC-8D470F15F389}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterLogic", "ImporterLogic\ImporterLogic.csproj", "{1FE299C7-254D-496E-8308-8774B40712A3}"
 EndProject
