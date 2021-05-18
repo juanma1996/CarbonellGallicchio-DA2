@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Domain
+namespace ImporterInterface
 {
-    public class AudioContent
+    public class ContentImporterModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -11,7 +12,7 @@ namespace Domain
         public string CreatorName { get; set; }
         public string ImageUrl { get; set; }
         public string AudioUrl { get; set; }
-        public List<CategoryImporter> Categories { get; set; }
-        public List<AudioContentPlaylist> Playlists { get; set; }
+        public List<CategoryImporterModel> Categories { get; set; }
+        public List<PlaylistImporterModel> Playlists { get; set; }
     }
 }
