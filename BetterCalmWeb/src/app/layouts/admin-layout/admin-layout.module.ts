@@ -1,49 +1,46 @@
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
-import { AdminLayoutRoutes } from "./admin-layout.routing";
-import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
-import { IconsComponent } from "../../pages/icons/icons.component";
-import { MapComponent } from "../../pages/map/map.component";
-import { NotificationsComponent } from "../../pages/notifications/notifications.component";
-import { UserComponent } from "../../pages/user/user.component";
-import { TablesComponent } from "../../pages/tables/tables.component";
-import { TypographyComponent } from "../../pages/typography/typography.component";
-import { CategoriesDashboardComponent } from "../../pages/categories/categories-dashboard/categories-dashboard.component";
-import { CategoryCardComponent } from "../../pages/categories/category-card/category-card.component";
-import { PlaylistsDashboardComponent } from '../../pages/playlists/playlists-dashboard/playlists-dashboard.component';
-import { PlaylistCardComponent } from '../../pages/playlists/playlist-card/playlist-card.component';
-import { AudioContentDashboardComponent } from "../../pages/audio-content/audio-content-dashboard/audio-content-dashboard.component";
-import { ConsultationDashboardComponent } from "../../pages/consultation/consultation-dashboard/consultation-dashboard.component";
-
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import {CategoriesDashboardComponent} from '../../pages/categories/categories-dashboard/categories-dashboard.component' 
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
+import { ProgressbarModule } from "ngx-bootstrap/progressbar";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
+import { CollapseModule } from "ngx-bootstrap/collapse";
+import { TabsModule } from "ngx-bootstrap/tabs";
+import { PaginationModule } from "ngx-bootstrap/pagination";
+import { AlertModule } from "ngx-bootstrap/alert";
+import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
+import { CarouselModule } from "ngx-bootstrap/carousel";
+import { ModalModule } from "ngx-bootstrap/modal";
+import { JwBootstrapSwitchNg2Module } from "jw-bootstrap-switch-ng2";
+import { PopoverModule } from "ngx-bootstrap/popover";
+import { AngularMultiSelectModule } from "angular2-multiselect-dropdown";
+import { TimepickerModule } from "ngx-bootstrap/timepicker";
+import { TagInputModule } from "ngx-chips";
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     HttpClientModule,
-    NgbModule,
+    JwBootstrapSwitchNg2Module,
+    BsDropdownModule.forRoot(),
+    ProgressbarModule.forRoot(),
+    TooltipModule.forRoot(),
+    TimepickerModule.forRoot(),
+    PopoverModule.forRoot(),
+    CollapseModule.forRoot(),
+    TagInputModule,
+    AngularMultiSelectModule,
+    TabsModule.forRoot(),
+    PaginationModule.forRoot(),
+    AlertModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    CarouselModule.forRoot(),
+    ModalModule.forRoot()
   ],
-  declarations: [
-    CategoriesDashboardComponent,
-    CategoryCardComponent,
-    PlaylistsDashboardComponent,
-    PlaylistCardComponent,
-    AudioContentDashboardComponent,
-    ConsultationDashboardComponent,
-    DashboardComponent,
-    UserComponent,
-    TablesComponent,
-    IconsComponent,
-    TypographyComponent,
-    NotificationsComponent,
-    MapComponent,
-    // RtlComponent
-  ]
+  declarations: []
 })
-export class AdminLayoutModule { }
+export class AdminLayoutModule {}

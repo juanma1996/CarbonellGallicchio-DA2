@@ -4,12 +4,13 @@ import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from "@angular/router";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
+import { RtlLayoutComponent } from "./layouts/rtl-layout/rtl-layout.component";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "categories",
+    redirectTo: "dashboard",
     pathMatch: "full"
   },
   {
@@ -19,22 +20,93 @@ const routes: Routes = [
       {
         path: "",
         loadChildren:
-          "./layouts/admin-layout/admin-layout.module#AdminLayoutModule"
+          "./pages/examples/dashboard/dashboard.module#DashboardModule"
+      },
+      {
+        path: "categories",
+        loadChildren:
+          "./pages/categories/categories.module#CategoriesModule"
+      },
+      {
+        path: "audioContent",
+        loadChildren:
+          "./pages/audio-content/audio-content.module#AudioContentModule"
+      },
+      {
+        path: "playlists",
+        loadChildren:
+          "./pages/playlists/playlists.module#PlaylistsModule"
+      },
+      {
+        path: "consultation",
+        loadChildren:
+          "./pages/consultation/consultation.module#ConsultationModule"
+      },
+      {
+        path: "components",
+        loadChildren:
+          "./pages/examples/components/components.module#ComponentsPageModule"
+      },
+      {
+        path: "forms",
+        loadChildren: "./pages/examples/forms/forms.module#Forms"
+      },
+      {
+        path: "tables",
+        loadChildren: "./pages/examples/tables/tables.module#TablesModule"
+      },
+      {
+        path: "maps",
+        loadChildren: "./pages/examples/maps/maps.module#MapsModule"
+      },
+      {
+        path: "widgets",
+        loadChildren: "./pages/examples/widgets/widgets.module#WidgetsModule"
+      },
+      {
+        path: "charts",
+        loadChildren: "./pages/examples/charts/charts.module#ChartsModule"
+      },
+      {
+        path: "calendar",
+        loadChildren:
+          "./pages/examples/calendar/calendar.module#CalendarModulee"
+      },
+      {
+        path: "",
+        loadChildren:
+          "./pages/examples/pages/user/user-profile.module#UserModule"
+      },
+      {
+        path: "",
+        loadChildren:
+          "./pages/examples/pages/timeline/timeline.module#TimelineModule"
       }
     ]
-  }, {
-    path: '',
+  },
+  {
+    path: "",
     component: AuthLayoutComponent,
     children: [
       {
-        path: '',
-        loadChildren: './layouts/auth-layout/auth-layout.module#AuthLayoutModule'
+        path: "pages",
+        loadChildren: "./pages/examples/pages/pages.module#PagesModule"
+      }
+    ]
+  },
+  {
+    path: "",
+    component: RtlLayoutComponent,
+    children: [
+      {
+        path: "pages",
+        loadChildren: "./pages/examples/pages/rtl/rtl.module#RtlModule"
       }
     ]
   },
   {
     path: "**",
-    redirectTo: "categories"
+    redirectTo: "dashboard"
   }
 ];
 
@@ -43,7 +115,10 @@ const routes: Routes = [
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes, {
-      useHash: true
+      useHash: true,
+      scrollPositionRestoration: "enabled",
+      anchorScrolling: "enabled",
+      scrollOffset: [0, 64]
     })
   ],
   exports: [RouterModule]

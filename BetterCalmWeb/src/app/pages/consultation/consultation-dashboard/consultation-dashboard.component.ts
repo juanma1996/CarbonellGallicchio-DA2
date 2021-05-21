@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ConsultationDashboardComponent implements OnInit {
 
   psychologist = null;
+  date: Date = new Date();
 
   constructor() { }
 
