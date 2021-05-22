@@ -76,6 +76,6 @@ export class AuthNavbarComponent implements OnInit {
       }
     }
 
-    return "Black Dashboard PRO Angular";
+    return "Better Calm Web";
   }
 }

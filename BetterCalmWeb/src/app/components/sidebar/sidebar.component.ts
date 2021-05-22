@@ -41,17 +41,24 @@ export const ROUTES: RouteInfo[] = [
     rtlTitle: "لوحة القيادة"
   },
   {
+    path: "/login",
+    title: "Login",
+    type: "link",
+    icontype: "tim-icons icon-key-25",
+    rtlTitle: "لوحة القيادة"
+  },
+  {
     path: "/categories",
     title: "Categories",
     type: "link",
-    icontype: "tim-icons icon-chart-pie-36",
+    icontype: "tim-icons icon-headphones",
     rtlTitle: "لوحة القيادة"
   },
   {
     path: "/consultation",
     title: "Consultation",
     type: "link",
-    icontype: "tim-icons icon-chart-pie-36",
+    icontype: "tim-icons icon-calendar-60",
     rtlTitle: "لوحة القيادة"
   },
   {

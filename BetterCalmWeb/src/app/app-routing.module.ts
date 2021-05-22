@@ -91,6 +91,10 @@ const routes: Routes = [
       {
         path: "pages",
         loadChildren: "./pages/examples/pages/pages.module#PagesModule"
+      },
+      {
+        path: "login",
+        loadChildren: "./pages/login/login.module#LoginModule"
       }
     ]
   },
