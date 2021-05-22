@@ -11,7 +11,7 @@ namespace Domain
         public string CreatorName { get; set; }
         public string ImageUrl { get; set; }
         public string AudioUrl { get; set; }
-        public List<CategoryImporter> Categories { get; set; }
+        public List<AudioContentCategory> Categories { get; set; }
         public List<AudioContentPlaylist> Playlists { get; set; }
     }
 }

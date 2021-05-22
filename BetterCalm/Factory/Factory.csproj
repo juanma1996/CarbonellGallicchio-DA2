@@ -21,6 +21,7 @@
 	  <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
 	  <ProjectReference Include="..\DataAccessInterface\DataAccessInterface.csproj" />
 	  <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+	  <ProjectReference Include="..\ImporterLogic\ImporterLogic.csproj" />
 	  <ProjectReference Include="..\SessionLogic\SessionLogic.csproj" />
 	  <ProjectReference Include="..\Validator\Validator.csproj" />
 	</ItemGroup>

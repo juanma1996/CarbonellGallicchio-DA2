@@ -11,16 +11,16 @@ namespace ImporterLogic
     public class ImporterLogics : IImporterLogic
     {
 
-        public void InstantiateObjectWithKnownInterface()
+        public void InstantiateObjectWithKnownInterface(string filePath)
         {
             var dllFile = new FileInfo(@"C:\Users\jgallicchio\Documents\CarbonellGallicchio\BetterCalm\JsonContentImporter\bin\Debug\netcoreapp3.1\JsonContentImporter.dll");
             Assembly myAssembly = Assembly.LoadFile(dllFile.FullName);
             IEnumerable<Type> implementations = GetTypesInAssembly<IContentImporter>(myAssembly);
             IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.First());
-            contentImporter.ImportContent(@"C:\Users\juan.gallicchio\Desktop\ejemplo.json");
+            contentImporter.ImportContent(filePath);
         }
 
-        public IEnumerable<Type> GetTypesInAssembly<Interface>(Assembly assembly)
+        private static IEnumerable<Type> GetTypesInAssembly<Interface>(Assembly assembly)
         {
             List<Type> types = new List<Type>();
             foreach (var type in assembly.GetTypes())
