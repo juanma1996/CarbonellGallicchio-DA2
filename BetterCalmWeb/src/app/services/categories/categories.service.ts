@@ -4,13 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { CategoriesDashboardComponent } from '../../pages/categories/categories-dashboard/categories-dashboard.component';
+import { CategoryBasicInfo } from 'src/app/models/category/category-basic-info';
 
-export interface CategoryBasicInfo {
-    id: number;
-    name: string;
-    audioContents: [];
-  
-}
 @Injectable({
     providedIn: 'root'
 })

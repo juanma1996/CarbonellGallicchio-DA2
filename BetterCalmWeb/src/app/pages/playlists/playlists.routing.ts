@@ -4,7 +4,7 @@ import {PlaylistsDashboardComponent} from "./playlists-dashboard/playlists-dashb
 
 export const PlaylistRoutes: Routes = [
   {
-    path: "",
+    path: ":categoryId",
     component: PlaylistsDashboardComponent
   }
 ];
