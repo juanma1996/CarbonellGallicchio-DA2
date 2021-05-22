@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router'
 import { PlaylistBasicInfo } from '../../../models/playlist/playlist-basic-info';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-playlists-dashboard',
@@ -14,7 +15,7 @@ export class PlaylistsDashboardComponent implements OnInit {
   playlists: PlaylistBasicInfo[] = [];
   public errorBackend: string = '';
 
-  constructor(private _location: Location, public route: ActivatedRoute, private categoriesService: CategoriesService) { }
+  constructor(private _location: Location, public route: ActivatedRoute, private categoriesService: CategoriesService, public toastr: ToastrService) { }
 
   backClicked() {
     this._location.back();
@@ -28,14 +29,27 @@ export class PlaylistsDashboardComponent implements OnInit {
           this.getPlaylists(response)
         },
         catchError => {
-          console.log(catchError);
-          this.errorBackend = catchError + ', fix it please';
+          this.setError(catchError);
         }
       )
   }
 
   private getPlaylists(response) {
     this.playlists = response;
+  }
+
+  private setError(message) {
+    this.toastr.show(
+      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
+      message,
+      {
+        timeOut: 5000,
+        closeButton: true,
+        enableHtml: true,
+        toastClass: "alert alert-danger alert-with-icon",
+        positionClass: "toast-top-right"
+      }
+    );
   }
 
 }
