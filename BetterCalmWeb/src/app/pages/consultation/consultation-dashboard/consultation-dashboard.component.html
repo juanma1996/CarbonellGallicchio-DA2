@@ -10,30 +10,29 @@
                         <div class=" row">
                             <div class=" col-md-6 pr-md-1">
                                 <label> Problematic </label>
-                                <angular2-multiselect 
+                                <!-- <angular2-multiselect 
                                     [data]="Problematics" 
-                                    [ngModel]="[]" 
-                                    [settings]="{
-                                        singleSelection: true,
-                                        text: 'Problematic',
-                                        classes: 'selectpicker form-control',
-                                        lazyLoading: true,
-                                        maxHeight: 100
-                                    }">
-                                </angular2-multiselect>
+                                    [ngModel]="consultation.problematicId" 
+                                    [settings]="settings1">
+                                </angular2-multiselect> -->
                             </div>
                         </div>
                         <div class=" row">
                             <div class=" col-md-6 pr-md-1">
                                 <div class=" form-group">
                                     <label> Name and Last name </label>
-                                    <input class=" form-control" placeholder="Mike Wazauski" type="text" value="" />
+                                    <input class=" form-control" placeholder="Mike Wazauski" type="text"
+                                        [(ngModel)]="consultation.pacient.name" 
+                                        name="namePacient"
+                                        />
                                 </div>
                             </div>
                             <div class=" col-md-6 pl-md-1">
                                 <div class=" form-group">
                                     <label for="exampleInputEmail1"> Email address </label>
-                                    <input class=" form-control" placeholder="jorge@email.com" type="email" />
+                                    <input class=" form-control" placeholder="jorge@email.com" type="email"
+                                        [(ngModel)]="consultation.pacient.email"
+                                        name="emailPacient" />
                                 </div>
                             </div>
                         </div>
@@ -43,22 +42,18 @@
                                 <div class=" form-group">
                                     <label for="exampleInputEmail1"> Birth date </label>
                                     <div class=" form-group">
-                                        <input 
-                                            bsDatepicker
-                                            class="form-control"
-                                            data-datepicker-color="danger"
+                                        <input bsDatepicker class="form-control" data-datepicker-color="danger"
                                             [bsConfig]="{ isAnimated: true, containerClass: 'theme-red' }"
-                                            [bsValue]="date"
-                                            id="datepicker"
-                                            type="text"
-                                        >
+                                            [bsValue]="birthDate" id="datepicker" type="text">
                                     </div>
                                 </div>
                             </div>
                             <div class=" col-md-6 px-md-1">
                                 <div class=" form-group">
                                     <label> Cellphone </label>
-                                    <input class=" form-control" placeholder="099999999" type="text" value="" />
+                                    <input class=" form-control" placeholder="099999999" type="text"
+                                        [(ngModel)]="consultation.pacient.cellphone" 
+                                        name="cellphonePacient"/>
                                 </div>
                             </div>
 
@@ -66,7 +61,7 @@
                     </form>
                 </div>
                 <div class=" card-footer">
-                    <button class=" btn btn-fill btn-danger" type="submit" (click)="addConsultation()">Schedule
+                    <button class=" btn btn-fill btn-danger" type="submit" (click)="scheduleConsultation()">Schedule
                         consultation</button>
                 </div>
             </div>
@@ -83,19 +78,19 @@
                         <a href="javascript:void(0)">
                             <h4 class=" title">Consultation with: </h4>
                         </a>
-                        <p class=" description">{{psychologist.Name}}</p>
+                        <p class=" description">{{psychologist.name}}</p>
                     </div>
 
                     <div class=" card-description">
                         <div class=" col-md-8 pr-md-1">
                             <h5 class=" card-title">Consultation Mode: </h5>
-                            <p class=" card-text">{{psychologist.ConsultationMode}} </p>
+                            <p class=" card-text">{{psychologist.consultationMode}} </p>
                         </div>
                     </div>
                     <div class=" card-description">
-                        <div class=" col-md-8 pr-md-1">
+                        <div class=" col-md-12 pr-md-1">
                             <h5 class=" card-title">Direction: </h5>
-                            <p class=" card-text">{{psychologist.Direction}} </p>
+                            <p class=" card-text">{{psychologist.direction}} </p>
                         </div>
                     </div>
 
