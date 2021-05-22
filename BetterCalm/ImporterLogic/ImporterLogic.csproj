@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ImporterInterface\ImporterInterface.csproj" />
+    <ProjectReference Include="..\ImporterLogicInterface\ImporterLogicInterface.csproj" />
   </ItemGroup>
 
 </Project>

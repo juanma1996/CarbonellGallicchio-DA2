@@ -1,4 +1,5 @@
 ﻿using ImporterInterface;
+using ImporterLogicInterface;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,18 +8,19 @@ using System.Reflection;
 
 namespace ImporterLogic
 {
-    public class ImporterLogic
+    public class ImporterLogics : IImporterLogic
     {
 
-        private static void InstantiateObjectWithKnownInterface()
+        public void InstantiateObjectWithKnownInterface()
         {
-            var dllFile = new FileInfo(@"Library.dll");
+            var dllFile = new FileInfo(@"C:\Users\jgallicchio\Documents\CarbonellGallicchio\BetterCalm\JsonContentImporter\bin\Debug\netcoreapp3.1\JsonContentImporter.dll");
             Assembly myAssembly = Assembly.LoadFile(dllFile.FullName);
             IEnumerable<Type> implementations = GetTypesInAssembly<IContentImporter>(myAssembly);
-            IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.First(), new object[] { "Juan", "T." });
+            IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.First());
+            contentImporter.ImportContent(@"C:\Users\juan.gallicchio\Desktop\ejemplo.json");
         }
 
-        private static IEnumerable<Type> GetTypesInAssembly<Interface>(Assembly assembly)
+        public IEnumerable<Type> GetTypesInAssembly<Interface>(Assembly assembly)
         {
             List<Type> types = new List<Type>();
             foreach (var type in assembly.GetTypes())
