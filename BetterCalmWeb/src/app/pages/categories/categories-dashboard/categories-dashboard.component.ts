@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {CategoriesService} from '../../../services/categories/categories.service'
+import { CategoriesService } from '../../../services/categories/categories.service'
 import { catchError } from 'rxjs/operators';
+import { CategoryBasicInfo } from '../../../models/category/category-basic-info';
 
 @Component({
   selector: 'app-categories-dashboard',
   templateUrl: 'categories-dashboard.component.html',
 })
 export class CategoriesDashboardComponent implements OnInit {
-  public categories = [];
+  public categories: CategoryBasicInfo[] = [];
   public errorBackend: string = '';
 
   constructor(private categoriesService: CategoriesService) { }
@@ -26,7 +27,7 @@ export class CategoriesDashboardComponent implements OnInit {
   }
 
 
-  private get(response){
+  private get(response) {
     console.log(response);
     this.categories = response;
   }
