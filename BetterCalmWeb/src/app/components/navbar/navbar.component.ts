@@ -163,4 +163,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
     html.classList.remove("nav-open");
   }
+
+  logOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+    this.refreshPage();
+  }
+  refreshPage() { window.location.reload(); }
 }
