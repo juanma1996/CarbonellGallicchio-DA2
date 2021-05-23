@@ -11,7 +11,7 @@ import { AdminGuard } from './guards/admin.guard';
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "dashboard",
+    redirectTo: "categories",
     pathMatch: "full"
   },
   {
@@ -111,7 +111,7 @@ const routes: Routes = [
   },
   {
     path: "**",
-    redirectTo: "dashboard"
+    redirectTo: "categories"
   }
 ];
 
