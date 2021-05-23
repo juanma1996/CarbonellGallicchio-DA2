@@ -13,7 +13,7 @@ namespace ImporterLogic
 
         public void InstantiateObjectWithKnownInterface(string filePath)
         {
-            var dllFile = new FileInfo(@"C:\Users\jgallicchio\Documents\CarbonellGallicchio\BetterCalm\JsonContentImporter\bin\Debug\netcoreapp3.1\JsonContentImporter.dll");
+            var dllFile = new FileInfo(@"C:\Users\jgallicchio\Documents\CarbonellGallicchio\BetterCalm\XmlContentImporter\bin\Debug\netcoreapp3.1\XmlContentImporter.dll");
             Assembly myAssembly = Assembly.LoadFile(dllFile.FullName);
             IEnumerable<Type> implementations = GetTypesInAssembly<IContentImporter>(myAssembly);
             IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.First());
