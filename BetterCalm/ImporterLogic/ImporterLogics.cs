@@ -17,7 +17,7 @@ namespace ImporterLogic
             Assembly myAssembly = Assembly.LoadFile(dllFile.FullName);
             IEnumerable<Type> implementations = GetTypesInAssembly<IContentImporter>(myAssembly);
             IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.First());
-            contentImporter.ImportContent(filePath);
+            ContentImporterModel a = contentImporter.ImportContent(filePath);  
         }
 
         private static IEnumerable<Type> GetTypesInAssembly<Interface>(Assembly assembly)
