@@ -7,6 +7,7 @@ import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.compon
 import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
 import { RtlLayoutComponent } from "./layouts/rtl-layout/rtl-layout.component";
 import { AdminGuard } from './guards/admin.guard';
+import { PacientLayoutComponent } from './layouts/pacient-layout/pacient-layout.component';
 
 const routes: Routes = [
   {
@@ -22,26 +23,6 @@ const routes: Routes = [
         path: "",
         loadChildren:
           "./pages/examples/dashboard/dashboard.module#DashboardModule"
-      },
-      {
-        path: "categories",
-        loadChildren:
-          "./pages/categories/categories.module#CategoriesModule"
-      },
-      {
-        path: "audioContent",
-        loadChildren:
-          "./pages/audio-content/audio-content.module#AudioContentModule"
-      },
-      {
-        path: "playlists",
-        loadChildren:
-          "./pages/playlists/playlists.module#PlaylistsModule"
-      },
-      {
-        path: "consultation",
-        loadChildren:
-          "./pages/consultation/consultation.module#ConsultationModule"
       },
       {
         path: "components",
@@ -83,6 +64,32 @@ const routes: Routes = [
         loadChildren:
           "./pages/examples/pages/timeline/timeline.module#TimelineModule"
       }
+    ]
+  },
+  {
+    path: "",
+    component: PacientLayoutComponent,
+    children: [
+      {
+        path: "categories",
+        loadChildren:
+          "./pages/categories/categories.module#CategoriesModule"
+      },
+      {
+        path: "audioContent",
+        loadChildren:
+          "./pages/audio-content/audio-content.module#AudioContentModule"
+      },
+      {
+        path: "playlists",
+        loadChildren:
+          "./pages/playlists/playlists.module#PlaylistsModule"
+      },
+      {
+        path: "consultation",
+        loadChildren:
+          "./pages/consultation/consultation.module#ConsultationModule"
+      },
     ]
   },
   {
