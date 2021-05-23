@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { SessionUserModel } from 'src/app/models/session/session-user-model';
 import { SessionService } from 'src/app/services/session/session.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-login",
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private sessionService: SessionService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private router: Router,
     ) {}
 
   ngOnInit() {
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         response => {
           this.setSuccess()
           localStorage.setItem('email', this.administrator.email);
+          this.router.navigateByUrl('categories');
         },
         catchError => {
           this.setError(catchError.error);
