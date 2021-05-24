@@ -1,5 +1,5 @@
 ﻿using ImporterInterface;
-using System;
+using ImporterInterface.Models;
 using System.IO;
 using System.Xml.Serialization;
 

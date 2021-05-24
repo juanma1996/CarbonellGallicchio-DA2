@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using Model.In;
 
 namespace ImporterLogicInterface
 {
     public interface IImporterLogic
     {
-        void InstantiateObjectWithKnownInterface(string filePath);
+        void ImportWithKnownInterface(ImportModel importModel);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ImporterInterface
+﻿using ImporterInterface.Models;
+
+namespace ImporterInterface
 {
     public interface IContentImporter
     {

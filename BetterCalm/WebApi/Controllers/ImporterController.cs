@@ -1,6 +1,7 @@
 ﻿using BetterCalm.WebApi.Controllers;
 using ImporterLogicInterface;
 using Microsoft.AspNetCore.Mvc;
+using Model.In;
 
 namespace WebApi.Controllers
 {
@@ -15,9 +16,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(string filePath)
+        public IActionResult Post(ImportModel importModel)
         {
-            importerLogic.InstantiateObjectWithKnownInterface(filePath);
+            importerLogic.ImportWithKnownInterface(importModel);
             return CreatedAtRoute("", null);
         }
     }

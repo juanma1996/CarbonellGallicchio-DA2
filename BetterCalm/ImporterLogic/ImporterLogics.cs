@@ -1,5 +1,8 @@
 ﻿using ImporterInterface;
+using ImporterInterface.Models;
 using ImporterLogicInterface;
+using Microsoft.Extensions.Configuration;
+using Model.In;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,14 +13,35 @@ namespace ImporterLogic
 {
     public class ImporterLogics : IImporterLogic
     {
+        private readonly IConfiguration configuration;
 
-        public void InstantiateObjectWithKnownInterface(string filePath)
+        public ImporterLogics(IConfiguration configuration)
         {
-            var dllFile = new FileInfo(@"C:\Users\jgallicchio\Documents\CarbonellGallicchio\BetterCalm\XmlContentImporter\bin\Debug\netcoreapp3.1\XmlContentImporter.dll");
-            Assembly myAssembly = Assembly.LoadFile(dllFile.FullName);
-            IEnumerable<Type> implementations = GetTypesInAssembly<IContentImporter>(myAssembly);
-            IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.First());
-            ContentImporterModel a = contentImporter.ImportContent(filePath);  
+            this.configuration = configuration;
+        }
+
+        public void ImportWithKnownInterface(ImportModel importModel)
+        {
+            string path = configuration["ImportersFolder:Path"];
+            DirectoryInfo directory = new DirectoryInfo(path);
+            FileInfo[] files = directory.GetFiles("*.dll");
+            bool foundImporter = false;
+            for (int i = 0; i < files.Length && !foundImporter; i++)
+            {
+                Assembly myAssembly = Assembly.LoadFile(files[i].FullName);
+                IEnumerable<Type> implementations = GetTypesInAssembly<IContentImporter>(myAssembly);
+                if (implementations != null && implementations.Count() != default)
+                {
+                    IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.FirstOrDefault());
+                    if (contentImporter != null && contentImporter.GetId().Equals(importModel.ImporterType))
+                    {
+                        foundImporter = true;
+                        ContentImporterModel a = contentImporter.ImportContent(importModel.FilePath);
+                    } 
+                }
+                
+            }
+
         }
 
         private static IEnumerable<Type> GetTypesInAssembly<Interface>(Assembly assembly)

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace ImporterInterface
+namespace ImporterInterface.Models
 {
     public class ContentImporterModel
     {
