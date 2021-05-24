@@ -25,6 +25,11 @@ const routes: Routes = [
           "./pages/examples/dashboard/dashboard.module#DashboardModule"
       },
       {
+        path: "createAdmin",
+        loadChildren:
+          "./pages/administrator/administrator.module#AdministratorModule"
+      },
+      {
         path: "components",
         loadChildren:
           "./pages/examples/components/components.module#ComponentsPageModule"
