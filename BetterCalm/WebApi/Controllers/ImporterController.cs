@@ -2,6 +2,7 @@
 using ImporterLogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
+using System;
 
 namespace WebApi.Controllers
 {
@@ -20,6 +21,11 @@ namespace WebApi.Controllers
         {
             importerLogic.ImportWithKnownInterface(importModel);
             return CreatedAtRoute("", null);
+        }
+
+        public object Get()
+        {
+            throw new NotImplementedException();
         }
     }
 }
