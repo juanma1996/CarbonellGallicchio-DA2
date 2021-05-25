@@ -65,7 +65,7 @@ export const ROUTES: RouteInfo[] = [
     path: "",
     title: "Administration",
     type: "sub",
-    icontype: "tim-icons icon-image-02",
+    icontype: "tim-icons icon-settings-gear-63",
     collapse: "",
     rtlTitle: "صفحات",
     isCollapsed: true,
