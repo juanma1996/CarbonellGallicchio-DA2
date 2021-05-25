@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-audio-content-dashboard',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AudioContentDashboardComponent implements OnInit {
 
+  public categoryId;
   public audioContent = [
     {
       Id: 1,
@@ -35,9 +37,10 @@ export class AudioContentDashboardComponent implements OnInit {
 
   ]
 
-  constructor() { }
+  constructor(public route: ActivatedRoute,) { }
 
   ngOnInit(): void {
+    this.categoryId = this.route.snapshot.paramMap.get('categoryId');
   }
 
 }

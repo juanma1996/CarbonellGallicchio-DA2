@@ -4,7 +4,7 @@ import {AudioContentDashboardComponent} from "./audio-content-dashboard/audio-co
 
 export const AudioContentRoutes: Routes = [
   {
-    path: "",
+    path: ":categoryId",
     component: AudioContentDashboardComponent
   }
 ];

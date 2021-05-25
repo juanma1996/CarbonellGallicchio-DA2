@@ -14,16 +14,13 @@ export class PlaylistsDashboardComponent implements OnInit {
 
   playlists: PlaylistBasicInfo[] = [];
   public errorBackend: string = '';
+  public categoryId;
 
-  constructor(private _location: Location, public route: ActivatedRoute, private categoriesService: CategoriesService, public toastr: ToastrService) { }
-
-  backClicked() {
-    this._location.back();
-  }
+  constructor(public route: ActivatedRoute, private categoriesService: CategoriesService, public toastr: ToastrService) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('categoryId');
-    this.categoriesService.getPlaylistByCategory(id)
+    this.categoryId = this.route.snapshot.paramMap.get('categoryId');
+    this.categoriesService.getPlaylistByCategory(this.categoryId)
       .subscribe(
         response => {
           this.getPlaylists(response)

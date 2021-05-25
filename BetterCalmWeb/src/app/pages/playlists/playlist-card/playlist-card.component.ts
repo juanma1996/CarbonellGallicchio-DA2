@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PlaylistCardComponent implements OnInit {
 
   @Input() playlist
+  @Input() categoryId
   constructor() { }
 
   ngOnInit(): void {
