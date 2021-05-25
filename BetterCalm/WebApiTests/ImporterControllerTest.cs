@@ -20,7 +20,6 @@ namespace WebApiTests
                 FilePath = "somePath",
                 ImporterType = "json"
             };
-            string filePath = @"C:\Users\juan.gallicchio\Desktop\ejemplo.json";
             Mock<IImporterLogic> mock = new Mock<IImporterLogic>(MockBehavior.Strict);
             mock.Setup(m => m.ImportWithKnownInterface(It.IsAny<ImportModel>()));
             ImporterController controller = new ImporterController(mock.Object);
@@ -40,6 +39,7 @@ namespace WebApiTests
                 "Json", "Xml"
             };
             Mock<IImporterLogic> mock = new Mock<IImporterLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(importersToReturn);
             ImporterController controller = new ImporterController(mock.Object);
 
             var result = controller.Get();

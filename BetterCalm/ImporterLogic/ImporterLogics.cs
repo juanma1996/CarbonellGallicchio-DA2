@@ -54,5 +54,10 @@ namespace ImporterLogic
             }
             return types;
         }
+
+        public List<string> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

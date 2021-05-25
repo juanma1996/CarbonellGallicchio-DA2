@@ -3,6 +3,7 @@ using ImporterLogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using System;
+using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
@@ -23,9 +24,11 @@ namespace WebApi.Controllers
             return CreatedAtRoute("", null);
         }
 
-        public object Get()
+        [HttpGet]
+        public IActionResult Get()
         {
-            throw new NotImplementedException();
+            List<string> importers = importerLogic.GetAll();
+            return Ok(importers);
         }
     }
 }
