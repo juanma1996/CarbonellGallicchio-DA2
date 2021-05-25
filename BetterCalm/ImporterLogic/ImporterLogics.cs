@@ -20,30 +20,6 @@ namespace ImporterLogic
             this.configuration = configuration;
         }
 
-        public void ImportWithKnownInterface(ImportModel importModel)
-        {
-            string path = configuration["ImportersFolder:Path"];
-            DirectoryInfo directory = new DirectoryInfo(path);
-            FileInfo[] files = directory.GetFiles("*.dll");
-            bool foundImporter = false;
-            for (int i = 0; i < files.Length && !foundImporter; i++)
-            {
-                Assembly myAssembly = Assembly.LoadFile(files[i].FullName);
-                IEnumerable<Type> implementations = GetTypesInAssembly<IContentImporter>(myAssembly);
-                if (implementations != null && implementations.Count() != default)
-                {
-                    IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.FirstOrDefault());
-                    if (contentImporter != null && contentImporter.GetId().Equals(importModel.ImporterType))
-                    {
-                        foundImporter = true;
-                        ContentImporterModel a = contentImporter.ImportContent(importModel.FilePath);
-                    } 
-                }
-                
-            }
-
-        }
-
         private static IEnumerable<Type> GetTypesInAssembly<Interface>(Assembly assembly)
         {
             List<Type> types = new List<Type>();
@@ -54,10 +30,57 @@ namespace ImporterLogic
             }
             return types;
         }
+        private FileInfo[] GetFiles()
+        {
+            string path = configuration["ImportersFolder:Path"];
+            DirectoryInfo directory = new DirectoryInfo(path);
+            FileInfo[] files = directory.GetFiles("*.dll");
+            return files;
+        }
+        private IEnumerable<Type> GetImplementations(string assemblyFullname)
+        {
+            Assembly myAssembly = Assembly.LoadFile(assemblyFullname);
+            IEnumerable<Type> implementations = GetTypesInAssembly<IContentImporter>(myAssembly);
+            return implementations;
+        }
+        public void ImportWithKnownInterface(ImportModel importModel)
+        {
+            FileInfo[] files = GetFiles();
+            bool foundImporter = false;
+            for (int i = 0; i < files.Length && !foundImporter; i++)
+            {
+                IEnumerable<Type> implementations = GetImplementations(files[i].FullName);
+                if (implementations != null && implementations.Count() != default)
+                {
+                    IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.FirstOrDefault());
+                    if (contentImporter != null && contentImporter.GetId().Equals(importModel.ImporterType))
+                    {
+                        foundImporter = true;
+                        ContentImporterModel contentImporterModel = contentImporter.ImportContent(importModel.FilePath);
+                    }
+                }
 
+            }
+
+        }
         public List<string> GetAll()
         {
-            throw new NotImplementedException();
+            List<string> importers = new List<string>();
+            FileInfo[] files = GetFiles();
+            for (int i = 0; i < files.Length; i++)
+            {
+                IEnumerable<Type> implementations = GetImplementations(files[i].FullName);
+                if (implementations != null && implementations.Count() != default)
+                {
+                    IContentImporter contentImporter = (IContentImporter)Activator.CreateInstance(implementations.FirstOrDefault());
+                    if (contentImporter != null)
+                    {
+                        string importerId = contentImporter.GetId();
+                        importers.Add(importerId);
+                    }
+                }
+            }
+            return importers;
         }
     }
 }
