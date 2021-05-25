@@ -25,6 +25,11 @@ const routes: Routes = [
           "./pages/examples/dashboard/dashboard.module#DashboardModule"
       },
       {
+        path: "psychologist",
+        loadChildren:
+          "./pages/psychologist/psychologist.module#PsychologistModule"
+      },
+      {
         path: "components",
         loadChildren:
           "./pages/examples/components/components.module#ComponentsPageModule"
