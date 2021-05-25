@@ -25,7 +25,8 @@
                                         lazyLoading: true,
                                         maxHeight: 100
                                         }" name="psychologistConsultationMode"
-                                        (onSelect)="consultationModeSelect($event)">
+                                        (onSelect)="consultationModeSelect($event)"
+                                        (onDeSelect)="consultationModeDeSelect($event)">
                                     </angular2-multiselect>
                                 </div>
                             </div>
@@ -36,9 +37,6 @@
                                     <label> Direction </label>
                                     <input class=" form-control" placeholder="Rio Negro 8156" type="text"
                                         [(ngModel)]="psychologist.direction" name="psychologistDirection" required="" />
-                                    <span class=" form-text" id="directionHelp">
-                                        If the consultation mode is virtual the direction could be empty.
-                                    </span>
                                 </div>
                             </div>
                             <div class=" col-md-6 pl-md-1">

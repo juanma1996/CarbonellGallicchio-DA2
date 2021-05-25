@@ -47,17 +47,19 @@ export class RegisterPsychologistComponent implements OnInit {
   }
 
   registerPsychologist() {
-    this.psychologistService.add(this.psychologist)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.setSuccess();
+    if(this.validate()){
+      this.psychologistService.add(this.psychologist)
+        .subscribe(
+          response => {
+            console.log(response);
+            this.setSuccess();
+          }
+        ),
+        catchError => {
+          console.log(catchError.error);
+          this.setError(catchError.error)
         }
-      ),
-      catchError => {
-        console.log(catchError.error);
-        this.setError(catchError.error)
-      }
+    }
   }
 
   mapProblematics(data) {
@@ -76,18 +78,26 @@ export class RegisterPsychologistComponent implements OnInit {
       name: item.itemName
     };
     this.psychologist.problematics.push(problematic);
-    console.log(this.psychologist.problematics);
   }
 
   problematicDeSelect(item: any) {
     this.psychologist.problematics = this.psychologist.problematics.filter(problematic => problematic.id != item.id);
-    console.log(this.psychologist.problematics);
   }
 
   consultationModeSelect(item: any) {
-    console.log(item);
     this.psychologist.consultationMode = item.itemName;
-    console.log(this.psychologist.consultationMode);
+  }
+  
+  consultationModeDeSelect(item: any) {
+    this.psychologist.consultationMode = "";
+  }
+
+  validate(){
+    if(this.psychologist.name == undefined || this.psychologist.name == "") this.setError("The psychologist's name can't be empty");
+    else if (this.psychologist.consultationMode == undefined || this.psychologist.consultationMode == "") this.setError("The psychologist's consultation mode can't be empty.");
+    else if (this.psychologist.direction == undefined || this.psychologist.direction == "") this.setError("The psychologist's direction can't be empty.");
+    else if (this.psychologist.problematics == undefined || this.psychologist.problematics.length < 3) this.setError("The psychologist's problematics must be exactly three");
+    else return true;
   }
 
   private setError(message){
