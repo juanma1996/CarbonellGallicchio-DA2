@@ -107,7 +107,7 @@ export class RegisterPsychologistComponent implements OnInit {
   private setSuccess(){
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      "The register was successful",
+      "The psychologist was successfully registered",
       {
         timeOut: 5000,
         closeButton: true,
