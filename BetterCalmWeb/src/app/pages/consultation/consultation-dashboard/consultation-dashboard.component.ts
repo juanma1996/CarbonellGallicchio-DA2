@@ -5,6 +5,8 @@ import { ConsultationService } from 'src/app/services/consultation/consultation.
 import { catchError } from 'rxjs/operators';
 import { PacientBasicInfo } from 'src/app/models/pacient/pacient-basic-info';
 import { ToastrService } from 'ngx-toastr';
+import { ProblematicsService } from 'src/app/services/problematics/problematics.service';
+import { ProblematicBasicInfo } from 'src/app/models/problematic/problematic-basic-info';
 
 @Component({
   selector: 'app-consultation-dashboard',
@@ -14,10 +16,9 @@ import { ToastrService } from 'ngx-toastr';
 export class ConsultationDashboardComponent implements OnInit {
 
   public psychologist: PsychologistBasicInfo;
-  // public consultation: ConsultationBasicInfo = {} as ConsultationBasicInfo;
-
+  public problematicsData = [];
+  public problematics: ProblematicBasicInfo[] = [];
   public consultation : ConsultationBasicInfo = {
-    problematicId : 1,
     pacient : {
       name: "",
       birthDate: new Date(),
@@ -25,7 +26,7 @@ export class ConsultationDashboardComponent implements OnInit {
       email: "",
       surname: ""
     },
-  }
+  } as ConsultationBasicInfo;
 
   public birthDate: Date = new Date(); // I think its unnecesary.
   public errorBackend: string = '';
@@ -40,14 +41,24 @@ export class ConsultationDashboardComponent implements OnInit {
 
   constructor(
     private consultationService: ConsultationService,
+    private problematicsService: ProblematicsService,
     public toastr: ToastrService
   ) { }
 
   
 
   ngOnInit(): void {
+    this.problematicsService.get()
+      .subscribe(
+        response => {
+          this.problematics = response;
+          this.mapProblematics(this.problematics);
+        },
+        catchError => {
+          this.setError(catchError.error)
+        }
+      )
   }
-
   scheduleConsultation = function() {
     console.log("Enter schedule")
     delete(this.psychologist);
@@ -58,6 +69,7 @@ export class ConsultationDashboardComponent implements OnInit {
         response => {
           console.log(response)
           this.psychologist = response;
+          this.setSuccess();
         },
         catchError => {
           this.setError(catchError);
@@ -67,7 +79,7 @@ export class ConsultationDashboardComponent implements OnInit {
 
   private createModel(): ConsultationBasicInfo {
     const modelBase: ConsultationBasicInfo =  <ConsultationBasicInfo>{};
-    modelBase.problematicId = 1; //Hardcode until angular multiselect fix.
+    modelBase.problematicId = this.consultation.problematicId;
     modelBase.pacient = <PacientBasicInfo>{};
     modelBase.pacient.name = this.consultation.pacient.name;
     modelBase.pacient.surname = this.consultation.pacient.name; // Change it when separate the input.
@@ -77,6 +89,23 @@ export class ConsultationDashboardComponent implements OnInit {
     return modelBase;
   }
 
+  
+  mapProblematics(data) {
+    this.problematics.forEach(problematic => {
+      var data = {
+        id: problematic.id,
+        itemName: problematic.name
+      }
+      this.problematicsData.push(data);
+    });
+  }
+  
+  problematicSelect(item: any) {
+    console.log(item);
+    this.consultation.problematicId = item.id;
+    console.log(this.consultation.problematicId);
+  }
+  
   private setError(message){
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
@@ -86,6 +115,20 @@ export class ConsultationDashboardComponent implements OnInit {
         closeButton: true,
         enableHtml: true,
         toastClass: "alert alert-danger alert-with-icon",
+        positionClass: "toast-top-right"
+      }
+    );
+  }
+
+  private setSuccess(){
+    this.toastr.show(
+      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
+      "The consultation was successfully scheduled",
+      {
+        timeOut: 3000,
+        closeButton: true,
+        enableHtml: true,
+        toastClass: "alert alert-success alert-with-icon",
         positionClass: "toast-top-right"
       }
     );

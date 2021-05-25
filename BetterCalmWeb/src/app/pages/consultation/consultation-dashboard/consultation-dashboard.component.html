@@ -10,11 +10,15 @@
                         <div class=" row">
                             <div class=" col-md-6 pr-md-1">
                                 <label> Problematic </label>
-                                <!-- <angular2-multiselect 
-                                    [data]="Problematics" 
-                                    [ngModel]="consultation.problematicId" 
-                                    [settings]="settings1">
-                                </angular2-multiselect> -->
+                                <angular2-multiselect [data]="problematicsData" [ngModel]="" [settings]="{
+                                    singleSelection: true,
+                                    text: 'Consultation mode',
+                                    classes: 'selectpicker btn-danger',
+                                    lazyLoading: true,
+                                    maxHeight: 100
+                                    }" name="problematicConsultation"
+                                    (onSelect)="problematicSelect($event)">
+                                </angular2-multiselect>
                             </div>
                         </div>
                         <div class=" row">
@@ -38,7 +42,6 @@
                         </div>
                         <div class=" row">
                             <div class=" col-md-6 pr-md-1">
-                                <!-- input with datetimepicker -->
                                 <div class=" form-group">
                                     <label for="exampleInputEmail1"> Birth date </label>
                                     <div class=" form-group">
