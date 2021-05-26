@@ -78,6 +78,14 @@ export const ROUTES: RouteInfo[] = [
         type: "link",
         smallTitle: "P"
       },
+      {
+        path: "audioContent",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Create Audio Content",
+        type: "link",
+        smallTitle: "P"
+      },
     ]
   },
   {

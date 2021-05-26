@@ -1,0 +1,121 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-md-8">
+            <div class=" card">
+                <div class=" card-header">
+                    <h2 class=" title">Create Audio Content</h2>
+                </div>
+                <div class=" card-body">
+                    <form>
+                        <div class=" row">
+                            <div class=" col-md-6 pr-md-1">
+                                <div class=" form-group">
+                                    <label> Name </label>
+                                    <input class=" form-control" placeholder="Alucinate" type="text"
+                                        [(ngModel)]="audioContent.name" name="audioContentName" required="" />
+                                </div>
+                            </div>
+                            <div class=" col-md-6 pl-md-1">
+                                <div class=" form-group">
+                                    <label> Duration </label>
+                                    <input class=" form-control" placeholder="1:29" type="text"
+                                        [(ngModel)]="audioContent.duration" name="audioContentDuration" required="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-6 pr-md-1">
+                                <div class=" form-group">
+                                    <label> Creator </label>
+                                    <input class=" form-control" placeholder="Dua Lipa" type="text"
+                                        [(ngModel)]="audioContent.creatorName" name="audioContentCreator" required="" />
+                                </div>
+                            </div>
+                            <div class=" col-md-6 pl-md-1">
+                                <div class=" form-group">
+                                    <label> Image Url </label>
+                                    <input class=" form-control" placeholder="https://thisIsTheImageUrl.com" type="text"
+                                        [(ngModel)]="audioContent.imageUrl" name="audioContentImageUrl" required="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-6 pr-md-1">
+                                <div class=" form-group">
+                                    <label> Audio Url </label>
+                                    <input class=" form-control" placeholder="https://thisIsTheAudioUrl.com" type="text"
+                                        [(ngModel)]="audioContent.audioUrl" name="audioContentAudioUrl" required="" />
+                                </div>
+                            </div>
+                            <div class=" col-md-6 pl-md-1">
+                                <div class=" form-group">
+                                    <label> Categories </label>
+                                    <angular2-multiselect [data]="categoriesData" [ngModel]="" [settings]="{
+                                        singleSelection: true,
+                                        text: 'Categories',
+                                        classes: 'selectpicker btn-danger',
+                                        lazyLoading: true,
+                                        maxHeight: 100
+                                        }" name="audioContentCategory" (onSelect)="categorySelect($event)"
+                                        (onDeSelect)="categoryDeSelect($event)">
+                                    </angular2-multiselect>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-6 pr-md-1">
+                                <div class=" form-group" *ngIf="selectedCategory && !newPlaylist">
+                                    <label> Playlist </label>
+                                    <angular2-multiselect [data]="playlistsData" [ngModel]="" [settings]="{
+                                        singleSelection: true,
+                                        text: 'Playlists',
+                                        classes: 'selectpicker btn-danger',
+                                        lazyLoading: true,
+                                        maxHeight: 100
+                                        }" name="audioContentPlaylist" (onSelect)="playlistSelect($event)"
+                                        (onDeSelect)="playlistDeSelect($event)">
+                                    </angular2-multiselect>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row" *ngIf="newPlaylist">
+                            <div class=" col-md-6 pr-md-1">
+                                <div class=" form-group">
+                                    <label> Playlist Name </label>
+                                    <input class=" form-control" placeholder="Pop hits" type="text"
+                                        [(ngModel)]="selectedPlaylist.name" name="audioContentName" required="" />
+                                </div>
+                            </div>
+                            <div class=" col-md-6 pl-md-1">
+                                <div class=" form-group">
+                                    <label> Description </label>
+                                    <input class=" form-control" placeholder="All Pop hits to have an amazing nigth" type="text"
+                                        [(ngModel)]="selectedPlaylist.description" name="audioContentDuration"
+                                        required="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-6 pr-md-1">
+                                <div class=" form-group">
+                                    <div class=" form-check pull-left">
+                                        <label class=" form-check-label">
+                                            <input class=" form-check-input" name="optionCheckboxes" type="checkbox"
+                                                [(ngModel)]="newPlaylist" name="newPlaylistFlag" (ngModelChange)="createPlaylist($event)"/>
+
+                                            <span class=" form-check-sign"> </span> New playlist
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class=" card-footer">
+                    <button class=" btn btn-fill btn-danger" type="submit" (click)="createAudioContent()">Create
+                        audio content</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
