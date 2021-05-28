@@ -11,6 +11,7 @@ import { AdministratorRoutes } from './administrator.routing';
     CommonModule,
     FormsModule,
     RouterModule.forChild(AdministratorRoutes),
+    ReactiveFormsModule
   ],
   declarations: [
     CreateAdministratorComponent
