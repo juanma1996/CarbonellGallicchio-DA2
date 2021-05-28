@@ -69,6 +69,25 @@ export const ROUTES: RouteInfo[] = [
     rtlTitle: "لوحة القيادة"
   },
   {
+    path: "",
+    title: "Administration",
+    type: "sub",
+    icontype: "tim-icons icon-settings-gear-63",
+    collapse: "",
+    rtlTitle: "صفحات",
+    isCollapsed: true,
+    children: [
+      {
+        path: "psychologist",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Register Psychologist",
+        type: "link",
+        smallTitle: "P"
+      },
+    ]
+  },
+  {
     path: "/pages",
     title: "Pages",
     type: "sub",
@@ -366,7 +385,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);

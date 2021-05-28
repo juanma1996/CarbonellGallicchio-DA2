@@ -30,6 +30,11 @@ const routes: Routes = [
           "./pages/administrator/administrator.module#AdministratorModule"
       },
       {
+        path: "psychologist",
+        loadChildren:
+          "./pages/psychologist/psychologist.module#PsychologistModule"
+      },
+      {
         path: "components",
         loadChildren:
           "./pages/examples/components/components.module#ComponentsPageModule"
