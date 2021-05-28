@@ -15,13 +15,16 @@ import { catchError } from 'rxjs/operators';
 })
 export class CreateAudioContentComponent implements OnInit {
 
-  public audioContent: AudioContentModel = new AudioContentModel();
+  public audioContent: AudioContentModel = {
+    categories: [],
+    playlists: []
+  } as AudioContentModel;
 
   public categoriesData = [];
   public playlistsData = [];
   public newPlaylist: boolean = false;
   public selectedCategory: CategoryModel;
-  public selectedPlaylist: PlaylistBasicInfo ;
+  public selectedPlaylist: PlaylistBasicInfo;
 
   constructor(
     private categoriesService: CategoriesService,
@@ -45,7 +48,9 @@ export class CreateAudioContentComponent implements OnInit {
       )
   }
 
+
   getPlaylistByCategory() {
+    this.playlistsData = [];
     this.categoriesService.getPlaylistByCategory(this.selectedCategory.id)
       .subscribe(
         response => {
@@ -58,18 +63,24 @@ export class CreateAudioContentComponent implements OnInit {
   }
 
   createAudioContent() {
-    delete(this.audioContent.duration);
-    this.audioContent.categories.push(this.selectedCategory);
-    this.audioContent.playlists.push(this.selectedPlaylist);
-    this.audioContentService.add(this.audioContent)
-      .subscribe(
-        response => {
-          this.setSuccess();
-        },
-        catchError => {
-          this.setError(catchError);
-        }
-      )
+    if (this.validateAudioContent()) {
+      delete (this.audioContent.duration);
+      this.audioContent.categories.push(this.selectedCategory);
+      this.audioContent.playlists.push(this.selectedPlaylist);
+      this.audioContentService.add(this.audioContent)
+        .subscribe(
+          response => {
+            this.setSuccess();
+            this.audioContent = new AudioContentModel();
+            this.selectedCategory = undefined;
+            this.selectedPlaylist = undefined;
+            this.getCategories();
+          },
+          catchError => {
+            this.setError(catchError);
+          }
+        )
+    }
   }
 
   mapData(originalData, multiSelectData) {
@@ -111,11 +122,21 @@ export class CreateAudioContentComponent implements OnInit {
   }
 
   createPlaylist(item: any) {
+    this.audioContent.playlists = [];
     this.selectedPlaylist = {
       name: "",
       description: ""
     } as PlaylistBasicInfo;
-    console.log('Funciona');
+  }
+
+  validateAudioContent() {
+    if (this.audioContent.name == undefined || this.audioContent.name == "") this.setError("The audio content name can't be empty");
+    else if (this.selectedCategory == undefined) this.setError("The audio content must contain a category");
+    else if (this.newPlaylist && (this.selectedPlaylist == undefined || this.selectedPlaylist.name == "")) this.setError("The playlist name can't be empty");
+    else if (this.newPlaylist && (this.selectedPlaylist == undefined || this.selectedPlaylist.description == "")) this.setError("The playlist description can't be empty");
+    else if (this.newPlaylist && (this.selectedPlaylist == undefined || this.selectedPlaylist.description.length > 150)) this.setError("The playlist description is too large");
+    else if (!this.newPlaylist && this.selectedPlaylist == undefined) this.setError("The audio content must contain a playlist");
+    else return true;
   }
 
   private setError(message) {

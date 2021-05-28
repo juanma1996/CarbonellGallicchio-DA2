@@ -64,7 +64,7 @@
                         </div>
                         <div class=" row">
                             <div class=" col-md-6 pr-md-1">
-                                <div class=" form-group" *ngIf="selectedCategory && !newPlaylist">
+                                <div class=" form-group" *ngIf="selectedCategory && !newPlaylist && playlistsData.length>0">
                                     <label> Playlist </label>
                                     <angular2-multiselect [data]="playlistsData" [ngModel]="" [settings]="{
                                         singleSelection: true,
