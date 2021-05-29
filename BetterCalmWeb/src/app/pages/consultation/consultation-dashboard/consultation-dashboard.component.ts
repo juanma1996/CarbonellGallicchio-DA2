@@ -3,10 +3,10 @@ import { ConsultationBasicInfo } from 'src/app/models/consultation/consultation-
 import { PsychologistBasicInfo } from 'src/app/models/psychologist/psychologist-basic-info';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
 import { catchError } from 'rxjs/operators';
-import { PacientBasicInfo } from 'src/app/models/pacient/pacient-basic-info';
 import { ToastrService } from 'ngx-toastr';
 import { ProblematicsService } from 'src/app/services/problematics/problematics.service';
 import { ProblematicBasicInfo } from 'src/app/models/problematic/problematic-basic-info';
+import { FormGroup, FormBuilder, FormControl, Validators, Form, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-consultation-dashboard',
@@ -15,39 +15,23 @@ import { ProblematicBasicInfo } from 'src/app/models/problematic/problematic-bas
 })
 export class ConsultationDashboardComponent implements OnInit {
 
+  consultationForm: FormGroup;
+  scheduled: boolean = false;
+
   public psychologist: PsychologistBasicInfo;
   public problematicsData = [];
   public problematics: ProblematicBasicInfo[] = [];
-  public consultation : ConsultationBasicInfo = {
-    pacient : {
-      name: "",
-      birthDate: new Date(),
-      cellphone: "",
-      email: "",
-      surname: ""
-    },
-  } as ConsultationBasicInfo;
-
-  public birthDate: Date = new Date(); // I think its unnecesary.
-  public errorBackend: string = '';
-
-  settings1 = {
-    singleSelection: true,
-    text: 'Single Select',
-    enableSearchFilter: false,
-    classes: 'selectpicker btn-primary'
-  };
   selectedItems = [];
 
   constructor(
     private consultationService: ConsultationService,
     private problematicsService: ProblematicsService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private fb: FormBuilder,
   ) { }
 
-  
-
   ngOnInit(): void {
+    this.initializeConsultationForm();
     this.problematicsService.get()
       .subscribe(
         response => {
@@ -59,37 +43,40 @@ export class ConsultationDashboardComponent implements OnInit {
         }
       )
   }
-  scheduleConsultation = function() {
-    console.log("Enter schedule")
-    delete(this.psychologist);
-    const basicInfo = this.createModel();
-    console.log(basicInfo);
-    this.consultationService.add(basicInfo)
-      .subscribe(
-        response => {
-          console.log(response)
-          this.psychologist = response;
-          this.setSuccess();
-        },
-        catchError => {
-          this.setError(catchError);
-        }
-      )
+
+  initializeConsultationForm(): void {
+    this.consultationForm = this.fb.group({
+      pacient: this.fb.group({
+        name: new FormControl(null, Validators.required),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+        birthDate: new FormControl(null, Validators.required),
+        cellphone: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(9)]),
+        surname: new FormControl(null, Validators.required),
+      }),
+      problematicId: new FormControl(null, Validators.required),
+    })
   }
 
-  private createModel(): ConsultationBasicInfo {
-    const modelBase: ConsultationBasicInfo =  <ConsultationBasicInfo>{};
-    modelBase.problematicId = this.consultation.problematicId;
-    modelBase.pacient = <PacientBasicInfo>{};
-    modelBase.pacient.name = this.consultation.pacient.name;
-    modelBase.pacient.surname = this.consultation.pacient.name; // Change it when separate the input.
-    modelBase.pacient.birthDate = this.birthDate;
-    modelBase.pacient.email = this.consultation.pacient.email;
-    modelBase.pacient.cellphone = this.consultation.pacient.cellphone;
-    return modelBase;
+  scheduleConsultation = function () {
+    this.scheduled = true;
+    if (!this.consultationForm.invalid) {
+      this.consultationService.add(this.consultationForm.value)
+        .subscribe(
+          response => {
+            console.log(response)
+            this.psychologist = response;
+            this.setSuccess();
+          },
+          catchError => {
+            this.setError(catchError);
+          }
+        )
+    } 
+    else {
+      this.setError("Please verify the entered data.");
+    }
   }
 
-  
   mapProblematics(data) {
     this.problematics.forEach(problematic => {
       var data = {
@@ -99,14 +86,17 @@ export class ConsultationDashboardComponent implements OnInit {
       this.problematicsData.push(data);
     });
   }
-  
+
+  get problematicId(): FormControl {
+    return this.consultationForm.get('problematicId') as FormControl;
+  }
+
   problematicSelect(item: any) {
-    console.log(item);
-    this.consultation.problematicId = item.id;
+    this.problematicId.setValue(item.id);
     console.log(this.consultation.problematicId);
   }
-  
-  private setError(message){
+
+  private setError(message) {
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
       message,
@@ -120,7 +110,7 @@ export class ConsultationDashboardComponent implements OnInit {
     );
   }
 
-  private setSuccess(){
+  private setSuccess() {
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
       "The consultation was successfully scheduled",

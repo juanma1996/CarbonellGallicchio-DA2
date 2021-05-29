@@ -1,105 +1,145 @@
-<div class=" content">
-    <div class=" row">
-        <div class=" col-md-8">
-            <div class=" card">
-                <div class=" card-header">
-                    <h2 class=" title">Consultation</h2>
-                </div>
-                <div class=" card-body">
-                    <form>
+<form [formGroup]="consultationForm">
+    <div class=" content">
+        <div class=" row">
+            <div class=" col-md-8">
+                <div class=" card">
+                    <div class=" card-header">
+                        <h2 class=" title">Consultation</h2>
+                    </div>
+                    <div class=" card-body">
                         <div class=" row">
                             <div class=" col-md-6 pr-md-1">
-                                <label> Problematic </label>
-                                <angular2-multiselect [data]="problematicsData" [ngModel]="" [settings]="{
-                                    singleSelection: true,
-                                    text: 'Consultation mode',
-                                    classes: 'selectpicker btn-danger',
-                                    lazyLoading: true,
-                                    maxHeight: 100
-                                    }" name="problematicConsultation"
-                                    (onSelect)="problematicSelect($event)">
-                                </angular2-multiselect>
+                                <div class=" form-group has-label" [ngClass]="{
+                                    'has-danger':
+                                    !consultationForm.get('problematicId').valid
+                                    }">
+                                    <label> Problematic </label>
+                                    <angular2-multiselect [data]="problematicsData" [ngModel]=""
+                                        [ngModelOptions]="{standalone: true}" [settings]="{
+                                        singleSelection: true,
+                                        text: 'Consultation mode',
+                                        classes: 'selectpicker btn-danger',
+                                        lazyLoading: true,
+                                        maxHeight: 100
+                                    }" name="problematicConsultation" (onSelect)="problematicSelect($event)">
+                                    </angular2-multiselect>
+                                    <label class="error" *ngIf="!consultationForm.get('problematicId').valid">Please
+                                        select
+                                        a problematic.</label>
+                                </div>
+                            </div>
+                            <div class=" col-md-6 pl-md-1" formGroupName="pacient">
+                                <div class=" form-group has-label" [ngClass]="{
+                                    'has-danger':
+                                    !consultationForm.controls.pacient.get('name').valid && (consultationForm.controls.pacient.get('name').touched || scheduled)
+                                }">
+                                    <label> Name </label>
+                                    <input class=" form-control" placeholder="Mike" type="text"
+                                        formControlName="name" />
+                                    <label class="error"
+                                        *ngIf="!consultationForm.controls.pacient.get('name').valid && (consultationForm.controls.pacient.get('name').touched || scheduled)">Please
+                                        enter a valid name.</label>
+                                </div>
                             </div>
                         </div>
                         <div class=" row">
-                            <div class=" col-md-6 pr-md-1">
-                                <div class=" form-group">
-                                    <label> Name and Last name </label>
-                                    <input class=" form-control" placeholder="Mike Wazauski" type="text"
-                                        [(ngModel)]="consultation.pacient.name" 
-                                        name="namePacient"
-                                        />
+                            <div class=" col-md-6 pr-md-1" formGroupName="pacient">
+                                <div class=" form-group has-label" [ngClass]="{
+                                    'has-danger':
+                                    !consultationForm.controls.pacient.get('surname').valid && (consultationForm.controls.pacient.get('surname').touched || scheduled)
+                                }">
+                                    <label> Surname </label>
+                                    <input class=" form-control" placeholder="Wazauski" type="text"
+                                        formControlName="surname" />
+                                    <label class="error"
+                                        *ngIf="!consultationForm.controls.pacient.get('surname').valid && (consultationForm.controls.pacient.get('surname').touched || scheduled)">Please
+                                        enter a valid surname.</label>
                                 </div>
                             </div>
-                            <div class=" col-md-6 pl-md-1">
-                                <div class=" form-group">
+                            <div class=" col-md-6 pl-md-1" formGroupName="pacient">
+                                <div class=" form-group has-label" [ngClass]="{
+                                    'has-danger':
+                                    !consultationForm.controls.pacient.get('email').valid && (consultationForm.controls.pacient.get('email').touched || scheduled)
+                                }">
                                     <label for="exampleInputEmail1"> Email address </label>
                                     <input class=" form-control" placeholder="jorge@email.com" type="email"
-                                        [(ngModel)]="consultation.pacient.email"
-                                        name="emailPacient" />
+                                        formControlName="email" />
+                                    <label class="error"
+                                        *ngIf="!consultationForm.controls.pacient.get('email').valid && (consultationForm.controls.pacient.get('email').touched || scheduled)">Please
+                                        enter a valid email.</label>
                                 </div>
                             </div>
                         </div>
                         <div class=" row">
-                            <div class=" col-md-6 pr-md-1">
-                                <div class=" form-group">
+                            <div class=" col-md-6 pr-md-1" formGroupName="pacient">
+                                <div class=" form-group has-label" [ngClass]="{
+                                    'has-danger':
+                                    !consultationForm.controls.pacient.get('birthDate').valid && (consultationForm.controls.pacient.get('birthDate').touched || scheduled)
+                                }">
                                     <label for="exampleInputEmail1"> Birth date </label>
-                                    <div class=" form-group">
-                                        <input bsDatepicker class="form-control" data-datepicker-color="danger"
-                                            [bsConfig]="{ isAnimated: true, containerClass: 'theme-red' }"
-                                            [bsValue]="birthDate" id="datepicker" type="text">
-                                    </div>
+                                    <input bsDatepicker class="form-control" data-datepicker-color="danger"
+                                        [bsConfig]="{ isAnimated: true, containerClass: 'theme-red' }"
+                                        formControlName="birthDate" id="datepicker" type="text"
+                                        placeholder="05/12/1996">
+                                    <label class="error"
+                                        *ngIf="!consultationForm.controls.pacient.get('birthDate').valid && (consultationForm.controls.pacient.get('birthDate').touched || scheduled)">Please
+                                        enter a valid birth date.</label>
                                 </div>
                             </div>
-                            <div class=" col-md-6 px-md-1">
-                                <div class=" form-group">
+                            <div class=" col-md-6 px-md-1" formGroupName="pacient">
+                                <div class=" form-group has-label" [ngClass]="{
+                                    'has-danger':
+                                    !consultationForm.controls.pacient.get('cellphone').valid && (consultationForm.controls.pacient.get('cellphone').touched || scheduled)
+                                }">
                                     <label> Cellphone </label>
                                     <input class=" form-control" placeholder="099999999" type="text"
-                                        [(ngModel)]="consultation.pacient.cellphone" 
-                                        name="cellphonePacient"/>
+                                        formControlName="cellphone" />
+                                    <label class="error"
+                                        *ngIf="!consultationForm.controls.pacient.get('cellphone').valid && (consultationForm.controls.pacient.get('cellphone').touched || scheduled)">Please
+                                        enter a valid cellphone.</label>
                                 </div>
                             </div>
 
                         </div>
-                    </form>
-                </div>
-                <div class=" card-footer">
-                    <button class=" btn btn-fill btn-danger" type="submit" (click)="scheduleConsultation()">Schedule
-                        consultation</button>
+                    </div>
+                    <div class=" card-footer">
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="scheduleConsultation()">Schedule
+                            consultation</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class=" col-md-4" *ngIf="psychologist">
-            <div class=" card card-user">
-                <div class=" card-body">
-                    <p class=" card-text"></p>
-                    <div class=" author">
-                        <div class=" block block-one"></div>
-                        <div class=" block block-two"></div>
-                        <div class=" block block-three"></div>
-                        <div class=" block block-four"></div>
-                        <a href="javascript:void(0)">
-                            <h4 class=" title">Consultation with: </h4>
-                        </a>
-                        <p class=" description">{{psychologist.name}}</p>
-                    </div>
-
-                    <div class=" card-description">
-                        <div class=" col-md-8 pr-md-1">
-                            <h5 class=" card-title">Consultation Mode: </h5>
-                            <p class=" card-text">{{psychologist.consultationMode}} </p>
+            <div class=" col-md-4" *ngIf="psychologist">
+                <div class=" card card-user">
+                    <div class=" card-body">
+                        <p class=" card-text"></p>
+                        <div class=" author">
+                            <div class=" block block-one"></div>
+                            <div class=" block block-two"></div>
+                            <div class=" block block-three"></div>
+                            <div class=" block block-four"></div>
+                            <a href="javascript:void(0)">
+                                <h4 class=" title">Consultation with: </h4>
+                            </a>
+                            <p class=" description">{{psychologist.name}}</p>
                         </div>
-                    </div>
-                    <div class=" card-description">
-                        <div class=" col-md-12 pr-md-1">
-                            <h5 class=" card-title">Direction: </h5>
-                            <p class=" card-text">{{psychologist.direction}} </p>
+
+                        <div class=" card-description">
+                            <div class=" col-md-8 pr-md-1">
+                                <h5 class=" card-title">Consultation Mode: </h5>
+                                <p class=" card-text">{{psychologist.consultationMode}} </p>
+                            </div>
                         </div>
+                        <div class=" card-description">
+                            <div class=" col-md-12 pr-md-1">
+                                <h5 class=" card-title">Direction: </h5>
+                                <p class=" card-text">{{psychologist.direction}} </p>
+                            </div>
+                        </div>
+
+
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
