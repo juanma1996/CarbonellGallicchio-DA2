@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AudioContentModel } from 'src/app/models/audioContent/audio-content-model';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
-import { CategoryModel } from 'src/app/models/category/category-model';
 import { ToastrService } from 'ngx-toastr';
-import { PlaylistBasicInfo } from 'src/app/models/playlist/playlist-basic-info';
-import { PlaylistModel } from 'src/app/models/playlist/playlist-model';
 import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
 import { catchError } from 'rxjs/operators';
+import { FormGroup, FormBuilder, FormControl, Validators, Form, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-create-audio-content',
@@ -15,25 +12,42 @@ import { catchError } from 'rxjs/operators';
 })
 export class CreateAudioContentComponent implements OnInit {
 
-  public audioContent: AudioContentModel = {
-    categories: [],
-    playlists: []
-  } as AudioContentModel;
+  mytime: Date = new Date();
+
+  audioContentForm: FormGroup;
+  selectedCategory: FormGroup;
+  selectedPlaylist: FormGroup;
+  create: boolean = false;
+
 
   public categoriesData = [];
   public playlistsData = [];
   public newPlaylist: boolean = false;
-  public selectedCategory: CategoryModel;
-  public selectedPlaylist: PlaylistBasicInfo;
 
   constructor(
     private categoriesService: CategoriesService,
     private audioContentService: AudioContentService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.getCategories();
+    this.initializeAudioContentForm();
+  }
+
+  initializeAudioContentForm(): void {
+    this.audioContentForm = this.fb.group({
+      name: new FormControl(null, Validators.required),
+      creatorName: new FormControl(null, Validators.required),
+      //duration: new FormControl(null),
+      imageUrl: new FormControl(null),
+      audioUrl: new FormControl(null, Validators.required),
+      categories: this.fb.array([], Validators.required),
+      playlists: this.fb.array([], Validators.required)
+    });
+    this.selectedPlaylist = this.fb.group({
+    })
   }
 
   getCategories() {
@@ -48,10 +62,10 @@ export class CreateAudioContentComponent implements OnInit {
       )
   }
 
-
   getPlaylistByCategory() {
+    console.log(this.selectedCategoryId);
     this.playlistsData = [];
-    this.categoriesService.getPlaylistByCategory(this.selectedCategory.id)
+    this.categoriesService.getPlaylistByCategory(this.selectedCategoryId)
       .subscribe(
         response => {
           this.mapData(response, this.playlistsData);
@@ -63,23 +77,23 @@ export class CreateAudioContentComponent implements OnInit {
   }
 
   createAudioContent() {
-    if (this.validateAudioContent()) {
-      delete (this.audioContent.duration);
-      this.audioContent.categories.push(this.selectedCategory);
-      this.audioContent.playlists.push(this.selectedPlaylist);
-      this.audioContentService.add(this.audioContent)
+    this.addNewPlaylist();
+    this.create = true;
+    if (!this.audioContentForm.invalid) {
+
+      this.audioContentService.add(this.audioContentForm.value)
         .subscribe(
           response => {
             this.setSuccess();
-            this.audioContent = new AudioContentModel();
-            this.selectedCategory = undefined;
-            this.selectedPlaylist = undefined;
             this.getCategories();
           },
           catchError => {
             this.setError(catchError);
           }
         )
+    }
+    else {
+      this.setError("Please verify the entered data.");
     }
   }
 
@@ -93,50 +107,58 @@ export class CreateAudioContentComponent implements OnInit {
     });
   }
 
+  get categories(): FormArray {
+    return this.audioContentForm.get('categories') as FormArray;
+  }
+
+  get selectedCategoryId() {
+    return this.selectedCategory.get('id').value;
+  }
+
   categorySelect(item: any) {
-    this.audioContent.categories = [];
-    this.selectedCategory = {
+    if (this.categories.value.length > 0) this.categories.removeAt(0);
+    this.selectedCategory = this.fb.group({
       id: item.id,
       name: item.itemName
-    };
+    })
+    this.categories.push(this.selectedCategory);
     this.getPlaylistByCategory();
   }
 
   categoryDeSelect(item: any) {
-    delete (this.selectedCategory)
-    console.log(this.audioContent)
+    this.categories.removeAt(0);
+  }
+
+  get playlists(): FormArray {
+    return this.audioContentForm.get('playlists') as FormArray;
   }
 
   playlistSelect(item: any) {
-    this.audioContent.playlists = [];
-    this.selectedPlaylist = {
-      id: item.id,
+    if (this.playlists.value.length > 0) this.playlists.removeAt(0);
+    this.selectedPlaylist = this.fb.group({
+      id: (item.id, Validators.required),
       name: item.itemName,
-      description: "This is a hardcode description"
-    };
+      description: "Empty"
+    })
+    this.playlists.push(this.selectedPlaylist);
   }
 
   playlistDeSelect(item: any) {
-    delete (this.audioContent.playlists)
-    console.log(this.audioContent)
+    this.playlists.removeAt(0);
   }
 
-  createPlaylist(item: any) {
-    this.audioContent.playlists = [];
-    this.selectedPlaylist = {
-      name: "",
-      description: ""
-    } as PlaylistBasicInfo;
+  createNewPlaylist(item: any) {
+    if (this.playlists.value.length > 0) this.playlists.removeAt(0);
+    this.selectedPlaylist = this.fb.group({
+      name: new FormControl(null, Validators.required),
+      description: new FormControl(null, Validators.required),
+    })
   }
 
-  validateAudioContent() {
-    if (this.audioContent.name == undefined || this.audioContent.name == "") this.setError("The audio content name can't be empty");
-    else if (this.selectedCategory == undefined) this.setError("The audio content must contain a category");
-    else if (this.newPlaylist && (this.selectedPlaylist == undefined || this.selectedPlaylist.name == "")) this.setError("The playlist name can't be empty");
-    else if (this.newPlaylist && (this.selectedPlaylist == undefined || this.selectedPlaylist.description == "")) this.setError("The playlist description can't be empty");
-    else if (this.newPlaylist && (this.selectedPlaylist == undefined || this.selectedPlaylist.description.length > 150)) this.setError("The playlist description is too large");
-    else if (!this.newPlaylist && this.selectedPlaylist == undefined) this.setError("The audio content must contain a playlist");
-    else return true;
+  addNewPlaylist() {
+    if (this.newPlaylist) {
+      this.playlists.push(this.selectedPlaylist);
+    }
   }
 
   private setError(message) {
