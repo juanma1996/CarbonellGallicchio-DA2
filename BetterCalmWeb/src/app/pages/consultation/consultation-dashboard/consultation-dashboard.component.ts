@@ -93,7 +93,6 @@ export class ConsultationDashboardComponent implements OnInit {
 
   problematicSelect(item: any) {
     this.problematicId.setValue(item.id);
-    console.log(this.consultation.problematicId);
   }
 
   private setError(message) {
