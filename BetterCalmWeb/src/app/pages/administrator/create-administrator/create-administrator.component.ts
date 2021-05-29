@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class CreateAdministratorComponent implements OnInit {
   administratorForm: FormGroup;
+  create: boolean = false;
 
   constructor(
     private administratorService: AdministratorService,
@@ -35,6 +36,7 @@ export class CreateAdministratorComponent implements OnInit {
   }
 
   registerAdministrator = function () {
+    this.create = true;
     if (!this.administratorForm.invalid) {
       this.administratorService.add(this.administratorForm.value)
         .subscribe(

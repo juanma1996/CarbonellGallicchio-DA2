@@ -12,13 +12,13 @@
                                 <div class=" form-group has-label" 
                                     [ngClass]="{
                                         'has-danger':
-                                        !administratorForm.get('name').valid && administratorForm.get('name').touched
+                                        !administratorForm.get('name').valid && (administratorForm.get('name').touched || create)
                                     }">
                                     <label> Name </label>
                                     <input class=" form-control" placeholder="Mike" type="text"
                                         formControlName="name" />
                                     <label class="error"
-                                        *ngIf="!administratorForm.get('name').valid && administratorForm.get('name').touched">
+                                        *ngIf="!administratorForm.get('name').valid && (administratorForm.get('name').touched || create)">
                                         Please enter a valid name.</label>
                                 </div>
                             </div>
@@ -26,13 +26,13 @@
                                     <div class=" form-group has-label" 
                                         [ngClass]="{
                                         'has-danger':
-                                        !administratorForm.get('email').valid && administratorForm.get('email').touched
+                                        !administratorForm.get('email').valid && (administratorForm.get('email').touched || create)
                                         }">
                                     <label for="exampleInputEmail1"> Email address </label>
                                     <input class=" form-control" placeholder="mike@email.com" type="email"
                                         formControlName="email" />
                                     <label class="error"
-                                        *ngIf="!administratorForm.get('email').valid && administratorForm.get('email').touched">
+                                        *ngIf="!administratorForm.get('email').valid && (administratorForm.get('email').touched || create)">
                                         Please enter a valid email address.</label>
                                 </div>
                             </div>
@@ -42,13 +42,13 @@
                                 <div class=" form-group has-label" 
                                     [ngClass]="{
                                         'has-danger':
-                                        !administratorForm.get('password').valid && administratorForm.get('password').touched
+                                        !administratorForm.get('password').valid && (administratorForm.get('password').touched || create)
                                     }">
                                     <label> Password </label>
                                     <input class=" form-control" placeholder="Password01" type="text"
                                         formControlName="password" />
                                     <label class="error"
-                                        *ngIf="!administratorForm.get('password').valid && administratorForm.get('password').touched">
+                                        *ngIf="!administratorForm.get('password').valid && (administratorForm.get('password').touched || create)">
                                         Please enter a valid password.</label>
                                 </div>
                             </div>
