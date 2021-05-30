@@ -42,7 +42,6 @@ export class CreateAdministratorComponent implements OnInit {
         .subscribe(
           response => {
             this.setSuccess()
-            this.initializeForm();
           },
           catchError => {
             this.setError(catchError);
