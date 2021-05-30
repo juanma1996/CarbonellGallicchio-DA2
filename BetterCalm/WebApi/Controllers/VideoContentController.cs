@@ -1,6 +1,7 @@
 ﻿using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace WebApi.Controllers
 {
@@ -18,6 +19,11 @@ namespace WebApi.Controllers
         public IActionResult Get(int videoContentId)
         {
             return Ok(videooContentLogicAdapter.GetById(videoContentId));
+        }
+
+        public object Post(int videoContentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
