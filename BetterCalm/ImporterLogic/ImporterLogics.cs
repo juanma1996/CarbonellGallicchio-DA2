@@ -59,9 +59,7 @@ namespace ImporterLogic
                         ContentImporterModel contentImporterModel = contentImporter.ImportContent(importModel.FilePath);
                     }
                 }
-
             }
-
         }
         public List<string> GetAll()
         {
