@@ -39,7 +39,8 @@ namespace WebApi.Controllers
 
         public object Put(VideoContentModel videoContentModel)
         {
-            throw new NotImplementedException();
+            videoContentLogicAdapter.Update(videoContentModel);
+            return NoContent();
         }
     }
 }
