@@ -62,6 +62,13 @@ export const ROUTES: RouteInfo[] = [
     rtlTitle: "لوحة القيادة"
   },
   {
+    path: "/createAdmin",
+    title: "Register administrator",
+    type: "link",
+    icontype: "tim-icons icon-calendar-60",
+    rtlTitle: "لوحة القيادة"
+  },
+  {
     path: "",
     title: "Administration",
     type: "sub",
