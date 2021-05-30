@@ -68,7 +68,7 @@ namespace WebApiTests
             mock.Setup(m => m.Add(It.IsAny<VideoContentModel>())).Returns(videoContentToReturn);
             VideoContentController controller = new VideoContentController(mock.Object);
 
-            var result = controller.Post(videoContentId);
+            var result = controller.Post(videoContentModel);
             CreatedAtRouteResult createdAtRouteResult = result as CreatedAtRouteResult;
             VideoContentBasicInfoModel videoContentBasicInfoModel = createdAtRouteResult.Value as VideoContentBasicInfoModel;
 
