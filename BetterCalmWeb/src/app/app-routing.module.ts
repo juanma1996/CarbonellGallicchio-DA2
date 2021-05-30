@@ -100,6 +100,11 @@ const routes: Routes = [
         loadChildren:
           "./pages/consultation/consultation.module#ConsultationModule"
       },
+      {
+        path: "contentImporter",
+        loadChildren:
+          "./pages/content-importer/content-importer.module#ContentImporterModule"
+      },
     ]
   },
   {
