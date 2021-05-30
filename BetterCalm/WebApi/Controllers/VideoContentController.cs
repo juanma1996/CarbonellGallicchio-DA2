@@ -30,7 +30,8 @@ namespace WebApi.Controllers
             return CreatedAtRoute("GetVideoContentById", new { id = videoContentCreated.Id }, videoContentCreated);
         }
 
-        public object Delete(int videoContentId)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int videoContentId)
         {
             videoContentLogicAdapter.DeleteById(videoContentId);
             return NoContent();
