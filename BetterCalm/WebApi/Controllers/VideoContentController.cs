@@ -23,10 +23,16 @@ namespace WebApi.Controllers
             return Ok(videoContentLogicAdapter.GetById(videoContentId));
         }
 
-        public object Post(VideoContentModel audioContentModel)
+        [HttpPost]
+        public IActionResult Post([FromBody] VideoContentModel audioContentModel)
         {
             VideoContentBasicInfoModel videoContentCreated = videoContentLogicAdapter.Add(audioContentModel);
             return CreatedAtRoute("GetVideoContentById", new { id = videoContentCreated.Id }, videoContentCreated);
+        }
+
+        public object Delete(int videoContentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

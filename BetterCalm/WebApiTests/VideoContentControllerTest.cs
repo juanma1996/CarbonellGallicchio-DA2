@@ -75,5 +75,20 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(videoContentId, videoContentBasicInfoModel.Id);
         }
+
+        [TestMethod]
+        public void TestDeleteVideoContentOk()
+        {
+            int videoContentId = 1;
+            Mock<IVideoContentLogicAdapter> mock = new Mock<IVideoContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.DeleteById(videoContentId));
+            VideoContentController controller = new VideoContentController(mock.Object);
+
+            var response = controller.Delete(videoContentId);
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(204, statusCodeResult.StatusCode);
+        }
     }
 }
