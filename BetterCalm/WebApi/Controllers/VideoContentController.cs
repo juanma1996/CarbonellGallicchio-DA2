@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
 using System;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
@@ -23,6 +24,7 @@ namespace WebApi.Controllers
             return Ok(videoContentLogicAdapter.GetById(videoContentId));
         }
 
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPost]
         public IActionResult Post([FromBody] VideoContentModel audioContentModel)
         {
@@ -30,6 +32,7 @@ namespace WebApi.Controllers
             return CreatedAtRoute("GetVideoContentById", new { id = videoContentCreated.Id }, videoContentCreated);
         }
 
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpDelete("{id}")]
         public IActionResult Delete(int videoContentId)
         {
@@ -37,7 +40,9 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        public object Put(VideoContentModel videoContentModel)
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [HttpPut]
+        public IActionResult Put(VideoContentModel videoContentModel)
         {
             videoContentLogicAdapter.Update(videoContentModel);
             return NoContent();
