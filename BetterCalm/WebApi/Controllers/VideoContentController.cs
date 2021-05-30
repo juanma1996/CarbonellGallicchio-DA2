@@ -1,12 +1,19 @@
-﻿using System;
+﻿using AdapterInterface;
+using BetterCalm.WebApi.Controllers;
 
 namespace WebApi.Controllers
 {
-    public class VideoContentController
+    public class VideoContentController : BetterCalmControllerBase
     {
+        private readonly IVideoContentLogicAdapter videooContentLogicAdapter;
+
+        public VideoContentController(IVideoContentLogicAdapter videooContentLogicAdapter)
+        {
+            this.videooContentLogicAdapter = videooContentLogicAdapter;
+        }
         public object Get(int videoContentId)
         {
-            throw new NotImplementedException();
+            return Ok(videooContentLogicAdapter.GetById(videoContentId));
         }
     }
 }

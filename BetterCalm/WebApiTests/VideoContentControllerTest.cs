@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AdapterInterface;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.Out;
+using Moq;
 using System;
 using WebApi.Controllers;
 
@@ -20,7 +22,9 @@ namespace WebApiTests
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan"
             };
-            VideoContentController controller = new VideoContentController();
+            Mock<IVideoContentLogicAdapter> mock = new Mock<IVideoContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetById(videoContentId)).Returns(videoContentToReturn);
+            VideoContentController controller = new VideoContentController(mock.Object);
 
             var result = controller.Get(videoContentId);
             OkObjectResult okResult = result as OkObjectResult;
