@@ -8,5 +8,6 @@ namespace AdapterInterface
         VideoContentBasicInfoModel GetById(int videoContentId);
         VideoContentBasicInfoModel Add(VideoContentModel videoContentModel);
         void DeleteById(int videoContentId);
+        void Update(VideoContentModel videoContentModel);
     }
 }

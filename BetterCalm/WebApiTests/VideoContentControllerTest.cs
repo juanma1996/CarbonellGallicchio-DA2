@@ -90,5 +90,40 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(204, statusCodeResult.StatusCode);
         }
+
+        [TestMethod]
+        public void TestUpdateVideoContentOk()
+        {
+            VideoContentModel videoContentModel = new VideoContentModel()
+            {
+                Name = "Video",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                VideoUrl = "www.youtube.com/video",
+                Categories = new List<CategoryModel>()
+                {
+                    new CategoryModel
+                    {
+                        Id = 1
+                    }
+                },
+                Playlists = new List<PlaylistModel>()
+                {
+                    new PlaylistModel
+                    {
+                        Id = 1
+                    }
+                },
+            };
+            Mock<IVideoContentLogicAdapter> mock = new Mock<IVideoContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<VideoContentModel>()));
+            VideoContentController controller = new VideoContentController(mock.Object);
+
+            var response = controller.Put(videoContentModel);
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(204, statusCodeResult.StatusCode);
+        }
     }
 }

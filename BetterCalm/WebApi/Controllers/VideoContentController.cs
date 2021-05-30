@@ -36,5 +36,10 @@ namespace WebApi.Controllers
             videoContentLogicAdapter.DeleteById(videoContentId);
             return NoContent();
         }
+
+        public object Put(VideoContentModel videoContentModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
