@@ -5,6 +5,7 @@ import { ProblematicsService } from 'src/app/services/problematics/problematics.
 import { PsychologistService } from 'src/app/services/psychologist/psychologist.service';
 import { catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-register-psychologist',
@@ -13,6 +14,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterPsychologistComponent implements OnInit {
 
+  psychologistForm: FormGroup;
+  selectedProblematic: FormGroup;
+  registered: boolean = false;
+
   public consultationModes = [
     { id: '1', itemName: 'Presencial' },
     { id: '2', itemName: 'Virtual' }
@@ -20,20 +25,15 @@ export class RegisterPsychologistComponent implements OnInit {
   public problematicsData = [];
   public problematics: ProblematicBasicInfo[] = [];
 
-  public selectedProblematics: ProblematicBasicInfo = {} as ProblematicBasicInfo;
-  public psychologist: PsychologistBasicInfo = {
-    consultationMode: "",
-    problematics: [],
-  } as PsychologistBasicInfo;
-
-
   constructor(
     private problematicsService: ProblematicsService,
     private psychologistService: PsychologistService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.initializePsychologistForm();
     this.problematicsService.get()
       .subscribe(
         response => {
@@ -46,9 +46,19 @@ export class RegisterPsychologistComponent implements OnInit {
       )
   }
 
+  initializePsychologistForm(): void {
+    this.psychologistForm = this.fb.group({
+      name: new FormControl(null, Validators.required),
+      consultationMode: new FormControl(null, Validators.required),
+      direction: new FormControl(null, Validators.required),
+      problematics: this.fb.array([], [Validators.required, Validators.minLength(3)])
+    })
+  }
+
   registerPsychologist() {
-    if(this.validate()){
-      this.psychologistService.add(this.psychologist)
+    this.registered = true;
+    if (!this.psychologistForm.invalid) {
+      this.psychologistService.add(this.psychologistForm.value)
         .subscribe(
           response => {
             console.log(response);
@@ -59,6 +69,9 @@ export class RegisterPsychologistComponent implements OnInit {
           console.log(catchError.error);
           this.setError(catchError.error)
         }
+    }
+    else {
+      this.setError("Please verify the entered data.");
     }
   }
 
@@ -72,35 +85,32 @@ export class RegisterPsychologistComponent implements OnInit {
     });
   }
 
+  get psychologistProblematics(): FormArray {
+    return this.psychologistForm.get('problematics') as FormArray;
+  }
+
   problematicSelect(item: any) {
-    var problematic: ProblematicBasicInfo = {
+    this.selectedProblematic = this.fb.group({
       id: item.id,
-      name: item.itemName
-    };
-    this.psychologist.problematics.push(problematic);
+      name: item.itemName,
+    })
+    this.psychologistProblematics.push(this.selectedProblematic);
   }
 
   problematicDeSelect(item: any) {
-    this.psychologist.problematics = this.psychologist.problematics.filter(problematic => problematic.id != item.id);
+    let index = this.psychologistProblematics.value.findIndex(x => x.id === item.id);
+    this.psychologistProblematics.removeAt(index);
+  }
+
+  get consultationMode(): FormControl {
+    return this.psychologistForm.get('consultationMode') as FormControl;
   }
 
   consultationModeSelect(item: any) {
-    this.psychologist.consultationMode = item.itemName;
-  }
-  
-  consultationModeDeSelect(item: any) {
-    this.psychologist.consultationMode = "";
+    this.consultationMode.setValue(item.itemName);
   }
 
-  validate(){
-    if(this.psychologist.name == undefined || this.psychologist.name == "") this.setError("The psychologist's name can't be empty");
-    else if (this.psychologist.consultationMode == undefined || this.psychologist.consultationMode == "") this.setError("The psychologist's consultation mode can't be empty.");
-    else if (this.psychologist.direction == undefined || this.psychologist.direction == "") this.setError("The psychologist's direction can't be empty.");
-    else if (this.psychologist.problematics == undefined || this.psychologist.problematics.length < 3) this.setError("The psychologist's problematics must be exactly three");
-    else return true;
-  }
-
-  private setError(message){
+  private setError(message) {
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
       message,
@@ -114,7 +124,7 @@ export class RegisterPsychologistComponent implements OnInit {
     );
   }
 
-  private setSuccess(){
+  private setSuccess() {
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
       "The psychologist was successfully registered",

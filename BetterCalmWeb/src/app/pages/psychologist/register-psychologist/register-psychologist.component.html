@@ -1,68 +1,91 @@
-<div class=" content">
-    <div class=" row">
-        <div class=" col-md-8">
-            <div class=" card">
-                <div class=" card-header">
-                    <h2 class=" title">Register psychologist</h2>
-                </div>
-                <div class=" card-body">
-                    <form>
+<form [formGroup]="psychologistForm">
+    <div class=" content">
+        <div class=" row">
+            <div class=" col-md-8">
+                <div class=" card">
+                    <div class=" card-header">
+                        <h2 class=" title">Register psychologist</h2>
+                    </div>
+                    <div class=" card-body">
                         <div class=" row">
                             <div class=" col-md-6 pr-md-1">
-                                <div class=" form-group">
+                                <div class=" form-group has-label" [ngClass]="{
+                                        'has-danger':
+                                        !psychologistForm.get('name').valid && (psychologistForm.get('name').touched || registered)
+                                    }">
                                     <label> Name </label>
                                     <input class=" form-control" placeholder="Mike" type="text"
-                                        [(ngModel)]="psychologist.name" name="psychologistName" required="" />
+                                        formControlName="name" />
+                                    <label class="error"
+                                        *ngIf="!psychologistForm.get('name').valid && (psychologistForm.get('name').touched || registered)">Please
+                                        enter a valid name.</label>
                                 </div>
                             </div>
                             <div class=" col-md-6 pl-md-1">
-                                <div class=" form-group">
+                                <div class=" form-group has-label" [ngClass]="{
+                                        'has-danger':
+                                        !psychologistForm.get('consultationMode').valid
+                                        }">
                                     <label for="exampleInputEmail1"> Consultation mode </label>
-                                    <angular2-multiselect [data]="consultationModes" [ngModel]="" [settings]="{
-                                        singleSelection: true,
-                                        text: 'Consultation mode',
-                                        classes: 'selectpicker btn-danger',
-                                        lazyLoading: true,
-                                        maxHeight: 100
+                                    <angular2-multiselect [data]="consultationModes" [ngModel]=""
+                                        [ngModelOptions]="{standalone: true}" [settings]="{
+                                            singleSelection: true,
+                                            text: 'Consultation mode',
+                                            classes: 'selectpicker btn-danger',
+                                            lazyLoading: true,
+                                            maxHeight: 100
                                         }" name="psychologistConsultationMode"
-                                        (onSelect)="consultationModeSelect($event)"
-                                        (onDeSelect)="consultationModeDeSelect($event)">
+                                        (onSelect)="consultationModeSelect($event)">
                                     </angular2-multiselect>
+                                    <label class="error" *ngIf="!psychologistForm.get('consultationMode').valid">
+                                        Please select the consultation mode.</label>
                                 </div>
                             </div>
                         </div>
                         <div class=" row">
                             <div class=" col-md-6 pr-md-1">
-                                <div class=" form-group">
+                                <div class=" form-group has-label" [ngClass]="{
+                                        'has-danger':
+                                        !psychologistForm.get('direction').valid && (psychologistForm.get('direction').touched || registered)
+                                    }">
                                     <label> Direction </label>
                                     <input class=" form-control" placeholder="Rio Negro 8156" type="text"
-                                        [(ngModel)]="psychologist.direction" name="psychologistDirection" required="" />
+                                        formControlName="direction" />
+                                    <label class="error"
+                                        *ngIf="!psychologistForm.get('direction').valid && (psychologistForm.get('direction').touched || registered)">Please
+                                        enter a valid direction.</label>
                                 </div>
                             </div>
                             <div class=" col-md-6 pl-md-1">
-                                <div class=" form-group">
+                                <div class=" form-group has-label" [ngClass]="{
+                                        'has-danger':
+                                        !psychologistForm.get('problematics').valid
+                                        }">
                                     <label> Problematics </label>
-                                    <angular2-multiselect [data]="problematicsData" [ngModel]="selectedProblematic"
-                                        name="psychologistProblematics" [settings]="{
-                                        singleSelection: false,
-                                        text: 'Problematics',
-                                        enableSearchFilter: false,
-                                        classes: 'selectpicker btn-danger',
-                                        limitSelection: 3
-                                        }" (onSelect)="problematicSelect($event)"
+                                    <angular2-multiselect [data]="problematicsData" [ngModel]=""
+                                        [ngModelOptions]="{standalone: true}" name="psychologistProblematics"
+                                        [settings]="{
+                                                singleSelection: false,
+                                                text: 'Problematics',
+                                                enableSearchFilter: false,
+                                                classes: 'selectpicker btn-danger',
+                                                limitSelection: 3
+                                            }" (onSelect)="problematicSelect($event)"
                                         (onDeSelect)="problematicDeSelect($event)">
                                     </angular2-multiselect>
+                                    <label class="error" *ngIf="!psychologistForm.get('problematics').valid">
+                                        Please select exactly three problematics on wich is expert.</label>
                                 </div>
                             </div>
 
                         </div>
-                    </form>
-                </div>
-                <div class=" card-footer">
-                    <button class=" btn btn-fill btn-danger" type="submit" (click)="registerPsychologist()">Register
-                        psychologist</button>
+                    </div>
+                    <div class=" card-footer">
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="registerPsychologist()">Register
+                            psychologist</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>

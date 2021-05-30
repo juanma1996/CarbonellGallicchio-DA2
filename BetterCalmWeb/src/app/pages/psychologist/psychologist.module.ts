@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RegisterPsychologistComponent } from './register-psychologist/register-psychologist.component';
 import { RouterModule } from '@angular/router';
 import { PsychologistRoutes } from './psychologist.routing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 
@@ -14,6 +14,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     FormsModule,
     RouterModule.forChild(PsychologistRoutes),
     AngularMultiSelectModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
   ],
   declarations: [
     RegisterPsychologistComponent
