@@ -1,7 +1,9 @@
-﻿namespace AdapterInterface
+﻿using Model.Out;
+
+namespace AdapterInterface
 {
     public interface IVideoContentLogicAdapter
     {
-        object GetById(int videoContentId);
+        VideoContentBasicInfoModel GetById(int videoContentId);
     }
 }

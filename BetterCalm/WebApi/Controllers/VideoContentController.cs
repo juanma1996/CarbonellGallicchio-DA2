@@ -1,8 +1,10 @@
 ﻿using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
+    [Route("api/videoContents")]
     public class VideoContentController : BetterCalmControllerBase
     {
         private readonly IVideoContentLogicAdapter videooContentLogicAdapter;
@@ -11,7 +13,9 @@ namespace WebApi.Controllers
         {
             this.videooContentLogicAdapter = videooContentLogicAdapter;
         }
-        public object Get(int videoContentId)
+
+        [HttpGet("{id}", Name = "GetVideoContentById")]
+        public IActionResult Get(int videoContentId)
         {
             return Ok(videooContentLogicAdapter.GetById(videoContentId));
         }
