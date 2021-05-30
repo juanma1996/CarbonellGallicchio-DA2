@@ -95,6 +95,10 @@ export class ConsultationDashboardComponent implements OnInit {
     this.problematicId.setValue(item.id);
   }
 
+  problematicDeSelect(item: any) {
+    this.problematicId.reset();
+  }
+
   private setError(message) {
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
