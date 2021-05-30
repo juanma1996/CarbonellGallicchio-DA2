@@ -7,6 +7,8 @@ using DataAccess.Context;
 using DataAccess.Repositories;
 using DataAccessInterface;
 using Domain;
+using ImporterLogic;
+using ImporterLogicInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Model.In;
@@ -56,6 +58,7 @@ namespace Factory
             services.AddScoped<ISessionLogicAdapter, SessionLogicAdapter>();
             services.AddScoped<IValidator<PacientModel>, PacientModelValidator>();
             services.AddScoped<IValidator<ConsultationModel>, ConsultationModelValidator>();
+            services.AddScoped<IImporterLogic, ImporterLogics>();
         }
         public void AddDbContextService()
         {

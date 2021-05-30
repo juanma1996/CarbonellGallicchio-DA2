@@ -1,0 +1,29 @@
+{
+  "id": 1,
+  "name": "Un nombre",
+  "duration": {
+        "ticks": 0,
+        "days": 0,
+        "hours": 0,
+        "milliseconds": 0,
+        "minutes": 0,
+        "seconds": 0,
+        "totalDays": 0,
+        "totalHours": 0,
+        "totalMilliseconds": 0,
+        "totalMinutes": 0,
+        "totalSeconds": 0
+    },
+  "creatorName": "El creador",
+  "imageUrl": "imageUrl",
+  "audioUrl": "audioUrl",
+	  "categories": [{
+	  "id": 1,
+	  "name": "Nombre"
+	}],
+  "playlists": [{
+	  "id": 1,
+	  "name": "Nombre",
+	  "description": "Descripcion"
+	}]
+}
