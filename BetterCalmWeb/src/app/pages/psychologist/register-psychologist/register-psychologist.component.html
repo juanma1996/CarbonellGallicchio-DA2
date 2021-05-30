@@ -35,7 +35,8 @@
                                             lazyLoading: true,
                                             maxHeight: 100
                                         }" name="psychologistConsultationMode"
-                                        (onSelect)="consultationModeSelect($event)">
+                                        (onSelect)="consultationModeSelect($event)"
+                                        (onDeSelect)="consultationModeDeSelect($event)">
                                     </angular2-multiselect>
                                     <label class="error" *ngIf="!psychologistForm.get('consultationMode').valid">
                                         Please select the consultation mode.</label>

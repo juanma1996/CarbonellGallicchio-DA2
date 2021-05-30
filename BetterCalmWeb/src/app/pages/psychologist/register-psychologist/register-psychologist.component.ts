@@ -110,6 +110,10 @@ export class RegisterPsychologistComponent implements OnInit {
     this.consultationMode.setValue(item.itemName);
   }
 
+  consultationModeDeSelect(item: any) {
+    this.consultationMode.reset();
+  }
+
   private setError(message) {
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
