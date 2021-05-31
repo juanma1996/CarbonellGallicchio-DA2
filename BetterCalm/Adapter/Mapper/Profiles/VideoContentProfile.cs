@@ -9,9 +9,12 @@ namespace Adapter.Mapper.Profiles
     {
         public VideoContentProfile()
         {
-            CreateMap<VideoContent, VideoContentBasicInfoModel>();
+            CreateMap<VideoContent, VideoContentBasicInfoModel>()
+                .ForMember(c => c.VideoUrl, opt => opt.MapFrom(x => x.Url));
 
-            CreateMap<VideoContentModel, VideoContent>();
+            CreateMap<VideoContentModel, VideoContent>()
+                .ForMember(c => c.Url, opt => opt.MapFrom(x => x.VideoUrl))
+                .ForMember(c => c.ImageUrl, opt => opt.Ignore());
 
             CreateMap<CategoryModel, PlayableContentCategory>()
                 .ForMember(c => c.PlayableContent, opt => opt.Ignore())
@@ -26,7 +29,7 @@ namespace Adapter.Mapper.Profiles
                 .ForMember(c => c.PlaylistId, opt => opt.MapFrom(x => x.Id));
             CreateMap<PlaylistModel, Playlist>()
                 .ForMember(c => c.Categories, opt => opt.Ignore())
-                .ForMember(c => c.AudioContents, opt => opt.Ignore());
+                .ForMember(c => c.PlayableContents, opt => opt.Ignore());
         }
     }
 }

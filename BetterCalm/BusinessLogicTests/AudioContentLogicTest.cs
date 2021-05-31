@@ -25,7 +25,7 @@ namespace BusinessLogicTests
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
-                AudioUrl = "www.audio.com"
+                Url = "www.audio.com"
             };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(audioContentId)).Returns(audioContentToReturn);
@@ -57,7 +57,7 @@ namespace BusinessLogicTests
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
-                AudioUrl = "www.audio.com",
+                Url = "www.audio.com",
                 Categories = new List<PlayableContentCategory>()
                 {
                     new PlayableContentCategory()
@@ -138,7 +138,7 @@ namespace BusinessLogicTests
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
-                AudioUrl = "www.audio.com",
+                Url = "www.audio.com",
                 Categories = new List<PlayableContentCategory>()
                 {
                     new PlayableContentCategory()
@@ -217,7 +217,7 @@ namespace BusinessLogicTests
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
-                AudioUrl = "www.audio.com",
+                Url = "www.audio.com",
                 Categories = new List<PlayableContentCategory>()
                 {
                     new PlayableContentCategory()
