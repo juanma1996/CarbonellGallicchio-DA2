@@ -67,7 +67,7 @@ namespace AdapterTests
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void TestUpdateAudioContentNotExistent()
+        public void TestUpdateVideoContentNotExistent()
         {
             int audioContentId = 1;
             VideoContentModel videoContentModel = new VideoContentModel()

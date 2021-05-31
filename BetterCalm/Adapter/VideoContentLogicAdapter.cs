@@ -56,7 +56,17 @@ namespace Adapter
         }
         public void Update(VideoContentModel videoContentModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                videoContentModelValidator.Validate(videoContentModel);
+                videoContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
+                VideoContent videoContentToUpdate = mapper.Map<VideoContent>(videoContentModel);
+                playableContentLogic.Update(videoContentToUpdate);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.errorMessage);
+            }
         }
     }
 }
