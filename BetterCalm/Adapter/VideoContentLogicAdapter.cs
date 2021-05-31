@@ -45,7 +45,14 @@ namespace Adapter
         }
         public void DeleteById(int videoContentId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                playableContentLogic.DeleteById(videoContentId);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.errorMessage);
+            }
         }
         public void Update(VideoContentModel videoContentModel)
         {
