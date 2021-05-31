@@ -1,7 +1,10 @@
 ﻿using Adapter.Mapper;
+using AdapterExceptions;
 using AdapterInterface;
 using AutoMapper;
+using BusinessExceptions;
 using BusinessLogicInterface;
+using Domain;
 using Model.In;
 using Model.Out;
 using System;
@@ -24,21 +27,26 @@ namespace Adapter
             this.playlistModelValidator = playlistModelValidator;
         }
 
+        public VideoContentBasicInfoModel GetById(int videoContentId)
+        {
+            try
+            {
+                VideoContent videoContent = (VideoContent)playableContentLogic.GetById(videoContentId);
+                return mapper.Map<VideoContentBasicInfoModel>(videoContent);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.errorMessage);
+            }
+        }
         public VideoContentBasicInfoModel Add(VideoContentModel videoContentModel)
         {
             throw new NotImplementedException();
         }
-
         public void DeleteById(int videoContentId)
         {
             throw new NotImplementedException();
         }
-
-        public VideoContentBasicInfoModel GetById(int videoContentId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(VideoContentModel videoContentModel)
         {
             throw new NotImplementedException();
