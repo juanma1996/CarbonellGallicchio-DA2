@@ -21,6 +21,10 @@
 	  <Compile Remove="Migrations\20210506164839_BugFix.Designer.cs" />
 	  <Compile Remove="Migrations\20210506165102_CascadeActions.cs" />
 	  <Compile Remove="Migrations\20210506165102_CascadeActions.Designer.cs" />
+	  <Compile Remove="Migrations\20210531031228_PlayableContent.cs" />
+	  <Compile Remove="Migrations\20210531031228_PlayableContent.Designer.cs" />
+	  <Compile Remove="Migrations\20210531032012_PlayableContentsd.cs" />
+	  <Compile Remove="Migrations\20210531032012_PlayableContentsd.Designer.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

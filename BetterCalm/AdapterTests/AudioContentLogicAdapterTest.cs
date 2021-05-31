@@ -30,7 +30,7 @@ namespace AdapterTests
         public void TestGetByIdAudioContentNotExistentId()
         {
             int audioContentId = 1;
-            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(It.IsAny<int>())).Throws(new NullObjectException("Not exist audio content"));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
@@ -50,7 +50,7 @@ namespace AdapterTests
         public void TestDeleteByIdAudioContentNotExistentId()
         {
             int audioContentId = 1;
-            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.DeleteById(It.IsAny<int>())).Throws(new NullObjectException("Not exist audio content"));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
@@ -92,7 +92,7 @@ namespace AdapterTests
                     }
                 }
             };
-            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Update(It.IsAny<AudioContent>())).Throws(new NullObjectException("Not exist audio content"));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
@@ -134,7 +134,7 @@ namespace AdapterTests
                     }
                 }
             };            
-            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
@@ -176,7 +176,7 @@ namespace AdapterTests
                     }
                 }
             };
-            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
@@ -218,7 +218,7 @@ namespace AdapterTests
                     }
                 }
             };
-            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
@@ -260,7 +260,7 @@ namespace AdapterTests
                     }
                 }
             };
-            Mock<IAudioContentLogic> mock = new Mock<IAudioContentLogic>(MockBehavior.Strict);
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);

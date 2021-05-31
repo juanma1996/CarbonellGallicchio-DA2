@@ -13,16 +13,16 @@ namespace Adapter.Mapper.Profiles
 
             CreateMap<AudioContentModel, AudioContent>();
                 
-            CreateMap<CategoryModel, AudioContentCategory>()
-                .ForMember(c => c.AudioContent , opt => opt.Ignore())
-                .ForMember(c => c.AudioContentId, opt => opt.Ignore())
+            CreateMap<CategoryModel, PlayableContentCategory>()
+                .ForMember(c => c.PlayableContent , opt => opt.Ignore())
+                .ForMember(c => c.PlayableContentId, opt => opt.Ignore())
                 .ForMember(c => c.Category, opt => opt.Ignore())
                 .ForMember(c => c.CategoryId, opt => opt.MapFrom(x => x.Id));
-            CreateMap<PlaylistModel, AudioContentPlaylist>()
+            CreateMap<PlaylistModel, PlayableContentPlaylist>()
                 .ForMember(c => c.Playlist, opt => opt.Condition(x => x.Id == default))
                 .ForMember(c => c.Playlist, opt => opt.MapFrom(x => x))
-                .ForMember(c => c.AudioContentId, opt => opt.Ignore())
-                .ForMember(c => c.AudioContent, opt => opt.Ignore())
+                .ForMember(c => c.PlayableContentId, opt => opt.Ignore())
+                .ForMember(c => c.PlayableContent, opt => opt.Ignore())
                 .ForMember(c => c.PlaylistId, opt => opt.MapFrom(x => x.Id));
             CreateMap<PlaylistModel, Playlist>()
                 .ForMember(c => c.Categories, opt => opt.Ignore())

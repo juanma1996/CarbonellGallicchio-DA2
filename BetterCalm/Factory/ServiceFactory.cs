@@ -35,7 +35,7 @@ namespace Factory
             services.AddScoped<IModelMapper, ModelMapper>();
             services.AddScoped<ICategoryLogicAdapter, CategoryLogicAdapter>();
             services.AddScoped<IAudioContentLogicAdapter, AudioContentLogicAdapter>();
-            services.AddScoped<IAudioContentLogic, AudioContentLogic>();
+            services.AddScoped<IPlayableContentLogic, PlayableContentLogic>();
             services.AddScoped<IPsychologistLogicAdapter, PsychologistLogicAdapter>();
             services.AddScoped<IPsychologistLogic, PsychologistLogic>();
             services.AddScoped<IProblematicLogic, ProblematicLogic>();

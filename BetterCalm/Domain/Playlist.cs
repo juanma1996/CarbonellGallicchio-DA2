@@ -8,6 +8,6 @@ namespace Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public List<CategoryPlaylist> Categories { get; set; }
-        public List<AudioContentPlaylist> AudioContents { get; set; }
+        public List<PlayableContentPlaylist> AudioContents { get; set; }
     }
 }

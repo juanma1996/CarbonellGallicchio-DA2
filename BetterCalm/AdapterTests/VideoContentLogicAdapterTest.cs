@@ -9,7 +9,7 @@ namespace AdapterTests
     public class VideoContentLogicAdapterTest
     {
         [TestMethod]
-        public void TestAudioContentMapOk()
+        public void TestVideoContentMapOk()
         {
             ModelMapper mapper = new ModelMapper();
             MapperConfiguration configuration = new MapperConfiguration(mapper => mapper.AddProfile(new VideoContentProfile()));
