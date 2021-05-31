@@ -148,5 +148,131 @@ namespace AdapterTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestUpdateVideoContentNotValidName()
+        {
+            int videoContentId = 1;
+            VideoContentModel videoContentModel = new VideoContentModel()
+            {
+                Id = videoContentId,
+                Name = "",
+                Playlists = new List<PlaylistModel>()
+                {
+                    new PlaylistModel()
+                    {
+                        Id = 1,
+                        Name = "Name",
+                        Description = "Description"
+                    }
+                },
+                Categories = new List<CategoryModel>()
+                {
+                    new CategoryModel()
+                    {
+                        Id = 1,
+                        Name = "Name"
+                    }
+                }
+            };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<VideoContent>()));
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>()));
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            videoContentLogicAdapter.Update(videoContentModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestCreateVideoContentWithInvalidPlaylist()
+        {
+            int videoContentId = 1;
+            VideoContentModel videoContentModel = new VideoContentModel()
+            {
+                Id = videoContentId,
+                Name = "Video content",
+                Playlists = new List<PlaylistModel>()
+                {
+                    new PlaylistModel()
+                    {
+                        Id = 1,
+                        Name = "",
+                        Description = "Description"
+                    }
+                },
+                Categories = new List<CategoryModel>()
+                {
+                    new CategoryModel()
+                    {
+                        Id = 1,
+                        Name = "Name"
+                    }
+                }
+            };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Create(It.IsAny<VideoContent>())).Returns(It.IsAny<VideoContent>());
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>())).Throws(new InvalidAttributeException("Playlist name can't be empty"));
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            videoContentLogicAdapter.Add(videoContentModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestUpdateVideoContentWithInvalidPlaylist()
+        {
+            int videoContentId = 1;
+            VideoContentModel videoContentModel = new VideoContentModel()
+            {
+                Id = videoContentId,
+                Name = "Video content",
+                Playlists = new List<PlaylistModel>()
+                {
+                    new PlaylistModel()
+                    {
+                        Id = 1,
+                        Name = "",
+                        Description = "Description"
+                    }
+                },
+                Categories = new List<CategoryModel>()
+                {
+                    new CategoryModel()
+                    {
+                        Id = 1,
+                        Name = "Name"
+                    }
+                }
+            };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<VideoContent>()));
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>())).Throws(new InvalidAttributeException("Playlist name can't be empty"));
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            videoContentLogicAdapter.Update(videoContentModel);
+
+            mock.VerifyAll();
+        }
     }
 }

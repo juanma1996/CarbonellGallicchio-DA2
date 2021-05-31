@@ -41,7 +41,18 @@ namespace Adapter
         }
         public VideoContentBasicInfoModel Add(VideoContentModel videoContentModel)
         {
-            throw new NotImplementedException();
+            videoContentModelValidator.Validate(videoContentModel);
+            videoContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
+            try
+            {
+                VideoContent videoContentIn = mapper.Map<VideoContent>(videoContentModel);
+                VideoContent videoContent = (VideoContent)playableContentLogic.Create(videoContentIn);
+                return mapper.Map<VideoContentBasicInfoModel>(videoContent);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.errorMessage);
+            }
         }
         public void DeleteById(int videoContentId)
         {
