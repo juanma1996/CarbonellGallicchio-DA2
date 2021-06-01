@@ -32,7 +32,7 @@
                             <td>{{audio.Name}}</td>
                             <td>{{audio.Creator}}</td>
                             <td>{{audio.Duration}}</td>
-                            <td class=" text-right">
+                            <td class=" text-right" *ngIf=isAutenticated>
                                 <button class=" btn btn-link btn-sm btn-icon" tooltip="Refresh"
                                     type="button" [routerLink]="['/audioContent/edit', audio.Id]" routerLinkActive="active">
                                     <i class=" tim-icons icon-pencil"> </i>

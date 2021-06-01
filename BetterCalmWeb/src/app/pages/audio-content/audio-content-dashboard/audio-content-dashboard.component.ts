@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs/operators';
+import { SessionService } from 'src/app/services/session/session.service';
 
 @Component({
   selector: 'app-audio-content-dashboard',
@@ -12,6 +13,7 @@ import { catchError } from 'rxjs/operators';
 export class AudioContentDashboardComponent implements OnInit {
 
   public categoryId;
+  public isAutenticated: boolean;
   public audioContent = [
     {
       Id: 1,
@@ -43,11 +45,13 @@ export class AudioContentDashboardComponent implements OnInit {
   constructor(
     public route: ActivatedRoute,
     private audioContentService: AudioContentService,
+    private sessionService: SessionService,
     public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('categoryId');
+    this.isAutenticated = this.sessionService.isAuthenticated();
   }
 
   delete(id) {
