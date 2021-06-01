@@ -1,8 +1,7 @@
 <form [formGroup]="audioContentForm">
-
     <div class=" card-body">
         <div class=" row">
-            <div class=" col-md-6 pr-md-1">ƒ
+            <div class=" col-md-6 pr-md-1">
                 <div class=" form-group has-label" [ngClass]="{
                     'has-danger':
                     !audioContentForm.get('name').valid && (audioContentForm.get('name').touched || create)
@@ -65,7 +64,7 @@
                     !audioContentForm.get('categories').valid
                 }">
                     <label> Categories </label>
-                    <angular2-multiselect [data]="categoriesData" [ngModel]="" [ngModelOptions]="{standalone: true}"
+                    <angular2-multiselect [data]="categoriesData" [ngModel]="chooseData" [ngModelOptions]="{standalone: true}"
                         [settings]="{
                             singleSelection: true,
                             text: 'Categories',

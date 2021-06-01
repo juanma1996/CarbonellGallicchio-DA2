@@ -17,6 +17,7 @@ export class AudioFormComponent implements OnInit {
   selectedCategory: FormGroup;
   selectedPlaylist: FormGroup;
   create: boolean = false;
+  chooseData = [{id: 2, itemName: "Meditar"}];
 
 
   public categoriesData = [];
