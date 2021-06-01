@@ -8,9 +8,10 @@ import { CreateAudioContentComponent } from './create-audio-content/create-audio
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AudioFormComponent } from './audio-form/audio-form.component';
+import { EditAudioContentComponent } from './edit-audio-content/edit-audio-content.component';
 
 @NgModule({
-  declarations: [AudioContentDashboardComponent, CreateAudioContentComponent, AudioFormComponent],
+  declarations: [AudioContentDashboardComponent, CreateAudioContentComponent, AudioFormComponent, EditAudioContentComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(AudioContentRoutes),

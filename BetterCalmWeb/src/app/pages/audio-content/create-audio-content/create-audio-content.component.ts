@@ -22,7 +22,6 @@ export class CreateAudioContentComponent implements OnInit {
   public newPlaylist: boolean = false;
 
   constructor(
-    private categoriesService: CategoriesService,
     private audioContentService: AudioContentService,
     public toastr: ToastrService,
     private fb: FormBuilder
@@ -33,7 +32,7 @@ export class CreateAudioContentComponent implements OnInit {
   }
 
   initializeAudioContentForm(): void {
-    this.audioForm.create =true;
+    this.audioForm.submited =true;
     this.createAudioContentForm = this.fb.group({
       name: new FormControl(null, Validators.required),
       creatorName: new FormControl(null, Validators.required),

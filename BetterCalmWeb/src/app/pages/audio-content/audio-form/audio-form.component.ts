@@ -16,8 +16,9 @@ export class AudioFormComponent implements OnInit {
   audioContentForm: FormGroup;
   selectedCategory: FormGroup;
   selectedPlaylist: FormGroup;
-  create: boolean = false;
-  chooseData = [{id: 2, itemName: "Meditar"}];
+  submited: boolean = false;
+  originalPlaylist = [];
+  originalCategory = [];
 
 
   public categoriesData = [];
@@ -68,27 +69,6 @@ export class AudioFormComponent implements OnInit {
       )
   }
 
-  createAudioContent() {
-    this.addNewPlaylist();
-    this.create = true;
-    if (!this.audioContentForm.invalid) {
-
-      this.audioContentService.add(this.audioContentForm.value)
-        .subscribe(
-          response => {
-            this.setSuccess();
-            this.getCategories();
-          },
-          catchError => {
-            this.setError(catchError);
-          }
-        )
-    }
-    else {
-      this.setError("Please verify the entered data.");
-    }
-  }
-
   mapData(originalData, multiSelectData) {
     originalData.forEach(item => {
       var data = {
@@ -128,7 +108,7 @@ export class AudioFormComponent implements OnInit {
   playlistSelect(item: any) {
     if (this.playlists.value.length > 0) this.playlists.removeAt(0);
     this.selectedPlaylist = this.fb.group({
-      id: (item.id, Validators.required),
+      id: item.id,
       name: item.itemName,
       description: "Empty"
     })
@@ -145,12 +125,6 @@ export class AudioFormComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
     })
-  }
-
-  addNewPlaylist() {
-    if (this.newPlaylist) {
-      this.playlists.push(this.selectedPlaylist);
-    }
   }
 
   private setError(message) {
