@@ -5,8 +5,8 @@
                 <div class=" card-header">
                     <div class="row">
                         <div class="float-right">
-                            <button class="btn btn-default btn-fab btn-icon btn-round" [routerLink]="['/playlists', categoryId]"
-                                routerLinkActive="active">
+                            <button class="btn btn-default btn-fab btn-icon btn-round"
+                                [routerLink]="['/playlists', categoryId]" routerLinkActive="active">
                                 <i class="tim-icons icon-minimal-left"></i>
                             </button>
                         </div>
@@ -32,6 +32,15 @@
                             <td>{{audio.Name}}</td>
                             <td>{{audio.Creator}}</td>
                             <td>{{audio.Duration}}</td>
+                            <td class=" text-right" *ngIf=isAutenticated>
+                                <button class=" btn btn-link btn-sm btn-icon" tooltip="Refresh"
+                                    type="button" [routerLink]="['/audioContent/edit', audio.Id]" routerLinkActive="active">
+                                    <i class=" tim-icons icon-pencil"> </i>
+                                </button>
+                                <button class=" btn btn-danger btn-link btn-sm" tooltip="Delete" type="button" (click)="delete(audio.Id)">
+                                    <i class=" tim-icons icon-simple-remove"> </i>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
