@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdministratorModel } from 'src/app/models/administrator/administrator-basic-info';
 import { AdministratorService } from 'src/app/services/administrator/administrator.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AdministratorFormComponent } from '../administrator-form/administrator-form.component';
 
 @Component({
   selector: 'app-create-administrator',
@@ -10,7 +11,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
   styleUrls: ['./create-administrator.component.scss']
 })
 export class CreateAdministratorComponent implements OnInit {
-  administratorForm: FormGroup;
+  @ViewChild(AdministratorFormComponent, { static: true }) public administratorForm: AdministratorFormComponent;
+  createAdministratorForm: FormGroup;
   create: boolean = false;
 
   constructor(
@@ -24,7 +26,7 @@ export class CreateAdministratorComponent implements OnInit {
   }
 
   initializeForm(): void {
-    this.administratorForm = this.fb.group({
+    this.createAdministratorForm = this.fb.group({
       name: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, Validators.required),
@@ -36,9 +38,9 @@ export class CreateAdministratorComponent implements OnInit {
   }
 
   registerAdministrator = function () {
-    this.create = true;
-    if (!this.administratorForm.invalid) {
-      this.administratorService.add(this.administratorForm.value)
+    this.administratorForm.submited = true;
+    if (!this.createAdministratorForm.invalid) {
+      this.administratorService.add(this.createAdministratorForm.value)
         .subscribe(
           response => {
             this.setSuccess()

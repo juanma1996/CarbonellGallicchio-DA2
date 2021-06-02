@@ -69,7 +69,7 @@ export const ROUTES: RouteInfo[] = [
     rtlTitle: "لوحة القيادة"
   },
   {
-    path: "administrator",
+    path: "/administrator",
     title: "Administrators",
     type: "sub",
     icontype: "tim-icons icon-settings-gear-63",
