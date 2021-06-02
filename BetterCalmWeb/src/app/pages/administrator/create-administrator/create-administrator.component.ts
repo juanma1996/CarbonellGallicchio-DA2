@@ -4,6 +4,7 @@ import { AdministratorService } from 'src/app/services/administrator/administrat
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AdministratorFormComponent } from '../administrator-form/administrator-form.component';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: 'app-create-administrator',
@@ -18,6 +19,7 @@ export class CreateAdministratorComponent implements OnInit {
   constructor(
     private administratorService: AdministratorService,
     public toastr: ToastrService,
+    public customToast: ToastService,
     private fb: FormBuilder
   ) { }
 
@@ -43,44 +45,16 @@ export class CreateAdministratorComponent implements OnInit {
       this.administratorService.add(this.createAdministratorForm.value)
         .subscribe(
           response => {
-            this.setSuccess()
+            this.customToast.setSuccess()
           },
           catchError => {
-            this.setError(catchError);
+            this.customToast.setError(catchError);
           }
         )
     }
     else {
-      this.setError("Please verify the entered data.")
+      this.customToast.setError("Please verify the entered data.")
     }
-  }
-
-  private setError(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-danger alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
-  private setSuccess() {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      "The administrator registration was successful",
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-success alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
   }
 
 }
