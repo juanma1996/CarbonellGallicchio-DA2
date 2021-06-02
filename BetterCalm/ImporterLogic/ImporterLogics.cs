@@ -1,4 +1,5 @@
-﻿using ImporterInterface;
+﻿using AutoMapper;
+using ImporterInterface;
 using ImporterInterface.Models;
 using ImporterLogicInterface;
 using Microsoft.Extensions.Configuration;
@@ -8,16 +9,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using AdapterInterface;
+using ImporterLogic.Mapper;
 
 namespace ImporterLogic
 {
     public class ImporterLogics : IImporterLogic
     {
         private readonly IConfiguration configuration;
+        private readonly IMapper mapper;
+        private readonly IAudioContentLogicAdapter audioContentLogicAdapter;
+        private readonly IVideoContentLogicAdapter videoContentLogicAdapter;
 
-        public ImporterLogics(IConfiguration configuration)
+        public ImporterLogics(IConfiguration configuration, IModelMapper mapper, IAudioContentLogicAdapter audioContentLogicAdapter,
+            IVideoContentLogicAdapter videoContentLogicAdapter)
         {
             this.configuration = configuration;
+            this.mapper = mapper.Configure();
+            this.audioContentLogicAdapter = audioContentLogicAdapter;
+            this.videoContentLogicAdapter = videoContentLogicAdapter;
         }
 
         private static IEnumerable<Type> GetTypesInAssembly<Interface>(Assembly assembly)
@@ -57,6 +67,19 @@ namespace ImporterLogic
                     {
                         foundImporter = true;
                         ContentImporterModel contentImporterModel = contentImporter.ImportContent(importModel.FilePath);
+                        switch (contentImporterModel.PlayableContentType)
+                        {
+                            case ImporterInterface.Enums.PlayableContentType.AudioContent:
+                                AudioContentModel audioContentModel = mapper.Map<AudioContentModel>(contentImporterModel);
+                                audioContentLogicAdapter.Add(audioContentModel);
+                                break;
+                            case ImporterInterface.Enums.PlayableContentType.VideoContent:
+                                VideoContentModel videoContentModel = mapper.Map<VideoContentModel>(contentImporterModel);
+                                videoContentLogicAdapter.Add(videoContentModel);
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }

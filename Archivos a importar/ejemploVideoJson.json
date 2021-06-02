@@ -1,0 +1,28 @@
+{
+  "name": "Un video json",
+  "duration": {
+        "ticks": 0,
+        "days": 0,
+        "hours": 0,
+        "milliseconds": 0,
+        "minutes": 2,
+        "seconds": 2,
+        "totalDays": 0,
+        "totalHours": 0,
+        "totalMilliseconds": 0,
+        "totalMinutes": 0,
+        "totalSeconds": 0
+    },
+  "creatorName": "El creador",
+  "imageUrl": "",
+  "url": "youtube.com/videoJson",
+	  "categories": [{
+	  "id": 3,
+	  "name": "Nombre"
+	}],
+  "playlists": [{
+	  "name": "Videos json",
+	  "description": "Descripcion"
+	}],
+	"playableContentType": 1
+}

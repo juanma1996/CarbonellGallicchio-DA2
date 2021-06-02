@@ -13,7 +13,7 @@ namespace Adapter.Mapper.Profiles
                  .ForMember(c => c.AudioUrl, opt => opt.MapFrom(x => x.Url));
 
             CreateMap<AudioContentModel, AudioContent>()
-                .ForMember(c => c.Url, opt => opt.MapFrom(x => x.AudioUrl)); ;
+                .ForMember(c => c.Url, opt => opt.MapFrom(x => x.AudioUrl));
 
             CreateMap<CategoryModel, PlayableContentCategory>()
                 .ForMember(c => c.PlayableContent, opt => opt.Ignore())
