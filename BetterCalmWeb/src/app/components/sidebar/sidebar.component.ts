@@ -69,11 +69,32 @@ export const ROUTES: RouteInfo[] = [
     rtlTitle: "لوحة القيادة"
   },
   {
-    path: "/createAdmin",
-    title: "Register administrator",
-    type: "link",
-    icontype: "tim-icons icon-calendar-60",
-    rtlTitle: "لوحة القيادة"
+    path: "administrator",
+    title: "Administrators",
+    type: "sub",
+    icontype: "tim-icons icon-settings-gear-63",
+    collapse: "",
+    rtlTitle: "صفحات",
+    isCollapsed: true,
+    children: [
+      
+      {
+        path: "create",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Register administrator",
+        type: "link",
+        smallTitle: "P"
+      },
+      {
+        path: "maintenance",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Administrators maintance",
+        type: "link",
+        smallTitle: "P"
+      },
+    ]
   },
   {
     path: "",
@@ -97,6 +118,14 @@ export const ROUTES: RouteInfo[] = [
         rtlTitle: " التسعير ",
         rtlSmallTitle: "ع ",
         title: "Create Audio Content",
+        type: "link",
+        smallTitle: "P"
+      },
+      {
+        path: "/administrator/maintenance",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Administrators maintance",
         type: "link",
         smallTitle: "P"
       },

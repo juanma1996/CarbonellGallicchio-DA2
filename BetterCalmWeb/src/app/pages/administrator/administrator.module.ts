@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CreateAdministratorComponent } from './create-administrator/create-administrator.component';
 import { RouterModule } from '@angular/router';
 import { AdministratorRoutes } from './administrator.routing';
+import { EditAdministratorDashboardComponent } from './edit-administrator-dashboard/edit-administrator-dashboard.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AdministratorRoutes } from './administrator.routing';
     ReactiveFormsModule
   ],
   declarations: [
-    CreateAdministratorComponent
+    CreateAdministratorComponent,
+    EditAdministratorDashboardComponent
   ],
   exports: [
     CreateAdministratorComponent

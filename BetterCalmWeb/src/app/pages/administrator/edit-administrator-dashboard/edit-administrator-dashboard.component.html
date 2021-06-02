@@ -1,0 +1,45 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-12">
+            <div class=" card">
+                <div class=" card-header">
+                    <div class="row">
+                        <div class="float-right">
+                            <h2 class=" title p-2">Administrators</h2>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center"></th> <!-- IMAGE-->
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let administrator of administrators">
+                            <td class="text-center">{{administrator.Id}}</td>
+                            <td></td>
+                            <td>{{administrator.Name}}</td>
+                            <td>{{administrator.Email}}</td>
+                            <td>{{administrator.Password}}</td>
+                            <td class=" text-right" *ngIf=isAutenticated>
+                                <button class=" btn btn-link btn-sm btn-icon" tooltip="Refresh" type="button"
+                                    [routerLink]="['/administrator/edit', administrator.Id]" routerLinkActive="active">
+                                    <i class=" tim-icons icon-pencil"> </i>
+                                </button>
+                                <button class=" btn btn-danger btn-link btn-sm" tooltip="Delete" type="button"
+                                    (click)="delete(administrator.Id)">
+                                    <i class=" tim-icons icon-simple-remove"> </i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
