@@ -5,37 +5,37 @@ import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ToastService {
-    constructor(public toastr: ToastrService,) { }
+  constructor(public toastr: ToastrService, ) { }
 
-    private setError(message) {
-        console.log("im in the new service")
-        this.toastr.show(
-          '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-          message,
-          {
-            timeOut: 5000,
-            closeButton: true,
-            enableHtml: true,
-            toastClass: "alert alert-danger alert-with-icon",
-            positionClass: "toast-top-right"
-          }
-        );
+  public setError(message) {
+    console.log("im in the new service")
+    this.toastr.show(
+      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
+      message,
+      {
+        timeOut: 5000,
+        closeButton: true,
+        enableHtml: true,
+        toastClass: "alert alert-danger alert-with-icon",
+        positionClass: "toast-top-right"
       }
-    
-      private setSuccess() {
-        this.toastr.show(
-          '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-          "The administrator registration was successful",
-          {
-            timeOut: 5000,
-            closeButton: true,
-            enableHtml: true,
-            toastClass: "alert alert-success alert-with-icon",
-            positionClass: "toast-top-right"
-          }
-        );
+    );
+  }
+
+  public setSuccess(message) {
+    this.toastr.show(
+      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
+      message,
+      {
+        timeOut: 5000,
+        closeButton: true,
+        enableHtml: true,
+        toastClass: "alert alert-success alert-with-icon",
+        positionClass: "toast-top-right"
       }
+    );
+  }
 }
