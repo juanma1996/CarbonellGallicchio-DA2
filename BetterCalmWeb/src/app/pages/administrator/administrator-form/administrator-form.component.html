@@ -2,9 +2,9 @@
     <div class=" row">
         <div class=" col-md-6 pr-md-1">
             <div class=" form-group has-label" [ngClass]="{
-                                            'has-danger':
-                                            !administratorForm.get('name').valid && (administratorForm.get('name').touched || submited)
-                                        }">
+                        'has-danger':
+                        !administratorForm.get('name').valid && (administratorForm.get('name').touched || submited)
+                    }">
                 <label> Name </label>
                 <input class=" form-control" placeholder="Mike" type="text" formControlName="name" />
                 <label class="error"
@@ -14,9 +14,9 @@
         </div>
         <div class=" col-md-6 pl-md-1">
             <div class=" form-group has-label" [ngClass]="{
-                                            'has-danger':
-                                            !administratorForm.get('email').valid && (administratorForm.get('email').touched || submited)
-                                            }">
+                    'has-danger':
+                    !administratorForm.get('email').valid && (administratorForm.get('email').touched || submited)
+                    }">
                 <label for="exampleInputEmail1"> Email address </label>
                 <input class=" form-control" placeholder="mike@email.com" type="email" formControlName="email" />
                 <label class="error"
@@ -28,9 +28,9 @@
     <div class=" row">
         <div class=" col-md-6 pr-md-1">
             <div class=" form-group has-label" [ngClass]="{
-                                            'has-danger':
-                                            !administratorForm.get('password').valid && (administratorForm.get('password').touched || submited)
-                                        }">
+                        'has-danger':
+                        !administratorForm.get('password').valid && (administratorForm.get('password').touched || submited)
+                    }">
                 <label> Password </label>
                 <input class=" form-control" placeholder="Password01" type="text" formControlName="password" />
                 <label class="error"
