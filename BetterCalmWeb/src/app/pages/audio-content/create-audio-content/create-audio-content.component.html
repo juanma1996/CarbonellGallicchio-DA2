@@ -1,18 +1,18 @@
-<div class=" content">
-    <div class=" row">
-        <div class=" col-md-8">
-            <div class=" card">
-                <div class=" card-header">
-                    <h2 class=" title">Create Audio Content</h2>
-                </div>
-                <form [formGroup]= "createAudioContentForm">
+<form [formGroup]="createAudioContentForm">
+    <div class=" content">
+        <div class=" row">
+            <div class=" col-md-8">
+                <div class=" card">
+                    <div class=" card-header">
+                        <h2 class=" title">Create Audio Content</h2>
+                    </div>
                     <app-audio-form [parentForm]="createAudioContentForm"></app-audio-form>
-                </form>
-                <div class=" card-footer">
-                    <button class=" btn btn-fill btn-danger" type="submit" (click)="createAudioContent()">Create
+                    <div class=" card-footer">
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="createAudioContent()">Create
                             audio content</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
