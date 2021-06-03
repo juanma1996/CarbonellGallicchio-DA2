@@ -45,7 +45,7 @@ export class CreateAdministratorComponent implements OnInit {
       this.administratorService.add(this.createAdministratorForm.value)
         .subscribe(
           response => {
-            this.customToast.setSuccess()
+            this.customToast.setSuccess("The administrator registration was successful");
           },
           catchError => {
             this.customToast.setError(catchError);
