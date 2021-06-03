@@ -7,6 +7,7 @@ import { AdministratorRoutes } from './administrator.routing';
 import { EditAdministratorDashboardComponent } from './edit-administrator-dashboard/edit-administrator-dashboard.component';
 import { AdministratorFormComponent } from './administrator-form/administrator-form.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { EditAdministratorComponent } from './edit-administrator/edit-administrator.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
   declarations: [
     CreateAdministratorComponent,
     EditAdministratorDashboardComponent,
-    AdministratorFormComponent
+    AdministratorFormComponent,
+    EditAdministratorComponent
   ],
   exports: [
     CreateAdministratorComponent

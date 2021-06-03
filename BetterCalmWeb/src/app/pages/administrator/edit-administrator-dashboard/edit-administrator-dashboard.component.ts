@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AdministratorService } from 'src/app/services/administrator/administrator.service';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: 'app-edit-administrator-dashboard',
@@ -14,21 +16,25 @@ export class EditAdministratorDashboardComponent implements OnInit {
 
   rows: any = [
     {
+      id: 1,
       name: 'SuperAdmin',
       email: 'admin@gmail.com',
       password: '1234'
     },
     {
+      id: 3,
       name: 'Fede',
       email: 'fede@hotmail.com',
       password: 'Fede1'
     },
     {
+      id: 4,
       name: 'Juan',
       email: 'Juan@Juan.com',
       password: 'Juan1'
     },
     {
+      id: 5,
       name: 'fede',
       email: 'Fede@fede.com',
       password: 'Fede'
@@ -36,7 +42,8 @@ export class EditAdministratorDashboardComponent implements OnInit {
   ]
 
   constructor(
-    public toastr: ToastrService,
+    private administratorService: AdministratorService,
+    public customToast: ToastService,
   ) {
     this.administrators = this.rows.map((prop, key) => {
       return {
@@ -71,32 +78,16 @@ export class EditAdministratorDashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  private setError(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-danger alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
-  private setSuccess() {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      "The audio content was successfully deleted",
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-success alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
+  delete(id) {
+    this.administratorService.delete(id)
+      .subscribe(
+        response => {
+          this.customToast.setSuccess("The administrator was successfully deleted");
+        },
+        catchError => {
+          this.customToast.setError(catchError);
+        }
+      )
   }
 
 }
