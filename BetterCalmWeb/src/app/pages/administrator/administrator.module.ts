@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { AdministratorRoutes } from './administrator.routing';
 import { EditAdministratorDashboardComponent } from './edit-administrator-dashboard/edit-administrator-dashboard.component';
 import { AdministratorFormComponent } from './administrator-form/administrator-form.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    NgxDatatableModule,
     RouterModule.forChild(AdministratorRoutes),
     ReactiveFormsModule
   ],
