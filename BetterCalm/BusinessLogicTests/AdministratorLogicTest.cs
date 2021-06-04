@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using BusinessExceptions;
 using BusinessLogic;
@@ -241,6 +242,34 @@ namespace BusinessLogicTests
             Administrator response = administratorLogic.Add(administrator);
 
             mock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void TestGetAdministratorsOk()
+        {
+            Administrator firstAdministratorToReturn = new Administrator
+            {
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Administrator secondAdministratorToReturn = new Administrator
+            {
+                Name = "Fede",
+                Email = "fede@gmail.com",
+                Password = "Password01",
+            };
+            List<Administrator> administratorsToReturn = new List<Administrator>() { firstAdministratorToReturn, secondAdministratorToReturn };
+            Mock<IRepository<Administrator>> mock = new Mock<IRepository<Administrator>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<Administrator, bool>>>())).Returns(administratorsToReturn);
+            Mock<IValidator<Administrator>> validatorMock = new Mock<IValidator<Administrator>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Administrator>()));
+            AdministratorLogic administratorLogic = new AdministratorLogic(mock.Object, validatorMock.Object);
+
+            List<Administrator> result = administratorLogic.GetAll();
+
+            mock.VerifyAll();
+            Assert.AreEqual(administratorsToReturn.Count, result.Count);
         }
     }
 }
