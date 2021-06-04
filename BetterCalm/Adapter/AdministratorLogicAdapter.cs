@@ -80,7 +80,8 @@ namespace Adapter
 
         public List<AdministratorBasicInfoModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            List<Administrator> administrators = administratorLogic.GetAll();
+            return mapper.Map<List<AdministratorBasicInfoModel>>(administrators);
         }
     }
 }
