@@ -3,6 +3,7 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using System;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -100,6 +101,11 @@ namespace WebApi.Controllers
         {
             administratorDomainToModelAdapter.Update(administratorModel);
             return NoContent();
+        }
+
+        public object Get()
+        {
+            throw new NotImplementedException();
         }
     }
 }
