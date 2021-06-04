@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
 using Model.Out;
 using Moq;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace AdapterTests
@@ -235,6 +236,34 @@ namespace AdapterTests
             administratorLogicAdapter.Update(administratorModel);
 
             mock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void TestGetAdministratorsOk()
+        {
+            Administrator firstAdministratorToReturn = new Administrator
+            {
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            Administrator secondAdministratorToReturn = new Administrator
+            {
+                Name = "Fede",
+                Email = "fede@gmail.com",
+                Password = "Password01",
+            };
+            List<Administrator> administratorsToReturn = new List<Administrator>() { firstAdministratorToReturn, secondAdministratorToReturn };
+            Mock<IAdministratorLogic> mock = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(administratorsToReturn);
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<AdministratorModel>> mockAdministratorModel = new Mock<IValidator<AdministratorModel>>(MockBehavior.Strict);
+            AdministratorLogicAdapter administratorLogicAdapter = new AdministratorLogicAdapter(mock.Object, mapper, mockAdministratorModel.Object);
+
+            List<AdministratorBasicInfoModel> administrators = administratorLogicAdapter.GetAll();
+
+            mock.VerifyAll();
+            Assert.AreEqual(administratorsToReturn.Count, administrators.Count);
         }
     }
 }
