@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
 using System;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -103,9 +104,12 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        public object Get()
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [HttpGet]
+        public IActionResult Get()
         {
-            throw new NotImplementedException();
+            List<AdministratorBasicInfoModel> administrators = administratorDomainToModelAdapter.GetAll();
+            return Ok(administrators);
         }
     }
 }
