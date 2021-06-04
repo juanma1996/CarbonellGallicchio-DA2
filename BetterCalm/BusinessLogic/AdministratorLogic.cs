@@ -64,7 +64,8 @@ namespace BusinessLogic
 
         public List<Administrator> GetAll()
         {
-            throw new NotImplementedException();
+            List<Administrator> administrators = administratorRepository.GetAll();
+            return administrators;
         }
     }
 }
