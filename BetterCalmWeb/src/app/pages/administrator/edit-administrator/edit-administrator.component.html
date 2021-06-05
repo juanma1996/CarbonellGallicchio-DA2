@@ -1,15 +1,14 @@
-<form [formGroup]="createAdministratorForm">
+<form [formGroup]="editAdministratorForm">
     <div class=" content">
         <div class=" row">
             <div class=" col-md-8">
                 <div class=" card">
                     <div class=" card-header">
-                        <h2 class=" title">Register administrator</h2>
+                        <h2 class=" title">Update administrator</h2>
                     </div>
-                    <app-administrator-form [parentForm]="createAdministratorForm"></app-administrator-form>
+                    <app-administrator-form [parentForm]="editAdministratorForm"></app-administrator-form>
                     <div class=" card-footer">
-                        <button class=" btn btn-fill btn-danger" type="submit"
-                            (click)="registerAdministrator()">Register
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="updateAdministrator()">Update
                             administrator</button>
                     </div>
                 </div>

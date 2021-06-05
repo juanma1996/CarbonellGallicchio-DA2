@@ -25,7 +25,7 @@ const routes: Routes = [
           "./pages/examples/dashboard/dashboard.module#DashboardModule"
       },
       {
-        path: "createAdmin",
+        path: "administrator",
         loadChildren:
           "./pages/administrator/administrator.module#AdministratorModule"
       },

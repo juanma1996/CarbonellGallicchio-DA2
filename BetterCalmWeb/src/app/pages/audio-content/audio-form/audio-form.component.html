@@ -1,147 +1,145 @@
-<form [formGroup]="audioContentForm">
-    <div class=" card-body">
-        <div class=" row">
-            <div class=" col-md-6 pr-md-1">
-                <div class=" form-group has-label" [ngClass]="{
+<div class=" card-body">
+    <div class=" row">
+        <div class=" col-md-6 pr-md-1" [formGroup]="audioContentForm">
+            <div class=" form-group has-label" [ngClass]="{
                     'has-danger':
                     !audioContentForm.get('name').valid && (audioContentForm.get('name').touched || submited)
                 }">
-                    <label> Name </label>
-                    <input class=" form-control" placeholder="Alucinate" type="text" formControlName="name" />
-                    <label class="error"
-                        *ngIf="!audioContentForm.get('name').valid && (audioContentForm.get('name').touched || submited)">Please
-                        enter a valid name.</label>
-                </div>
+                <label> Name </label>
+                <input class=" form-control" placeholder="Alucinate" type="text" formControlName="name" />
+                <label class="error"
+                    *ngIf="!audioContentForm.get('name').valid && (audioContentForm.get('name').touched || submited)">Please
+                    enter a valid name.</label>
             </div>
-            <div class=" col-md-6 pl-md-1">
+        </div>
+        <div class=" col-md-6 pl-md-1" [formGroup]="audioContentForm">
+            <div class=" form-group">
+                <label> Duration </label>
                 <div class=" form-group">
-                    <label> Duration </label>
-                    <div class=" form-group">
-                        <!-- <timepicker formControlName="duration" [showMeridian]="false" [showSpinners]="false"
+                    <!-- <timepicker formControlName="duration" [showMeridian]="false" [showSpinners]="false"
                         [showMinutes]="true" > </timepicker> -->
-                    </div>
                 </div>
             </div>
         </div>
-        <div class=" row">
-            <div class=" col-md-6 pr-md-1">
-                <div class=" form-group has-label" [ngClass]="{
+    </div>
+    <div class=" row">
+        <div class=" col-md-6 pr-md-1" [formGroup]="audioContentForm">
+            <div class=" form-group has-label" [ngClass]="{
                     'has-danger':
                     !audioContentForm.get('creatorName').valid && (audioContentForm.get('creatorName').touched || submited)
                 }">
-                    <label> Creator </label>
-                    <input class=" form-control" placeholder="Dua Lipa" type="text" formControlName="creatorName" />
-                    <label class="error"
-                        *ngIf="!audioContentForm.get('creatorName').valid && (audioContentForm.get('creatorName').touched || submited)">Please
-                        enter a valid creator name.</label>
-                </div>
-            </div>
-            <div class=" col-md-6 pl-md-1">
-                <div class=" form-group">
-                    <label> Image Url </label>
-                    <input class=" form-control" placeholder="https://thisIsTheImageUrl.com" type="text"
-                        formControlName="imageUrl" />
-                </div>
+                <label> Creator </label>
+                <input class=" form-control" placeholder="Dua Lipa" type="text" formControlName="creatorName" />
+                <label class="error"
+                    *ngIf="!audioContentForm.get('creatorName').valid && (audioContentForm.get('creatorName').touched || submited)">Please
+                    enter a valid creator name.</label>
             </div>
         </div>
-        <div class=" row">
-            <div class=" col-md-6 pr-md-1">
-                <div class=" form-group has-label" [ngClass]="{
+        <div class=" col-md-6 pl-md-1" [formGroup]="audioContentForm">
+            <div class=" form-group">
+                <label> Image Url </label>
+                <input class=" form-control" placeholder="https://thisIsTheImageUrl.com" type="text"
+                    formControlName="imageUrl" />
+            </div>
+        </div>
+    </div>
+    <div class=" row">
+        <div class=" col-md-6 pr-md-1" [formGroup]="audioContentForm">
+            <div class=" form-group has-label" [ngClass]="{
                     'has-danger':
                     !audioContentForm.get('audioUrl').valid && (audioContentForm.get('audioUrl').touched || submited)
                 }">
-                    <label> Audio Url </label>
-                    <input class=" form-control" placeholder="https://thisIsTheAudioUrl.com" type="text"
-                        formControlName="audioUrl" />
-                    <label class="error"
-                        *ngIf="!audioContentForm.get('audioUrl').valid && (audioContentForm.get('audioUrl').touched || submited)">Please
-                        enter a valid audio Url.</label>
-                </div>
+                <label> Audio Url </label>
+                <input class=" form-control" placeholder="https://thisIsTheAudioUrl.com" type="text"
+                    formControlName="audioUrl" />
+                <label class="error"
+                    *ngIf="!audioContentForm.get('audioUrl').valid && (audioContentForm.get('audioUrl').touched || submited)">Please
+                    enter a valid audio Url.</label>
             </div>
-            <div class=" col-md-6 pl-md-1">
-                <div class=" form-group has-label" [ngClass]="{
+        </div>
+        <div class=" col-md-6 pl-md-1" [formGroup]="audioContentForm">
+            <div class=" form-group has-label" [ngClass]="{
                     'has-danger':
                     !audioContentForm.get('categories').valid
                 }">
-                    <label> Categories </label>
-                    <angular2-multiselect [data]="categoriesData" [ngModel]="originalCategory" [ngModelOptions]="{standalone: true}"
-                        [settings]="{
+                <label> Categories </label>
+                <angular2-multiselect [data]="categoriesData" [ngModel]="originalCategory"
+                    [ngModelOptions]="{standalone: true}" [settings]="{
                             singleSelection: true,
                             text: 'Categories',
                             classes: 'selectpicker btn-danger',
                             lazyLoading: true,
                             maxHeight: 100
-                        }" name="audioContentCategory" (onSelect)="categorySelect($event)" (onDeSelect)="categoryDeSelect($event)">
-                    </angular2-multiselect>
-                    <label class="error" *ngIf="!audioContentForm.get('categories').valid">Please select
-                        a category.</label>
-                </div>
+                        }" name="audioContentCategory" (onSelect)="categorySelect($event)"
+                    (onDeSelect)="categoryDeSelect($event)">
+                </angular2-multiselect>
+                <label class="error" *ngIf="!audioContentForm.get('categories').valid">Please select
+                    a category.</label>
             </div>
         </div>
-        <div class=" row">
-            <div class=" col-md-6 pr-md-1">
-                <div class=" form-group has-label" [ngClass]="{
+    </div>
+    <div class=" row">
+        <div class=" col-md-6 pr-md-1" [formGroup]="audioContentForm">
+            <div class=" form-group has-label" [ngClass]="{
                     'has-danger':
                     !audioContentForm.get('playlists').valid
                 }" *ngIf="selectedCategory && !newPlaylist && playlistsData.length>0">
-                    <label> Playlist </label>
-                    <angular2-multiselect [data]="playlistsData" [ngModel]="originalPlaylist" [ngModelOptions]="{standalone: true}"
-                        [settings]="{
+                <label> Playlist </label>
+                <angular2-multiselect [data]="playlistsData" [ngModel]="originalPlaylist"
+                    [ngModelOptions]="{standalone: true}" [settings]="{
                             singleSelection: true,
                             text: 'Playlists',
                             classes: 'selectpicker btn-danger',
                             lazyLoading: true,
                             maxHeight: 100
-                        }" name="audioContentPlaylist" (onSelect)="playlistSelect($event)" (onDeSelect)="playlistDeSelect($event)">
-                    </angular2-multiselect>
-                    <label class="error" *ngIf="!audioContentForm.get('playlists').valid">Please select
-                        a playlist.</label>
-                </div>
+                        }" name="audioContentPlaylist" (onSelect)="playlistSelect($event)"
+                    (onDeSelect)="playlistDeSelect($event)">
+                </angular2-multiselect>
+                <label class="error" *ngIf="!audioContentForm.get('playlists').valid">Please select
+                    a playlist.</label>
             </div>
         </div>
-        <form [formGroup]="selectedPlaylist">
-            <div class=" row" *ngIf="newPlaylist">
-                <div class=" col-md-6 pr-md-1">
-                    <div class=" form-group has-label" [ngClass]="{
+    </div>
+    <div class=" row" *ngIf="newPlaylist">
+        <div class=" col-md-6 pr-md-1" [formGroup]="selectedPlaylist">
+            <div class=" form-group has-label" [ngClass]="{
                         'has-danger':
                         !selectedPlaylist.get('name').valid && (selectedPlaylist.get('name').touched || submited)
                     }">
-                        <label> Playlist Name </label>
-                        <input class=" form-control" placeholder="Pop hits" type="text" formControlName="name" />
-                        <label class="error"
-                            *ngIf="!selectedPlaylist.get('name').valid && (selectedPlaylist.get('name').touched || submited)">Please
-                            enter a valid playlist name.</label>
-                    </div>
-                </div>
-                <div class=" col-md-6 pl-md-1">
-                    <div class=" form-group has-label" [ngClass]="{
+                <label> Playlist Name </label>
+                <input class=" form-control" placeholder="Pop hits" type="text" formControlName="name" />
+                <label class="error"
+                    *ngIf="!selectedPlaylist.get('name').valid && (selectedPlaylist.get('name').touched || submited)">Please
+                    enter a valid playlist name.</label>
+            </div>
+        </div>
+        <div class=" col-md-6 pl-md-1" [formGroup]="selectedPlaylist">
+            <div class=" form-group has-label" [ngClass]="{
                         'has-danger':
                         !selectedPlaylist.get('description').valid && (selectedPlaylist.get('description').touched || submited)
                     }">
-                        <label> Description </label>
-                        <input class=" form-control" placeholder="All Pop hits to have an amazing nigth" type="text"
-                            formControlName="description" />
-                        <label class="error"
-                            *ngIf="!selectedPlaylist.get('description').valid && (selectedPlaylist.get('description').touched || submited)">Please
-                            enter a valid playlist description.</label>
-                    </div>
-                </div>
+                <label> Description </label>
+                <input class=" form-control" placeholder="All Pop hits to have an amazing nigth" type="text"
+                    formControlName="description" />
+                <label class="error"
+                    *ngIf="!selectedPlaylist.get('description').valid && (selectedPlaylist.get('description').touched || submited)">Please
+                    enter a valid playlist description.</label>
             </div>
-            <div class=" row">
-                <div class=" col-md-6 pr-md-1">
-                    <div class=" form-group">
-                        <div class=" form-check pull-left">
-                            <label class=" form-check-label">
-                                <input class=" form-check-input" name="optionCheckboxes" type="checkbox"
-                                    [(ngModel)]="newPlaylist" [ngModelOptions]="{standalone: true}"
-                                    name="newPlaylistFlag" (ngModelChange)="createNewPlaylist($event)" />
-
-                                <span class=" form-check-sign"> </span> New playlist
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
-</form>
+    <div class=" row">
+        <div class=" col-md-6 pr-md-1">
+            <div class=" form-group">
+                <div class=" form-check pull-left">
+                    <label class=" form-check-label">
+                        <input class=" form-check-input" name="optionCheckboxes" type="checkbox"
+                            [(ngModel)]="newPlaylist" [ngModelOptions]="{standalone: true}" name="newPlaylistFlag"
+                            (ngModelChange)="createNewPlaylist($event)" />
+
+                        <span class=" form-check-sign"> </span> New playlist
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
