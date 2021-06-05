@@ -113,5 +113,10 @@ namespace BusinessLogic
             agendaLogic.Update(agendaToUse);
             return agendaToUse.Psychologist;
         }
+
+        public List<Psychologist> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
