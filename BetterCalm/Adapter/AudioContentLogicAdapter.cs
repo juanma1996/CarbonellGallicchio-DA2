@@ -84,7 +84,15 @@ namespace Adapter
 
         public List<AudioContentBasicInfoModel> GetByCategoryId(int categoryId)
         {
-            List<PlayableContent> audioContents = playableContentLogic.GetByCategoryId(categoryId);
+            List<PlayableContent> playableContents = playableContentLogic.GetByCategoryId(categoryId);
+            List<AudioContent> audioContents = new List<AudioContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is AudioContent audioContent)
+                {
+                    audioContents.Add(audioContent);
+                }
+            }
             List<AudioContentBasicInfoModel> audioContentsBasicInfoModel =  mapper.Map<List<AudioContentBasicInfoModel>>(audioContents);
             return audioContentsBasicInfoModel;
         }
