@@ -31,8 +31,9 @@ namespace Adapter
         {
             try
             {
-                AudioContent audioContent = (AudioContent)playableContentLogic.GetById(audioContentId);
-                return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                PlayableContent audioContent = playableContentLogic.GetById(audioContentId);
+                AudioContentBasicInfoModel audioContentBasicInfoModel = mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                return audioContentBasicInfoModel;
             }
             catch (NullObjectException e)
             {
@@ -46,8 +47,9 @@ namespace Adapter
             try
             {
                 AudioContent audioContentIn = mapper.Map<AudioContent>(audioContentModel);
-                AudioContent audioContent = (AudioContent)playableContentLogic.Create(audioContentIn);
-                return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                PlayableContent audioContent = playableContentLogic.Create(audioContentIn);
+                AudioContentBasicInfoModel audioContentBasicInfoModel = mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                return audioContentBasicInfoModel;
             }
             catch (NullObjectException e)
             {
@@ -82,7 +84,9 @@ namespace Adapter
 
         public List<AudioContentBasicInfoModel> GetByCategoryId(int categoryId)
         {
-            throw new System.NotImplementedException();
+            List<PlayableContent> audioContents = playableContentLogic.GetByCategoryId(categoryId);
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel =  mapper.Map<List<AudioContentBasicInfoModel>>(audioContents);
+            return audioContentsBasicInfoModel;
         }
     }
 }

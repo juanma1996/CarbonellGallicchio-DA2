@@ -115,5 +115,10 @@ namespace BusinessLogic
                 CreateCategoryPlaylist(playableContent.Playlists, playableContent.Categories);
             }
         }
+
+        public List<PlayableContent> GetByCategoryId(int categoryId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
