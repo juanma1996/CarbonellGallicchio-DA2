@@ -11,5 +11,6 @@ namespace BusinessLogicInterface
         void Update(PlayableContent playableContentModel);
         List<PlayableContent> GetByCategoryId(int categoryId);
         List<PlayableContent> GetByPlaylistId(int playlistId);
+        List<PlayableContent> GetAll();
     }
 }
