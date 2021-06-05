@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
 using System;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -99,9 +100,11 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        public object GetAudioContentByCategory(int categoryId)
+        [HttpGet("/categories/{id}", Name = "GetByPlaylist")]
+        public IActionResult GetAudioContentByCategory([FromRoute] int id)
         {
-            throw new NotImplementedException();
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByCategoryId(id);
+            return Ok(audioContents);
         }
     }
 }
