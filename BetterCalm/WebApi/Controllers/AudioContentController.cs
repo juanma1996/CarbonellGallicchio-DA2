@@ -114,9 +114,11 @@ namespace WebApi.Controllers
             return Ok(audioContents);
         }
 
-        public object Get()
+        [HttpGet]
+        public IActionResult Get()
         {
-            throw new NotImplementedException();
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetAll();
+            return Ok(audioContents);
         }
     }
 }
