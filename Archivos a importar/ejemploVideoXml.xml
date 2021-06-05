@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentImporterModel>
-   <AudioUrl>audioUrl</AudioUrl>
+   <Url>youtube.com/Video</Url>
    <Categories>
       <CategoryImporterModel>
-         <Id>1</Id>
-         <Name>Nombre</Name>
+         <Id>2</Id>
       </CategoryImporterModel>
    </Categories>
    <CreatorName>El creador</CreatorName>
-   <Id>1</Id>
-   <ImageUrl>imageUrl</ImageUrl>
-   <name>Un nombre</name>
+   <ImageUrl></ImageUrl>
+   <Name>Un video</Name>
    <Playlists>
       <PlaylistImporterModel>
          <Description>Descripcion</Description>
-         <Id>1</Id>
-         <Name>Nombre</Name>
+         <Name>Videos</Name>
       </PlaylistImporterModel>
    </Playlists>
+   <PlayableContentType>VideoContent</PlayableContentType>
 </ContentImporterModel>

@@ -1,4 +1,5 @@
 ﻿using Domain;
+using System.Collections.Generic;
 
 namespace BusinessLogicInterface
 {
@@ -9,5 +10,6 @@ namespace BusinessLogicInterface
         void DeleteById(int administratorId);
         void Update(Administrator administratorModel);
         Administrator GetByEmailAndPassword(string email, string password);
+        List<Administrator> GetAll();
     }
 }

@@ -13,14 +13,14 @@ namespace Adapter
 {
     public class AudioContentLogicAdapter : IAudioContentLogicAdapter
     {
-        private readonly IAudioContentLogic audioContentLogic;
+        private readonly IPlayableContentLogic playableContentLogic;
         private readonly IMapper mapper;
         private readonly IValidator<AudioContentModel> audioContentModelValidator;
         private readonly IValidator<PlaylistModel> playlistModelValidator;
-        public AudioContentLogicAdapter(IAudioContentLogic audioContentLogic, IModelMapper mapper,
+        public AudioContentLogicAdapter(IPlayableContentLogic playableContentLogic, IModelMapper mapper,
             IValidator<AudioContentModel> audioContentModelValidator, IValidator<PlaylistModel> playlistModelValidator)
         {
-            this.audioContentLogic = audioContentLogic;
+            this.playableContentLogic = playableContentLogic;
             this.mapper = mapper.Configure();
             this.audioContentModelValidator = audioContentModelValidator;
             this.playlistModelValidator = playlistModelValidator;
@@ -30,7 +30,7 @@ namespace Adapter
         {
             try
             {
-                AudioContent audioContent = audioContentLogic.GetById(audioContentId);
+                AudioContent audioContent = (AudioContent)playableContentLogic.GetById(audioContentId);
                 return mapper.Map<AudioContentBasicInfoModel>(audioContent);
             }
             catch (NullObjectException e)
@@ -45,7 +45,7 @@ namespace Adapter
             try
             {
                 AudioContent audioContentIn = mapper.Map<AudioContent>(audioContentModel);
-                AudioContent audioContent = audioContentLogic.Create(audioContentIn);
+                AudioContent audioContent = (AudioContent)playableContentLogic.Create(audioContentIn);
                 return mapper.Map<AudioContentBasicInfoModel>(audioContent);
             }
             catch (NullObjectException e)
@@ -57,7 +57,7 @@ namespace Adapter
         {
             try
             {
-                audioContentLogic.DeleteById(audioContentId);
+                playableContentLogic.DeleteById(audioContentId);
             }
             catch (NullObjectException e)
             {
@@ -71,7 +71,7 @@ namespace Adapter
                 audioContentModelValidator.Validate(audioContentModel);
                 audioContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
                 AudioContent audioContentToUpdate = mapper.Map<AudioContent>(audioContentModel);
-                audioContentLogic.Update(audioContentToUpdate);
+                playableContentLogic.Update(audioContentToUpdate);
             }
             catch (NullObjectException e)
             {

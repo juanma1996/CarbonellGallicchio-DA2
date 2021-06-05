@@ -16,8 +16,4 @@
     <ProjectReference Include="..\SessionInterface\SessionInterface.csproj" />
     <ProjectReference Include="..\ValidatorInterface\ValidatorInterface.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mapper\Profiles\" />
-  </ItemGroup>
 </Project>

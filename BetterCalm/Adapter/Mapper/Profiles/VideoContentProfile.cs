@@ -5,15 +5,16 @@ using Model.Out;
 
 namespace Adapter.Mapper.Profiles
 {
-    public class AudioContentProfile : Profile
+    public class VideoContentProfile : Profile
     {
-        public AudioContentProfile()
+        public VideoContentProfile()
         {
-            CreateMap<AudioContent, AudioContentBasicInfoModel>()
-                 .ForMember(c => c.AudioUrl, opt => opt.MapFrom(x => x.Url));
+            CreateMap<VideoContent, VideoContentBasicInfoModel>()
+                .ForMember(c => c.VideoUrl, opt => opt.MapFrom(x => x.Url));
 
-            CreateMap<AudioContentModel, AudioContent>()
-                .ForMember(c => c.Url, opt => opt.MapFrom(x => x.AudioUrl));
+            CreateMap<VideoContentModel, VideoContent>()
+                .ForMember(c => c.Url, opt => opt.MapFrom(x => x.VideoUrl))
+                .ForMember(c => c.ImageUrl, opt => opt.Ignore());
 
             CreateMap<CategoryModel, PlayableContentCategory>()
                 .ForMember(c => c.PlayableContent, opt => opt.Ignore())

@@ -4,14 +4,16 @@ using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BetterCalmContext))]
-    partial class BetterCalmContextModelSnapshot : ModelSnapshot
+    [Migration("20210531032213_PlayableContents")]
+    partial class PlayableContents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,28 +194,16 @@ namespace DataAccess.Migrations
                     b.Property<string>("CreatorName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("PlayableContents");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("PlayableContent");
                 });
 
             modelBuilder.Entity("Domain.PlayableContentCategory", b =>
@@ -228,7 +218,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PlayableContentId");
 
-                    b.ToTable("PlayableContentCategories");
+                    b.ToTable("AudioContentCategories");
                 });
 
             modelBuilder.Entity("Domain.PlayableContentPlaylist", b =>
@@ -243,7 +233,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PlaylistId");
 
-                    b.ToTable("PlayableContentPlaylists");
+                    b.ToTable("AudioContentPlaylists");
                 });
 
             modelBuilder.Entity("Domain.Playlist", b =>
@@ -387,20 +377,6 @@ namespace DataAccess.Migrations
                     b.ToTable("Sessions");
                 });
 
-            modelBuilder.Entity("Domain.AudioContent", b =>
-                {
-                    b.HasBaseType("Domain.PlayableContent");
-
-                    b.HasDiscriminator().HasValue("AudioContent");
-                });
-
-            modelBuilder.Entity("Domain.VideoContent", b =>
-                {
-                    b.HasBaseType("Domain.PlayableContent");
-
-                    b.HasDiscriminator().HasValue("VideoContent");
-                });
-
             modelBuilder.Entity("Domain.Agenda", b =>
                 {
                     b.HasOne("Domain.Psychologist", "Psychologist")
@@ -439,7 +415,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.PlayableContentCategory", b =>
                 {
                     b.HasOne("Domain.Category", "Category")
-                        .WithMany("PlayableContents")
+                        .WithMany("AudioContents")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -460,7 +436,7 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Playlist", "Playlist")
-                        .WithMany("PlayableContents")
+                        .WithMany("AudioContents")
                         .HasForeignKey("PlaylistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

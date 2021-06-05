@@ -2,6 +2,8 @@
 using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
+using System;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace BusinessLogic
@@ -58,6 +60,12 @@ namespace BusinessLogic
             Administrator administrator = administratorRepository.Get(a => a.Email == email && a.Password == password);
             administratorvalidator.Validate(administrator);
             return administrator;
+        }
+
+        public List<Administrator> GetAll()
+        {
+            List<Administrator> administrators = administratorRepository.GetAll();
+            return administrators;
         }
     }
 }
