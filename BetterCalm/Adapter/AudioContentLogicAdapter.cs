@@ -99,7 +99,17 @@ namespace Adapter
 
         public List<AudioContentBasicInfoModel> GetByPlaylistId(int playlistId)
         {
-            throw new System.NotImplementedException();
+            List<PlayableContent> playableContents = playableContentLogic.GetByPlaylistId(playlistId);
+            List<AudioContent> audioContents = new List<AudioContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is AudioContent audioContent)
+                {
+                    audioContents.Add(audioContent);
+                }
+            }
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel = mapper.Map<List<AudioContentBasicInfoModel>>(audioContents);
+            return audioContentsBasicInfoModel;
         }
     }
 }
