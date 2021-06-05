@@ -1,4 +1,5 @@
 ﻿using Domain;
+using System.Collections.Generic;
 
 namespace BusinessLogicInterface
 {
@@ -8,5 +9,6 @@ namespace BusinessLogicInterface
         PlayableContent Create(PlayableContent playableContentModel);
         void DeleteById(int playableContentId);
         void Update(PlayableContent playableContentModel);
+        List<PlayableContent> GetByCategoryId(int categoryId);
     }
 }
