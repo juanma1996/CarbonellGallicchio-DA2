@@ -7,6 +7,7 @@ using BusinessLogicInterface;
 using Domain;
 using Model.In;
 using Model.Out;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace Adapter
@@ -71,6 +72,11 @@ namespace Adapter
             {
                 throw new NotFoundException(e.errorMessage);
             }
+        }
+
+        public List<PsychologistBasicInfoModel> GetAll()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
