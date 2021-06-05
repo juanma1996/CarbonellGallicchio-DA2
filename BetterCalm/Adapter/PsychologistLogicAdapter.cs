@@ -76,7 +76,8 @@ namespace Adapter
 
         public List<PsychologistBasicInfoModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            List<Psychologist> psychologists = psychologistLogic.GetAll();
+            return mapper.Map<List<PsychologistBasicInfoModel>>(psychologists);
         }
     }
 }
