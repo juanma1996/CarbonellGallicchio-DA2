@@ -132,7 +132,8 @@ namespace BusinessLogic
 
         public List<PlayableContent> GetAll()
         {
-            throw new NotImplementedException();
+            List<PlayableContent> playableContents = playableContentRepository.GetAll();
+            return playableContents;
         }
     }
 }
