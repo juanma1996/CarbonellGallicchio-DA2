@@ -3,6 +3,8 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using System;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -100,6 +102,14 @@ namespace WebApi.Controllers
         {
             administratorDomainToModelAdapter.Update(administratorModel);
             return NoContent();
+        }
+
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<AdministratorBasicInfoModel> administrators = administratorDomainToModelAdapter.GetAll();
+            return Ok(administrators);
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
 using Model.Out;
 using Moq;
+using System.Collections.Generic;
 using WebApi.Controllers;
 
 namespace WebApiTests
@@ -151,7 +152,7 @@ namespace WebApiTests
             int administratorId = 1;
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.Delete(administratorId)).Throws(new NotFoundException(""));
-            AdministratorController controller = new AdministratorController(mock .Object);
+            AdministratorController controller = new AdministratorController(mock.Object);
 
             var response = controller.Delete(administratorId);
         }
@@ -261,6 +262,36 @@ namespace WebApiTests
             AdministratorController controller = new AdministratorController(mock.Object);
 
             var result = controller.Post(administratorModel);
+        }
+
+        [TestMethod]
+        public void TestGetAdministratorsOk()
+        {
+            AdministratorBasicInfoModel firstAdministratorToReturn = new AdministratorBasicInfoModel
+            {
+                Id = 1,
+                Name = "Juan",
+                Email = "Juan@gmail.com",
+                Password = "Password01",
+            };
+            AdministratorBasicInfoModel secondAdministratorToReturn = new AdministratorBasicInfoModel
+            {
+                Id = 2,
+                Name = "Fede",
+                Email = "fede@gmail.com",
+                Password = "Password01",
+            };
+            List<AdministratorBasicInfoModel> administratorsToReturn = new List<AdministratorBasicInfoModel>() { firstAdministratorToReturn, secondAdministratorToReturn };
+            Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(administratorsToReturn);
+            AdministratorController controller = new AdministratorController(mock.Object);
+
+            var result = controller.Get();
+            OkObjectResult okResult = result as OkObjectResult;
+            List<AdministratorBasicInfoModel> administrators = okResult.Value as List<AdministratorBasicInfoModel>;
+
+            mock.VerifyAll();
+            Assert.AreEqual(administratorsToReturn.Count, administrators.Count);
         }
     }
 }

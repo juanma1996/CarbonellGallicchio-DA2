@@ -15,65 +15,65 @@ using ValidatorInterface;
 namespace AdapterTests
 {
     [TestClass]
-    public class AudioContentLogicAdapterTest
+    public class VideoContentLogicAdapterTest
     {
         [TestMethod]
-        public void TestAudioContentMapOk()
+        public void TestVideoContentMapOk()
         {
             ModelMapper mapper = new ModelMapper();
-            MapperConfiguration configuration = new MapperConfiguration(mapper => mapper.AddProfile(new AudioContentProfile()));
+            MapperConfiguration configuration = new MapperConfiguration(mapper => mapper.AddProfile(new VideoContentProfile()));
             configuration.AssertConfigurationIsValid();
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void TestGetByIdAudioContentNotExistentId()
+        public void TestGetByIdVideoContentNotExistentId()
         {
-            int audioContentId = 1;
+            int videoContentId = 1;
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetById(It.IsAny<int>())).Throws(new NullObjectException("Not exist audio content"));
+            mock.Setup(m => m.GetById(It.IsAny<int>())).Throws(new NullObjectException("Not exist video content"));
             ModelMapper mapper = new ModelMapper();
-            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
-            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
             Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
             mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>()));
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
                 mockValidator.Object, mockPlaylistModelValidator.Object);
 
-            audioContentLogicAdapter.GetById(audioContentId);
+            videoContentLogicAdapter.GetById(videoContentId);
 
             mock.VerifyAll();
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void TestDeleteByIdAudioContentNotExistentId()
+        public void TestDeleteByIdVideoContentNotExistentId()
         {
-            int audioContentId = 1;
+            int videoContentId = 1;
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.DeleteById(It.IsAny<int>())).Throws(new NullObjectException("Not exist audio content"));
+            mock.Setup(m => m.DeleteById(It.IsAny<int>())).Throws(new NullObjectException("Not exist video content"));
             ModelMapper mapper = new ModelMapper();
-            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
-            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
             Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
             mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>()));
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
                 mockValidator.Object, mockPlaylistModelValidator.Object);
 
-            audioContentLogicAdapter.DeleteById(audioContentId);
+            videoContentLogicAdapter.DeleteById(videoContentId);
 
             mock.VerifyAll();
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void TestUpdateAudioContentNotExistent()
+        public void TestUpdateVideoContentNotExistent()
         {
-            int audioContentId = 1;
-            AudioContentModel audioContentModel = new AudioContentModel()
+            int videoContentId = 1;
+            VideoContentModel videoContentModel = new VideoContentModel()
             {
-                Id = audioContentId,
-                Name = "One audio content",
+                Id = videoContentId,
+                Name = "One video content",
                 Playlists = new List<PlaylistModel>()
                 {
                     new PlaylistModel()
@@ -93,70 +93,28 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AudioContent>())).Throws(new NullObjectException("Not exist audio content"));
+            mock.Setup(m => m.Update(It.IsAny<VideoContent>())).Throws(new NullObjectException("Not exist video content"));
             ModelMapper mapper = new ModelMapper();
-            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
-            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
             Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
             mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>()));
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
                 mockValidator.Object, mockPlaylistModelValidator.Object);
 
-            audioContentLogicAdapter.Update(audioContentModel);
+            videoContentLogicAdapter.Update(videoContentModel);
 
             mock.VerifyAll();
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestCreateAudioContentNotValidName()
+        public void TestCreateVideoContentNotValidName()
         {
-            int audioContentId = 1;
-            AudioContentModel audioContentModel = new AudioContentModel()
+            int videoContentId = 1;
+            VideoContentModel videoContentModel = new VideoContentModel()
             {
-                Id = audioContentId,
-                Name = "",
-                Playlists = new List<PlaylistModel>()
-                {
-                    new PlaylistModel()
-                    {
-                        Id = 1,
-                        Name = "Name",
-                        Description = "Description"
-                    }
-                },
-                Categories = new List<CategoryModel>()
-                {
-                    new CategoryModel()
-                    {
-                        Id = 1,
-                        Name = "Name"
-                    }
-                }
-            };            
-            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
-            ModelMapper mapper = new ModelMapper();
-            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
-            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
-            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
-            mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>()));
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
-                mockValidator.Object, mockPlaylistModelValidator.Object);
-
-            audioContentLogicAdapter.Add(audioContentModel);
-
-            mock.VerifyAll();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestUpdateAudioContentNotValidName()
-        {
-            int audioContentId = 1;
-            AudioContentModel audioContentModel = new AudioContentModel()
-            {
-                Id = audioContentId,
+                Id = videoContentId,
                 Name = "",
                 Playlists = new List<PlaylistModel>()
                 {
@@ -177,29 +135,71 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
+            mock.Setup(m => m.Create(It.IsAny<VideoContent>())).Returns(It.IsAny<VideoContent>());
             ModelMapper mapper = new ModelMapper();
-            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
-            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
             Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
             mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>()));
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
                 mockValidator.Object, mockPlaylistModelValidator.Object);
 
-            audioContentLogicAdapter.Update(audioContentModel);
+            videoContentLogicAdapter.Add(videoContentModel);
 
             mock.VerifyAll();
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestCreateAudioContentWithInvalidPlaylist()
+        public void TestUpdateVideoContentNotValidName()
         {
-            int audioContentId = 1;
-            AudioContentModel audioContentModel = new AudioContentModel()
+            int videoContentId = 1;
+            VideoContentModel videoContentModel = new VideoContentModel()
             {
-                Id = audioContentId,
-                Name = "Audio content",
+                Id = videoContentId,
+                Name = "",
+                Playlists = new List<PlaylistModel>()
+                {
+                    new PlaylistModel()
+                    {
+                        Id = 1,
+                        Name = "Name",
+                        Description = "Description"
+                    }
+                },
+                Categories = new List<CategoryModel>()
+                {
+                    new CategoryModel()
+                    {
+                        Id = 1,
+                        Name = "Name"
+                    }
+                }
+            };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(It.IsAny<VideoContent>()));
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>()));
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            videoContentLogicAdapter.Update(videoContentModel);
+
+            mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestCreateVideoContentWithInvalidPlaylist()
+        {
+            int videoContentId = 1;
+            VideoContentModel videoContentModel = new VideoContentModel()
+            {
+                Id = videoContentId,
+                Name = "Video content",
                 Playlists = new List<PlaylistModel>()
                 {
                     new PlaylistModel()
@@ -219,29 +219,29 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
+            mock.Setup(m => m.Create(It.IsAny<VideoContent>())).Returns(It.IsAny<VideoContent>());
             ModelMapper mapper = new ModelMapper();
-            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
-            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
             Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
             mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>())).Throws(new InvalidAttributeException("Playlist name can't be empty"));
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
                 mockValidator.Object, mockPlaylistModelValidator.Object);
 
-            audioContentLogicAdapter.Add(audioContentModel);
+            videoContentLogicAdapter.Add(videoContentModel);
 
             mock.VerifyAll();
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
-        public void TestUpdateAudioContentWithInvalidPlaylist()
+        public void TestUpdateVideoContentWithInvalidPlaylist()
         {
-            int audioContentId = 1;
-            AudioContentModel audioContentModel = new AudioContentModel()
+            int videoContentId = 1;
+            VideoContentModel videoContentModel = new VideoContentModel()
             {
-                Id = audioContentId,
-                Name = "Audio content",
+                Id = videoContentId,
+                Name = "Video content",
                 Playlists = new List<PlaylistModel>()
                 {
                     new PlaylistModel()
@@ -261,16 +261,16 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
+            mock.Setup(m => m.Update(It.IsAny<VideoContent>()));
             ModelMapper mapper = new ModelMapper();
-            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
-            mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
             Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
             mockPlaylistModelValidator.Setup(m => m.Validate(It.IsAny<PlaylistModel>())).Throws(new InvalidAttributeException("Playlist name can't be empty"));
-            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
                 mockValidator.Object, mockPlaylistModelValidator.Object);
 
-            audioContentLogicAdapter.Update(audioContentModel);
+            videoContentLogicAdapter.Update(videoContentModel);
 
             mock.VerifyAll();
         }

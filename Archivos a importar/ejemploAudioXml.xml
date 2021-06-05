@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentImporterModel>
+   <Url>audioUrl</Url>
+   <Categories>
+      <CategoryImporterModel>
+         <Id>1</Id>
+      </CategoryImporterModel>
+   </Categories>
+   <CreatorName>El creador</CreatorName>
+   <ImageUrl>imageUrl</ImageUrl>
+   <Name>Un nombre</Name>
+   <Playlists>
+      <PlaylistImporterModel>
+         <Description>Descripcion</Description>
+         <Name>Nombre</Name>
+      </PlaylistImporterModel>
+   </Playlists>
+   <PlayableContentType>AudioContent</PlayableContentType>
+</ContentImporterModel>

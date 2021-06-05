@@ -10,10 +10,10 @@ namespace DataAccess.Context
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
-        public DbSet<AudioContent> AudioContents { get; set; }
+        public DbSet<PlayableContent> PlayableContents { get; set; }
         public DbSet<CategoryPlaylist> CategoryPlaylists { get; set; }
-        public DbSet<AudioContentCategory> AudioContentCategories { get; set; }
-        public DbSet<AudioContentPlaylist> AudioContentPlaylists { get; set; }
+        public DbSet<PlayableContentCategory> PlayableContentCategories { get; set; }
+        public DbSet<PlayableContentPlaylist> PlayableContentPlaylists { get; set; }
         public DbSet<Psychologist> Psychologists { get; set; }
         public DbSet<Problematic> Problematics { get; set; }
         public DbSet<PsychologistProblematic> PsychologistProblematics { get; set; }
@@ -51,7 +51,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Category>().HasKey(s => s.Id);
             modelBuilder.Entity<Category>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Category>().HasMany(s => s.Playlists);
-            modelBuilder.Entity<Category>().HasMany(s => s.AudioContents);
+            modelBuilder.Entity<Category>().HasMany(s => s.PlayableContents);
             modelBuilder.Entity<Category>().HasData(new Category() { Id = 1, Name = "Dormir" });
             modelBuilder.Entity<Category>().HasData(new Category() { Id = 2, Name = "Meditar" });
             modelBuilder.Entity<Category>().HasData(new Category() { Id = 3, Name = "Música" });
@@ -61,32 +61,37 @@ namespace DataAccess.Context
             modelBuilder.Entity<Playlist>().HasKey(s => s.Id);
             modelBuilder.Entity<Playlist>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Playlist>().HasMany(s => s.Categories);
-            modelBuilder.Entity<Playlist>().HasMany(s => s.AudioContents);
+            modelBuilder.Entity<Playlist>().HasMany(s => s.PlayableContents);
             modelBuilder.Entity<Playlist>().Property(p => p.Name).IsRequired();
             modelBuilder.Entity<Playlist>().Property(p => p.Description).IsRequired();
             modelBuilder.Entity<Playlist>().Property(p => p.Description).HasMaxLength(150);
 
-            modelBuilder.Entity<AudioContent>().ToTable("AudioContents");
-            modelBuilder.Entity<AudioContent>().HasKey(s => s.Id);
+            modelBuilder.Entity<PlayableContent>().HasKey(s => s.Id);
+
             modelBuilder.Entity<AudioContent>().Property(p => p.Name).IsRequired();
             modelBuilder.Entity<AudioContent>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<AudioContent>().HasMany(s => s.Categories);
             modelBuilder.Entity<AudioContent>().HasMany(s => s.Playlists);
+
+            modelBuilder.Entity<VideoContent>().Property(p => p.Name).IsRequired();
+            modelBuilder.Entity<VideoContent>().Property(s => s.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<VideoContent>().HasMany(s => s.Categories);
+            modelBuilder.Entity<VideoContent>().HasMany(s => s.Playlists);
 
             modelBuilder.Entity<CategoryPlaylist>().ToTable("CategoryPlaylists");
             modelBuilder.Entity<CategoryPlaylist>().HasKey(cp => new { cp.CategoryId, cp.PlaylistId });
             modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Category).WithMany(p => p.Playlists).HasForeignKey(sc => sc.CategoryId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<CategoryPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.Categories).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<AudioContentCategory>().ToTable("AudioContentCategories");
-            modelBuilder.Entity<AudioContentCategory>().HasKey(cp => new { cp.CategoryId, cp.AudioContentId });
-            modelBuilder.Entity<AudioContentCategory>().HasOne(s => s.Category).WithMany(p => p.AudioContents).HasForeignKey(sc => sc.CategoryId).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<AudioContentCategory>().HasOne(s => s.AudioContent).WithMany(p => p.Categories).HasForeignKey(sc => sc.AudioContentId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PlayableContentCategory>().ToTable("PlayableContentCategories");
+            modelBuilder.Entity<PlayableContentCategory>().HasKey(cp => new { cp.CategoryId, cp.PlayableContentId });
+            modelBuilder.Entity<PlayableContentCategory>().HasOne(s => s.Category).WithMany(p => p.PlayableContents).HasForeignKey(sc => sc.CategoryId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PlayableContentCategory>().HasOne(s => s.PlayableContent).WithMany(p => p.Categories).HasForeignKey(sc => sc.PlayableContentId).OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<AudioContentPlaylist>().ToTable("AudioContentPlaylists");
-            modelBuilder.Entity<AudioContentPlaylist>().HasKey(cp => new { cp.AudioContentId, cp.PlaylistId });
-            modelBuilder.Entity<AudioContentPlaylist>().HasOne(s => s.AudioContent).WithMany(p => p.Playlists).HasForeignKey(sc => sc.AudioContentId).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<AudioContentPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.AudioContents).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PlayableContentPlaylist>().ToTable("PlayableContentPlaylists");
+            modelBuilder.Entity<PlayableContentPlaylist>().HasKey(cp => new { cp.PlayableContentId, cp.PlaylistId });
+            modelBuilder.Entity<PlayableContentPlaylist>().HasOne(s => s.PlayableContent).WithMany(p => p.Playlists).HasForeignKey(sc => sc.PlayableContentId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PlayableContentPlaylist>().HasOne(s => s.Playlist).WithMany(p => p.PlayableContents).HasForeignKey(sc => sc.PlaylistId).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Psychologist>().ToTable("Psychologists");
             modelBuilder.Entity<Psychologist>().HasKey(p => p.Id);

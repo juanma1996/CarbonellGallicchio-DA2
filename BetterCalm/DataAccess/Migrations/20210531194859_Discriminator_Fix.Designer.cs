@@ -4,14 +4,16 @@ using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BetterCalmContext))]
-    partial class BetterCalmContextModelSnapshot : ModelSnapshot
+    [Migration("20210531194859_Discriminator_Fix")]
+    partial class Discriminator_Fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,7 +230,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PlayableContentId");
 
-                    b.ToTable("PlayableContentCategories");
+                    b.ToTable("AudioContentCategories");
                 });
 
             modelBuilder.Entity("Domain.PlayableContentPlaylist", b =>
@@ -243,7 +245,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PlaylistId");
 
-                    b.ToTable("PlayableContentPlaylists");
+                    b.ToTable("AudioContentPlaylists");
                 });
 
             modelBuilder.Entity("Domain.Playlist", b =>
@@ -439,7 +441,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.PlayableContentCategory", b =>
                 {
                     b.HasOne("Domain.Category", "Category")
-                        .WithMany("PlayableContents")
+                        .WithMany("AudioContents")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -460,7 +462,7 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Playlist", "Playlist")
-                        .WithMany("PlayableContents")
+                        .WithMany("AudioContents")
                         .HasForeignKey("PlaylistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
