@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { PsychologistRoutes } from './psychologist.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { PsychologistFormComponent } from './psychologist-form/psychologist-form.component';
 
 
 
@@ -17,7 +18,8 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
   ],
   declarations: [
-    RegisterPsychologistComponent
+    RegisterPsychologistComponent,
+    PsychologistFormComponent
   ],
   exports: [
 
