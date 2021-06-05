@@ -96,5 +96,10 @@ namespace Adapter
             List<AudioContentBasicInfoModel> audioContentsBasicInfoModel =  mapper.Map<List<AudioContentBasicInfoModel>>(audioContents);
             return audioContentsBasicInfoModel;
         }
+
+        public List<AudioContentBasicInfoModel> GetByPlaylistId(int playlistId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

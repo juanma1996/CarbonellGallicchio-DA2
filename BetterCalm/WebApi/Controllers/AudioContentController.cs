@@ -106,5 +106,10 @@ namespace WebApi.Controllers
             List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByCategoryId(id);
             return Ok(audioContents);
         }
+
+        public object GetAudioContentByPlaylist(int playlistId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

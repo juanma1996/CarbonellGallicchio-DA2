@@ -11,5 +11,6 @@ namespace AdapterInterface
         void DeleteById(int audioContentId);
         void Update(AudioContentModel audioContentModel);
         List<AudioContentBasicInfoModel> GetByCategoryId(int categoryId);
+        List<AudioContentBasicInfoModel> GetByPlaylistId(int playlistId);
     }
 }
