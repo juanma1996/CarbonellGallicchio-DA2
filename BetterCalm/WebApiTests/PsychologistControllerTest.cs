@@ -427,5 +427,75 @@ namespace WebApiTests
 
             var result = controller.Put(psycologistModel);
         }
+
+        [TestMethod]
+        public void TestGetPsychologistsOk()
+        {
+            PsychologistBasicInfoModel firstAdministratorToReturn = new PsychologistBasicInfoModel
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<ProblematicBasicInfoModel>
+                {
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Depresion"
+                    },
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Ansiedad"
+                    },
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Estres"
+                    },
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Otros"
+                    },
+                }
+            };
+            PsychologistBasicInfoModel secondAdministratorToReturn = new PsychologistBasicInfoModel
+            {
+                Id = 1,
+                Name = "Fede",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<ProblematicBasicInfoModel>
+                {
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Depresion"
+                    },
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Ansiedad"
+                    },
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Estres"
+                    },
+                    new ProblematicBasicInfoModel
+                    {
+                        Name = "Otros"
+                    },
+                }
+            };
+            List<PsychologistBasicInfoModel> psychologistsToReturn = new List<PsychologistBasicInfoModel>() { firstAdministratorToReturn, secondAdministratorToReturn };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(psychologistsToReturn);
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Get();
+            OkObjectResult okResult = result as OkObjectResult;
+            List<PsychologistBasicInfoModel> administrators = okResult.Value as List<PsychologistBasicInfoModel>;
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistsToReturn.Count, administrators.Count);
+        }
     }
 }
