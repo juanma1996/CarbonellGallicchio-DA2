@@ -8,6 +8,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { PsychologistFormComponent } from './psychologist-form/psychologist-form.component';
 import { EditPsychologistDashboardComponent } from './edit-psychologist-dashboard/edit-psychologist-dashboard.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { EditPsychologistComponent } from './edit-psychologist/edit-psychologist.component';
 
 
 
@@ -23,7 +24,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
   declarations: [
     RegisterPsychologistComponent,
     PsychologistFormComponent,
-    EditPsychologistDashboardComponent
+    EditPsychologistDashboardComponent,
+    EditPsychologistComponent
   ],
   exports: [
 

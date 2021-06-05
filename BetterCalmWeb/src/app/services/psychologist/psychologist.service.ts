@@ -34,7 +34,7 @@ export class PsychologistService {
         return httpRequest;
     }
 
-    getAdministrator(id): Observable<PsychologistBasicInfo> {
+    getPsychologist(id): Observable<PsychologistBasicInfo> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': localStorage.getItem('token')

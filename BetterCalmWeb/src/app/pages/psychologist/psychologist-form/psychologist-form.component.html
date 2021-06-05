@@ -18,8 +18,8 @@
                     !psychologistForm.get('consultationMode').valid
                     }">
                 <label for="exampleInputEmail1"> Consultation mode </label>
-                <angular2-multiselect [data]="consultationModes" [ngModel]="" [ngModelOptions]="{standalone: true}"
-                    [settings]="{
+                <angular2-multiselect [data]="consultationModes" [ngModel]="originalConsultationMode"
+                    [ngModelOptions]="{standalone: true}" [settings]="{
                         singleSelection: true,
                         text: 'Consultation mode',
                         classes: 'selectpicker btn-danger',
@@ -52,8 +52,8 @@
                     !psychologistForm.get('problematics').valid
                     }">
                 <label> Problematics </label>
-                <angular2-multiselect [data]="problematicsData" [ngModel]="" [ngModelOptions]="{standalone: true}"
-                    name="psychologistProblematics" [settings]="{
+                <angular2-multiselect [data]="problematicsData" [ngModel]="originalProblematics"
+                    [ngModelOptions]="{standalone: true}" name="psychologistProblematics" [settings]="{
                             singleSelection: false,
                             text: 'Problematics',
                             enableSearchFilter: false,

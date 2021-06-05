@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { ProblematicsService } from 'src/app/services/problematics/problematics.service';
 import { PsychologistService } from 'src/app/services/psychologist/psychologist.service';
 import { ToastService } from '../../../common/toast.service'
@@ -16,6 +16,8 @@ export class PsychologistFormComponent implements OnInit {
   psychologistForm: FormGroup;
   selectedProblematic: FormGroup;
   submited: boolean = false;
+  originalConsultationMode = [];
+  originalProblematics = [];
 
   public consultationModes = [
     { id: '1', itemName: 'Presencial' },
@@ -69,6 +71,7 @@ export class PsychologistFormComponent implements OnInit {
       name: item.itemName,
     })
     this.psychologistProblematics.push(this.selectedProblematic);
+    console.log(this.originalProblematics);
   }
 
   problematicDeSelect(item: any) {
@@ -82,6 +85,13 @@ export class PsychologistFormComponent implements OnInit {
 
   consultationModeSelect(item: any) {
     this.consultationMode.setValue(item.itemName);
+    if (item.itemName == 'Virtual') {
+      this.psychologistForm.get('direction').clearValidators();
+    } else {
+      this.psychologistForm.get('direction').setValidators(Validators.required);
+    }
+    this.psychologistForm.get('direction').updateValueAndValidity();
+    console.log(this.originalConsultationMode);
   }
 
   consultationModeDeSelect(item: any) {
