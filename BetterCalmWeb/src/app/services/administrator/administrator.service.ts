@@ -25,6 +25,17 @@ export class AdministratorService {
         return httpRequest;
     }
 
+    get(): Observable<[AdministratorModel]> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
+        });
+        let options = { headers: headers }
+        var httpRequest = this.http.get<[AdministratorModel]>(this.uri, options)
+            .pipe(catchError(this.handleError));
+        return httpRequest;
+    }
+
     getAdministrator(id): Observable<AdministratorModel> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
