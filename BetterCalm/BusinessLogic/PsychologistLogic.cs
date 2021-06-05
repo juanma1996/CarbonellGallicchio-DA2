@@ -116,7 +116,8 @@ namespace BusinessLogic
 
         public List<Psychologist> GetAll()
         {
-            throw new NotImplementedException();
+            List<Psychologist> psychologists = psychologistRepository.GetAll();
+            return psychologists;
         }
     }
 }
