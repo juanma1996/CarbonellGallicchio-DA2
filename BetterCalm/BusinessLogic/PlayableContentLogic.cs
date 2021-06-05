@@ -2,7 +2,9 @@
 using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using ValidatorInterface;
 
 namespace BusinessLogic
@@ -114,6 +116,24 @@ namespace BusinessLogic
                 playableContentRepository.Update(playableContent);
                 CreateCategoryPlaylist(playableContent.Playlists, playableContent.Categories);
             }
+        }
+
+        public List<PlayableContent> GetByCategoryId(int categoryId)
+        {
+            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.Categories.Any(pCategory => pCategory.CategoryId == categoryId));
+            return playableContents;
+        }
+
+        public List<PlayableContent> GetByPlaylistId(int playlistId)
+        {
+            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.Playlists.Any(pPlaylist => pPlaylist.PlaylistId == playlistId));
+            return playableContents;
+        }
+
+        public List<PlayableContent> GetAll()
+        {
+            List<PlayableContent> playableContents = playableContentRepository.GetAll();
+            return playableContents;
         }
     }
 }

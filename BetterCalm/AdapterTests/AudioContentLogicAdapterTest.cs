@@ -8,7 +8,9 @@ using BusinessLogicInterface;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
+using Model.Out;
 using Moq;
+using System;
 using System.Collections.Generic;
 using ValidatorInterface;
 
@@ -133,7 +135,7 @@ namespace AdapterTests
                         Name = "Name"
                     }
                 }
-            };            
+            };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
             ModelMapper mapper = new ModelMapper();
@@ -273,6 +275,116 @@ namespace AdapterTests
             audioContentLogicAdapter.Update(audioContentModel);
 
             mock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void TestGetAudioContentsByCategoryOk()
+        {
+            int categoryId = 1;
+            AudioContent firstAudioContentToReturn = new AudioContent()
+            {
+                Id = 1,
+                Name = "One Song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                Url = "www.audio.com",
+            };
+            AudioContent secondAudioContentToReturn = new AudioContent()
+            {
+                Id = 2,
+                Name = "Another song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                Url = "www.audio.com"
+            };
+            List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetByCategoryId(categoryId)).Returns(audioContentsToReturn);
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByCategoryId(categoryId);
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
+        }
+
+        [TestMethod]
+        public void TestGetAudioContentsByPlaylistOk()
+        {
+            int playlistId = 1;
+            AudioContent firstAudioContentToReturn = new AudioContent()
+            {
+                Id = 1,
+                Name = "One Song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                Url = "www.audio.com",
+            };
+            AudioContent secondAudioContentToReturn = new AudioContent()
+            {
+                Id = 2,
+                Name = "Another song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                Url = "www.audio.com"
+            };
+            List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetByPlaylistId(playlistId)).Returns(audioContentsToReturn);
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByPlaylistId(playlistId);
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
+        }
+
+        [TestMethod]
+        public void TestGetAudioContentsOk()
+        {
+            AudioContent firstAudioContentToReturn = new AudioContent()
+            {
+                Id = 1,
+                Name = "One Song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                Url = "www.audio.com",
+            };
+            AudioContent secondAudioContentToReturn = new AudioContent()
+            {
+                Id = 2,
+                Name = "Another song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                Url = "www.audio.com"
+            };
+            List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(audioContentsToReturn);
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            AudioContentLogicAdapter audioContentLogicAdapter = new AudioContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetAll();
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
         }
     }
 }

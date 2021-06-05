@@ -7,6 +7,7 @@ using BusinessLogicInterface;
 using Domain;
 using Model.In;
 using Model.Out;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace Adapter
@@ -30,8 +31,9 @@ namespace Adapter
         {
             try
             {
-                AudioContent audioContent = (AudioContent)playableContentLogic.GetById(audioContentId);
-                return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                PlayableContent audioContent = playableContentLogic.GetById(audioContentId);
+                AudioContentBasicInfoModel audioContentBasicInfoModel = mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                return audioContentBasicInfoModel;
             }
             catch (NullObjectException e)
             {
@@ -45,8 +47,9 @@ namespace Adapter
             try
             {
                 AudioContent audioContentIn = mapper.Map<AudioContent>(audioContentModel);
-                AudioContent audioContent = (AudioContent)playableContentLogic.Create(audioContentIn);
-                return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                PlayableContent audioContent = playableContentLogic.Create(audioContentIn);
+                AudioContentBasicInfoModel audioContentBasicInfoModel = mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                return audioContentBasicInfoModel;
             }
             catch (NullObjectException e)
             {
@@ -77,6 +80,51 @@ namespace Adapter
             {
                 throw new NotFoundException(e.errorMessage);
             }
+        }
+
+        public List<AudioContentBasicInfoModel> GetByCategoryId(int categoryId)
+        {
+            List<PlayableContent> playableContents = playableContentLogic.GetByCategoryId(categoryId);
+            List<AudioContent> audioContents = new List<AudioContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is AudioContent audioContent)
+                {
+                    audioContents.Add(audioContent);
+                }
+            }
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel =  mapper.Map<List<AudioContentBasicInfoModel>>(audioContents);
+            return audioContentsBasicInfoModel;
+        }
+
+        public List<AudioContentBasicInfoModel> GetByPlaylistId(int playlistId)
+        {
+            List<PlayableContent> playableContents = playableContentLogic.GetByPlaylistId(playlistId);
+            List<AudioContent> audioContents = new List<AudioContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is AudioContent audioContent)
+                {
+                    audioContents.Add(audioContent);
+                }
+            }
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel = mapper.Map<List<AudioContentBasicInfoModel>>(audioContents);
+            return audioContentsBasicInfoModel;
+        }
+
+        public List<AudioContentBasicInfoModel> GetAll()
+        {
+            List<PlayableContent> playableContents = playableContentLogic.GetAll();
+            List<AudioContent> audioContents = new List<AudioContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is AudioContent audioContent)
+                {
+                    audioContents.Add(audioContent);
+                }
+            }
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel = mapper.Map<List<AudioContentBasicInfoModel>>(audioContents);
+            return audioContentsBasicInfoModel;
         }
     }
 }

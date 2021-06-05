@@ -339,5 +339,109 @@ namespace WebApiTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        public void TestGetAudioContentsByCategoryOk()
+        {
+            int categoryId = 1;
+            AudioContentBasicInfoModel firstAudioContentToReturn = new AudioContentBasicInfoModel()
+            {
+                Id = 1,
+                Name = "One Song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+            };
+            AudioContentBasicInfoModel secondAudioContentToReturn = new AudioContentBasicInfoModel()
+            {
+                Id = 2,
+                Name = "Another song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com"
+            };
+            List<AudioContentBasicInfoModel> audioContentsToReturn = new List<AudioContentBasicInfoModel>() { firstAudioContentToReturn, secondAudioContentToReturn };
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetByCategoryId(categoryId)).Returns(audioContentsToReturn);
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var result = controller.GetAudioContentByCategory(categoryId);
+            OkObjectResult okResult = result as OkObjectResult;
+            List<AudioContentBasicInfoModel> audioContents = okResult.Value as List<AudioContentBasicInfoModel>;
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
+        }
+
+        [TestMethod]
+        public void TestGetAudioContentsByPlaylistOk()
+        {
+            int playlistId = 1;
+            AudioContentBasicInfoModel firstAudioContentToReturn = new AudioContentBasicInfoModel()
+            {
+                Id = 1,
+                Name = "One Song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+            };
+            AudioContentBasicInfoModel secondAudioContentToReturn = new AudioContentBasicInfoModel()
+            {
+                Id = 2,
+                Name = "Another song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com"
+            };
+            List<AudioContentBasicInfoModel> audioContentsToReturn = new List<AudioContentBasicInfoModel>() { firstAudioContentToReturn, secondAudioContentToReturn };
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetByPlaylistId(playlistId)).Returns(audioContentsToReturn);
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var result = controller.GetAudioContentByPlaylist(playlistId);
+            OkObjectResult okResult = result as OkObjectResult;
+            List<AudioContentBasicInfoModel> audioContents = okResult.Value as List<AudioContentBasicInfoModel>;
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
+        }
+
+        [TestMethod]
+        public void TestGetAudioContentsOk()
+        {
+            AudioContentBasicInfoModel firstAudioContentToReturn = new AudioContentBasicInfoModel()
+            {
+                Id = 1,
+                Name = "One Song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com",
+            };
+            AudioContentBasicInfoModel secondAudioContentToReturn = new AudioContentBasicInfoModel()
+            {
+                Id = 2,
+                Name = "Another song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                AudioUrl = "www.audio.com"
+            };
+            List<AudioContentBasicInfoModel> audioContentsToReturn = new List<AudioContentBasicInfoModel>() { firstAudioContentToReturn, secondAudioContentToReturn };
+            Mock<IAudioContentLogicAdapter> mock = new Mock<IAudioContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(audioContentsToReturn);
+            AudioContentController controller = new AudioContentController(mock.Object);
+
+            var result = controller.Get();
+            OkObjectResult okResult = result as OkObjectResult;
+            List<AudioContentBasicInfoModel> audioContents = okResult.Value as List<AudioContentBasicInfoModel>;
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
+        }
     }
 }

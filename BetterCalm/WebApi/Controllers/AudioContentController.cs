@@ -3,6 +3,8 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using System;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -96,6 +98,27 @@ namespace WebApi.Controllers
         {
             audioContentLogicAdapter.Update(audioContentModel);
             return NoContent();
+        }
+
+        [HttpGet("/categories/{id}", Name = "GetByCategory")]
+        public IActionResult GetAudioContentByCategory([FromRoute] int id)
+        {
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByCategoryId(id);
+            return Ok(audioContents);
+        }
+
+        [HttpGet("/playlists/{id}", Name = "GetByPlaylist")]
+        public IActionResult GetAudioContentByPlaylist([FromRoute] int id)
+        {
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByPlaylistId(id);
+            return Ok(audioContents);
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetAll();
+            return Ok(audioContents);
         }
     }
 }
