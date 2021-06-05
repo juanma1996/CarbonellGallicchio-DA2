@@ -3,6 +3,7 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using System;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -96,6 +97,11 @@ namespace WebApi.Controllers
         {
             audioContentLogicAdapter.Update(audioContentModel);
             return NoContent();
+        }
+
+        public object GetAudioContentByCategory(int categoryId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
