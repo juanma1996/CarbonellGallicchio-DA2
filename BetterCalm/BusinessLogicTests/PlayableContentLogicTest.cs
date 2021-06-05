@@ -325,5 +325,42 @@ namespace BusinessLogicTests
             mock.VerifyAll();
             Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
         }
+
+        [TestMethod]
+        public void TestGetAudioContentsOk()
+        {
+            AudioContent firstAudioContentToReturn = new AudioContent()
+            {
+                Id = 1,
+                Name = "One Song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                Url = "www.audio.com",
+            };
+            AudioContent secondAudioContentToReturn = new AudioContent()
+            {
+                Id = 2,
+                Name = "Another song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "www.unaimagen.com",
+                Url = "www.audio.com"
+            };
+            List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
+            Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(null)).Returns(audioContentsToReturn);
+            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
+            Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
+            Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
+            Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
+            PlayableContentLogic playableContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object);
+
+            List<PlayableContent> audioContents = playableContentLogic.GetAll();
+
+            mock.VerifyAll();
+            Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
+        }
     }
 }

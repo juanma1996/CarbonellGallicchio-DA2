@@ -129,5 +129,10 @@ namespace BusinessLogic
             List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.Playlists.Any(pPlaylist => pPlaylist.PlaylistId == playlistId));
             return playableContents;
         }
+
+        public List<PlayableContent> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
