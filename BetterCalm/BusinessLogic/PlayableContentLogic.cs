@@ -3,6 +3,7 @@ using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
 using System.Collections.Generic;
+using System.Linq;
 using ValidatorInterface;
 
 namespace BusinessLogic
@@ -118,7 +119,8 @@ namespace BusinessLogic
 
         public List<PlayableContent> GetByCategoryId(int categoryId)
         {
-            throw new System.NotImplementedException();
+            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.Categories.Any(pCategory => pCategory.CategoryId == categoryId));
+            return playableContents;
         }
     }
 }
