@@ -100,16 +100,18 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpGet("/categories/{id}", Name = "GetByPlaylist")]
+        [HttpGet("/categories/{id}", Name = "GetByCategory")]
         public IActionResult GetAudioContentByCategory([FromRoute] int id)
         {
             List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByCategoryId(id);
             return Ok(audioContents);
         }
 
-        public object GetAudioContentByPlaylist(int playlistId)
+        [HttpGet("/playlists/{id}", Name = "GetByPlaylist")]
+        public IActionResult GetAudioContentByPlaylist([FromRoute] int id)
         {
-            throw new NotImplementedException();
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByPlaylistId(id);
+            return Ok(audioContents);
         }
     }
 }
