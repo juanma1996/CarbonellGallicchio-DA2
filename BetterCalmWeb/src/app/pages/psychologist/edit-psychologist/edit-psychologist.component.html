@@ -1,14 +1,14 @@
-<form [formGroup]="registerPsychologistForm">
+<form [formGroup]="editPsychologistForm">
     <div class=" content">
         <div class=" row">
             <div class=" col-md-8">
                 <div class=" card">
                     <div class=" card-header">
-                        <h2 class=" title">Register psychologist</h2>
+                        <h2 class=" title">Edit psychologist</h2>
                     </div>
-                    <app-psychologist-form [parentForm]="registerPsychologistForm"></app-psychologist-form>
+                    <app-psychologist-form [parentForm]="editPsychologistForm"></app-psychologist-form>
                     <div class=" card-footer">
-                        <button class=" btn btn-fill btn-danger" type="submit" (click)="registerPsychologist()">Register
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="editPsychologist()">Edit
                             psychologist</button>
                     </div>
                 </div>

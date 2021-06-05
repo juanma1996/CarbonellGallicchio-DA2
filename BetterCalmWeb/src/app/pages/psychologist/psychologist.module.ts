@@ -5,6 +5,10 @@ import { RouterModule } from '@angular/router';
 import { PsychologistRoutes } from './psychologist.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { PsychologistFormComponent } from './psychologist-form/psychologist-form.component';
+import { EditPsychologistDashboardComponent } from './edit-psychologist-dashboard/edit-psychologist-dashboard.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { EditPsychologistComponent } from './edit-psychologist/edit-psychologist.component';
 
 
 
@@ -12,12 +16,16 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
   imports: [
     CommonModule,
     FormsModule,
+    NgxDatatableModule,
     RouterModule.forChild(PsychologistRoutes),
     AngularMultiSelectModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
   ],
   declarations: [
-    RegisterPsychologistComponent
+    RegisterPsychologistComponent,
+    PsychologistFormComponent,
+    EditPsychologistDashboardComponent,
+    EditPsychologistComponent
   ],
   exports: [
 

@@ -77,7 +77,7 @@ export const ROUTES: RouteInfo[] = [
     rtlTitle: "صفحات",
     isCollapsed: true,
     children: [
-      
+
       {
         path: "create",
         rtlTitle: " التسعير ",
@@ -97,6 +97,34 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
   {
+    path: "/psychologist",
+    title: "Psychologists",
+    type: "sub",
+    icontype: "tim-icons icon-settings-gear-63",
+    collapse: "",
+    rtlTitle: "صفحات",
+    isCollapsed: true,
+    children: [
+
+      {
+        path: "create",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Register psychologist",
+        type: "link",
+        smallTitle: "P"
+      },
+      {
+        path: "maintenance",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Psychologist maintance",
+        type: "link",
+        smallTitle: "P"
+      },
+    ]
+  },
+  {
     path: "",
     title: "Administration",
     type: "sub",
@@ -106,26 +134,10 @@ export const ROUTES: RouteInfo[] = [
     isCollapsed: true,
     children: [
       {
-        path: "psychologist",
-        rtlTitle: " التسعير ",
-        rtlSmallTitle: "ع ",
-        title: "Register Psychologist",
-        type: "link",
-        smallTitle: "P"
-      },
-      {
         path: "audioContent",
         rtlTitle: " التسعير ",
         rtlSmallTitle: "ع ",
         title: "Create Audio Content",
-        type: "link",
-        smallTitle: "P"
-      },
-      {
-        path: "/administrator/maintenance",
-        rtlTitle: " التسعير ",
-        rtlSmallTitle: "ع ",
-        title: "Administrators maintance",
         type: "link",
         smallTitle: "P"
       },
