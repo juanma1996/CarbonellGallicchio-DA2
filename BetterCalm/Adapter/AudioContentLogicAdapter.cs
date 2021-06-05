@@ -114,7 +114,17 @@ namespace Adapter
 
         public List<AudioContentBasicInfoModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            List<PlayableContent> playableContents = playableContentLogic.GetAll();
+            List<AudioContent> audioContents = new List<AudioContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is AudioContent audioContent)
+                {
+                    audioContents.Add(audioContent);
+                }
+            }
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel = mapper.Map<List<AudioContentBasicInfoModel>>(audioContents);
+            return audioContentsBasicInfoModel;
         }
     }
 }
