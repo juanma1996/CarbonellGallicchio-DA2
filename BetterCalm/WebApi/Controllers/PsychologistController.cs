@@ -3,6 +3,8 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using System;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -99,6 +101,14 @@ namespace WebApi.Controllers
         {
             psychologistDomainToModelAdapter.Update(psychologistModel);
             return NoContent();
+        }
+
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<PsychologistBasicInfoModel> psychologist = psychologistDomainToModelAdapter.GetAll();
+            return Ok(psychologist);
         }
     }
 }

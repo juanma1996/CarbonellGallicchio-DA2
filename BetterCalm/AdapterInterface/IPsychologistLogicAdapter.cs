@@ -1,5 +1,6 @@
 ﻿using Model.In;
 using Model.Out;
+using System.Collections.Generic;
 
 namespace AdapterInterface
 {
@@ -9,5 +10,6 @@ namespace AdapterInterface
         PsychologistBasicInfoModel Add(PsychologistModel psychologistModel);
         void Delete(int psychologistId);
         void Update(PsychologistModel psychologistModel);
+        List<PsychologistBasicInfoModel> GetAll();
     }
 }

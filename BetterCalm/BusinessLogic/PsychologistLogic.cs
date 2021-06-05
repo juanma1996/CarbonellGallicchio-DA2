@@ -113,5 +113,11 @@ namespace BusinessLogic
             agendaLogic.Update(agendaToUse);
             return agendaToUse.Psychologist;
         }
+
+        public List<Psychologist> GetAll()
+        {
+            List<Psychologist> psychologists = psychologistRepository.GetAll();
+            return psychologists;
+        }
     }
 }

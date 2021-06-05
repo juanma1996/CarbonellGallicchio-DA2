@@ -475,6 +475,53 @@ namespace BusinessLogicTests
 
             mock.VerifyAll();
             Assert.AreEqual(psychologists.Count, result.Count);
-        }        
+        }
+
+        [TestMethod]
+        public void TestGetPsychologistsOk()
+        {
+            int problematicId = 8;
+            Psychologist onePsychologist = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(1999, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 2,
+                    }
+                }
+            };
+            Psychologist anotherPsychologist = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            List<Psychologist> psychologistsToReturn = new List<Psychologist>() { onePsychologist, anotherPsychologist };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<Psychologist, bool>>>())).Returns(psychologistsToReturn);
+            Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
+            Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+
+            List<Psychologist> result = psychologistLogic.GetAll();
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistsToReturn.Count, result.Count);
+        }
     }
 }

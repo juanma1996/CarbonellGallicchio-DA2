@@ -10,6 +10,7 @@ using BusinessLogicInterface;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
+using Model.Out;
 using Moq;
 using ValidatorInterface;
 
@@ -275,6 +276,67 @@ namespace AdapterTests
             psychologistLogicAdapter.Update(psychologistModel);
 
             mock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void TestGetPsychologistsOk()
+        {
+            Psychologist firstPsycologist = new Psychologist
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 1
+                    },
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 2
+                    },
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 3
+                    }
+                }
+            };
+            Psychologist secondPsycologist = new Psychologist
+            {
+                Name = "Fede",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 1
+                    },
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 2
+                    },
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 3
+                    }
+                }
+            };
+            List<Psychologist> psychologistsToReturn = new List<Psychologist>() { firstPsycologist, secondPsycologist };
+            Mock<IPsychologistLogic> mock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(psychologistsToReturn);
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<PsychologistModel>> mockAdministratorModel = new Mock<IValidator<PsychologistModel>>(MockBehavior.Strict);
+            Mock<IValidator<PsychologistModel>> mockValidator = new Mock<IValidator<PsychologistModel>>(MockBehavior.Strict);
+            PsychologistLogicAdapter psychologistLogicAdapter = new PsychologistLogicAdapter(mock.Object, mapper, mockValidator.Object);
+
+            List<PsychologistBasicInfoModel> psychologists = psychologistLogicAdapter.GetAll();
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistsToReturn.Count, psychologists.Count);
         }
     }
 }
