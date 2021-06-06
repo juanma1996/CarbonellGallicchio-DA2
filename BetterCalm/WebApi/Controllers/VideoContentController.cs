@@ -51,9 +51,9 @@ namespace WebApi.Controllers
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPost]
-        public IActionResult Post([FromBody] VideoContentModel audioContentModel)
+        public IActionResult Post([FromBody] VideoContentModel videoContentModel)
         {
-            VideoContentBasicInfoModel videoContentCreated = videoContentLogicAdapter.Add(audioContentModel);
+            VideoContentBasicInfoModel videoContentCreated = videoContentLogicAdapter.Add(videoContentModel);
             return CreatedAtRoute("GetVideoContentById", new { id = videoContentCreated.Id }, videoContentCreated);
         }
 
@@ -136,9 +136,20 @@ namespace WebApi.Controllers
             return Ok(videoContents);
         }
 
-        public object Get()
+        // GET: 
+        /// <summary>
+        /// Obtains the information of all existing video contents.
+        /// </summary>
+        /// <remarks>
+        /// Obtains the information of all existing video contents.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [HttpGet]
+        public IActionResult Get()
         {
-            throw new NotImplementedException();
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetAll();
+            return Ok(videoContents);
         }
     }
 }
