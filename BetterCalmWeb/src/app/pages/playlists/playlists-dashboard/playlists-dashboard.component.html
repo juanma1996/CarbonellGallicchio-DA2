@@ -17,7 +17,8 @@
                             <div class=" row">
                                 <div *ngFor="let data of playlists"
                                     class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6 ">
-                                    <app-playlist-card [categoryId]="categoryId" [playlist]="data"></app-playlist-card>
+                                    <app-playlist-card [categoryId]="categoryId" [playlist]="data" [audio]="true">
+                                    </app-playlist-card>
                                 </div>
                             </div>
                         </div>

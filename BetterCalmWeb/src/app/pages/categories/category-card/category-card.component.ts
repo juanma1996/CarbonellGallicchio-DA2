@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CategoryCardComponent implements OnInit {
 
   @Input() category
+  @Input() audio: boolean;
+
   constructor() { }
 
   ngOnInit(): void {

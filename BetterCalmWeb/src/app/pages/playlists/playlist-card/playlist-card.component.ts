@@ -9,6 +9,7 @@ export class PlaylistCardComponent implements OnInit {
 
   @Input() playlist
   @Input() categoryId
+  @Input() audio: boolean;
   constructor() { }
 
   ngOnInit(): void {
