@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router'
 import { PlaylistBasicInfo } from '../../../models/playlist/playlist-basic-info';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
 import { ToastrService } from 'ngx-toastr';
+import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
+import { AudioContentModel } from 'src/app/models/audioContent/audio-content-model';
 
 @Component({
   selector: 'app-playlists-dashboard',
@@ -13,10 +15,17 @@ import { ToastrService } from 'ngx-toastr';
 export class PlaylistsDashboardComponent implements OnInit {
 
   playlists: PlaylistBasicInfo[] = [];
+  public audioContents: AudioContentModel[] = [];
   public errorBackend: string = '';
   public categoryId;
+  public isCollapsed: boolean = false;
 
-  constructor(public route: ActivatedRoute, private categoriesService: CategoriesService, public toastr: ToastrService) { }
+  constructor(
+    public route: ActivatedRoute,
+    private categoriesService: CategoriesService,
+    public toastr: ToastrService,
+    private audioContentService: AudioContentService
+  ) { }
 
   ngOnInit() {
     this.categoryId = this.route.snapshot.paramMap.get('categoryId');
@@ -29,10 +38,23 @@ export class PlaylistsDashboardComponent implements OnInit {
           this.setError(catchError);
         }
       )
+    this.getAudioContents();
   }
 
   private getPlaylists(response) {
     this.playlists = response;
+  }
+
+  getAudioContents() {
+    this.audioContentService.getAudioContentByCategory(this.categoryId)
+      .subscribe(
+        response => {
+          this.audioContents = response;
+        },
+        catchError => {
+          console.log(catchError);
+        }
+      )
   }
 
   private setError(message) {

@@ -36,7 +36,7 @@ export class AudioContentService {
     }
 
     getAudioContentByCategory(categoryId: number): Observable<AudioContentModel[]> {
-        return this.http.get<AudioContentModel[]>(this.uri + '/categories/' + categoryId)
+        return this.http.get<AudioContentModel[]>('https://localhost:5001/categories/' + categoryId)
             .pipe(catchError(this.handleError));
     }
 

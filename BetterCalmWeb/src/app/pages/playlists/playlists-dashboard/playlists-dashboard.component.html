@@ -3,27 +3,28 @@
         <div class=" col-12">
             <div class=" card">
                 <div class=" card-header">
-                    <div class="row">
-                        <div class="float-right">
-                            <button class="btn btn-default btn-fab btn-icon btn-round" routerLink="/categories"
-                                routerLinkActive="active">
-                                <i class="tim-icons icon-minimal-left"></i>
-                            </button>
-                        </div>
-                        <div>
+                    <div (click)="isCollapsed = !isCollapsed; $event.preventDefault()"
+                        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic" href="#pablo">
+                        <div class="d-flex align-items-center">
                             <h2 class="title p-2">Playlists for Categories</h2>
+                            <i class=" tim-icons icon-minimal-down"> </i>
                         </div>
                     </div>
                 </div>
-                <div class=" card-body all-icons">
-                    <div class=" row">
-                        <div *ngFor="let data of playlists"
-                            class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6 ">
-                            <app-playlist-card [categoryId]="categoryId" [playlist]="data"></app-playlist-card>
+                <div class="collapse" id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+                    <div class=" card">
+                        <div class=" card-body all-icons">
+                            <div class=" row">
+                                <div *ngFor="let data of playlists"
+                                    class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6 ">
+                                    <app-playlist-card [categoryId]="categoryId" [playlist]="data"></app-playlist-card>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <app-audio-content-table [audios]="audioContents"></app-audio-content-table>
 </div>

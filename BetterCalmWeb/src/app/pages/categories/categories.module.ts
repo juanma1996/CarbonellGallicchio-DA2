@@ -5,17 +5,19 @@ import { CategoriesDashboardComponent } from './categories-dashboard/categories-
 import { CategoryCardComponent } from './category-card/category-card.component';
 
 import { CategoriesRoutes } from "./categories.routing";
+import { SharedModuleModule } from '../shared-module/shared-module.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(CategoriesRoutes),
+    SharedModuleModule
   ],
   declarations: [
     CategoryCardComponent,
-    CategoriesDashboardComponent
+    CategoriesDashboardComponent,
   ],
-  exports :[
+  exports: [
     CategoriesDashboardComponent,
     CategoryCardComponent
   ]

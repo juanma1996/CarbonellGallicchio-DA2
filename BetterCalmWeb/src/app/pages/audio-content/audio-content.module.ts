@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AudioFormComponent } from './audio-form/audio-form.component';
 import { EditAudioContentComponent } from './edit-audio-content/edit-audio-content.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AudioContentTableComponent } from './audio-content-table/audio-content-table.component';
+import { SharedModuleModule } from '../shared-module/shared-module.module';
 
 @NgModule({
   declarations: [AudioContentDashboardComponent, CreateAudioContentComponent, AudioFormComponent, EditAudioContentComponent],
@@ -21,6 +23,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NgxDatatableModule,
     TimepickerModule.forRoot(),
     AngularMultiSelectModule,
+    SharedModuleModule
   ],
+  exports: [
+  ]
 })
 export class AudioContentModule { }

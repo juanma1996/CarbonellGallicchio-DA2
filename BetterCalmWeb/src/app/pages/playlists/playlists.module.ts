@@ -4,18 +4,22 @@ import { PlaylistsDashboardComponent } from './playlists-dashboard/playlists-das
 import { PlaylistCardComponent } from './playlist-card/playlist-card.component';
 import { PlaylistRoutes } from './playlists.routing';
 import { RouterModule } from '@angular/router';
+import { SharedModuleModule } from '../shared-module/shared-module.module';
+import { CollapseModule } from "ngx-bootstrap/collapse";
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(PlaylistRoutes)
+    CollapseModule.forRoot(),
+    RouterModule.forChild(PlaylistRoutes),
+    SharedModuleModule,
   ],
   declarations: [
-    PlaylistsDashboardComponent, 
+    PlaylistsDashboardComponent,
     PlaylistCardComponent
   ],
-  exports :[
-    PlaylistsDashboardComponent, 
+  exports: [
+    PlaylistsDashboardComponent,
     PlaylistCardComponent
   ]
 })
