@@ -30,6 +30,21 @@ export class AudioContentService {
             .pipe(catchError(this.handleError));
     }
 
+    get(): Observable<AudioContentModel[]> {
+        return this.http.get<AudioContentModel[]>(this.uri)
+            .pipe(catchError(this.handleError));
+    }
+
+    getAudioContentByCategory(categoryId: number): Observable<AudioContentModel[]> {
+        return this.http.get<AudioContentModel[]>(this.uri + '/categories/' + categoryId)
+            .pipe(catchError(this.handleError));
+    }
+
+    getAudioContentByPlaylist(playlistId: number): Observable<AudioContentModel[]> {
+        return this.http.get<AudioContentModel[]>('https://localhost:5001/playlists/' + playlistId)
+            .pipe(catchError(this.handleError));
+    }
+
     update(body): Observable<any> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
