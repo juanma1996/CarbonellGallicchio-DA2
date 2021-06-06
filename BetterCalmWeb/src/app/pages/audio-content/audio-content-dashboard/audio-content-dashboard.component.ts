@@ -4,6 +4,7 @@ import { AudioContentService } from 'src/app/services/audio-content/audio-conten
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs/operators';
 import { SessionService } from 'src/app/services/session/session.service';
+import { AudioContentModel } from 'src/app/models/audioContent/audio-content-model';
 
 @Component({
   selector: 'app-audio-content-dashboard',
@@ -13,34 +14,9 @@ import { SessionService } from 'src/app/services/session/session.service';
 export class AudioContentDashboardComponent implements OnInit {
 
   public categoryId;
+  public playlistId;
   public isAutenticated: boolean;
-  public audioContent = [
-    {
-      Id: 1,
-      Name: 'Colgando en tus manos',
-      Creator: 'Carlos Baute',
-      Duration: '3:43'
-    },
-    {
-      Id: 2,
-      Name: 'Malbec',
-      Creator: 'Duki',
-      Duration: '3:43'
-    },
-    {
-      Id: 3,
-      Name: 'Cual es tu plan?',
-      Creator: 'Bad Bunny',
-      Duration: '3:43'
-    },
-    {
-      Id: 4,
-      Name: 'Dum Dum',
-      Creator: 'Patrice Baumel',
-      Duration: '3:43'
-    },
-
-  ]
+  public audioContents: AudioContentModel[] = []
 
   constructor(
     public route: ActivatedRoute,
@@ -51,7 +27,21 @@ export class AudioContentDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('categoryId');
+    this.playlistId = Number(this.route.snapshot.paramMap.get('playlistId'));
     this.isAutenticated = this.sessionService.isAuthenticated();
+    this.getAudioContents(this.playlistId);
+  }
+
+  getAudioContents(playlistId: number) {
+    this.audioContentService.getAudioContentByPlaylist(playlistId)
+      .subscribe(
+        response => {
+          this.audioContents = response;
+        },
+        catchError => {
+          console.log(catchError)
+        }
+      )
   }
 
   delete(id) {
@@ -59,6 +49,7 @@ export class AudioContentDashboardComponent implements OnInit {
       .subscribe(
         response => {
           this.setSuccess();
+          this.getAudioContents(this.playlistId);
         },
         catchError => {
           this.setError(catchError);

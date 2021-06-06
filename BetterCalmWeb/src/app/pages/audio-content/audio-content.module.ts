@@ -9,6 +9,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AudioFormComponent } from './audio-form/audio-form.component';
 import { EditAudioContentComponent } from './edit-audio-content/edit-audio-content.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [AudioContentDashboardComponent, CreateAudioContentComponent, AudioFormComponent, EditAudioContentComponent],
@@ -17,8 +18,9 @@ import { EditAudioContentComponent } from './edit-audio-content/edit-audio-conte
     RouterModule.forChild(AudioContentRoutes),
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     FormsModule,
+    NgxDatatableModule,
     TimepickerModule.forRoot(),
     AngularMultiSelectModule,
-  ]
+  ],
 })
 export class AudioContentModule { }
