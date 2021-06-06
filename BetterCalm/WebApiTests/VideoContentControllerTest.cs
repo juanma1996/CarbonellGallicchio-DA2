@@ -320,5 +320,38 @@ namespace WebApiTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        public void TestGetVideoContentsByCategoryOk()
+        {
+            int categoryId = 1;
+            VideoContentBasicInfoModel firstVideoContentToReturn = new VideoContentBasicInfoModel()
+            {
+                Id = 1,
+                Name = "One Song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                VideoUrl = "www.unvideo.com"
+            };
+            VideoContentBasicInfoModel secondVideoContentToReturn = new VideoContentBasicInfoModel()
+            {
+                Id = 2,
+                Name = "Another song",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                VideoUrl = "www.unvideo.com"
+            };
+            List<VideoContentBasicInfoModel> videoContentsToReturn = new List<VideoContentBasicInfoModel>() { firstVideoContentToReturn, secondVideoContentToReturn };
+            Mock<IVideoContentLogicAdapter> mock = new Mock<IVideoContentLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetByCategoryId(categoryId)).Returns(videoContentsToReturn);
+            VideoContentController controller = new VideoContentController(mock.Object);
+
+            var result = controller.GetVideoContentByCategory(categoryId);
+            OkObjectResult okResult = result as OkObjectResult;
+            List<VideoContentBasicInfoModel> videoContents = okResult.Value as List<VideoContentBasicInfoModel>;
+
+            mock.VerifyAll();
+            Assert.AreEqual(videoContentsToReturn.Count, videoContents.Count);
+        }
     }
 }

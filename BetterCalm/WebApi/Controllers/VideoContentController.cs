@@ -98,5 +98,10 @@ namespace WebApi.Controllers
             videoContentLogicAdapter.Update(videoContentModel);
             return NoContent();
         }
+
+        public object GetVideoContentByCategory(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
