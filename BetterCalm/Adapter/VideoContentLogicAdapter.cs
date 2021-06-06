@@ -90,5 +90,10 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
+
+        public List<VideoContentBasicInfoModel> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

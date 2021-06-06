@@ -12,5 +12,6 @@ namespace AdapterInterface
         void Update(VideoContentModel videoContentModel);
         List<VideoContentBasicInfoModel> GetByCategoryId(int categoryId);
         List<VideoContentBasicInfoModel> GetByPlaylistId(int playlistId);
+        List<VideoContentBasicInfoModel> GetAll();
     }
 }
