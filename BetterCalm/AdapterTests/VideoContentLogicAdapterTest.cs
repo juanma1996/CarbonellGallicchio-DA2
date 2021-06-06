@@ -352,5 +352,42 @@ namespace AdapterTests
             mock.VerifyAll();
             Assert.AreEqual(videoContentsToReturn.Count, videoContents.Count);
         }
+
+        [TestMethod]
+        public void TestGetVideoContentsOk()
+        {
+            VideoContent firstVideoContentToReturn = new VideoContent()
+            {
+                Id = 1,
+                Name = "One video",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "",
+                Url = "www.video.com",
+            };
+            VideoContent secondVideoContentToReturn = new VideoContent()
+            {
+                Id = 2,
+                Name = "Another video",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "",
+                Url = "www.video.com"
+            };
+            List<PlayableContent> videoContentsToReturn = new List<PlayableContent>() { firstVideoContentToReturn, secondVideoContentToReturn };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(videoContentsToReturn);
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetAll();
+
+            mock.VerifyAll();
+            Assert.AreEqual(videoContentsToReturn.Count, videoContents.Count);
+        }
     }
 }
