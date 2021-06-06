@@ -85,5 +85,10 @@ namespace Adapter
         {
             throw new NotImplementedException();
         }
+
+        public List<VideoContentBasicInfoModel> GetByPlaylistId(int playlistId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

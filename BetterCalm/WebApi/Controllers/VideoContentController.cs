@@ -117,5 +117,10 @@ namespace WebApi.Controllers
             List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetByCategoryId(id);
             return Ok(videoContents);
         }
+
+        public object GetVideoContentByPlaylist(int playlistId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
