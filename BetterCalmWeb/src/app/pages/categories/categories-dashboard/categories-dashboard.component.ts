@@ -4,6 +4,7 @@ import { catchError } from 'rxjs/operators';
 import { CategoryBasicInfo } from '../../../models/category/category-basic-info';
 import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
 import { AudioContentModel } from 'src/app/models/audioContent/audio-content-model';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: 'app-categories-dashboard',
@@ -12,11 +13,11 @@ import { AudioContentModel } from 'src/app/models/audioContent/audio-content-mod
 export class CategoriesDashboardComponent implements OnInit {
   public categories: CategoryBasicInfo[] = [];
   public audioContents: AudioContentModel[] = [];
-  public errorBackend: string = '';
 
   constructor(
     private categoriesService: CategoriesService,
-    private audioContentService: AudioContentService
+    private audioContentService: AudioContentService,
+    private customToastr: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -26,8 +27,7 @@ export class CategoriesDashboardComponent implements OnInit {
           this.get(response)
         },
         catchError => {
-          console.log(catchError);
-          this.errorBackend = catchError + ', fix it please';
+          this.customToastr.setError(catchError);
         }
       )
     this.getAudioContents();
@@ -40,11 +40,10 @@ export class CategoriesDashboardComponent implements OnInit {
           this.audioContents = response;
         },
         catchError => {
-          console.log(catchError);
+          this.customToastr.setError(catchError);
         }
       )
   }
-
 
   private get(response) {
     console.log(response);

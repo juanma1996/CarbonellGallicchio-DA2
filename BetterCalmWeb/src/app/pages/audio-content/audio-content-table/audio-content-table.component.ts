@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SessionService } from 'src/app/services/session/session.service';
+import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: 'app-audio-content-table',
@@ -7,9 +10,27 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AudioContentTableComponent implements OnInit {
   @Input() audios: [];
-  constructor() { }
+  public isAutenticated: boolean;
+
+  constructor(
+    private sessionService: SessionService,
+    private audioContentService: AudioContentService,
+    private customToastr: ToastService
+  ) { }
 
   ngOnInit(): void {
+    this.isAutenticated = this.sessionService.isAuthenticated();
   }
 
+  delete(id) {
+    this.audioContentService.delete(id)
+      .subscribe(
+        response => {
+          this.customToastr.setSuccess("The audio content was successfully deleted");
+        },
+        catchError => {
+          this.customToastr.setError(catchError);
+        }
+      )
+  }
 }

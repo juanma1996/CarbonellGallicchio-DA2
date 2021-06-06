@@ -3,9 +3,9 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router'
 import { PlaylistBasicInfo } from '../../../models/playlist/playlist-basic-info';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
-import { ToastrService } from 'ngx-toastr';
 import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
 import { AudioContentModel } from 'src/app/models/audioContent/audio-content-model';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: 'app-playlists-dashboard',
@@ -23,7 +23,7 @@ export class PlaylistsDashboardComponent implements OnInit {
   constructor(
     public route: ActivatedRoute,
     private categoriesService: CategoriesService,
-    public toastr: ToastrService,
+    private customToastr: ToastService,
     private audioContentService: AudioContentService
   ) { }
 
@@ -35,7 +35,7 @@ export class PlaylistsDashboardComponent implements OnInit {
           this.getPlaylists(response)
         },
         catchError => {
-          this.setError(catchError);
+          this.customToastr.setError(catchError);
         }
       )
     this.getAudioContents();
@@ -52,23 +52,10 @@ export class PlaylistsDashboardComponent implements OnInit {
           this.audioContents = response;
         },
         catchError => {
-          console.log(catchError);
+          this.customToastr.setError(catchError);
         }
       )
   }
 
-  private setError(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-danger alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
 
 }

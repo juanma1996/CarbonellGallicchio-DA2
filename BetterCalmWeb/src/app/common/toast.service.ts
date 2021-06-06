@@ -11,7 +11,6 @@ export class ToastService {
   constructor(public toastr: ToastrService, ) { }
 
   public setError(message) {
-    console.log("im in the new service")
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
       message,
