@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
 using System;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -50,9 +51,9 @@ namespace WebApi.Controllers
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPost]
-        public IActionResult Post([FromBody] VideoContentModel audioContentModel)
+        public IActionResult Post([FromBody] VideoContentModel videoContentModel)
         {
-            VideoContentBasicInfoModel videoContentCreated = videoContentLogicAdapter.Add(audioContentModel);
+            VideoContentBasicInfoModel videoContentCreated = videoContentLogicAdapter.Add(videoContentModel);
             return CreatedAtRoute("GetVideoContentById", new { id = videoContentCreated.Id }, videoContentCreated);
         }
 
@@ -97,6 +98,58 @@ namespace WebApi.Controllers
         {
             videoContentLogicAdapter.Update(videoContentModel);
             return NoContent();
+        }
+
+        // GET: 
+        /// <summary>
+        /// Obtains all existing video contents for a given category.
+        /// </summary>
+        /// <remarks>
+        /// Obtains all existing video contents for a given category. An existing category id is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="404">NotFound. There is no category registered for the given data.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [Route("categories/{id}")]
+        [HttpGet]
+        public IActionResult GetVideoContentByCategory([FromRoute] int id)
+        {
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetByCategoryId(id);
+            return Ok(videoContents);
+        }
+
+        // GET: 
+        /// <summary>
+        /// Obtains all existing video contents for a given playlist.
+        /// </summary>
+        /// <remarks>
+        /// Obtains all existing video contents for a given playlist. An existing playlist id is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="404">NotFound. There is no playlist registered for the given data.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [Route("playlists/{id}")]
+        [HttpGet]
+        public IActionResult GetVideoContentByPlaylist([FromRoute] int id)
+        {
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetByPlaylistId(id);
+            return Ok(videoContents);
+        }
+
+        // GET: 
+        /// <summary>
+        /// Obtains the information of all existing video contents.
+        /// </summary>
+        /// <remarks>
+        /// Obtains the information of all existing video contents.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetAll();
+            return Ok(videoContents);
         }
     }
 }

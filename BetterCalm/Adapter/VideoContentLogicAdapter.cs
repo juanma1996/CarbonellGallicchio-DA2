@@ -8,6 +8,7 @@ using Domain;
 using Model.In;
 using Model.Out;
 using System;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace Adapter
@@ -78,6 +79,51 @@ namespace Adapter
             {
                 throw new NotFoundException(e.errorMessage);
             }
+        }
+
+        public List<VideoContentBasicInfoModel> GetByCategoryId(int categoryId)
+        {
+            List<PlayableContent> playableContents = playableContentLogic.GetByCategoryId(categoryId);
+            List<VideoContent> videoContents = new List<VideoContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is VideoContent videoContent)
+                {
+                    videoContents.Add(videoContent);
+                }
+            }
+            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(videoContents);
+            return videoContentsBasicInfoModel;
+        }
+
+        public List<VideoContentBasicInfoModel> GetByPlaylistId(int playlistId)
+        {
+            List<PlayableContent> playableContents = playableContentLogic.GetByPlaylistId(playlistId);
+            List<VideoContent> videoContents = new List<VideoContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is VideoContent videoContent)
+                {
+                    videoContents.Add(videoContent);
+                }
+            }
+            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(videoContents);
+            return videoContentsBasicInfoModel;
+        }
+
+        public List<VideoContentBasicInfoModel> GetAll()
+        {
+            List<PlayableContent> playableContents = playableContentLogic.GetAll();
+            List<VideoContent> videoContents = new List<VideoContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is VideoContent videoContent)
+                {
+                    videoContents.Add(videoContent);
+                }
+            }
+            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(videoContents);
+            return videoContentsBasicInfoModel;
         }
     }
 }

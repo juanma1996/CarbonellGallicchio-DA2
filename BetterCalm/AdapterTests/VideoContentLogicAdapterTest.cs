@@ -8,7 +8,9 @@ using BusinessLogicInterface;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
+using Model.Out;
 using Moq;
+using System;
 using System.Collections.Generic;
 using ValidatorInterface;
 
@@ -273,6 +275,119 @@ namespace AdapterTests
             videoContentLogicAdapter.Update(videoContentModel);
 
             mock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void TestGetVideoContentsByCategoryOk()
+        {
+            int categoryId = 1;
+            VideoContent firstVideoContentToReturn = new VideoContent()
+            {
+                Id = 1,
+                Name = "One video",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "",
+                Url = "www.video.com",
+            };
+            VideoContent secondVideoContentToReturn = new VideoContent()
+            {
+                Id = 2,
+                Name = "Another video",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "",
+                Url = "www.video.com"
+            };
+            List<PlayableContent> videoContentsToReturn = new List<PlayableContent>() { firstVideoContentToReturn, secondVideoContentToReturn };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetByCategoryId(categoryId)).Returns(videoContentsToReturn);
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetByCategoryId(categoryId);
+
+            mock.VerifyAll();
+            Assert.AreEqual(videoContentsToReturn.Count, videoContents.Count);
+        }
+
+        [TestMethod]
+        public void TestGetVideoContentsByPlaylistOk()
+        {
+            int playlistId = 1;
+            VideoContent firstVideoContentToReturn = new VideoContent()
+            {
+                Id = 1,
+                Name = "One video",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "",
+                Url = "www.video.com",
+            };
+            VideoContent secondVideoContentToReturn = new VideoContent()
+            {
+                Id = 2,
+                Name = "Another video",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "",
+                Url = "www.video.com"
+            };
+            List<PlayableContent> videoContentsToReturn = new List<PlayableContent>() { firstVideoContentToReturn, secondVideoContentToReturn };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetByPlaylistId(playlistId)).Returns(videoContentsToReturn);
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetByPlaylistId(playlistId);
+
+            mock.VerifyAll();
+            Assert.AreEqual(videoContentsToReturn.Count, videoContents.Count);
+        }
+
+        [TestMethod]
+        public void TestGetVideoContentsOk()
+        {
+            VideoContent firstVideoContentToReturn = new VideoContent()
+            {
+                Id = 1,
+                Name = "One video",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "",
+                Url = "www.video.com",
+            };
+            VideoContent secondVideoContentToReturn = new VideoContent()
+            {
+                Id = 2,
+                Name = "Another video",
+                Duration = TimeSpan.MaxValue,
+                CreatorName = "Juan",
+                ImageUrl = "",
+                Url = "www.video.com"
+            };
+            List<PlayableContent> videoContentsToReturn = new List<PlayableContent>() { firstVideoContentToReturn, secondVideoContentToReturn };
+            Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(videoContentsToReturn);
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
+            Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
+            VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
+                mockValidator.Object, mockPlaylistModelValidator.Object);
+
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetAll();
+
+            mock.VerifyAll();
+            Assert.AreEqual(videoContentsToReturn.Count, videoContents.Count);
         }
     }
 }
