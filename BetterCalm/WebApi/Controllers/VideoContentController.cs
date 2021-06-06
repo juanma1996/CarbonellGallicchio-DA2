@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
 using System;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -99,9 +100,22 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        public object GetVideoContentByCategory(int categoryId)
+        // GET: 
+        /// <summary>
+        /// Obtains all existing video contents for a given category.
+        /// </summary>
+        /// <remarks>
+        /// Obtains all existing video contents for a given category. An existing category id is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="404">NotFound. There is no category registered for the given data.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [Route("categories/{id}")]
+        [HttpGet]
+        public IActionResult GetVideoContentByCategory([FromRoute] int id)
         {
-            throw new NotImplementedException();
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetByCategoryId(id);
+            return Ok(videoContents);
         }
     }
 }
