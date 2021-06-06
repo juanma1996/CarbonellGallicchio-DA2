@@ -98,7 +98,17 @@ namespace Adapter
 
         public List<VideoContentBasicInfoModel> GetByPlaylistId(int playlistId)
         {
-            throw new NotImplementedException();
+            List<PlayableContent> playableContents = playableContentLogic.GetByPlaylistId(playlistId);
+            List<VideoContent> videoContents = new List<VideoContent>();
+            foreach (var item in playableContents)
+            {
+                if (item is VideoContent videoContent)
+                {
+                    videoContents.Add(videoContent);
+                }
+            }
+            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(videoContents);
+            return videoContentsBasicInfoModel;
         }
 
         public List<VideoContentBasicInfoModel> GetAll()
