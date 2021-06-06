@@ -118,9 +118,22 @@ namespace WebApi.Controllers
             return Ok(videoContents);
         }
 
-        public object GetVideoContentByPlaylist(int playlistId)
+        // GET: 
+        /// <summary>
+        /// Obtains all existing video contents for a given playlist.
+        /// </summary>
+        /// <remarks>
+        /// Obtains all existing video contents for a given playlist. An existing playlist id is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="404">NotFound. There is no playlist registered for the given data.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [Route("playlists/{id}")]
+        [HttpGet]
+        public IActionResult GetVideoContentByPlaylist([FromRoute] int id)
         {
-            throw new NotImplementedException();
+            List<VideoContentBasicInfoModel> videoContents = videoContentLogicAdapter.GetByPlaylistId(id);
+            return Ok(videoContents);
         }
     }
 }
