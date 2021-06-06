@@ -33,7 +33,8 @@
                 <ngx-datatable-column name="Name"></ngx-datatable-column>
                 <ngx-datatable-column name="CreatorName"></ngx-datatable-column>
                 <ngx-datatable-column name="AudioUrl"></ngx-datatable-column>
-                <ngx-datatable-column name="Option" prop="option" [draggable]="false" [resizeable]="false">
+                <ngx-datatable-column *ngIf=isAutenticated name="Option" prop="option" [draggable]="false"
+                    [resizeable]="false">
                     <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
                         <button class=" btn btn-link btn-sm btn-icon" tooltip="Refresh" type="button"
                             [routerLink]="['/audioContent/edit', row.id]" routerLinkActive="active">
