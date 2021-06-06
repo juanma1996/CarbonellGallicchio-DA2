@@ -104,6 +104,17 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
+        // GET: 
+        /// <summary>
+        /// Obtains the information of all existing administrators.
+        /// </summary>
+        /// <remarks>
+        /// Obtains the information of all existing administrators. An administrator token is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="401">Unauthorized. Must contain a token to access Api.</response>
+        /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpGet]
         public IActionResult Get()

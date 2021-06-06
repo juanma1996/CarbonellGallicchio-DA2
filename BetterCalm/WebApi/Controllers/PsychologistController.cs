@@ -103,6 +103,15 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
+        // GET: 
+        /// <summary>
+        /// Obtains the information of all existing psychologists.
+        /// </summary>
+        /// <remarks>
+        /// Obtains the information of all existing psychologists.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpGet]
         public IActionResult Get()

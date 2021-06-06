@@ -90,7 +90,7 @@ namespace WebApi.Controllers
         /// <response code="400">Error. The audio content name can't be empty.</response>
         /// <response code="400">Error. The audio content must contain a playlist.</response>
         /// <response code="400">Error. The audio content must contain a category.</response>
-        /// <response code="404">NotFound. There is no administrator registered for the given data.</response>
+        /// <response code="404">NotFound. There is no audio content registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpPut]
@@ -100,20 +100,51 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpGet("/categories/{id}", Name = "GetByCategory")]
+        // GET: 
+        /// <summary>
+        /// Obtains all existing audio contents for a given category.
+        /// </summary>
+        /// <remarks>
+        /// Obtains all existing audio contents for a given category. An existing category id is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="404">NotFound. There is no category registered for the given data.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [Route("categories/{id}")]
+        [HttpGet]
         public IActionResult GetAudioContentByCategory([FromRoute] int id)
         {
             List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByCategoryId(id);
             return Ok(audioContents);
         }
 
-        [HttpGet("/playlists/{id}", Name = "GetByPlaylist")]
+        // GET: 
+        /// <summary>
+        /// Obtains all existing audio contents for a given playlist.
+        /// </summary>
+        /// <remarks>
+        /// Obtains all existing audio contents for a given playlist. An existing playlist id is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="404">NotFound. There is no playlist registered for the given data.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [Route("playlists/{id}")]
+        [HttpGet]
         public IActionResult GetAudioContentByPlaylist([FromRoute] int id)
         {
             List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByPlaylistId(id);
             return Ok(audioContents);
         }
 
+        // GET: 
+        /// <summary>
+        /// Obtains the information of all existing audio contents.
+        /// </summary>
+        /// <remarks>
+        /// Obtains the information of all existing audio contents.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [HttpGet]
         public IActionResult Get()
         {
