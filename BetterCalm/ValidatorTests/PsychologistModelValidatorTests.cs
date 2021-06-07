@@ -249,5 +249,38 @@ namespace ValidatorTests
 
             validator.Validate(psychologist);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPsychologistModelWithInvalidFee()
+        {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1,
+                    Name = "Juan"
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
+                }
+            };
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = "Virtual",
+                Direction = "Some description",
+                Problematics = problematics,
+                Fee = 0
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }
     }
 }
