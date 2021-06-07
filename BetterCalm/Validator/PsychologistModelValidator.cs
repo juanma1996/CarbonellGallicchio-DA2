@@ -21,6 +21,11 @@ namespace Validator
                 throw new AmountOfProblematicsException("The psychologist's problematics can't be zero");
             if (psychologistModel.Problematics.Count != 3)
                 throw new AmountOfProblematicsException("The psychologist's problematics must be exactly three");
+            if (psychologistModel.Fee != 500 ||
+                psychologistModel.Fee != 750 ||
+                psychologistModel.Fee != 1000 ||
+                psychologistModel.Fee != 2000)
+                throw new InvalidAttributeException("The psychologist fee value is invalid. Must be 500, 750, 1000 or 2000");
         }
     }
 }
