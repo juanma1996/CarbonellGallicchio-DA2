@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AudioFormComponent implements OnInit {
   @Input() parentForm: FormGroup;
+  @Input() isAudio: boolean;
   mytime: Date = new Date();
 
   audioContentForm: FormGroup;
