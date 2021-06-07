@@ -30,9 +30,9 @@ namespace WebApi.Controllers
         /// <response code="404">NotFound. Video content not exist for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [HttpGet("{id}", Name = "GetVideoContentById")]
-        public IActionResult Get(int videoContentId)
+        public IActionResult Get(int id)
         {
-            return Ok(videoContentLogicAdapter.GetById(videoContentId));
+            return Ok(videoContentLogicAdapter.GetById(id));
         }
 
         // POST: 
@@ -71,9 +71,9 @@ namespace WebApi.Controllers
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int videoContentId)
+        public IActionResult Delete(int id)
         {
-            videoContentLogicAdapter.DeleteById(videoContentId);
+            videoContentLogicAdapter.DeleteById(id);
             return NoContent();
         }
 
