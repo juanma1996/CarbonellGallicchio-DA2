@@ -6,6 +6,7 @@ import { PlaylistRoutes } from './playlists.routing';
 import { RouterModule } from '@angular/router';
 import { SharedModuleModule } from '../shared-module/shared-module.module';
 import { CollapseModule } from "ngx-bootstrap/collapse";
+import { VideoContentPlaylistDashboardComponent } from './video-content-playlist-dashboard/video-content-playlist-dashboard.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { CollapseModule } from "ngx-bootstrap/collapse";
   ],
   declarations: [
     PlaylistsDashboardComponent,
-    PlaylistCardComponent
+    PlaylistCardComponent,
+    VideoContentPlaylistDashboardComponent
   ],
   exports: [
     PlaylistsDashboardComponent,

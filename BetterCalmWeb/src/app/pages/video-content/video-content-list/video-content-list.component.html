@@ -1,0 +1,23 @@
+<div class=" card">
+    <div class=" card-body">
+        <div class=" col-12">
+            <div class=" card-body all-icons">
+                <div class=" card">
+                    <div class=" row ">
+                        <div *ngFor="let video of videos" class="font-icon-list col-sm-4">
+                            <div class="card">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe id="video.id" class="embed-responsive-item"
+                                        [src]="video.videoUrl | safe: 'resourceUrl'" allowfullscreen></iframe>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">{{video.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

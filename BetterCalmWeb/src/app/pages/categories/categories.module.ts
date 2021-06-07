@@ -6,6 +6,7 @@ import { CategoryCardComponent } from './category-card/category-card.component';
 
 import { CategoriesRoutes } from "./categories.routing";
 import { SharedModuleModule } from '../shared-module/shared-module.module';
+import { VideoContentCategoriesDashboardComponent } from './video-content-categories-dashboard/video-content-categories-dashboard.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { SharedModuleModule } from '../shared-module/shared-module.module';
   declarations: [
     CategoryCardComponent,
     CategoriesDashboardComponent,
+    VideoContentCategoriesDashboardComponent,
   ],
   exports: [
     CategoriesDashboardComponent,

@@ -49,10 +49,31 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: "/categories",
-    title: "Categories",
-    type: "link",
-    icontype: "tim-icons icon-headphones",
-    rtlTitle: "لوحة القيادة"
+    title: "Content by category",
+    type: "sub",
+    icontype: "tim-icons icon-settings-gear-63",
+    collapse: "",
+    rtlTitle: "صفحات",
+    isCollapsed: true,
+    children: [
+
+      {
+        path: "audioContents",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Audios",
+        type: "link",
+        smallTitle: "P"
+      },
+      {
+        path: "videoContents",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Videos",
+        type: "link",
+        smallTitle: "P"
+      },
+    ]
   },
   {
     path: "/consultation",
