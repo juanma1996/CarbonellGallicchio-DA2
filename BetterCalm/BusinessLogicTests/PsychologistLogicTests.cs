@@ -523,5 +523,41 @@ namespace BusinessLogicTests
             mock.VerifyAll();
             Assert.AreEqual(psychologistsToReturn.Count, result.Count);
         }
+
+        [TestMethod]
+        public void TestCreatePsychologistWithfeeOk()
+        {
+            int psychologistId = 1;
+            Psychologist psycologistModel = new Psychologist
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 1,
+                    }
+                },
+                Fee = 1000
+            };
+            Psychologist psychologistToReturn = new Psychologist
+            {
+                Id = psychologistId
+            };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Psychologist>())).Returns(psychologistToReturn);
+            Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
+            Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+
+            Psychologist result = psychologistLogic.Add(psycologistModel);
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistToReturn.Id, result.Id);
+        }
     }
 }
