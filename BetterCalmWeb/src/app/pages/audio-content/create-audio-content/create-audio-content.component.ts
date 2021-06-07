@@ -32,7 +32,7 @@ export class CreateAudioContentComponent implements OnInit {
   }
 
   initializeAudioContentForm(): void {
-    this.audioForm.submited =true;
+    this.audioForm.submited = false;
     this.createAudioContentForm = this.fb.group({
       name: new FormControl(null, Validators.required),
       creatorName: new FormControl(null, Validators.required),
@@ -48,9 +48,8 @@ export class CreateAudioContentComponent implements OnInit {
 
   createAudioContent() {
     this.addNewPlaylist();
-    this.create = true;
+    this.audioForm.submited = true;
     if (!this.createAudioContentForm.invalid) {
-
       this.audioContentService.add(this.createAudioContentForm.value)
         .subscribe(
           response => {

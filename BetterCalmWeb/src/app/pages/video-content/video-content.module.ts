@@ -5,11 +5,15 @@ import { VideoContentDashboardComponent } from './video-content-dashboard/video-
 import { RouterModule } from '@angular/router';
 import { VideoContentRoutes } from './video-content.routing';
 import { SharedModuleModule } from '../shared-module/shared-module.module';
+import { CreateVideoContentComponent } from './create-video-content/create-video-content.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [VideoContentDashboardComponent],
+  declarations: [VideoContentDashboardComponent, CreateVideoContentComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
+    FormsModule,
     RouterModule.forChild(VideoContentRoutes),
     SharedModuleModule
   ]

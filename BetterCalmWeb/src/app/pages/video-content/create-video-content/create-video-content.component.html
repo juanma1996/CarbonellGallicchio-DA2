@@ -1,0 +1,18 @@
+<form [formGroup]="createVideoContentForm">
+    <div class=" content">
+        <div class=" row">
+            <div class=" col-md-8">
+                <div class=" card">
+                    <div class=" card-header">
+                        <h2 class=" title">Create Video Content</h2>
+                    </div>
+                    <app-audio-form [parentForm]="createVideoContentForm" [isAudio]="false"></app-audio-form>
+                    <div class=" card-footer">
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="createVideoContent()">Create
+                            video content</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

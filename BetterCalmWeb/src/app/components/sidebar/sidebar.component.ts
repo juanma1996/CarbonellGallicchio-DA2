@@ -147,7 +147,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: "",
-    title: "Administration",
+    title: "Content administration",
     type: "sub",
     icontype: "tim-icons icon-settings-gear-63",
     collapse: "",
@@ -159,6 +159,14 @@ export const ROUTES: RouteInfo[] = [
         rtlTitle: " التسعير ",
         rtlSmallTitle: "ع ",
         title: "Create Audio Content",
+        type: "link",
+        smallTitle: "P"
+      },
+      {
+        path: "videoContent",
+        rtlTitle: " التسعير ",
+        rtlSmallTitle: "ع ",
+        title: "Create Video Content",
         type: "link",
         smallTitle: "P"
       },

@@ -73,13 +73,13 @@
         <div class=" col-md-6 pr-md-1" *ngIf="!isAudio" [formGroup]="audioContentForm">
             <div class=" form-group has-label" [ngClass]="{
                         'has-danger':
-                        !audioContentForm.get('audioUrl').valid && (audioContentForm.get('audioUrl').touched || submited)
+                        !audioContentForm.get('videoUrl').valid && (audioContentForm.get('videoUrl').touched || submited)
                     }">
                 <label> Video Url </label>
-                <input class=" form-control" placeholder="https://thisIsTheAudioUrl.com" type="text"
+                <input class=" form-control" placeholder="https://thisIsTheVideoUrl.com" type="text"
                     formControlName="videoUrl" />
                 <label class="error"
-                    *ngIf="!audioContentForm.get('audioUrl').valid && (audioContentForm.get('audioUrl').touched || submited)">Please
+                    *ngIf="!audioContentForm.get('videoUrl').valid && (audioContentForm.get('videoUrl').touched || submited)">Please
                     enter a valid video Url.</label>
             </div>
         </div>

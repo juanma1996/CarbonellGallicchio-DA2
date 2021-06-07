@@ -14,7 +14,7 @@ import { AudioContentTableComponent } from './audio-content-table/audio-content-
 import { SharedModuleModule } from '../shared-module/shared-module.module';
 
 @NgModule({
-  declarations: [AudioContentDashboardComponent, CreateAudioContentComponent, AudioFormComponent, EditAudioContentComponent],
+  declarations: [AudioContentDashboardComponent, CreateAudioContentComponent, EditAudioContentComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(AudioContentRoutes),
