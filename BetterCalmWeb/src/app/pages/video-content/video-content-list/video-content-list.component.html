@@ -7,11 +7,25 @@
                         <div *ngFor="let video of videos" class="font-icon-list col-sm-4">
                             <div class="card">
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe id="video.id" class="embed-responsive-item"
-                                        [src]="video.videoUrl | safe: 'resourceUrl'" allowfullscreen></iframe>
+                                    <iframe class="embed-responsive-item" [src]="video.videoUrl | safe: 'resourceUrl'"
+                                        allowfullscreen></iframe>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">{{video.name}}</p>
+                                    <div class="row">
+                                        <p class="card-text">Name: {{video.name}}</p>
+                                        <div>
+
+                                            <button class=" btn btn-link btn-sm btn-icon" tooltip="Refresh"
+                                                type="button" [routerLink]="['/videoContent/edit', video.id]"
+                                                routerLinkActive="active">
+                                                <i class=" tim-icons icon-pencil"> </i>
+                                            </button>
+                                            <button class=" btn btn-danger btn-link btn-sm" tooltip="Delete"
+                                                type="button" (click)="delete(video.id)">
+                                                <i class=" tim-icons icon-simple-remove"> </i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -56,16 +56,16 @@ export class VideoContentService {
     //     return httpRequest;
     // }
 
-    // delete(id): Observable<any> {
-    //     const headers = new HttpHeaders({
-    //         'Content-Type': 'application/json',
-    //         'Authorization': localStorage.getItem('token')
-    //     });
-    //     let options = { headers: headers };
-    //     var httpRequest = this.http.delete<any>(this.uri + "/" + id, options)
-    //         .pipe(catchError(this.handleError));
-    //     return httpRequest;
-    // }
+    delete(id): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
+        });
+        let options = { headers: headers };
+        var httpRequest = this.http.delete<any>(this.uri + "/" + id, options)
+            .pipe(catchError(this.handleError));
+        return httpRequest;
+    }
 
     private handleError(error: HttpErrorResponse) {
         return throwError(error.error);

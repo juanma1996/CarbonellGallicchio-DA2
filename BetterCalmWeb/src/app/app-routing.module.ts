@@ -91,6 +91,11 @@ const routes: Routes = [
           "./pages/audio-content/audio-content.module#AudioContentModule"
       },
       {
+        path: "videoContent",
+        loadChildren:
+          "./pages/video-content/video-content.module#VideoContentModule"
+      },
+      {
         path: "playlists",
         loadChildren:
           "./pages/playlists/playlists.module#PlaylistsModule"
@@ -150,4 +155,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
