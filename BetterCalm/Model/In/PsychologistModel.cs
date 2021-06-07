@@ -15,5 +15,6 @@ namespace Model.In
         [Required]
         public List<ProblematicModel> Problematics { get; set; }
         public DateTime CreationDate { get; set; }
+        public int Fee { get; set; }
     }
 }
