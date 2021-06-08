@@ -497,5 +497,43 @@ namespace WebApiTests
             mock.VerifyAll();
             Assert.AreEqual(psychologistsToReturn.Count, administrators.Count);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestPostPsychologistInvalidFee()
+        {
+            PsychologistModel psycologistModel = new PsychologistModel
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<ProblematicModel>
+                {
+                    new ProblematicModel
+                    {
+                        Name = "Depresion"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Ansiedad"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Estres"
+                    },
+                    new ProblematicModel
+                    {
+                        Name = "Otros"
+                    },
+                },
+                Fee = 0
+            };
+            Mock<IPsychologistLogicAdapter> mock = new Mock<IPsychologistLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<PsychologistModel>())).Throws(new InvalidAttributeException("Invalid fee, enter a valid value."));
+            PsychologistController controller = new PsychologistController(mock.Object);
+
+            var result = controller.Post(psycologistModel);
+        }
     }
 }
