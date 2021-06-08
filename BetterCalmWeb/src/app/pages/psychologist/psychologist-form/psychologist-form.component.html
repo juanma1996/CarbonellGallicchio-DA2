@@ -26,7 +26,7 @@
                         lazyLoading: true,
                         maxHeight: 100
                     }" name="psychologistConsultationMode" (onSelect)="consultationModeSelect($event)"
-                    (onDeSelect)="consultationModeDeSelect($event)">
+                    (onDeSelect)="consultationModeDeSelect()">
                 </angular2-multiselect>
                 <label class="error" *ngIf="!psychologistForm.get('consultationMode').valid">
                     Please select the consultation mode.</label>
@@ -65,6 +65,26 @@
                     Please select exactly three problematics on wich is expert.</label>
             </div>
         </div>
-
+    </div>
+    <div class=" row">
+        <div class=" col-md-6 pr-md-1" [formGroup]="psychologistForm">
+            <div class=" form-group has-label" [ngClass]="{
+                        'has-danger':
+                        !psychologistForm.get('fee').valid
+                    }">
+                <label for="exampleInputEmail1"> Fee </label>
+                <angular2-multiselect [data]="fees" [ngModel]="originalFee" [ngModelOptions]="{standalone: true}"
+                    [settings]="{
+                            singleSelection: true,
+                            text: 'Fee',
+                            classes: 'selectpicker btn-danger',
+                            lazyLoading: true,
+                            maxHeight: 100
+                        }" name="psychologistFee" (onSelect)="feeSelect($event)" (onDeSelect)="feeDeSelect($event)">
+                </angular2-multiselect>
+                <label class="error" *ngIf="!psychologistForm.get('fee').valid">
+                    Please select the fee.</label>
+            </div>
+        </div>
     </div>
 </div>

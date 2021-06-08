@@ -23,6 +23,14 @@ export class PsychologistFormComponent implements OnInit {
     { id: '1', itemName: 'Presencial' },
     { id: '2', itemName: 'Virtual' }
   ];
+
+  public fees = [
+    { id: '1', itemName: 500 },
+    { id: '2', itemName: 750 },
+    { id: '3', itemName: 1000 },
+    { id: '4', itemName: 2000 },
+  ];
+
   public problematicsData = [];
   public problematics: ProblematicBasicInfo[] = [];
 
@@ -94,8 +102,20 @@ export class PsychologistFormComponent implements OnInit {
     console.log(this.originalConsultationMode);
   }
 
-  consultationModeDeSelect(item: any) {
+  consultationModeDeSelect() {
     this.consultationMode.reset();
+  }
+
+  get fee(): FormControl {
+    return this.psychologistForm.get('fee') as FormControl;
+  }
+
+  feeSelect(item: any) {
+    this.fee.setValue(item.itemName);
+  }
+
+  feeDeSelect() {
+    this.fee.reset();
   }
 
 }

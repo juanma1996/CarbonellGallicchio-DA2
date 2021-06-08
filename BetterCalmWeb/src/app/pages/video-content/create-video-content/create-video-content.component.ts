@@ -12,7 +12,6 @@ import { ToastService } from 'src/app/common/toast.service';
 })
 export class CreateVideoContentComponent implements OnInit {
   @ViewChild(PlayableContentFormComponent, { static: true }) public playableContentForm: PlayableContentFormComponent;
-  urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   createVideoContentForm: FormGroup;
 
   selectedPlaylist: FormGroup;
@@ -37,7 +36,9 @@ export class CreateVideoContentComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       creatorName: new FormControl(null, Validators.required),
       //duration: new FormControl(null),
-      videoUrl: new FormControl(null, [Validators.required, Validators.pattern(this.urlRegex)]),
+      videoUrl: new FormControl(null, [Validators.required, Validators.pattern(
+        /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[\/?#]\S*)?$/i
+      )]),
       categories: this.fb.array([], Validators.required),
       playlists: this.fb.array([], Validators.required)
     });

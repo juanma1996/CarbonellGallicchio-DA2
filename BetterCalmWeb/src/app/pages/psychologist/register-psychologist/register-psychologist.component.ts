@@ -18,10 +18,6 @@ export class RegisterPsychologistComponent implements OnInit {
   registerPsychologistForm: FormGroup;
   selectedProblematic: FormGroup;
 
-  public consultationModes = [
-    { id: '1', itemName: 'Presencial' },
-    { id: '2', itemName: 'Virtual' }
-  ];
   public problematicsData = [];
   public problematics: ProblematicBasicInfo[] = [];
 
@@ -40,6 +36,7 @@ export class RegisterPsychologistComponent implements OnInit {
     this.registerPsychologistForm = this.fb.group({
       name: new FormControl(null, Validators.required),
       consultationMode: new FormControl(null, Validators.required),
+      fee: new FormControl(null, Validators.required),
       direction: new FormControl(null, Validators.required),
       problematics: this.fb.array([], [Validators.required, Validators.minLength(3)])
     })
@@ -51,13 +48,11 @@ export class RegisterPsychologistComponent implements OnInit {
       this.psychologistService.add(this.registerPsychologistForm.value)
         .subscribe(
           response => {
-            console.log(response);
             this.customToastr.setSuccess("The psychologist was successfully registered");
           }
         ),
         catchError => {
-          console.log(catchError.error);
-          this.customToastr.setError(catchError.error)
+          this.customToastr.setError(catchError)
         }
     }
     else {
