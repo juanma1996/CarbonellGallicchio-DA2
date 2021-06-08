@@ -13,8 +13,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <p class="card-text">Name: {{video.name}}</p>
-                                        <div>
-
+                                        <div *ngIf=isAutenticated>
                                             <button class=" btn btn-link btn-sm btn-icon" tooltip="Refresh"
                                                 type="button" [routerLink]="['/videoContent/edit', video.id]"
                                                 routerLinkActive="active">
