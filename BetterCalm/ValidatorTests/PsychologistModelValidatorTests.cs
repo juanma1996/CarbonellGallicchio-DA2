@@ -145,7 +145,8 @@ namespace ValidatorTests
                 Name = "Juan",
                 ConsultationMode = "Virtual",
                 Direction = "Direction",
-                Problematics = problematics
+                Problematics = problematics,
+                Fee = 500
             };
             PsychologistModelValidator validator = new PsychologistModelValidator();
 
@@ -176,7 +177,8 @@ namespace ValidatorTests
                 Name = "Juan",
                 ConsultationMode = "Presencial",
                 Direction = "Direction",
-                Problematics = problematics
+                Problematics = problematics,
+                Fee = 500
             };
             PsychologistModelValidator validator = new PsychologistModelValidator();
 
