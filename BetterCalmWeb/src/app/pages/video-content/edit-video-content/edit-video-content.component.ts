@@ -80,20 +80,29 @@ export class EditVideoContentComponent implements OnInit {
   }
 
   updateMultiSelects() {
-    var categories = [{ id: 1, name: 'Meditar' }];
-    var playlists = [{ id: 21, name: "Chupala", description: "Hardcode" }];
+    // Dummy esperando el servicio.
+    var categories = [{ id: 1, name: 'Dormir' }];
+    var playlists = [{ id: 4, name: "New playlist", description: "This is a new playlist valid" }];
+
+    // Esto tenemos que cargarlo con lo que venga del objeto real.
     var originalCategory = this.fb.group({
       id: categories[0].id,
       name: categories[0].name
     })
     this.categories.push(originalCategory);
+    // Esto hay que setearlo igual para que ya aparezca el combo de playlists.
+    this.audioForm.selectedCategory = originalCategory;
+    //Aca ponerle la categoria del objeto real.
+    this.audioForm.getPlaylistByCategory(categories[0].id);
 
+    // Esto tenemos que cargarlo con lo que venga del objeto real.
     var originalPlaylist = this.fb.group({
       id: playlists[0].id,
       name: playlists[0].name,
       description: playlists[0].description
     })
     this.playlists.push(originalPlaylist);
+    //Creo que esta mal.
     // this.audioForm.originalCategory = [{ id: this.editingAudioContent.categories[0].id, itemName: this.editingAudioContent.categories[0].name }]
     // if (this.editingAudioContent.playlists.length > 0) {
     //   this.audioForm.originalPlaylist = [{ id: this.editingAudioContent.playlists[0].id, itemName: this.editingAudioContent.playlists[0].name }]

@@ -56,10 +56,10 @@ export class AudioFormComponent implements OnInit {
       )
   }
 
-  getPlaylistByCategory() {
-    console.log(this.selectedCategoryId);
+  getPlaylistByCategory(id: number) {
+    console.log(id);
     this.playlistsData = [];
-    this.categoriesService.getPlaylistByCategory(this.selectedCategoryId)
+    this.categoriesService.getPlaylistByCategory(id)
       .subscribe(
         response => {
           this.mapData(response, this.playlistsData);
@@ -95,7 +95,7 @@ export class AudioFormComponent implements OnInit {
       name: item.itemName
     })
     this.categories.push(this.selectedCategory);
-    this.getPlaylistByCategory();
+    this.getPlaylistByCategory(item.id);
   }
 
   categoryDeSelect(item: any) {

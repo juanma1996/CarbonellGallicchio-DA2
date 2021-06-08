@@ -12,6 +12,7 @@ import { ToastService } from 'src/app/common/toast.service';
 })
 export class CreateVideoContentComponent implements OnInit {
   @ViewChild(AudioFormComponent, { static: true }) public audioForm: AudioFormComponent;
+  urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   createVideoContentForm: FormGroup;
 
   selectedPlaylist: FormGroup;
@@ -36,7 +37,7 @@ export class CreateVideoContentComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       creatorName: new FormControl(null, Validators.required),
       //duration: new FormControl(null),
-      videoUrl: new FormControl(null, Validators.required),
+      videoUrl: new FormControl(null, [Validators.required, Validators.pattern(this.urlRegex)]),
       categories: this.fb.array([], Validators.required),
       playlists: this.fb.array([], Validators.required)
     });
