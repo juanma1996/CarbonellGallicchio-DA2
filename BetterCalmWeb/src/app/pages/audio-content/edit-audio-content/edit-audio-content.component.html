@@ -6,7 +6,8 @@
                     <h2 class=" title">Edit Audio Content</h2>
                 </div>
                 <form [formGroup]="editAudioContentForm">
-                    <app-audio-form [parentForm]="editAudioContentForm" [isAudio]="true"></app-audio-form>
+                    <app-playable-content-form [parentForm]="editAudioContentForm" [isAudio]="true">
+                    </app-playable-content-form>
                 </form>
                 <div class=" card-footer">
                     <button class=" btn btn-fill btn-danger" type="submit" (click)="updateAudioContent()">Edit

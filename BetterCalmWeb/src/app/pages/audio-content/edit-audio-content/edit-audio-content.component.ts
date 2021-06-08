@@ -3,7 +3,7 @@ import { FormBuilder, FormArray, FormGroup, FormControl, Validators } from '@ang
 import { CategoriesService } from 'src/app/services/categories/categories.service';
 import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
 import { ToastrService } from 'ngx-toastr';
-import { AudioFormComponent } from '../audio-form/audio-form.component';
+import { PlayableContentFormComponent } from '../playable-content-form/playable-content-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AudioContentModel } from 'src/app/models/audioContent/audio-content-model';
 
@@ -13,7 +13,7 @@ import { AudioContentModel } from 'src/app/models/audioContent/audio-content-mod
   styleUrls: ['./edit-audio-content.component.scss']
 })
 export class EditAudioContentComponent implements OnInit {
-  @ViewChild(AudioFormComponent, { static: true }) public audioForm: AudioFormComponent;
+  @ViewChild(PlayableContentFormComponent, { static: true }) public playableContentForm: PlayableContentFormComponent;
   editAudioContentForm: FormGroup;
   audioContentId;
   editingAudioContent: AudioContentModel = {} as AudioContentModel;
@@ -91,9 +91,9 @@ export class EditAudioContentComponent implements OnInit {
     })
     this.categories.push(originalCategory);
     // Esto hay que setearlo igual para que ya aparezca el combo de playlists.
-    this.audioForm.selectedCategory = originalCategory;
+    this.playableContentForm.selectedCategory = originalCategory;
     //Aca ponerle la categoria del objeto real.
-    this.audioForm.getPlaylistByCategory(categories[0].id);
+    this.playableContentForm.getPlaylistByCategory(categories[0].id);
 
     // Esto tenemos que cargarlo con lo que venga del objeto real.
     var originalPlaylist = this.fb.group({
@@ -103,19 +103,19 @@ export class EditAudioContentComponent implements OnInit {
     })
     this.playlists.push(originalPlaylist);
     //Creo que esta mal.
-    // this.audioForm.originalCategory = [{ id: this.editingAudioContent.categories[0].id, itemName: this.editingAudioContent.categories[0].name }]
+    // this.playableContentForm.originalCategory = [{ id: this.editingAudioContent.categories[0].id, itemName: this.editingAudioContent.categories[0].name }]
     // if (this.editingAudioContent.playlists.length > 0) {
-    //   this.audioForm.originalPlaylist = [{ id: this.editingAudioContent.playlists[0].id, itemName: this.editingAudioContent.playlists[0].name }]
+    //   this.playableContentForm.originalPlaylist = [{ id: this.editingAudioContent.playlists[0].id, itemName: this.editingAudioContent.playlists[0].name }]
     // }
-    this.audioForm.originalCategory = [{ id: categories[0].id, itemName: categories[0].name }]
+    this.playableContentForm.originalCategory = [{ id: categories[0].id, itemName: categories[0].name }]
     if (playlists.length > 0) {
-      this.audioForm.originalPlaylist = [{ id: playlists[0].id, itemName: playlists[0].name }]
+      this.playableContentForm.originalPlaylist = [{ id: playlists[0].id, itemName: playlists[0].name }]
     }
   }
 
   updateAudioContent() {
     this.addNewPlaylist();
-    this.audioForm.submited = true;
+    this.playableContentForm.submited = true;
     if (!this.editAudioContentForm.invalid) {
       this.audioContentService.update(this.editAudioContentForm.value)
         .subscribe(
@@ -137,8 +137,8 @@ export class EditAudioContentComponent implements OnInit {
   }
 
   addNewPlaylist() {
-    if (this.audioForm.newPlaylist) {
-      this.playlists.push(this.audioForm.selectedPlaylist);
+    if (this.playableContentForm.newPlaylist) {
+      this.playlists.push(this.playableContentForm.selectedPlaylist);
     }
   }
 

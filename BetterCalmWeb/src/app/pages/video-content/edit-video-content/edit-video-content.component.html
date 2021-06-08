@@ -6,7 +6,8 @@
                     <h2 class=" title">Edit Video Content</h2>
                 </div>
                 <form [formGroup]="editVideoContentForm">
-                    <app-audio-form [parentForm]="editVideoContentForm" [isAudio]="false"></app-audio-form>
+                    <app-playable-content-form [parentForm]="editVideoContentForm" [isAudio]="false">
+                    </app-playable-content-form>
                 </form>
                 <div class=" card-footer">
                     <button class=" btn btn-fill btn-danger" type="submit" (click)="updateVideoContent()">Edit

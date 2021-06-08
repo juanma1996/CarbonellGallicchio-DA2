@@ -5,7 +5,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { RouterModule } from '@angular/router';
 import { VideoContentListComponent } from '../video-content/video-content-list/video-content-list.component';
 import { SafePipe } from './safe.pipe';
-import { AudioFormComponent } from '../audio-content/audio-form/audio-form.component';
+import { PlayableContentFormComponent } from '../audio-content/playable-content-form/playable-content-form.component';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker/public_api';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   declarations: [
     AudioContentTableComponent,
     VideoContentListComponent,
-    AudioFormComponent,
+    PlayableContentFormComponent,
     SafePipe
   ],
   imports: [
@@ -25,6 +25,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     FormsModule,
   ],
-  exports: [AudioContentTableComponent, VideoContentListComponent, AudioFormComponent]
+  exports: [AudioContentTableComponent, VideoContentListComponent, PlayableContentFormComponent]
 })
 export class SharedModuleModule { }

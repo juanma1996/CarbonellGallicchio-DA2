@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { AudioContentModel } from 'src/app/models/audioContent/audio-content-model';
-import { AudioFormComponent } from '../../audio-content/audio-form/audio-form.component';
+import { PlayableContentFormComponent } from '../../audio-content/playable-content-form/playable-content-form.component';
 import { VideoContentService } from 'src/app/services/video-content/video-content-service';
-import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VideoContentBasicInfo } from 'src/app/models/videoContent/video-content-basic-info';
 import { ToastService } from 'src/app/common/toast.service';
@@ -14,7 +13,7 @@ import { ToastService } from 'src/app/common/toast.service';
   styleUrls: ['./edit-video-content.component.scss']
 })
 export class EditVideoContentComponent implements OnInit {
-  @ViewChild(AudioFormComponent, { static: true }) public audioForm: AudioFormComponent;
+  @ViewChild(PlayableContentFormComponent, { static: true }) public playableContentForm: PlayableContentFormComponent;
   editVideoContentForm: FormGroup;
   videoContentId;
   editingVideoContent: VideoContentBasicInfo = {} as VideoContentBasicInfo;
@@ -91,9 +90,9 @@ export class EditVideoContentComponent implements OnInit {
     })
     this.categories.push(originalCategory);
     // Esto hay que setearlo igual para que ya aparezca el combo de playlists.
-    this.audioForm.selectedCategory = originalCategory;
+    this.playableContentForm.selectedCategory = originalCategory;
     //Aca ponerle la categoria del objeto real.
-    this.audioForm.getPlaylistByCategory(categories[0].id);
+    this.playableContentForm.getPlaylistByCategory(categories[0].id);
 
     // Esto tenemos que cargarlo con lo que venga del objeto real.
     var originalPlaylist = this.fb.group({
@@ -103,19 +102,19 @@ export class EditVideoContentComponent implements OnInit {
     })
     this.playlists.push(originalPlaylist);
     //Creo que esta mal.
-    // this.audioForm.originalCategory = [{ id: this.editingAudioContent.categories[0].id, itemName: this.editingAudioContent.categories[0].name }]
+    // this.playableContentForm.originalCategory = [{ id: this.editingAudioContent.categories[0].id, itemName: this.editingAudioContent.categories[0].name }]
     // if (this.editingAudioContent.playlists.length > 0) {
-    //   this.audioForm.originalPlaylist = [{ id: this.editingAudioContent.playlists[0].id, itemName: this.editingAudioContent.playlists[0].name }]
+    //   this.playableContentForm.originalPlaylist = [{ id: this.editingAudioContent.playlists[0].id, itemName: this.editingAudioContent.playlists[0].name }]
     // }
-    this.audioForm.originalCategory = [{ id: categories[0].id, itemName: categories[0].name }]
+    this.playableContentForm.originalCategory = [{ id: categories[0].id, itemName: categories[0].name }]
     if (playlists.length > 0) {
-      this.audioForm.originalPlaylist = [{ id: playlists[0].id, itemName: playlists[0].name }]
+      this.playableContentForm.originalPlaylist = [{ id: playlists[0].id, itemName: playlists[0].name }]
     }
   }
 
   updateVideoContent() {
     this.addNewPlaylist();
-    this.audioForm.submited = true;
+    this.playableContentForm.submited = true;
     if (!this.editVideoContentForm.invalid) {
       this.videoContentService.update(this.editVideoContentForm.value)
         .subscribe(
@@ -137,8 +136,8 @@ export class EditVideoContentComponent implements OnInit {
   }
 
   addNewPlaylist() {
-    if (this.audioForm.newPlaylist) {
-      this.playlists.push(this.audioForm.selectedPlaylist);
+    if (this.playableContentForm.newPlaylist) {
+      this.playlists.push(this.playableContentForm.selectedPlaylist);
     }
   }
 

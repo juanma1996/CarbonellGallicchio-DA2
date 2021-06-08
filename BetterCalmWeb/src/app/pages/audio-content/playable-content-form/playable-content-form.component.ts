@@ -1,20 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
-import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
-  selector: 'app-audio-form',
-  templateUrl: './audio-form.component.html',
-  styleUrls: ['./audio-form.component.scss']
+  selector: 'app-playable-content-form',
+  templateUrl: './playable-content-form.component.html',
+  styleUrls: ['./playable-content-form.component.scss']
 })
-export class AudioFormComponent implements OnInit {
+export class PlayableContentFormComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() isAudio: boolean;
   mytime: Date = new Date();
 
-  audioContentForm: FormGroup;
+  playableContentContentForm: FormGroup;
   selectedCategory: FormGroup;
   selectedPlaylist: FormGroup;
   submited: boolean = false;
@@ -28,18 +27,17 @@ export class AudioFormComponent implements OnInit {
 
   constructor(
     private categoriesService: CategoriesService,
-    private audioContentService: AudioContentService,
-    public toastr: ToastrService,
+    public customToastr: ToastService,
     private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.getCategories();
-    this.initializeAudioContentForm();
+    this.initializePlayableContentContentForm();
   }
 
-  initializeAudioContentForm(): void {
-    this.audioContentForm = this.parentForm;
+  initializePlayableContentContentForm(): void {
+    this.playableContentContentForm = this.parentForm;
     this.selectedPlaylist = this.fb.group({
     })
   }
@@ -51,7 +49,7 @@ export class AudioFormComponent implements OnInit {
           this.mapData(response, this.categoriesData);
         },
         catchError => {
-          this.setError(catchError);
+          this.customToastr.setError(catchError);
         }
       )
   }
@@ -65,7 +63,7 @@ export class AudioFormComponent implements OnInit {
           this.mapData(response, this.playlistsData);
         },
         catchError => {
-          this.setError(catchError);
+          this.customToastr.setError(catchError);
         }
       )
   }
@@ -81,7 +79,7 @@ export class AudioFormComponent implements OnInit {
   }
 
   get categories(): FormArray {
-    return this.audioContentForm.get('categories') as FormArray;
+    return this.playableContentContentForm.get('categories') as FormArray;
   }
 
   get selectedCategoryId() {
@@ -103,7 +101,7 @@ export class AudioFormComponent implements OnInit {
   }
 
   get playlists(): FormArray {
-    return this.audioContentForm.get('playlists') as FormArray;
+    return this.playableContentContentForm.get('playlists') as FormArray;
   }
 
   playlistSelect(item: any) {
@@ -127,33 +125,4 @@ export class AudioFormComponent implements OnInit {
       description: new FormControl(null, Validators.required),
     })
   }
-
-  private setError(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-danger alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
-  private setSuccess() {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      "The audio content was successfully created",
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-success alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
 }

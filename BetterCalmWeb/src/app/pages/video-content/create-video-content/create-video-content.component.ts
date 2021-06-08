@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AudioFormComponent } from '../../audio-content/audio-form/audio-form.component';
+import { PlayableContentFormComponent } from '../../audio-content/playable-content-form/playable-content-form.component';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { VideoContentService } from 'src/app/services/video-content/video-content-service';
@@ -11,7 +11,7 @@ import { ToastService } from 'src/app/common/toast.service';
   styleUrls: ['./create-video-content.component.scss']
 })
 export class CreateVideoContentComponent implements OnInit {
-  @ViewChild(AudioFormComponent, { static: true }) public audioForm: AudioFormComponent;
+  @ViewChild(PlayableContentFormComponent, { static: true }) public playableContentForm: PlayableContentFormComponent;
   urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   createVideoContentForm: FormGroup;
 
@@ -32,7 +32,7 @@ export class CreateVideoContentComponent implements OnInit {
   }
 
   initializeVideoContentForm(): void {
-    this.audioForm.submited = false;
+    this.playableContentForm.submited = false;
     this.createVideoContentForm = this.fb.group({
       name: new FormControl(null, Validators.required),
       creatorName: new FormControl(null, Validators.required),
@@ -47,7 +47,7 @@ export class CreateVideoContentComponent implements OnInit {
 
   createVideoContent() {
     this.addNewPlaylist();
-    this.audioForm.submited = true;
+    this.playableContentForm.submited = true;
     if (!this.createVideoContentForm.invalid) {
 
       this.videoContentService.add(this.createVideoContentForm.value)
@@ -70,8 +70,8 @@ export class CreateVideoContentComponent implements OnInit {
   }
 
   addNewPlaylist() {
-    if (this.audioForm.newPlaylist) {
-      this.playlists.push(this.audioForm.selectedPlaylist);
+    if (this.playableContentForm.newPlaylist) {
+      this.playlists.push(this.playableContentForm.selectedPlaylist);
     }
   }
 
