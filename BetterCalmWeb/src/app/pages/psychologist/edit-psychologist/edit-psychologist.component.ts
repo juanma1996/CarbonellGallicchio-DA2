@@ -36,6 +36,7 @@ export class EditPsychologistComponent implements OnInit {
     this.editPsychologistForm = this.fb.group({
       name: new FormControl(null, Validators.required),
       consultationMode: new FormControl(null, Validators.required),
+      fee: new FormControl(null, Validators.required),
       direction: new FormControl(null, Validators.required),
       problematics: this.fb.array([], [Validators.required, Validators.minLength(3)])
     })
@@ -61,6 +62,7 @@ export class EditPsychologistComponent implements OnInit {
     this.editPsychologistForm.get('consultationMode').setValue(this.editingPsychologist.consultationMode);
     this.editPsychologistForm.get('direction').setValue(this.editingPsychologist.direction);
     this.editPsychologistForm.get('problematics').setValue(this.editingPsychologist.problematics);
+    this.editPsychologistForm.get('fee').setValue(this.editingPsychologist.fee);
   }
 
   get problematics() {
@@ -99,6 +101,19 @@ export class EditPsychologistComponent implements OnInit {
       this.psychologistForm.originalConsultationMode = [{ id: '1', itemName: 'Presencial' }];
     } else {
       this.psychologistForm.originalConsultationMode = [{ id: '2', itemName: 'Virtual' }];
+    }
+    this.updateFee()
+  }
+
+  updateFee() {
+    if (this.editingPsychologist.fee == 500) {
+      this.psychologistForm.originalFee = [{ id: '1', itemName: 500 }]
+    } else if (this.editingPsychologist.fee == 750) {
+      this.psychologistForm.originalFee = [{ id: '1', itemName: 750 }]
+    } else if (this.editingPsychologist.fee == 1000) {
+      this.psychologistForm.originalFee = [{ id: '1', itemName: 1000 }]
+    } else {
+      this.psychologistForm.originalFee = [{ id: '1', itemName: 2000 }]
     }
   }
 

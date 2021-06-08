@@ -6,5 +6,6 @@ export interface PsychologistBasicInfo {
     consultationMode: string;
     direction: string;
     creationDate: Date;
-    problematics : ProblematicBasicInfo[];
+    problematics: ProblematicBasicInfo[];
+    fee: number;
 }

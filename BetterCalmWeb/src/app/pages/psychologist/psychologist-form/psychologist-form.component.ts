@@ -18,6 +18,7 @@ export class PsychologistFormComponent implements OnInit {
   submited: boolean = false;
   originalConsultationMode = [];
   originalProblematics = [];
+  originalFee = [];
 
   public consultationModes = [
     { id: '1', itemName: 'Presencial' },
