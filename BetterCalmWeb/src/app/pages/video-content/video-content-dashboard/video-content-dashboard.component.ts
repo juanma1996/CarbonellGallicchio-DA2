@@ -21,7 +21,6 @@ export class VideoContentDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.playlistId = Number(this.route.snapshot.paramMap.get('playlistId'));
-    console.log(this.playlistId);
     this.getVideoContents(this.playlistId);
   }
 
@@ -29,7 +28,6 @@ export class VideoContentDashboardComponent implements OnInit {
     this.videoContentService.getVideoContentByPlaylist(id)
       .subscribe(
         response => {
-          console.log(response);
           this.videoContents = response;
         },
         catchError => {

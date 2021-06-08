@@ -55,7 +55,6 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   getPlaylistByCategory(id: number) {
-    console.log(id);
     this.playlistsData = [];
     this.categoriesService.getPlaylistByCategory(id)
       .subscribe(

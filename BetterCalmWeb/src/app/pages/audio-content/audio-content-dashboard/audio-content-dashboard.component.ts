@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
-import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs/operators';
 import { SessionService } from 'src/app/services/session/session.service';
 import { AudioContentModel } from 'src/app/models/audioContent/audio-content-model';

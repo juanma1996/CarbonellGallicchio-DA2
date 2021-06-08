@@ -18,7 +18,6 @@ export class VideoContentListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.videos);
   }
 
   delete(id) {

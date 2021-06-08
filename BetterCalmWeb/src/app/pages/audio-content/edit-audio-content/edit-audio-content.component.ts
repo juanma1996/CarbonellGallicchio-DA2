@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PlayableContentFormComponent } from '../playable-content-form/playable-content-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AudioContentModel } from 'src/app/models/audioContent/audio-content-model';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: 'app-edit-audio-content',
@@ -24,7 +25,7 @@ export class EditAudioContentComponent implements OnInit {
 
   constructor(
     private audioContentService: AudioContentService,
-    public toastr: ToastrService,
+    public customToastr: ToastService,
     private fb: FormBuilder,
     public route: ActivatedRoute,
     private router: Router,
@@ -40,15 +41,13 @@ export class EditAudioContentComponent implements OnInit {
     this.audioContentService.getAudioContentById(id)
       .subscribe(
         response => {
-          console.log(response);
           this.editingAudioContent = response;
           this.updateForm();
           this.updateMultiSelects();
         },
         catchError => {
-          console.log(catchError);
           this.router.navigateByUrl('categories');
-          this.setError(catchError)
+          this.customToastr.setError(catchError)
         }
       )
   }
@@ -120,15 +119,15 @@ export class EditAudioContentComponent implements OnInit {
       this.audioContentService.update(this.editAudioContentForm.value)
         .subscribe(
           response => {
-            this.setSuccess();
+            this.customToastr.setSuccess("The audio content was successfully updated");
           },
           catchError => {
-            this.setError(catchError);
+            this.customToastr.setError(catchError);
           }
         )
     }
     else {
-      this.setError("Please verify the entered data.");
+      this.customToastr.setError("Please verify the entered data.");
     }
   }
 
@@ -141,33 +140,4 @@ export class EditAudioContentComponent implements OnInit {
       this.playlists.push(this.playableContentForm.selectedPlaylist);
     }
   }
-
-  private setError(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-danger alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
-  private setSuccess() {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      "The audio content was successfully updated",
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-success alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
 }

@@ -40,13 +40,11 @@ export class EditVideoContentComponent implements OnInit {
     this.videoContentService.getVideoContentById(id)
       .subscribe(
         response => {
-          console.log(response);
           this.editingVideoContent = response;
           this.updateForm();
           this.updateMultiSelects();
         },
         catchError => {
-          console.log(catchError);
           this.router.navigateByUrl('categories');
           this.customToast.setError(catchError)
         }
