@@ -12,7 +12,7 @@ import { PacientLayoutComponent } from './layouts/pacient-layout/pacient-layout.
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "categories",
+    redirectTo: "categories/audioContents",
     pathMatch: "full"
   },
   {

@@ -57,12 +57,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
 
     // we simulate the window Resize so the charts will get updated in realtime.
-    const simulateWindowResize = setInterval(function() {
+    const simulateWindowResize = setInterval(function () {
       window.dispatchEvent(new Event("resize"));
     }, 180);
 
     // we stop the simulation of Window Resize after the animations are completed
-    setTimeout(function() {
+    setTimeout(function () {
       clearInterval(simulateWindowResize);
     }, 1000);
   }
@@ -114,7 +114,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       body.style.position = "fixed";
     }
 
-    setTimeout(function() {
+    setTimeout(function () {
       toggleButton.classList.add("toggled");
     }, 500);
 
@@ -124,19 +124,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
 
     if (html.getElementsByTagName('body')) {
-        document.getElementsByTagName('body')[0].appendChild($layer);
+      document.getElementsByTagName('body')[0].appendChild($layer);
     }
     var $toggle = document.getElementsByClassName("navbar-toggler")[0];
-    $layer.onclick = function() { //asign a function
+    $layer.onclick = function () { //asign a function
       html.classList.remove('nav-open');
-      setTimeout(function() {
-          $layer.remove();
-          $toggle.classList.remove('toggled');
+      setTimeout(function () {
+        $layer.remove();
+        $toggle.classList.remove('toggled');
       }, 400);
-      const mainPanel =  <HTMLElement>document.getElementsByClassName('main-panel')[0];
+      const mainPanel = <HTMLElement>document.getElementsByClassName('main-panel')[0];
 
       if (window.innerWidth < 991) {
-        setTimeout(function(){
+        setTimeout(function () {
           mainPanel.style.position = '';
         }, 500);
       }
@@ -152,7 +152,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     );
 
     if (window.innerWidth < 991) {
-      setTimeout(function() {
+      setTimeout(function () {
         body.style.position = "";
       }, 500);
     }
@@ -168,7 +168,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     localStorage.removeItem('token');
     localStorage.removeItem('name');
     localStorage.removeItem('email');
-    this.refreshPage();
+    //this.refreshPage();
+    this.router.navigateByUrl('categories/audioContents')
   }
   refreshPage() { window.location.reload(); }
 }

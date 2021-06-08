@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private sessionService: SessionService,
     public toastr: ToastrService,
     private router: Router,
-    ) {}
+  ) { }
 
   ngOnInit() {
     var body = document.getElementsByTagName("body")[0];
@@ -28,13 +28,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     body.classList.remove("login-page");
   }
 
-  login = function() {
+  login = function () {
     this.sessionService.login(this.administrator).
       subscribe(
         response => {
           this.setSuccess()
           localStorage.setItem('email', this.administrator.email);
-          this.router.navigateByUrl('categories');
+          this.router.navigateByUrl('categories/audioContents');
         },
         catchError => {
           this.setError(catchError.error);
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
   }
 
-  private setError(message){
+  private setError(message) {
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
       message,
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
   }
 
-  private setSuccess(){
+  private setSuccess() {
     this.toastr.show(
       '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
       "The log in was successful",
