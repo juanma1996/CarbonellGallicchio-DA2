@@ -282,5 +282,37 @@ namespace ValidatorTests
 
             validator.Validate(psychologist);
         }
+
+        [TestMethod]
+        public void TestPsychologistModelWithValidFeeOK()
+        {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1,
+                    Name = "Juan"
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
+                }
+            };
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = "Virtual",
+                Direction = "Some description",
+                Problematics = problematics,
+                Fee = 500
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }
     }
 }
