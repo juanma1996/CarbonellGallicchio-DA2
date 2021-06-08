@@ -7,9 +7,10 @@ import { VideoContentRoutes } from './video-content.routing';
 import { SharedModuleModule } from '../shared-module/shared-module.module';
 import { CreateVideoContentComponent } from './create-video-content/create-video-content.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditVideoContentComponent } from './edit-video-content/edit-video-content.component';
 
 @NgModule({
-  declarations: [VideoContentDashboardComponent, CreateVideoContentComponent],
+  declarations: [VideoContentDashboardComponent, CreateVideoContentComponent, EditVideoContentComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),

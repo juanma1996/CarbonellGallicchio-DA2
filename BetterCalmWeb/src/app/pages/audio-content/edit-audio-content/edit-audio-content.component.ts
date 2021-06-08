@@ -77,7 +77,7 @@ export class EditAudioContentComponent implements OnInit {
     this.editAudioContentForm.get('creatorName').setValue(this.editingAudioContent.creatorName);
     this.editAudioContentForm.get('imageUrl').setValue(this.editingAudioContent.imageUrl);
     this.editAudioContentForm.get('audioUrl').setValue(this.editingAudioContent.audioUrl);
-    
+
   }
 
   updateMultiSelects() {
@@ -90,7 +90,7 @@ export class EditAudioContentComponent implements OnInit {
     this.categories.push(originalCategory);
 
     var originalPlaylist = this.fb.group({
-      id : playlists[0].id,
+      id: playlists[0].id,
       name: playlists[0].name,
       description: playlists[0].description
     })

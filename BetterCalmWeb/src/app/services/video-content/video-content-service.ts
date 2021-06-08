@@ -25,10 +25,10 @@ export class VideoContentService {
         return httpRequest;
     }
 
-    // getAudioContentById(id): Observable<AudioContentModel> {
-    //     return this.http.get<AudioContentModel>(this.uri + '/' + id)
-    //         .pipe(catchError(this.handleError));
-    // }
+    getVideoContentById(id): Observable<VideoContentBasicInfo> {
+        return this.http.get<VideoContentBasicInfo>(this.uri + '/' + id)
+            .pipe(catchError(this.handleError));
+    }
 
     get(): Observable<VideoContentBasicInfo[]> {
         return this.http.get<VideoContentBasicInfo[]>(this.uri)
@@ -45,16 +45,16 @@ export class VideoContentService {
             .pipe(catchError(this.handleError));
     }
 
-    // update(body): Observable<any> {
-    //     const headers = new HttpHeaders({
-    //         'Content-Type': 'application/json',
-    //         'Authorization': localStorage.getItem('token')
-    //     });
-    //     let options = { headers: headers };
-    //     var httpRequest = this.http.put<any>(this.uri, body, options)
-    //         .pipe(catchError(this.handleError));
-    //     return httpRequest;
-    // }
+    update(body): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
+        });
+        let options = { headers: headers };
+        var httpRequest = this.http.put<any>(this.uri, body, options)
+            .pipe(catchError(this.handleError));
+        return httpRequest;
+    }
 
     delete(id): Observable<any> {
         const headers = new HttpHeaders({
