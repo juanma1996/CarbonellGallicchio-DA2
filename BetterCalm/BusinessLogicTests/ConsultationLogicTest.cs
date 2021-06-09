@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using BusinessExceptions;
 using BusinessLogic;
 using BusinessLogicInterface;
@@ -55,24 +56,30 @@ namespace BusinessLogicTests
                     }
                 }
             };
+            Pacient pacient = new Pacient
+            {
+                Name = "Juan",
+                Surname = "Perez",
+                BirthDate = new DateTime(1996, 12, 05),
+                Email = "Juan@gmail.com",
+                Cellphone = "098342972",
+                BonificationGenereted = true,
+                BonificationApproved = true,
+                BonificationAmount = (decimal)0.25,
+            };
             Consultation consultationToReturn = new Consultation
             {
                 ProblematicId = problematicId,
-                Pacient = new Pacient
-                {
-                    Name = "Juan",
-                    Surname = "Perez",
-                    BirthDate = new DateTime(1996, 12, 05),
-                    Email = "Juan@gmail.com",
-                    Cellphone = "098342972"
-                },
+                Pacient = pacient,
                 Psychologist = psychologist,
             };
             Mock<IRepository<Consultation>> mock = new Mock<IRepository<Consultation>>(MockBehavior.Strict);
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
             Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
-            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
+            Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
+            pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
+            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
@@ -125,24 +132,30 @@ namespace BusinessLogicTests
                     }
                 }
             };
+            Pacient pacient = new Pacient
+            {
+                Name = "Juan",
+                Surname = "Perez",
+                BirthDate = new DateTime(1996, 12, 05),
+                Email = "Juan@gmail.com",
+                Cellphone = "098342972",
+                BonificationGenereted = true,
+                BonificationApproved = true,
+                BonificationAmount = (decimal)0.25,
+            };
             Consultation consultationToReturn = new Consultation
             {
                 ProblematicId = problematicId,
-                Pacient = new Pacient
-                {
-                    Name = "Juan",
-                    Surname = "Perez",
-                    BirthDate = new DateTime(1996, 12, 05),
-                    Email = "Juan@gmail.com",
-                    Cellphone = "098342972"
-                },
+                Pacient = pacient,
                 Psychologist = psychologist,
             };
             Mock<IRepository<Consultation>> mock = new Mock<IRepository<Consultation>>(MockBehavior.Strict);
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
             Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
-            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
+            Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
+            pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
+            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
@@ -196,24 +209,30 @@ namespace BusinessLogicTests
                     }
                 }
             };
+            Pacient pacient = new Pacient
+            {
+                Name = "Juan",
+                Surname = "Perez",
+                BirthDate = new DateTime(1996, 12, 05),
+                Email = "Juan@gmail.com",
+                Cellphone = "098342972",
+                BonificationGenereted = true,
+                BonificationApproved = true,
+                BonificationAmount = (decimal)0.25,
+            };
             Consultation consultationToReturn = new Consultation
             {
                 ProblematicId = problematicId,
-                Pacient = new Pacient
-                {
-                    Name = "Juan",
-                    Surname = "Perez",
-                    BirthDate = new DateTime(1996, 12, 05),
-                    Email = "Juan@gmail.com",
-                    Cellphone = "098342972"
-                },
+                Pacient = pacient,
                 Psychologist = psychologist,
             };
             Mock<IRepository<Consultation>> mock = new Mock<IRepository<Consultation>>(MockBehavior.Strict);
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
             Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
-            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
+            Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
+            pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
+            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
@@ -265,24 +284,30 @@ namespace BusinessLogicTests
                     }
                 }
             };
+            Pacient pacient = new Pacient
+            {
+                Name = "Juan",
+                Surname = "Perez",
+                BirthDate = new DateTime(1996, 12, 05),
+                Email = "Juan@gmail.com",
+                Cellphone = "098342972",
+                BonificationGenereted = true,
+                BonificationApproved = true,
+                BonificationAmount = (decimal)0.25,
+            };
             Consultation consultationToReturn = new Consultation
             {
                 ProblematicId = problematicId,
-                Pacient = new Pacient
-                {
-                    Name = "Juan",
-                    Surname = "Perez",
-                    BirthDate = new DateTime(1996, 12, 05),
-                    Email = "Juan@gmail.com",
-                    Cellphone = "098342972"
-                },
+                Pacient = pacient,
                 Psychologist = psychologist,
             };
             Mock<IRepository<Consultation>> mock = new Mock<IRepository<Consultation>>(MockBehavior.Strict);
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
             Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
-            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
+            Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
+            pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
+            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
@@ -335,24 +360,30 @@ namespace BusinessLogicTests
                     }
                 }
             };
+            Pacient pacient = new Pacient
+            {
+                Name = "Juan",
+                Surname = "Perez",
+                BirthDate = new DateTime(1996, 12, 05),
+                Email = "Juan@gmail.com",
+                Cellphone = "098342972",
+                BonificationGenereted = true,
+                BonificationApproved = true,
+                BonificationAmount = (decimal)0.25,
+            };
             Consultation consultationToReturn = new Consultation
             {
                 ProblematicId = problematicId,
-                Pacient = new Pacient
-                {
-                    Name = "Juan",
-                    Surname = "Perez",
-                    BirthDate = new DateTime(1996, 12, 05),
-                    Email = "Juan@gmail.com",
-                    Cellphone = "098342972"
-                },
+                Pacient = pacient,
                 Psychologist = psychologist,
             };
             Mock<IRepository<Consultation>> mock = new Mock<IRepository<Consultation>>(MockBehavior.Strict);
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
             Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Throws(new NullObjectException("There is no psychologist"));
-            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
+            Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
+            pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
+            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
@@ -408,17 +439,21 @@ namespace BusinessLogicTests
                 },
                 Fee = 500
             };
+            Pacient pacient = new Pacient
+            {
+                Name = "Juan",
+                Surname = "Perez",
+                BirthDate = new DateTime(1996, 12, 05),
+                Email = "Juan@gmail.com",
+                Cellphone = "098342972",
+                BonificationGenereted = true,
+                BonificationApproved = false,
+                BonificationAmount = 0,
+            };
             Consultation consultationToReturn = new Consultation
             {
                 ProblematicId = problematicId,
-                Pacient = new Pacient
-                {
-                    Name = "Juan",
-                    Surname = "Perez",
-                    BirthDate = new DateTime(1996, 12, 05),
-                    Email = "Juan@gmail.com",
-                    Cellphone = "098342972"
-                },
+                Pacient = pacient,
                 Psychologist = psychologist,
                 Duration = 2
             };
@@ -426,7 +461,9 @@ namespace BusinessLogicTests
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
             Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
-            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
+            Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
+            pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
+            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
@@ -486,20 +523,21 @@ namespace BusinessLogicTests
                 },
                 Fee = fee
             };
+            Pacient pacient = new Pacient
+            {
+                Name = "Juan",
+                Surname = "Perez",
+                BirthDate = new DateTime(1996, 12, 05),
+                Email = "Juan@gmail.com",
+                Cellphone = "098342972",
+                BonificationGenereted = true,
+                BonificationApproved = true,
+                BonificationAmount = (decimal)0.25,
+            };
             Consultation consultationToReturn = new Consultation
             {
                 ProblematicId = problematicId,
-                Pacient = new Pacient
-                {
-                    Name = "Juan",
-                    Surname = "Perez",
-                    BirthDate = new DateTime(1996, 12, 05),
-                    Email = "Juan@gmail.com",
-                    Cellphone = "098342972",
-                    BonificationGenereted = true,
-                    BonificationApproved = true,
-                    BonificationAmount = 0.25,
-                },
+                Pacient = pacient,
                 Psychologist = psychologist,
                 Duration = duration
             };
@@ -507,7 +545,9 @@ namespace BusinessLogicTests
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
             Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
-            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
+            Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
+            pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
+            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 

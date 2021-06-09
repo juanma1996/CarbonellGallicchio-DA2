@@ -12,6 +12,6 @@ namespace Domain
         public string Cellphone { get; set; }
         public bool BonificationGenereted { get; set; }
         public bool BonificationApproved { get; set; }
-        public double BonificationAmount { get; set; }
+        public decimal BonificationAmount { get; set; }
     }
 }
