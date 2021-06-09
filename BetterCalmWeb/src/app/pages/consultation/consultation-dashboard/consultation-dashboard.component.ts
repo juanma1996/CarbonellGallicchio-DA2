@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ConsultationBasicInfo } from 'src/app/models/consultation/consultation-basic-info';
 import { PsychologistBasicInfo } from 'src/app/models/psychologist/psychologist-basic-info';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
 import { catchError } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
 import { ProblematicsService } from 'src/app/services/problematics/problematics.service';
 import { ProblematicBasicInfo } from 'src/app/models/problematic/problematic-basic-info';
 import { FormGroup, FormBuilder, FormControl, Validators, Form, FormArray } from '@angular/forms';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: 'app-consultation-dashboard',
@@ -32,7 +31,7 @@ export class ConsultationDashboardComponent implements OnInit {
   constructor(
     private consultationService: ConsultationService,
     private problematicsService: ProblematicsService,
-    public toastr: ToastrService,
+    public customToastr: ToastService,
     private fb: FormBuilder,
   ) { }
 
@@ -45,7 +44,7 @@ export class ConsultationDashboardComponent implements OnInit {
           this.mapProblematics(this.problematics);
         },
         catchError => {
-          this.setError(catchError.error)
+          this.customToastr.setError(catchError.error)
         }
       )
   }
@@ -72,15 +71,15 @@ export class ConsultationDashboardComponent implements OnInit {
           response => {
             console.log(response)
             this.psychologist = response;
-            this.setSuccess();
+            this.customToastr.setSuccess("The consultation was successfully scheduled");
           },
           catchError => {
-            this.setError(catchError);
+            this.customToastr.setError(catchError);
           }
         )
     }
     else {
-      this.setError("Please verify the entered data.");
+      this.customToastr.setError("Please verify the entered data.");
     }
   }
 
@@ -116,34 +115,6 @@ export class ConsultationDashboardComponent implements OnInit {
 
   durationDeSelect() {
     this.duration.reset();
-  }
-
-  private setError(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-danger alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
-  private setSuccess() {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      "The consultation was successfully scheduled",
-      {
-        timeOut: 3000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-success alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
   }
 
 }
