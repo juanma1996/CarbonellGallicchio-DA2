@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AdapterInterface;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.Out;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,7 +29,9 @@ namespace WebApiTests
                 ConsultationsQuantity = 5
             };
             List<BonusBasicInfoModel> bonusesToReturn = new List<BonusBasicInfoModel>() { firstBonusToReturn, secondBonusToReturn };
-            BonusController controller = new BonusController();
+            Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Returns(bonusesToReturn);
+            BonusController controller = new BonusController(mock.Object);
 
             var result = controller.Get();
             OkObjectResult okResult = result as OkObjectResult;
