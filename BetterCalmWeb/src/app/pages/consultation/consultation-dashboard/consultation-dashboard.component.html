@@ -17,11 +17,12 @@
                                     <angular2-multiselect [data]="problematicsData" [ngModel]=""
                                         [ngModelOptions]="{standalone: true}" [settings]="{
                                         singleSelection: true,
-                                        text: 'Consultation mode',
+                                        text: 'Problematic',
                                         classes: 'selectpicker btn-danger',
                                         lazyLoading: true,
                                         maxHeight: 100
-                                    }" name="problematicConsultation" (onSelect)="problematicSelect($event)" (onDeSelect)="problematicDeSelect($event)">
+                                    }" name="problematicConsultation" (onSelect)="problematicSelect($event)"
+                                        (onDeSelect)="problematicDeSelect($event)">
                                     </angular2-multiselect>
                                     <label class="error" *ngIf="!consultationForm.get('problematicId').valid">Please
                                         select
@@ -97,6 +98,29 @@
                                     <label class="error"
                                         *ngIf="!consultationForm.controls.pacient.get('cellphone').valid && (consultationForm.controls.pacient.get('cellphone').touched || scheduled)">Please
                                         enter a valid cellphone.</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-6 pr-md-1" formGroupName="duration">
+                                <div class=" form-group has-label" [ngClass]="{
+                                                'has-danger':
+                                                !consultationForm.get('duration').valid
+                                                }">
+                                    <label> Duration in hours</label>
+                                    <angular2-multiselect [data]="durationData" [ngModel]=""
+                                        [ngModelOptions]="{standalone: true}" [settings]="{
+                                                    singleSelection: true,
+                                                    text: 'Duration',
+                                                    classes: 'selectpicker btn-danger',
+                                                    lazyLoading: true,
+                                                    maxHeight: 100
+                                                }" name="durationConsultation" (onSelect)="durationSelect($event)"
+                                        (onDeSelect)="durationDeSelect()">
+                                    </angular2-multiselect>
+                                    <label class="error" *ngIf="!consultationForm.get('duration').valid">Please
+                                        select the duration.</label>
                                 </div>
                             </div>
 

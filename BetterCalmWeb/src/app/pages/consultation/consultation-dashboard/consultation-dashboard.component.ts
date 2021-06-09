@@ -23,6 +23,12 @@ export class ConsultationDashboardComponent implements OnInit {
   public problematics: ProblematicBasicInfo[] = [];
   selectedItems = [];
 
+  durationData = [
+    { id: 1, itemName: 1 },
+    { id: 2, itemName: 1.5 },
+    { id: 3, itemName: 2 },
+  ]
+
   constructor(
     private consultationService: ConsultationService,
     private problematicsService: ProblematicsService,
@@ -54,6 +60,7 @@ export class ConsultationDashboardComponent implements OnInit {
         surname: new FormControl(null, Validators.required),
       }),
       problematicId: new FormControl(null, Validators.required),
+      duration: new FormControl(null, Validators.required),
     })
   }
 
@@ -71,7 +78,7 @@ export class ConsultationDashboardComponent implements OnInit {
             this.setError(catchError);
           }
         )
-    } 
+    }
     else {
       this.setError("Please verify the entered data.");
     }
@@ -95,8 +102,20 @@ export class ConsultationDashboardComponent implements OnInit {
     this.problematicId.setValue(item.id);
   }
 
-  problematicDeSelect(item: any) {
+  problematicDeSelect() {
     this.problematicId.reset();
+  }
+
+  get duration(): FormControl {
+    return this.consultationForm.get('duration') as FormControl;
+  }
+
+  durationSelect(item: any) {
+    this.duration.setValue(item.itemName);
+  }
+
+  durationDeSelect() {
+    this.duration.reset();
   }
 
   private setError(message) {
