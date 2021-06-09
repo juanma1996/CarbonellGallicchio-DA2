@@ -12,7 +12,7 @@ namespace ValidatorTests
         [TestMethod]
         public void TestConsultationModelOk()
         {
-            ConsultationModel pacientModel = new ConsultationModel
+            ConsultationModel consultationModel = new ConsultationModel
             {
                 ProblematicId = 1,
                 Pacient = new PacientModel()
@@ -26,7 +26,7 @@ namespace ValidatorTests
             };
             ConsultationModelValidator validator = new ConsultationModelValidator();
 
-            validator.Validate(pacientModel);
+            validator.Validate(consultationModel);
         }
 
         [TestMethod]
@@ -41,6 +41,27 @@ namespace ValidatorTests
             ConsultationModelValidator validator = new ConsultationModelValidator();
 
             validator.Validate(pacientModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestConsultationModelInvalidDuration()
+        {
+            ConsultationModel consultationModel = new ConsultationModel
+            {
+                ProblematicId = 1,
+                Pacient = new PacientModel
+                {
+                    Name = "Juan",
+                    Surname = "Perez",
+                    BirthDate = new DateTime(1996, 12, 05),
+                    Email = "Juan@gmail.com",
+                    Cellphone = "098342972"
+                }
+            };
+            ConsultationModelValidator validator = new ConsultationModelValidator();
+
+            validator.Validate(consultationModel);
         }
     }
 }
