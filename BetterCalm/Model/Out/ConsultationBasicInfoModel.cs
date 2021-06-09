@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Model.Out
+﻿namespace Model.Out
 {
     public class ConsultationBasicInfoModel
     {

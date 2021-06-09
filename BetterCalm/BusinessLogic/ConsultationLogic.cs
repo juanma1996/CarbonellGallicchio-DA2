@@ -19,28 +19,34 @@ namespace BusinessLogic
 
         public Consultation Add(Consultation consultationModel)
         {
+            decimal pacientBonus = 0;
             consultationModel.Psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(consultationModel.ProblematicId, DateTime.Now);
-            consultationModel.Pacient = GetPacientByEmail(consultationModel.Pacient);
+            Pacient pacient = GetPacientByEmail(consultationModel.Pacient);
+            if (pacient.GeneratedBonus && pacient.BonusApproved)
+            {
+                pacientBonus = pacient.BonusAmount;
+                pacient.ConsultationsQuantity = 0;
+                pacient.GeneratedBonus = false;
+                pacient.BonusApproved = false;
+            }
+            else
+            {
+                pacient.ConsultationsQuantity++;
+                if (pacient.ConsultationsQuantity >= 5)
+                {
+                    pacient.GeneratedBonus = true;
+                }
+            }
+            consultationModel.Pacient = pacient;
+            pacientRepository.Update(pacient);
             Consultation consultation = consultationRepository.Add(consultationModel);
             if (consultation.Psychologist.ConsultationMode.Equals("Virtual"))
             {
                 consultation.Psychologist.Direction = GenerateMeetingId();
             }
-            decimal pacientBonification = GetPacientBonification(consultationModel.Pacient);
-            consultation.Cost = (decimal)CalculateConsultationCost(consultation.Duration, consultation.Psychologist.Fee, pacientBonification);
+            consultation.Cost = CalculateConsultationCost(consultation.Duration, consultation.Psychologist.Fee, pacientBonus);
 
             return consultation;
-        }
-
-        private decimal GetPacientBonification(Pacient pacient)
-        {
-            decimal pacientBonification = 0;
-            if (pacient.BonificationApproved)
-            {
-                pacientBonification = pacient.BonificationAmount;
-            }
-
-            return pacientBonification;
         }
 
         private Pacient GetPacientByEmail(Pacient pacient)
@@ -62,12 +68,12 @@ namespace BusinessLogic
             return direction;
         }
 
-        private decimal CalculateConsultationCost(decimal duration, int fee, decimal bonification)
+        private decimal CalculateConsultationCost(decimal duration, int fee, decimal bonus)
         {
             decimal cost = duration * fee;
-            if (bonification != default)
+            if (bonus != default)
             {
-                cost = cost * bonification;
+                cost *= bonus;
             }
 
             return cost;

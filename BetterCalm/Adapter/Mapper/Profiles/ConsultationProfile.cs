@@ -13,7 +13,12 @@ namespace Adapter.Mapper.Profiles
                 .ForMember(prop => prop.Id, opt => opt.Ignore())
                 .ForMember(prop => prop.Cost, opt => opt.Ignore())
                 .ForMember(prop => prop.Psychologist, opt => opt.Ignore());
-            CreateMap<PacientModel, Pacient>().ForMember(prop => prop.Id, opt => opt.Ignore());
+            CreateMap<PacientModel, Pacient>()
+                .ForMember(prop => prop.GeneratedBonus, opt => opt.Ignore())
+                .ForMember(prop => prop.BonusApproved, opt => opt.Ignore())
+                .ForMember(prop => prop.BonusAmount, opt => opt.Ignore())
+                .ForMember(prop => prop.ConsultationsQuantity, opt => opt.Ignore())
+                .ForMember(prop => prop.Id, opt => opt.Ignore());
             CreateMap<Consultation, ConsultationBasicInfoModel>();
             CreateMap<Psychologist, PsychologistBasicInfoModel>();
             CreateMap<PsychologistProblematic, ProblematicBasicInfoModel>()
