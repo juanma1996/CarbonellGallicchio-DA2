@@ -34,18 +34,23 @@ namespace WebApiTests
                 ConsultationMode = "Presencial",
                 Direction = "Rio Negro 8156"
             };
+            ConsultationBasicInfoModel consultationToReturn = new ConsultationBasicInfoModel()
+            {
+                Cost = 500,
+                Psychologist = psychologistToReturn
+            };
             Mock<IConsultationLogicAdapter> mock = new Mock<IConsultationLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<ConsultationModel>())).Returns(psychologistToReturn);
+            mock.Setup(m => m.Add(It.IsAny<ConsultationModel>())).Returns(consultationToReturn);
             ConsultationController controller = new ConsultationController(mock.Object);
 
             var result = controller.Post(consultationModel);
             CreatedAtRouteResult okResult = result as CreatedAtRouteResult;
-            PsychologistBasicInfoModel psychologistBasicInfoModel = okResult.Value as PsychologistBasicInfoModel;
+            ConsultationBasicInfoModel consultationBasicInfoModel = okResult.Value as ConsultationBasicInfoModel;
 
             mock.VerifyAll();
-            Assert.AreEqual(psychologistToReturn.Name, psychologistBasicInfoModel.Name);
-            Assert.AreEqual(psychologistToReturn.ConsultationMode, psychologistBasicInfoModel.ConsultationMode);
-            Assert.AreEqual(psychologistToReturn.Direction, psychologistBasicInfoModel.Direction);
+            Assert.AreEqual(psychologistToReturn.Name, consultationBasicInfoModel.Psychologist.Name);
+            Assert.AreEqual(psychologistToReturn.ConsultationMode, consultationBasicInfoModel.Psychologist.ConsultationMode);
+            Assert.AreEqual(psychologistToReturn.Direction, consultationBasicInfoModel.Psychologist.Direction);
         }
 
         [TestMethod]
@@ -70,18 +75,23 @@ namespace WebApiTests
                 ConsultationMode = "Virtual",
                 Direction = "https://bettercalm.com.uy/meeting_id/a59e595a-27d1-423f-97e5-1ea7804af71f"
             };
+            ConsultationBasicInfoModel consultationToReturn = new ConsultationBasicInfoModel()
+            {
+                Cost = 500,
+                Psychologist = psychologistToReturn
+            };
             Mock<IConsultationLogicAdapter> mock = new Mock<IConsultationLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<ConsultationModel>())).Returns(psychologistToReturn);
+            mock.Setup(m => m.Add(It.IsAny<ConsultationModel>())).Returns(consultationToReturn);
             ConsultationController controller = new ConsultationController(mock.Object);
 
             var result = controller.Post(consultationModel);
             CreatedAtRouteResult okResult = result as CreatedAtRouteResult;
-            PsychologistBasicInfoModel psychologistBasicInfoModel = okResult.Value as PsychologistBasicInfoModel;
+            ConsultationBasicInfoModel consultationBasicInfoModel = okResult.Value as ConsultationBasicInfoModel;
 
             mock.VerifyAll();
-            Assert.AreEqual(psychologistToReturn.Name, psychologistBasicInfoModel.Name);
-            Assert.AreEqual(psychologistToReturn.ConsultationMode, psychologistBasicInfoModel.ConsultationMode);
-            Assert.AreEqual(psychologistToReturn.Direction, psychologistBasicInfoModel.Direction);
+            Assert.AreEqual(psychologistToReturn.Name, consultationBasicInfoModel.Psychologist.Name);
+            Assert.AreEqual(psychologistToReturn.ConsultationMode, consultationBasicInfoModel.Psychologist.ConsultationMode);
+            Assert.AreEqual(psychologistToReturn.Direction, consultationBasicInfoModel.Psychologist.Direction);
         }
 
         [TestMethod]
@@ -106,18 +116,23 @@ namespace WebApiTests
                 ConsultationMode = "Presencial",
                 Direction = "Rio Negro 8156"
             };
+            ConsultationBasicInfoModel consultationToReturn = new ConsultationBasicInfoModel()
+            {
+                Cost = 500,
+                Psychologist = psychologistToReturn
+            };
             Mock<IConsultationLogicAdapter> mock = new Mock<IConsultationLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<ConsultationModel>())).Returns(psychologistToReturn);
+            mock.Setup(m => m.Add(It.IsAny<ConsultationModel>())).Returns(consultationToReturn);
             ConsultationController controller = new ConsultationController(mock.Object);
 
             var result = controller.Post(consultationModel);
             CreatedAtRouteResult okResult = result as CreatedAtRouteResult;
-            PsychologistBasicInfoModel psychologistBasicInfoModel = okResult.Value as PsychologistBasicInfoModel;
+            ConsultationBasicInfoModel consultationBasicInfoModel = okResult.Value as ConsultationBasicInfoModel;
 
             mock.VerifyAll();
-            Assert.AreEqual(psychologistToReturn.Name, psychologistBasicInfoModel.Name);
-            Assert.AreEqual(psychologistToReturn.ConsultationMode, psychologistBasicInfoModel.ConsultationMode);
-            Assert.AreEqual(psychologistToReturn.Direction, psychologistBasicInfoModel.Direction);
+            Assert.AreEqual(psychologistToReturn.Name, consultationBasicInfoModel.Psychologist.Name);
+            Assert.AreEqual(psychologistToReturn.ConsultationMode, consultationBasicInfoModel.Psychologist.ConsultationMode);
+            Assert.AreEqual(psychologistToReturn.Direction, consultationBasicInfoModel.Psychologist.Direction);
         }
 
         [TestMethod]
@@ -149,7 +164,7 @@ namespace WebApiTests
                 Psychologist = psychologistToReturn
             };
             Mock<IConsultationLogicAdapter> mock = new Mock<IConsultationLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<ConsultationModel>())).Returns(psychologistToReturn);
+            mock.Setup(m => m.Add(It.IsAny<ConsultationModel>())).Returns(consultationToReturn);
             ConsultationController controller = new ConsultationController(mock.Object);
 
             var result = controller.Post(consultationModel);

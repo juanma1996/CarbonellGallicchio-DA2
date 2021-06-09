@@ -5,6 +5,6 @@ namespace AdapterInterface
 {
     public interface IConsultationLogicAdapter
     {
-        PsychologistBasicInfoModel Add(ConsultationModel consultationModel);
+        ConsultationBasicInfoModel Add(ConsultationModel consultationModel);
     }
 }

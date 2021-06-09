@@ -26,7 +26,7 @@ namespace Adapter
             this.pacientModelValidator = pacientModelValidator;
         }
 
-        public PsychologistBasicInfoModel Add(ConsultationModel consultationModel)
+        public ConsultationBasicInfoModel Add(ConsultationModel consultationModel)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Adapter
                 pacientModelValidator.Validate(consultationModel.Pacient);
                 Consultation consultation = mapper.Map<Consultation>(consultationModel);
                 Psychologist psychologist = consultationLogic.Add(consultation);
-                return mapper.Map<PsychologistBasicInfoModel>(psychologist);
+                return mapper.Map<ConsultationBasicInfoModel>(psychologist);
             }
             catch (NullObjectException e)
             {
