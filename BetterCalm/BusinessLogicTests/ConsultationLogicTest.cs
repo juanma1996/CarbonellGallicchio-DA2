@@ -420,6 +420,7 @@ namespace BusinessLogicTests
                     Cellphone = "098342972"
                 },
                 Psychologist = psychologist,
+                Duration = 2
             };
             Mock<IRepository<Consultation>> mock = new Mock<IRepository<Consultation>>(MockBehavior.Strict);
             mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
