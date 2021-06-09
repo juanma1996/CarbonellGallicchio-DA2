@@ -74,13 +74,13 @@ namespace BusinessLogicTests
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
 
-            Psychologist returnedPsychologist = consultationLogic.Add(consultationModel);
+            Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
             mock.VerifyAll();
-            Assert.AreEqual(psychologist.Id, returnedPsychologist.Id);
-            Assert.AreEqual(psychologist.Name, returnedPsychologist.Name);
-            Assert.AreEqual(psychologist.Direction, returnedPsychologist.Direction);
-            Assert.AreEqual(psychologist.ConsultationMode, returnedPsychologist.ConsultationMode);
+            Assert.AreEqual(psychologist.Id, returnedConsultation.Psychologist.Id);
+            Assert.AreEqual(psychologist.Name, returnedConsultation.Psychologist.Name);
+            Assert.AreEqual(psychologist.Direction, returnedConsultation.Psychologist.Direction);
+            Assert.AreEqual(psychologist.ConsultationMode, returnedConsultation.Psychologist.ConsultationMode);
         }
 
         [TestMethod]
@@ -144,14 +144,14 @@ namespace BusinessLogicTests
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
 
-            Psychologist returnedPsychologist = consultationLogic.Add(consultationModel);
+            Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
             mock.VerifyAll();
-            Assert.AreEqual(psychologist.Id, returnedPsychologist.Id);
-            Assert.AreEqual(psychologist.Name, returnedPsychologist.Name);
-            Assert.AreEqual(psychologist.Direction, returnedPsychologist.Direction);
-            Assert.IsFalse(returnedPsychologist.Direction.Contains("https://bettercalm.com.uy/meeting_id/"));
-            Assert.AreEqual(psychologist.ConsultationMode, returnedPsychologist.ConsultationMode);
+            Assert.AreEqual(psychologist.Id, returnedConsultation.Psychologist.Id);
+            Assert.AreEqual(psychologist.Name, returnedConsultation.Psychologist.Name);
+            Assert.AreEqual(psychologist.Direction, returnedConsultation.Psychologist.Direction);
+            Assert.IsFalse(returnedConsultation.Psychologist.Direction.Contains("https://bettercalm.com.uy/meeting_id/"));
+            Assert.AreEqual(psychologist.ConsultationMode, returnedConsultation.Psychologist.ConsultationMode);
         }
 
         [TestMethod]
@@ -215,12 +215,12 @@ namespace BusinessLogicTests
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
 
-            Psychologist returnedPsychologist = consultationLogic.Add(consultationModel);
+            Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
             mock.VerifyAll();
-            Assert.AreEqual(psychologist.Id, returnedPsychologist.Id);
-            Assert.AreEqual(psychologist.Name, returnedPsychologist.Name);
-            Assert.IsTrue(returnedPsychologist.Direction.Contains("https://bettercalm.com.uy/meeting_id/"));
+            Assert.AreEqual(psychologist.Id, returnedConsultation.Psychologist.Id);
+            Assert.AreEqual(psychologist.Name, returnedConsultation.Psychologist.Name);
+            Assert.IsTrue(returnedConsultation.Psychologist.Direction.Contains("https://bettercalm.com.uy/meeting_id/"));
         }
 
         [TestMethod]
@@ -284,12 +284,12 @@ namespace BusinessLogicTests
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
 
-            Psychologist returnedPsychologist = consultationLogic.Add(consultationModel);
+            Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
             mock.VerifyAll();
-            Assert.AreEqual(psychologist.Id, returnedPsychologist.Id);
-            Assert.AreEqual(psychologist.Name, returnedPsychologist.Name);
-            Assert.AreEqual(psychologist.ConsultationMode, returnedPsychologist.ConsultationMode);
+            Assert.AreEqual(psychologist.Id, returnedConsultation.Psychologist.Id);
+            Assert.AreEqual(psychologist.Name, returnedConsultation.Psychologist.Name);
+            Assert.AreEqual(psychologist.ConsultationMode, returnedConsultation.Psychologist.ConsultationMode);
         }
 
         [TestMethod]
@@ -354,13 +354,13 @@ namespace BusinessLogicTests
             psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Throws(new NullObjectException("There is no psychologist"));
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
 
-            Psychologist returnedPsychologist = consultationLogic.Add(consultationModel);
+            Consultation returnedConsultation = consultationLogic.Add(consultationModel);
 
             mock.VerifyAll();
-            Assert.AreEqual(psychologist.Id, returnedPsychologist.Id);
-            Assert.AreEqual(psychologist.Name, returnedPsychologist.Name);
-            Assert.AreEqual(psychologist.Direction, returnedPsychologist.Direction);
-            Assert.AreEqual(psychologist.ConsultationMode, returnedPsychologist.ConsultationMode);
+            Assert.AreEqual(psychologist.Id, returnedConsultation.Psychologist.Id);
+            Assert.AreEqual(psychologist.Name, returnedConsultation.Psychologist.Name);
+            Assert.AreEqual(psychologist.Direction, returnedConsultation.Psychologist.Direction);
+            Assert.AreEqual(psychologist.ConsultationMode, returnedConsultation.Psychologist.ConsultationMode);
         }
     }
 }

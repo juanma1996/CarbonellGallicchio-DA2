@@ -15,7 +15,7 @@ namespace BusinessLogic
             this.psychologistLogic = psychologistLogic;
         }
 
-        public Psychologist Add(Consultation consultationModel)
+        public Consultation Add(Consultation consultationModel)
         {
             consultationModel.Psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(consultationModel.ProblematicId, DateTime.Now);
             Consultation consultation = consultationRepository.Add(consultationModel);
@@ -24,7 +24,7 @@ namespace BusinessLogic
                 consultation.Psychologist.Direction = GenerateMeetingId();
             }
 
-            return consultation.Psychologist;
+            return consultation;
         }
 
         private string GenerateMeetingId()
@@ -33,6 +33,13 @@ namespace BusinessLogic
             direction = direction + Guid.NewGuid().ToString();
 
             return direction;
+        }
+
+        private decimal CalculateConsultationCost(int duration, int fee, decimal bonification)
+        {
+            decimal cost = duration * fee * bonification;
+
+            return cost;
         }
     }
 }

@@ -33,8 +33,9 @@ namespace Adapter
                 consultationModelValidator.Validate(consultationModel);
                 pacientModelValidator.Validate(consultationModel.Pacient);
                 Consultation consultation = mapper.Map<Consultation>(consultationModel);
-                Psychologist psychologist = consultationLogic.Add(consultation);
-                return mapper.Map<ConsultationBasicInfoModel>(psychologist);
+                Consultation addedConsultation = consultationLogic.Add(consultation);
+                ConsultationBasicInfoModel consultationBasicInfoModel = mapper.Map<ConsultationBasicInfoModel>(addedConsultation);
+                return consultationBasicInfoModel;
             }
             catch (NullObjectException e)
             {
