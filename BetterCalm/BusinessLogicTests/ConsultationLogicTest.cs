@@ -362,5 +362,79 @@ namespace BusinessLogicTests
             Assert.AreEqual(psychologist.Direction, returnedConsultation.Psychologist.Direction);
             Assert.AreEqual(psychologist.ConsultationMode, returnedConsultation.Psychologist.ConsultationMode);
         }
+
+        [TestMethod]
+        public void TestAddConsultationGetCostOk()
+        {
+            int problematicId = 1;
+            decimal calculatedCost = 1000;
+            Consultation consultationModel = new Consultation
+            {
+                ProblematicId = problematicId,
+                Pacient = new Pacient
+                {
+                    Name = "Juan",
+                    Surname = "Perez",
+                    BirthDate = new DateTime(1996, 12, 05),
+                    Email = "Juan@gmail.com",
+                    Cellphone = "098342972"
+                },
+                Duration = 2
+            };
+            Psychologist psychologist = new Psychologist
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    },
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 2,
+                    },
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 3,
+                    },
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 4,
+                    }
+                },
+                Fee = 500
+            };
+            Consultation consultationToReturn = new Consultation
+            {
+                ProblematicId = problematicId,
+                Pacient = new Pacient
+                {
+                    Name = "Juan",
+                    Surname = "Perez",
+                    BirthDate = new DateTime(1996, 12, 05),
+                    Email = "Juan@gmail.com",
+                    Cellphone = "098342972"
+                },
+                Psychologist = psychologist,
+            };
+            Mock<IRepository<Consultation>> mock = new Mock<IRepository<Consultation>>(MockBehavior.Strict);
+            mock.Setup(p => p.Add(It.IsAny<Consultation>())).Returns(consultationToReturn);
+            Mock<IPsychologistLogic> psychologistMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            psychologistMock.Setup(p => p.GetAvailableByProblematicIdAndDate(It.IsAny<int>(), It.IsAny<DateTime>())).Returns(psychologist);
+            ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object);
+
+            Consultation returnedConsultation = consultationLogic.Add(consultationModel);
+
+            mock.VerifyAll();
+            Assert.AreEqual(calculatedCost, returnedConsultation.Cost);
+            Assert.AreEqual(psychologist.Id, returnedConsultation.Psychologist.Id);
+            Assert.AreEqual(psychologist.Name, returnedConsultation.Psychologist.Name);
+            Assert.AreEqual(psychologist.Direction, returnedConsultation.Psychologist.Direction);
+            Assert.AreEqual(psychologist.ConsultationMode, returnedConsultation.Psychologist.ConsultationMode);
+        }
     }
 }
