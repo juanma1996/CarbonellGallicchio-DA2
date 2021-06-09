@@ -22,7 +22,8 @@ namespace ValidatorTests
                     BirthDate = DateTime.Now,
                     Cellphone = "097654123",
                     Email = "juan@gmail.com"
-                }
+                },
+                Duration = 1
             };
             ConsultationModelValidator validator = new ConsultationModelValidator();
 
@@ -57,7 +58,8 @@ namespace ValidatorTests
                     BirthDate = new DateTime(1996, 12, 05),
                     Email = "Juan@gmail.com",
                     Cellphone = "098342972"
-                }
+                },
+                Duration = 5
             };
             ConsultationModelValidator validator = new ConsultationModelValidator();
 
