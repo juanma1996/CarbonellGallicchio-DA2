@@ -5,6 +5,10 @@ import { VideoContentCategoriesDashboardComponent } from './video-content-catego
 
 export const CategoriesRoutes: Routes = [
   {
+    path: "",
+    component: CategoriesDashboardComponent
+  },
+  {
     path: "audioContents",
     component: CategoriesDashboardComponent
   },
