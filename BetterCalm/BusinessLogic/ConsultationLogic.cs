@@ -23,7 +23,7 @@ namespace BusinessLogic
             {
                 consultation.Psychologist.Direction = GenerateMeetingId();
             }
-            consultation.Cost = CalculateConsultationCost(consultation.Duration, consultation.Psychologist.Fee, 0);
+            consultation.Cost = (decimal)CalculateConsultationCost(consultation.Duration, consultation.Psychologist.Fee, 0);
 
             return consultation;
         }
@@ -36,7 +36,7 @@ namespace BusinessLogic
             return direction;
         }
 
-        private decimal CalculateConsultationCost(int duration, int fee, decimal bonification)
+        private decimal CalculateConsultationCost(decimal duration, int fee, decimal bonification)
         {
             decimal cost = duration * fee;
             if (bonification != default)
