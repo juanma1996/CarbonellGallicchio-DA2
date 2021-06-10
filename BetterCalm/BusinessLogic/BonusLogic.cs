@@ -19,7 +19,7 @@ namespace BusinessLogic
 
         public List<Pacient> GetAllGeneratedBonus()
         {
-            List<Pacient> pacients = pacientRepository.GetAll(p => p.BonusApproved);
+            List<Pacient> pacients = pacientRepository.GetAll(p => p.GeneratedBonus);
             return pacients;
         }
 
@@ -30,7 +30,7 @@ namespace BusinessLogic
             pacient.BonusApproved = approved;
             if (approved)
             {
-                pacient.BonusAmount = (decimal)amount;
+                pacient.BonusAmount = (decimal)(1 - amount);
             }
             else
             {
