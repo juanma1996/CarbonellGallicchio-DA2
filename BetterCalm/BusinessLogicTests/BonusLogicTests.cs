@@ -35,5 +35,25 @@ namespace BusinessLogicTests
             mock.VerifyAll();
             Assert.AreEqual(pacientsToReturn.Count, pacientsWithBonusGenerated.Count);
         }
+
+        [TestMethod]
+        public void TestApproveBonusOk()
+        {
+            int pacientId = 1;
+            Pacient pacientToReturn = new Pacient()
+            {
+                Id = 1,
+                Email = "juan@email.com",
+                ConsultationsQuantity = 5
+            };
+            Mock<IRepository<Pacient>> mock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
+            mock.Setup(m => m.Get(p => p.Id == pacientId)).Returns(pacientToReturn);
+            mock.Setup(m => m.Update(It.IsAny<Pacient>()));
+            BonusLogic bonusLogic = new BonusLogic(mock.Object);
+
+            bonusLogic.Update(1, true, 0.25);
+
+            mock.VerifyAll();
+        }
     }
 }
