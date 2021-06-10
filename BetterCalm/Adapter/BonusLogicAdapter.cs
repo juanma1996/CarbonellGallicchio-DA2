@@ -1,6 +1,8 @@
 ﻿using Adapter.Mapper;
+using AdapterExceptions;
 using AdapterInterface;
 using AutoMapper;
+using BusinessExceptions;
 using BusinessLogicInterface;
 using Domain;
 using Model.In;
@@ -30,7 +32,14 @@ namespace Adapter
 
         public void Update(BonusModel bonusModel)
         {
-            bonusLogic.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount);
+            try
+            {
+                bonusLogic.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount);
+            }
+            catch (NullObjectException e)
+            {
+                throw new NotFoundException(e.errorMessage);
+            }
         }
     }
 }
