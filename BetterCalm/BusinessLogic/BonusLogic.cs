@@ -22,7 +22,10 @@ namespace BusinessLogic
 
         public void Update(int pacientId, bool approved, double amount)
         {
-            throw new System.NotImplementedException();
+            Pacient pacient = pacientRepository.Get(p => p.Id == pacientId);
+            pacient.BonusApproved = approved;
+            pacient.BonusAmount = (decimal)amount;
+            pacientRepository.Update(pacient);
         }
     }
 }
