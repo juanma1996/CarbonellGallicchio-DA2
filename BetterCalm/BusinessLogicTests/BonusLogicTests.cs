@@ -5,6 +5,7 @@ using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
+using ValidatorInterface;
 
 namespace BusinessLogicTests
 {
@@ -29,7 +30,9 @@ namespace BusinessLogicTests
             List<Pacient> pacientsToReturn = new List<Pacient>() { firstPacientToReturn, secondPacientToReturn };
             Mock<IRepository<Pacient>> mock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll(p => p.BonusApproved)).Returns(pacientsToReturn);
-            BonusLogic bonusLogic = new BonusLogic(mock.Object);
+            Mock<IValidator<Pacient>> validatorMock = new Mock<IValidator<Pacient>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Pacient>()));
+            BonusLogic bonusLogic = new BonusLogic(mock.Object, validatorMock.Object);
 
             List<Pacient> pacientsWithBonusGenerated = bonusLogic.GetAllGeneratedBonus();
 
@@ -50,7 +53,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Pacient>> mock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             mock.Setup(m => m.Get(p => p.Id == pacientId)).Returns(pacientToReturn);
             mock.Setup(m => m.Update(It.IsAny<Pacient>()));
-            BonusLogic bonusLogic = new BonusLogic(mock.Object);
+            Mock<IValidator<Pacient>> validatorMock = new Mock<IValidator<Pacient>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Pacient>()));
+            BonusLogic bonusLogic = new BonusLogic(mock.Object, validatorMock.Object);
 
             bonusLogic.Update(1, true, 0.25);
 
@@ -70,7 +75,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Pacient>> mock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             mock.Setup(m => m.Get(p => p.Id == pacientId)).Returns(pacientToReturn);
             mock.Setup(m => m.Update(It.IsAny<Pacient>()));
-            BonusLogic bonusLogic = new BonusLogic(mock.Object);
+            Mock<IValidator<Pacient>> validatorMock = new Mock<IValidator<Pacient>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Pacient>()));
+            BonusLogic bonusLogic = new BonusLogic(mock.Object, validatorMock.Object);
 
             bonusLogic.Update(1, false, 0);
 
@@ -91,7 +98,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Pacient>> mock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             mock.Setup(m => m.Get(p => p.Id == pacientId)).Returns(pacientToReturn);
             mock.Setup(m => m.Update(It.IsAny<Pacient>()));
-            BonusLogic bonusLogic = new BonusLogic(mock.Object);
+            Mock<IValidator<Pacient>> validatorMock = new Mock<IValidator<Pacient>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Pacient>())).Throws(new NullObjectException("Pacient not exists for the given ID"));
+            BonusLogic bonusLogic = new BonusLogic(mock.Object, validatorMock.Object);
 
             bonusLogic.Update(1, true, 0.25);
 

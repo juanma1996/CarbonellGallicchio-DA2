@@ -2,16 +2,19 @@
 using DataAccessInterface;
 using Domain;
 using System.Collections.Generic;
+using ValidatorInterface;
 
 namespace BusinessLogic
 {
     public class BonusLogic : IBonusLogic
     {
         private IRepository<Pacient> pacientRepository;
+        private readonly IValidator<Pacient> pacientValidator;
 
-        public BonusLogic(IRepository<Pacient> pacientRepository)
+        public BonusLogic(IRepository<Pacient> pacientRepository, IValidator<Pacient> pacientValidator)
         {
             this.pacientRepository = pacientRepository;
+            this.pacientValidator = pacientValidator;
         }
 
         public List<Pacient> GetAllGeneratedBonus()
@@ -23,6 +26,7 @@ namespace BusinessLogic
         public void Update(int pacientId, bool approved, double amount)
         {
             Pacient pacient = pacientRepository.Get(p => p.Id == pacientId);
+            pacientValidator.Validate(pacient);
             pacient.BonusApproved = approved;
             if (approved)
             {

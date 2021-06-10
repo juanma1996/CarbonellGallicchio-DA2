@@ -38,7 +38,15 @@ namespace BusinessLogic
                 }
             }
             consultationModel.Pacient = pacient;
-            pacientRepository.Update(pacient);
+            bool existPacient = pacientRepository.Exists(p => p.Email.Equals(pacient.Email));
+            if (existPacient)
+            {
+                pacientRepository.Update(pacient);
+            }
+            else
+            {
+                pacientRepository.Add(pacient);
+            }
             Consultation consultation = consultationRepository.Add(consultationModel);
             if (consultation.Psychologist.ConsultationMode.Equals("Virtual"))
             {
