@@ -12,6 +12,15 @@ namespace Adapter.Mapper.Profiles
             CreateMap<VideoContent, VideoContentBasicInfoModel>()
                 .ForMember(c => c.VideoUrl, opt => opt.MapFrom(x => x.Url));
 
+            CreateMap<PlayableContentPlaylist, PlaylistBasicInfoModel>()
+               .ForMember(c => c.Description, opt => opt.MapFrom(x => x.Playlist.Description))
+               .ForMember(c => c.Id, opt => opt.MapFrom(x => x.Playlist.Id))
+               .ForMember(c => c.Name, opt => opt.MapFrom(x => x.Playlist.Name));
+
+            CreateMap<PlayableContentCategory, CategoryBasicInfoModel>()
+               .ForMember(c => c.Id, opt => opt.MapFrom(x => x.Category.Id))
+               .ForMember(c => c.Name, opt => opt.MapFrom(x => x.Category.Name));
+
             CreateMap<VideoContentModel, VideoContent>()
                 .ForMember(c => c.Url, opt => opt.MapFrom(x => x.VideoUrl))
                 .ForMember(c => c.ImageUrl, opt => opt.Ignore());

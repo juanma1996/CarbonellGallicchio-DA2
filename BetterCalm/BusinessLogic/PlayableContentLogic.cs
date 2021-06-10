@@ -38,6 +38,31 @@ namespace BusinessLogic
             {
                 audioContentValidator.Validate(null);
             }
+            var categories = categoryRepository.GetAll(category => category.PlayableContents.Any(a => a.PlayableContentId == playableContentId));
+            List<PlayableContentCategory> playableContentCategories = new List<PlayableContentCategory>();
+            foreach (var item in categories)
+            {
+                var relation = new PlayableContentCategory()
+                {
+                    Category = item,
+                    PlayableContent = playableContent
+                };
+                playableContentCategories.Add(relation);
+            }
+            playableContent.Categories = playableContentCategories;
+            var playlists = playlistRepository.GetAll(playlist => playlist.PlayableContents.Any(a => a.PlayableContentId == playableContentId));
+            List<PlayableContentPlaylist> playableContentPlaylists = new List<PlayableContentPlaylist>();
+            foreach (var item in playlists)
+            {
+                var relation = new PlayableContentPlaylist()
+                {
+                    Playlist = item,
+                    PlayableContent = playableContent
+                };
+                playableContentPlaylists.Add(relation);
+            }
+            playableContent.Playlists = playableContentPlaylists;
+            
             return playableContent;
 
         }
