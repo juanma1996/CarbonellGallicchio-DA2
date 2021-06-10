@@ -30,7 +30,7 @@ namespace BusinessLogic
             pacient.BonusApproved = approved;
             if (approved)
             {
-                pacient.BonusAmount = (decimal)amount;
+                pacient.BonusAmount = (decimal)(1 - amount);
             }
             else
             {
