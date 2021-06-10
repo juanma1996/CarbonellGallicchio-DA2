@@ -1,4 +1,5 @@
 ﻿using BusinessLogicInterface;
+using DataAccessInterface;
 using Domain;
 using System.Collections.Generic;
 
@@ -6,9 +7,17 @@ namespace BusinessLogic
 {
     public class BonusLogic : IBonusLogic
     {
-        public List<Pacient> GetAll()
+        private IRepository<Pacient> pacientRepository;
+
+        public BonusLogic(IRepository<Pacient> pacientRepository)
         {
-            throw new System.NotImplementedException();
+            this.pacientRepository = pacientRepository;
+        }
+
+        public List<Pacient> GetAllGeneratedBonus()
+        {
+            List<Pacient> pacients = pacientRepository.GetAll(p => p.BonusApproved);
+            return pacients;
         }
 
         public void Update(int pacientId, bool approved, double amount)
