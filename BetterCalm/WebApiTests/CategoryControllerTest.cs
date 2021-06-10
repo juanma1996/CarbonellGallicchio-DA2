@@ -94,15 +94,7 @@ namespace WebApiTests
                 new CategoryBasicInfoModel
                 {
                     Id = 1,
-                    Name = "Top 50 Uruguay",
-                    AudioContents = new List<AudioContentBasicInfoModel>
-                    {
-                        new AudioContentBasicInfoModel()
-                        {
-                            Id = audioContentId,
-                            Name = nameAudioContent
-                        }
-                    }
+                    Name = "Top 50 Uruguay"
                 },
                 new CategoryBasicInfoModel
                 {
@@ -119,8 +111,6 @@ namespace WebApiTests
             List<CategoryBasicInfoModel> categories = okResult.Value as List<CategoryBasicInfoModel>;
 
             mock.VerifyAll();
-            Assert.AreEqual(audioContentId, categories.First().AudioContents.First().Id);
-            Assert.AreEqual(nameAudioContent, categories.First().AudioContents.First().Name);
             Assert.AreEqual(200, okResult.StatusCode);
         }
     }
