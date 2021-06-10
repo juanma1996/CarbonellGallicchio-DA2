@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using BusinessExceptions;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,10 @@ namespace Validator
 {
     public class PacientValidator : IValidator<Pacient>
     {
-        public void Validate(Pacient someObject)
+        public void Validate(Pacient pacient)
         {
-            throw new NotImplementedException();
+            if (pacient is null)
+                throw new NullObjectException("Pacient not exists for the given data");
         }
     }
 }
