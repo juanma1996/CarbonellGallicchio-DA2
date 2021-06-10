@@ -19,7 +19,7 @@ namespace BusinessLogic
 
         public List<Pacient> GetAllGeneratedBonus()
         {
-            List<Pacient> pacients = pacientRepository.GetAll(p => p.BonusApproved);
+            List<Pacient> pacients = pacientRepository.GetAll(p => p.GeneratedBonus);
             return pacients;
         }
 
