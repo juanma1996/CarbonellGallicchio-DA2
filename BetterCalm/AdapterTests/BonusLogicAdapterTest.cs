@@ -5,6 +5,7 @@ using AutoMapper;
 using BusinessLogicInterface;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Model.In;
 using Model.Out;
 using Moq;
 using System.Collections.Generic;
@@ -47,6 +48,25 @@ namespace AdapterTests
 
             mock.VerifyAll();
             Assert.AreEqual(pacientsToReturn.Count, result.Count);
+        }
+
+        [TestMethod]
+        public void TestApproveBonusOk()
+        {
+            BonusModel bonusModel = new BonusModel()
+            {
+                PacientId = 1,
+                Approved = true,
+                Amount = 0.25
+            };
+            Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount));
+            ModelMapper mapper = new ModelMapper();
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper);
+
+            bonusLogicAdapter.Update(bonusModel);
+
+            mock.VerifyAll();
         }
     }
 }

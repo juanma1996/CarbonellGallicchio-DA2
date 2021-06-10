@@ -10,5 +10,10 @@ namespace BusinessLogic
         {
             throw new System.NotImplementedException();
         }
+
+        public void Update(int pacientId, bool approved, double amount)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
