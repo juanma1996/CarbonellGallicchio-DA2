@@ -1,6 +1,7 @@
 ﻿using AdapterInterface;
 using Model.In;
 using Model.Out;
+using System;
 using System.Collections.Generic;
 
 namespace Adapter
