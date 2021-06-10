@@ -30,7 +30,7 @@ namespace Adapter
 
         public void Update(BonusModel bonusModel)
         {
-            throw new System.NotImplementedException();
+            bonusLogic.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount);
         }
     }
 }
