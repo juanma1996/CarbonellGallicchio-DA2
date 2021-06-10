@@ -132,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            <div class=" col-md-4" *ngIf="psychologist">
+            <div class=" col-md-4" *ngIf="scheduledConsultation">
                 <div class=" card card-user">
                     <div class=" card-body">
                         <p class=" card-text"></p>
@@ -144,19 +144,25 @@
                             <a href="javascript:void(0)">
                                 <h4 class=" title">Consultation with: </h4>
                             </a>
-                            <p class=" description">{{psychologist.name}}</p>
+                            <p class=" description">{{scheduledConsultation.psychologist.name}}</p>
                         </div>
 
                         <div class=" card-description">
                             <div class=" col-md-8 pr-md-1">
-                                <h5 class=" card-title">Consultation Mode: </h5>
-                                <p class=" card-text">{{psychologist.consultationMode}} </p>
+                                <h5 class=" card-title">Consultation cost: </h5>
+                                <p class=" card-text">${{scheduledConsultation.cost}} </p>
+                            </div>
+                        </div>
+                        <div class=" card-description">
+                            <div class=" col-md-8 pr-md-1">
+                                <h5 class=" card-title">Consultation mode: </h5>
+                                <p class=" card-text">{{scheduledConsultation.psychologist.consultationMode}} </p>
                             </div>
                         </div>
                         <div class=" card-description">
                             <div class=" col-md-12 pr-md-1">
                                 <h5 class=" card-title">Direction: </h5>
-                                <p class=" card-text">{{psychologist.direction}} </p>
+                                <p class=" card-text">{{scheduledConsultation.psychologist.direction}} </p>
                             </div>
                         </div>
 

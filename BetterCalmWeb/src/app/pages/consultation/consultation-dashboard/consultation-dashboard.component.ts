@@ -6,6 +6,7 @@ import { ProblematicsService } from 'src/app/services/problematics/problematics.
 import { ProblematicBasicInfo } from 'src/app/models/problematic/problematic-basic-info';
 import { FormGroup, FormBuilder, FormControl, Validators, Form, FormArray } from '@angular/forms';
 import { ToastService } from 'src/app/common/toast.service';
+import { ConsultationBasicInfo } from 'src/app/models/consultation/consultation-basic-info';
 
 @Component({
   selector: 'app-consultation-dashboard',
@@ -17,10 +18,10 @@ export class ConsultationDashboardComponent implements OnInit {
   consultationForm: FormGroup;
   scheduled: boolean = false;
 
-  public psychologist: PsychologistBasicInfo;
   public problematicsData = [];
   public problematics: ProblematicBasicInfo[] = [];
   selectedItems = [];
+  public scheduledConsultation: ConsultationBasicInfo;
 
   durationData = [
     { id: 1, itemName: 1 },
@@ -70,8 +71,10 @@ export class ConsultationDashboardComponent implements OnInit {
         .subscribe(
           response => {
             console.log(response)
-            this.psychologist = response;
+            this.scheduledConsultation = response;
             this.customToastr.setSuccess("The consultation was successfully scheduled");
+            this.consultationForm.reset();
+            this.scheduled = false;
           },
           catchError => {
             this.customToastr.setError(catchError);
