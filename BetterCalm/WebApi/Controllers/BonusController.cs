@@ -2,6 +2,7 @@
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.Out;
+using System;
 using System.Collections.Generic;
 
 namespace WebApi.Controllers
@@ -30,6 +31,11 @@ namespace WebApi.Controllers
         {
             List<BonusBasicInfoModel> bonuses = bonusLogicAdapter.GetAll();
             return Ok(bonuses);
+        }
+
+        public object Update()
+        {
+            throw new NotImplementedException();
         }
     }
 }

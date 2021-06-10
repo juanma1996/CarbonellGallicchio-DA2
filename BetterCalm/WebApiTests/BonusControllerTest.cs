@@ -1,6 +1,7 @@
 ﻿using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Model.In;
 using Model.Out;
 using Moq;
 using System;
@@ -37,7 +38,27 @@ namespace WebApiTests
             OkObjectResult okResult = result as OkObjectResult;
             List<BonusBasicInfoModel> bonuses = okResult.Value as List<BonusBasicInfoModel>;
 
+            mock.VerifyAll();
             Assert.AreEqual(bonusesToReturn.Count, bonuses.Count);
+        }
+
+        [TestMethod]
+        public void TestApproveBonusOk()
+        {
+            BonusModel bonusModel = new BonusModel()
+            {
+                PacientId = 1,
+                Approved = true,
+                Amount = 0.25
+            };
+            Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(bonusModel));
+            BonusController controller = new BonusController(mock.Object);
+
+            var result = controller.Update();
+            OkObjectResult okResult = result as OkObjectResult;
+
+            mock.VerifyAll();
         }
     }
 }
