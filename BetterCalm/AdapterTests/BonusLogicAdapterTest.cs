@@ -1,5 +1,7 @@
 ﻿using Adapter;
 using Adapter.Mapper;
+using Adapter.Mapper.Profiles;
+using AutoMapper;
 using BusinessLogicInterface;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,6 +14,14 @@ namespace AdapterTests
     [TestClass]
     public class BonusLogicAdapterTest
     {
+        [TestMethod]
+        public void TestBonusMapOk()
+        {
+            ModelMapper mapper = new ModelMapper();
+            MapperConfiguration configuration = new MapperConfiguration(mapper => mapper.AddProfile(new BonusProfile()));
+            configuration.AssertConfigurationIsValid();
+        }
+
         [TestMethod]
         public void TestGetBonusesOk()
         {
@@ -30,7 +40,8 @@ namespace AdapterTests
             List<Pacient> pacientsToReturn = new List<Pacient>() { firstPacientToReturn, secondPacientToReturn };
             Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(pacientsToReturn);
-            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter();
+            ModelMapper mapper = new ModelMapper();
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper);
 
             List<BonusBasicInfoModel> result = bonusLogicAdapter.GetAll();
 
