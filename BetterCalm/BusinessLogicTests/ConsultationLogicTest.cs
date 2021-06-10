@@ -80,6 +80,7 @@ namespace BusinessLogicTests
             Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
             pacientRepositoryMock.Setup(p => p.Update(It.IsAny<Pacient>()));
+            pacientRepositoryMock.Setup(p => p.Exists(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(true);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
@@ -157,6 +158,7 @@ namespace BusinessLogicTests
             Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
             pacientRepositoryMock.Setup(p => p.Update(It.IsAny<Pacient>()));
+            pacientRepositoryMock.Setup(p => p.Exists(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(true);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
@@ -235,6 +237,7 @@ namespace BusinessLogicTests
             Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
             pacientRepositoryMock.Setup(p => p.Update(It.IsAny<Pacient>()));
+            pacientRepositoryMock.Setup(p => p.Exists(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(true);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
@@ -311,6 +314,7 @@ namespace BusinessLogicTests
             Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
             pacientRepositoryMock.Setup(p => p.Update(It.IsAny<Pacient>()));
+            pacientRepositoryMock.Setup(p => p.Exists(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(true);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
@@ -468,6 +472,8 @@ namespace BusinessLogicTests
             Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
             pacientRepositoryMock.Setup(p => p.Update(It.IsAny<Pacient>()));
+            pacientRepositoryMock.Setup(p => p.Exists(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(true);
+            pacientRepositoryMock.Setup(p => p.Exists(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(true);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
@@ -553,6 +559,7 @@ namespace BusinessLogicTests
             Mock<IRepository<Pacient>> pacientRepositoryMock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             pacientRepositoryMock.Setup(p => p.Get(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(pacient);
             pacientRepositoryMock.Setup(p => p.Update(It.IsAny<Pacient>()));
+            pacientRepositoryMock.Setup(p => p.Exists(It.IsAny<Expression<Func<Pacient, bool>>>())).Returns(true);
             ConsultationLogic consultationLogic = new ConsultationLogic(mock.Object, psychologistMock.Object, pacientRepositoryMock.Object);
 
             Consultation returnedConsultation = consultationLogic.Add(consultationModel);
