@@ -55,10 +55,11 @@ namespace WebApiTests
             mock.Setup(m => m.Update(bonusModel));
             BonusController controller = new BonusController(mock.Object);
 
-            var result = controller.Update();
-            OkObjectResult okResult = result as OkObjectResult;
+            var response = controller.Update(bonusModel);
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
+            Assert.AreEqual(204, statusCodeResult.StatusCode);
         }
     }
 }

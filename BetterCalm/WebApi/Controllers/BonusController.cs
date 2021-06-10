@@ -1,9 +1,11 @@
 ﻿using AdapterInterface;
 using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Model.In;
 using Model.Out;
 using System;
 using System.Collections.Generic;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
@@ -22,10 +24,11 @@ namespace WebApi.Controllers
         /// Obtains the information of all existing pacient with generated bonus.
         /// </summary>
         /// <remarks>
-        /// Obtains the information of all existing pacient with generated bonus.
+        /// Obtains the information of all existing pacient with generated bonus. An administrator token is required.
         /// </remarks>
         /// <response code="200">Success. Returns the requested object.</response>  
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
         [HttpGet]
         public IActionResult Get()
         {
@@ -33,9 +36,25 @@ namespace WebApi.Controllers
             return Ok(bonuses);
         }
 
-        public object Update()
+        // UPDATE: 
+        /// <summary>
+        /// Updates an generated bonus for a pacient.
+        /// </summary>
+        /// <remarks>
+        /// Updates an generated bonus for a pacient send in the body. An administrator token is required.
+        /// </remarks>
+        /// <response code="204">No content.</response>
+        /// <response code="401">Unauthorized. Must contain a token to access Api.</response>
+        /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+        /// <response code="400">Error. The bonus amount value is invalid.</response>
+        /// <response code="404">NotFound. There is no pacient registered for the given data.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [HttpPut]
+        public IActionResult Update(BonusModel bonus)
         {
-            throw new NotImplementedException();
+            bonusLogicAdapter.Update(bonus);
+            return NoContent();
         }
     }
 }
