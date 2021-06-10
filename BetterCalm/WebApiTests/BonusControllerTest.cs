@@ -1,4 +1,5 @@
-﻿using AdapterInterface;
+﻿using AdapterExceptions;
+using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
@@ -50,6 +51,60 @@ namespace WebApiTests
                 PacientId = 1,
                 Approved = true,
                 Amount = 0.25
+            };
+            Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(bonusModel));
+            BonusController controller = new BonusController(mock.Object);
+
+            var response = controller.Update(bonusModel);
+            StatusCodeResult statusCodeResult = response as StatusCodeResult;
+
+            mock.VerifyAll();
+            Assert.AreEqual(204, statusCodeResult.StatusCode);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void TestApproveBonusNotExistPacientId()
+        {
+            BonusModel bonusModel = new BonusModel()
+            {
+                PacientId = 1,
+                Approved = true,
+                Amount = 0.25
+            };
+            Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(bonusModel)).Throws(new NotFoundException("Not found object")); ;
+            BonusController controller = new BonusController(mock.Object);
+
+            var response = controller.Update(bonusModel);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAttributeException))]
+        public void TestApproveBonusInvalidAmount()
+        {
+            BonusModel bonusModel = new BonusModel()
+            {
+                PacientId = 1,
+                Approved = true,
+                Amount = 5
+            };
+            Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(bonusModel)).Throws(new InvalidAttributeException("Amount value is invalid"));
+            BonusController controller = new BonusController(mock.Object);
+
+            var response = controller.Update(bonusModel);
+        }
+
+        [TestMethod]
+        public void TestDenyBonusOk()
+        {
+            BonusModel bonusModel = new BonusModel()
+            {
+                PacientId = 1,
+                Approved = false,
+                Amount = 0
             };
             Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.Update(bonusModel));
