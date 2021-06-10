@@ -51,7 +51,7 @@ export const ROUTES: RouteInfo[] = [
     path: "/categories",
     title: "Content by category",
     type: "sub",
-    icontype: "tim-icons icon-settings-gear-63",
+    icontype: "tim-icons icon-headphones",
     collapse: "",
     rtlTitle: "صفحات",
     isCollapsed: true,
