@@ -62,6 +62,10 @@ namespace Factory
             services.AddScoped<ImporterLogic.Mapper.IModelMapper, ImporterLogic.Mapper.ModelMapper>();
             services.AddScoped<IVideoContentLogicAdapter, VideoContentLogicAdapter>();
             services.AddScoped<IValidator<VideoContentModel>, VideoContentModelValidator>();
+            services.AddScoped<IBonusLogicAdapter, BonusLogicAdapter>();
+            services.AddScoped<IBonusLogic, BonusLogic>();
+            services.AddScoped<IValidator<BonusModel>, BonusModelValidator>();
+            services.AddScoped<IValidator<Pacient>, PacientValidator>();
         }
         public void AddDbContextService()
         {
