@@ -173,6 +173,13 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
   {
+    path: "/bonus",
+    title: "Bonuses",
+    type: "link",
+    icontype: "tim-icons icon-money-coins",
+    rtlTitle: "لوحة القيادة"
+  },
+  {
     path: "/pages",
     title: "Pages",
     type: "sub",
