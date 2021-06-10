@@ -5,7 +5,7 @@ namespace BusinessLogicInterface
 {
     public interface IBonusLogic
     {
-        List<Pacient> GetAll();
+        List<Pacient> GetAllGeneratedBonus();
         void Update(int pacientId, bool approved, double amount);
     }
 }

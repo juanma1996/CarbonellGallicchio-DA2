@@ -43,7 +43,7 @@ namespace AdapterTests
             };
             List<Pacient> pacientsToReturn = new List<Pacient>() { firstPacientToReturn, secondPacientToReturn };
             Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll()).Returns(pacientsToReturn);
+            mock.Setup(m => m.GetAllGeneratedBonus()).Returns(pacientsToReturn);
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<BonusModel>> mockValidator = new Mock<IValidator<BonusModel>>(MockBehavior.Strict);
             BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);

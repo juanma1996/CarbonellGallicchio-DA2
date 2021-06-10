@@ -28,9 +28,9 @@ namespace BusinessLogicTests
             List<Pacient> pacientsToReturn = new List<Pacient>() { firstPacientToReturn, secondPacientToReturn };
             Mock<IRepository<Pacient>> mock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll(p => p.BonusApproved)).Returns(pacientsToReturn);
-            BonusLogic bonusLogic = new BonusLogic();
+            BonusLogic bonusLogic = new BonusLogic(mock.Object);
 
-            List<Pacient> pacientsWithBonusGenerated = bonusLogic.GetAll();
+            List<Pacient> pacientsWithBonusGenerated = bonusLogic.GetAllGeneratedBonus();
 
             mock.VerifyAll();
             Assert.AreEqual(pacientsToReturn.Count, pacientsWithBonusGenerated.Count);

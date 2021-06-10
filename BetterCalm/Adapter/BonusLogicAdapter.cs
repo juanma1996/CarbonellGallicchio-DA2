@@ -27,7 +27,7 @@ namespace Adapter
 
         public List<BonusBasicInfoModel> GetAll()
         {
-            List<Pacient> pacients = bonusLogic.GetAll();
+            List<Pacient> pacients = bonusLogic.GetAllGeneratedBonus();
             List<BonusBasicInfoModel> bonuses = mapper.Map<List<Pacient>, List<BonusBasicInfoModel>>(pacients);
 
             return bonuses;
