@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import swal from "sweetalert2";
 import { AlertService } from 'src/app/common/alert.service';
 import { ToastService } from 'src/app/common/toast.service';
-import { BonusService } from 'src/app/services/bonus/bonus.service';
+import { BonusesService } from 'src/app/services/bonus/bonus.service';
 
 @Component({
   selector: 'app-bonus-dashboard',
@@ -33,16 +33,16 @@ export class BonusDashboardComponent implements OnInit {
     private fb: FormBuilder,
     private alert: AlertService,
     private customToastr: ToastService,
-    private bonusService: BonusService,
+    private bonusesService: BonusesService,
   ) { }
 
   ngOnInit(): void {
-    this.initializebonusForm()
+    this.initializeBonusForm()
     this.getPacients();
   }
 
   getPacients() {
-    this.bonusService.get()
+    this.bonusesService.get()
       .subscribe(
         response => {
           this.pacients = response
@@ -56,7 +56,7 @@ export class BonusDashboardComponent implements OnInit {
     this.entries = $event.target.value;
   }
 
-  initializebonusForm() {
+  initializeBonusForm() {
     this.bonusForm = this.fb.group({
       pacientId: new FormControl(null),
       approved: new FormControl(null),
@@ -69,7 +69,6 @@ export class BonusDashboardComponent implements OnInit {
     this.bonusForPacient = pacient.pacientEmail;
     this.bonusForm.get('pacientId').setValue(pacient.pacientId);
     this.bonusForm.get('approved').setValue(true);
-    console.log(pacient);
   }
 
   transformToDecimal(percentage: number) {
@@ -85,19 +84,23 @@ export class BonusDashboardComponent implements OnInit {
   }
 
   approvesBonus() {
-    this.bonusService.update(this.bonusForm.value)
-      .subscribe(
-        response => {
-          this.customToastr.setSuccess("The bonus has been aproved successfully")
-          this.getPacients();
-        },
-        catchError => {
-          this.customToastr.setError(catchError);
-        });
+    if (!this.bonusForm.invalid) {
+      this.bonusesService.update(this.bonusForm.value)
+        .subscribe(
+          response => {
+            this.customToastr.setSuccess("The bonus has been aproved successfully")
+            this.getPacients();
+          },
+          catchError => {
+            this.customToastr.setError(catchError);
+          });
+    } else {
+      this.customToastr.setError("Please verify the entered data.")
+    }
   }
 
   disaprovesBonus() {
-    this.bonusService.update(this.bonusForm.value)
+    this.bonusesService.update(this.bonusForm.value)
       .subscribe(
         response => {
           this.customToastr.setSuccess("The bonus has been deny successfully");

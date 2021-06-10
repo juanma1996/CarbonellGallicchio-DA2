@@ -9,7 +9,7 @@ import { AudioContentModel } from 'src/app/models/audioContent/audio-content-mod
 @Injectable({
     providedIn: 'root'
 })
-export class BonusService {
+export class BonusesService {
     private uri = environment.baseURL + 'bonuses';
     constructor(private http: HttpClient) { }
 
