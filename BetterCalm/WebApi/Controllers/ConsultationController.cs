@@ -28,8 +28,8 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Post(ConsultationModel consultationModel)
         {
-            PsychologistBasicInfoModel psychologist = consultationDomainToModelAdapter.Add(consultationModel);
-            return CreatedAtRoute("", psychologist);
+            ConsultationBasicInfoModel consultation = consultationDomainToModelAdapter.Add(consultationModel);
+            return CreatedAtRoute("", consultation);
         }
     }
 }

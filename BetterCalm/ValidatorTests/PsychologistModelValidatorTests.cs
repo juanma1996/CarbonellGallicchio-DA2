@@ -145,7 +145,8 @@ namespace ValidatorTests
                 Name = "Juan",
                 ConsultationMode = "Virtual",
                 Direction = "Direction",
-                Problematics = problematics
+                Problematics = problematics,
+                Fee = 500
             };
             PsychologistModelValidator validator = new PsychologistModelValidator();
 
@@ -176,7 +177,8 @@ namespace ValidatorTests
                 Name = "Juan",
                 ConsultationMode = "Presencial",
                 Direction = "Direction",
-                Problematics = problematics
+                Problematics = problematics,
+                Fee = 500
             };
             PsychologistModelValidator validator = new PsychologistModelValidator();
 
@@ -277,6 +279,38 @@ namespace ValidatorTests
                 Direction = "Some description",
                 Problematics = problematics,
                 Fee = 0
+            };
+            PsychologistModelValidator validator = new PsychologistModelValidator();
+
+            validator.Validate(psychologist);
+        }
+
+        [TestMethod]
+        public void TestPsychologistModelWithValidFeeOK()
+        {
+            List<ProblematicModel> problematics = new List<ProblematicModel>()
+            {
+                new ProblematicModel()
+                {
+                    Id = 1,
+                    Name = "Juan"
+                },
+                new ProblematicModel()
+                {
+                    Id = 2
+                },
+                new ProblematicModel()
+                {
+                    Id = 3
+                }
+            };
+            PsychologistModel psychologist = new PsychologistModel
+            {
+                Name = "Juan",
+                ConsultationMode = "Virtual",
+                Direction = "Some description",
+                Problematics = problematics,
+                Fee = 500
             };
             PsychologistModelValidator validator = new PsychologistModelValidator();
 
