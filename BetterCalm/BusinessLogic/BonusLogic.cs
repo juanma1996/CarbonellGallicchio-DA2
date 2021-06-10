@@ -24,7 +24,16 @@ namespace BusinessLogic
         {
             Pacient pacient = pacientRepository.Get(p => p.Id == pacientId);
             pacient.BonusApproved = approved;
-            pacient.BonusAmount = (decimal)amount;
+            if (approved)
+            {
+                pacient.BonusAmount = (decimal)amount;
+            }
+            else
+            {
+                pacient.BonusAmount = 0;
+                pacient.GeneratedBonus = false;
+                pacient.ConsultationsQuantity = 0;
+            }
             pacientRepository.Update(pacient);
         }
     }
