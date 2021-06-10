@@ -38,6 +38,10 @@ export class BonusDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializebonusForm()
+    this.getPacients();
+  }
+
+  getPacients() {
     this.bonusService.get()
       .subscribe(
         response => {
@@ -62,8 +66,8 @@ export class BonusDashboardComponent implements OnInit {
 
   selectForApproval(pacient: any) {
     this.showBonus = true;
-    //this.bonusForPacient = pacient.name;
-    this.bonusForm.get('pacientId').setValue(pacient.id);
+    this.bonusForPacient = pacient.pacientEmail;
+    this.bonusForm.get('pacientId').setValue(pacient.pacientId);
     this.bonusForm.get('approved').setValue(true);
     console.log(pacient);
   }
@@ -73,26 +77,38 @@ export class BonusDashboardComponent implements OnInit {
   }
 
   disapprove(pacient: any) {
-    //this.alert.showAlert("This is a test", "Nice test", this.calback.bind(this));
     this.showBonus = false;
-    this.bonusForm.get('pacientId').setValue(pacient.id);
+    this.bonusForm.get('pacientId').setValue(pacient.pacientId);
     this.bonusForm.get('approved').setValue(false);
     this.bonusForm.get('amount').setValue(0);
-    console.log(this.bonusForm.value);
+    this.alert.showAlert("Are you sure you want to deny the bonus?", "Yes, deny!", this.disaprovesBonus.bind(this));
   }
 
   approvesBonus() {
     this.bonusService.update(this.bonusForm.value)
       .subscribe(
         response => {
-          this.customToastr.setSuccess("Nice work juan")
+          this.customToastr.setSuccess("The bonus has been aproved successfully")
+          this.getPacients();
         },
         catchError => {
           this.customToastr.setError(catchError);
         });
   }
 
-  bonificationPercentSelect(item: any) {
+  disaprovesBonus() {
+    this.bonusService.update(this.bonusForm.value)
+      .subscribe(
+        response => {
+          this.customToastr.setSuccess("The bonus has been deny successfully");
+          this.getPacients();
+        },
+        catchError => {
+          this.customToastr.setError(catchError);
+        });
+  }
+
+  bonusPercentSelect(item: any) {
     this.bonusForm.get('amount').setValue(this.transformToDecimal(item.itemName));
   }
 
