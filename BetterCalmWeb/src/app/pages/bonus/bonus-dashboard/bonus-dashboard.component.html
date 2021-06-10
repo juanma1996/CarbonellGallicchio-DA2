@@ -38,9 +38,8 @@
                         <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50"
                             [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined"
                             [rows]="pacients">
-                            <ngx-datatable-column name="Name"></ngx-datatable-column>
-                            <ngx-datatable-column name="Email"></ngx-datatable-column>
-                            <ngx-datatable-column name="Consultations"></ngx-datatable-column>
+                            <ngx-datatable-column name="PacientEmail"></ngx-datatable-column>
+                            <ngx-datatable-column name="ConsultationsQuantity"></ngx-datatable-column>
                             <ngx-datatable-column name="Options" prop="option" [draggable]="false" [resizeable]="false">
                                 <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
                                     <button class=" btn btn-link btn-sm btn-icon" tooltip="Approve" type="button"
@@ -68,10 +67,10 @@
                         <div class=" block block-two"></div>
                         <div class=" block block-three"></div>
                         <div class=" block block-four"></div>
-                        <a href="javascript:void(0)">
+                        <!-- <a href="javascript:void(0)">
                             <h4 class=" title">Bonus for:</h4>
                         </a>
-                        <p class=" description"> {{bonusForPacient}}</p>
+                        <p class=" description"> {{bonusForPacient}}</p> -->
                     </div>
                     <div class=" card-description">
                         <div class=" form-group has-label" [ngClass]="{
