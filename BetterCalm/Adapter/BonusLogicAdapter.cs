@@ -8,6 +8,7 @@ using Domain;
 using Model.In;
 using Model.Out;
 using System.Collections.Generic;
+using ValidatorInterface;
 
 namespace Adapter
 {
@@ -15,11 +16,13 @@ namespace Adapter
     {
         private readonly IBonusLogic bonusLogic;
         private readonly IMapper mapper;
+        private readonly IValidator<BonusModel> bonusModelValidator;
 
-        public BonusLogicAdapter(IBonusLogic bonusLogic, IModelMapper mapper)
+        public BonusLogicAdapter(IBonusLogic bonusLogic, IModelMapper mapper, IValidator<BonusModel> bonusModelValidator)
         {
             this.bonusLogic = bonusLogic;
             this.mapper = mapper.Configure();
+            this.bonusModelValidator = bonusModelValidator;
         }
 
         public List<BonusBasicInfoModel> GetAll()
@@ -34,6 +37,7 @@ namespace Adapter
         {
             try
             {
+                bonusModelValidator.Validate(bonusModel);
                 bonusLogic.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount);
             }
             catch (NullObjectException e)

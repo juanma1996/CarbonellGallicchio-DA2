@@ -45,7 +45,8 @@ namespace AdapterTests
             Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(pacientsToReturn);
             ModelMapper mapper = new ModelMapper();
-            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<BonusModel>> mockValidator = new Mock<IValidator<BonusModel>>(MockBehavior.Strict);
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             List<BonusBasicInfoModel> result = bonusLogicAdapter.GetAll();
 
@@ -65,7 +66,8 @@ namespace AdapterTests
             Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount));
             ModelMapper mapper = new ModelMapper();
-            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<BonusModel>> mockValidator = new Mock<IValidator<BonusModel>>(MockBehavior.Strict);
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             bonusLogicAdapter.Update(bonusModel);
 
@@ -84,7 +86,8 @@ namespace AdapterTests
             Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount));
             ModelMapper mapper = new ModelMapper();
-            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<BonusModel>> mockValidator = new Mock<IValidator<BonusModel>>(MockBehavior.Strict);
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             bonusLogicAdapter.Update(bonusModel);
 
@@ -104,7 +107,8 @@ namespace AdapterTests
             Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount)).Throws(new NullObjectException("Not exist pacient"));
             ModelMapper mapper = new ModelMapper();
-            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper);
+            Mock<IValidator<BonusModel>> mockValidator = new Mock<IValidator<BonusModel>>(MockBehavior.Strict);
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             bonusLogicAdapter.Update(bonusModel);
         }
@@ -124,7 +128,7 @@ namespace AdapterTests
             Mock<IValidator<BonusModel>> mockValidator = new Mock<IValidator<BonusModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(bonusModel)).Throws(new InvalidAttributeException("Amount value is invalid"));
             ModelMapper mapper = new ModelMapper();
-            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper);
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
             bonusLogicAdapter.Update(bonusModel);
         }
