@@ -68,5 +68,24 @@ namespace AdapterTests
 
             mock.VerifyAll();
         }
+
+        [TestMethod]
+        public void TestDenyBonusOk()
+        {
+            BonusModel bonusModel = new BonusModel()
+            {
+                PacientId = 1,
+                Approved = false,
+                Amount = 0
+            };
+            Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount));
+            ModelMapper mapper = new ModelMapper();
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper);
+
+            bonusLogicAdapter.Update(bonusModel);
+
+            mock.VerifyAll();
+        }
     }
 }
