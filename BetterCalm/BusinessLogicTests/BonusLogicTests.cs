@@ -29,7 +29,7 @@ namespace BusinessLogicTests
             };
             List<Pacient> pacientsToReturn = new List<Pacient>() { firstPacientToReturn, secondPacientToReturn };
             Mock<IRepository<Pacient>> mock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll(p => p.BonusApproved)).Returns(pacientsToReturn);
+            mock.Setup(m => m.GetAll(p => p.GeneratedBonus)).Returns(pacientsToReturn);
             Mock<IValidator<Pacient>> validatorMock = new Mock<IValidator<Pacient>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Pacient>()));
             BonusLogic bonusLogic = new BonusLogic(mock.Object, validatorMock.Object);
