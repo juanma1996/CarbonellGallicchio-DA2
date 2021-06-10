@@ -74,7 +74,7 @@ namespace WebApiTests
                 Amount = 0.25
             };
             Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(bonusModel)).Throws(new NotFoundException("Not found object")); ;
+            mock.Setup(m => m.Update(bonusModel)).Throws(new NotFoundException("Not found object"));
             BonusController controller = new BonusController(mock.Object);
 
             var response = controller.Update(bonusModel);

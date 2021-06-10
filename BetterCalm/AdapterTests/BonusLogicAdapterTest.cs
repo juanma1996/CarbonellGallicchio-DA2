@@ -1,7 +1,9 @@
 ﻿using Adapter;
 using Adapter.Mapper;
 using Adapter.Mapper.Profiles;
+using AdapterExceptions;
 using AutoMapper;
+using BusinessExceptions;
 using BusinessLogicInterface;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -86,6 +88,24 @@ namespace AdapterTests
             bonusLogicAdapter.Update(bonusModel);
 
             mock.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void TestApproveBonusNotExistPacientId()
+        {
+            BonusModel bonusModel = new BonusModel()
+            {
+                PacientId = 1,
+                Approved = true,
+                Amount = 0.25
+            };
+            Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount)).Throws(new NullObjectException("Not exist pacient"));
+            ModelMapper mapper = new ModelMapper();
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper);
+
+            bonusLogicAdapter.Update(bonusModel);
         }
     }
 }
