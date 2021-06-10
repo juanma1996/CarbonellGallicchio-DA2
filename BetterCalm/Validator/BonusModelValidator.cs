@@ -1,7 +1,5 @@
-﻿using Model.In;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AdapterExceptions;
+using Model.In;
 using ValidatorInterface;
 
 namespace Validator
@@ -10,7 +8,8 @@ namespace Validator
     {
         public void Validate(BonusModel bonusModel)
         {
-            throw new NotImplementedException();
+            if (bonusModel.Amount != 0.15 && bonusModel.Amount != 25 && bonusModel.Amount != 0.50)
+                throw new InvalidAttributeException("Amount value is invalid. Must be 15, 25 or 50");
         }
     }
 }
