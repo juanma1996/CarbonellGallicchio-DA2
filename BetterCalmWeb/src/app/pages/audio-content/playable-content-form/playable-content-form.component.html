@@ -43,11 +43,11 @@
                 <label> Categories </label>
                 <angular2-multiselect [data]="categoriesData" [ngModel]="originalCategory"
                     [ngModelOptions]="{standalone: true}" [settings]="{
-                                singleSelection: true,
+                                singleSelection: false,
+                                enableCheckAll: false,
                                 text: 'Categories',
-                                classes: 'selectpicker btn-danger',
-                                lazyLoading: true,
-                                maxHeight: 100
+                                enableSearchFilter: false,
+                                classes: 'selectpicker btn-danger'
                             }" name="playableContentCategory" (onSelect)="categorySelect($event)"
                     (onDeSelect)="categoryDeSelect($event)">
                 </angular2-multiselect>
@@ -101,11 +101,11 @@
                 <label> Playlist </label>
                 <angular2-multiselect [data]="playlistsData" [ngModel]="originalPlaylist"
                     [ngModelOptions]="{standalone: true}" [settings]="{
-                            singleSelection: true,
+                            singleSelection: false,
+                            enableCheckAll: false,
                             text: 'Playlists',
-                            classes: 'selectpicker btn-danger',
-                            lazyLoading: true,
-                            maxHeight: 100
+                            enableSearchFilter: false,
+                            classes: 'selectpicker btn-danger'
                         }" name="playableContentPlaylist" (onSelect)="playlistSelect($event)"
                     (onDeSelect)="playlistDeSelect($event)">
                 </angular2-multiselect>

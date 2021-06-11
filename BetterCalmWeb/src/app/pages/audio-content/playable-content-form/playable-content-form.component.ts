@@ -99,7 +99,7 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   categorySelect(item: any) {
-    if (this.categories.value.length > 0) this.categories.removeAt(0);
+    //if (this.categories.value.length > 0) this.categories.removeAt(0);
     this.selectedCategory = this.fb.group({
       id: item.id,
       name: item.itemName
@@ -109,7 +109,8 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   categoryDeSelect(item: any) {
-    this.categories.removeAt(0);
+    let index = this.categories.value.findIndex(x => x.id === item.id);
+    this.categories.removeAt(index);
   }
 
   get playlists(): FormArray {
@@ -117,7 +118,7 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   playlistSelect(item: any) {
-    if (this.playlists.value.length > 0) this.playlists.removeAt(0);
+    //if (this.playlists.value.length > 0) this.playlists.removeAt(0);
     this.selectedPlaylist = this.fb.group({
       id: item.id,
       name: item.itemName,
@@ -127,7 +128,8 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   playlistDeSelect(item: any) {
-    this.playlists.removeAt(0);
+    let index = this.playlists.value.findIndex(x => x.id === item.id);
+    this.playlists.removeAt(index);
   }
 
   createNewPlaylist(item: any) {
