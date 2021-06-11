@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/common/toast.service';
   selector: "app-login",
   templateUrl: "login.component.html"
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   focus;
   focus1;
   public administrator: SessionUserModel = new SessionUserModel();
@@ -22,10 +22,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     var body = document.getElementsByTagName("body")[0];
     body.classList.add("login-page");
-  }
-  ngOnDestroy() {
-    // var body = document.getElementsByTagName("body")[0];
-    // body.classList.remove("login-page");
   }
 
   login = function () {
