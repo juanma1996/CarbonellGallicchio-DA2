@@ -79,28 +79,29 @@ export class EditVideoContentComponent implements OnInit {
   }
 
   updateMultiSelects() {
-    var originalCategory = this.fb.group({
-      id: this.editingVideoContent.categories[0].id,
-      name: this.editingVideoContent.categories[0].name
-    })
-    this.categories.push(originalCategory);
-    this.playableContentForm.selectedCategory = originalCategory;
-    this.playableContentForm.getPlaylistByCategory(this.editingVideoContent.categories[0].id);
+    this.editingVideoContent.categories.forEach(category => {
+      var originalCategory = this.fb.group({
+        id: category.id,
+        name: category.name
+      })
+      this.playableContentForm.selectedCategory = originalCategory;
+      this.categories.push(originalCategory);
+      this.playableContentForm.originalCategories.push({ id: category.id, itemName: category.name });
+      this.playableContentForm.getPlaylistByCategory(category.id);
+    });
 
-    var originalPlaylist = this.fb.group({
-      id: this.editingVideoContent.playlists[0].id,
-      name: this.editingVideoContent.playlists[0].name,
-      description: this.editingVideoContent.playlists[0].description
+    this.editingVideoContent.playlists.forEach(playlist => {
+      var originalPlaylist = this.fb.group({
+        id: playlist.id,
+        name: playlist.name,
+        description: playlist.description
+      })
+      this.playlists.push(originalPlaylist);
+      this.playableContentForm.originalPlaylists.push({ id: playlist.id, itemName: playlist.name });
     })
-    this.playlists.push(originalPlaylist);
-    this.playableContentForm.originalCategory = [{ id: this.editingVideoContent.categories[0].id, itemName: this.editingVideoContent.categories[0].name }]
-    if (this.editingVideoContent.playlists.length > 0) {
-      this.playableContentForm.originalPlaylist = [{ id: this.editingVideoContent.playlists[0].id, itemName: this.editingVideoContent.playlists[0].name }]
-    }
   }
 
   updateVideoContent() {
-    this.addNewPlaylist();
     this.playableContentForm.transformTime();
     this.playableContentForm.submited = true;
     if (!this.editVideoContentForm.invalid) {
@@ -122,12 +123,6 @@ export class EditVideoContentComponent implements OnInit {
 
   get playlists(): FormArray {
     return this.editVideoContentForm.get('playlists') as FormArray;
-  }
-
-  addNewPlaylist() {
-    if (this.playableContentForm.newPlaylist) {
-      this.playlists.push(this.playableContentForm.selectedPlaylist);
-    }
   }
 
 }

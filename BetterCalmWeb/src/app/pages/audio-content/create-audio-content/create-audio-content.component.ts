@@ -38,7 +38,9 @@ export class CreateAudioContentComponent implements OnInit {
       creatorName: new FormControl(null, Validators.required),
       duration: new FormControl(null),
       imageUrl: new FormControl(null),
-      audioUrl: new FormControl(null, Validators.required),
+      audioUrl: new FormControl(null, Validators.pattern(
+        /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[\/?#]\S*)?$/i
+      )),
       categories: this.fb.array([], Validators.required),
       playlists: this.fb.array([])
     });
@@ -47,7 +49,6 @@ export class CreateAudioContentComponent implements OnInit {
   }
 
   createAudioContent() {
-    this.addNewPlaylist();
     this.playableContentForm.transformTime();
     this.playableContentForm.submited = true;
     if (!this.createAudioContentForm.invalid) {
@@ -69,12 +70,6 @@ export class CreateAudioContentComponent implements OnInit {
 
   get playlists(): FormArray {
     return this.createAudioContentForm.get('playlists') as FormArray;
-  }
-
-  addNewPlaylist() {
-    if (this.playableContentForm.newPlaylist) {
-      this.playlists.push(this.playableContentForm.selectedPlaylist);
-    }
   }
 
 }

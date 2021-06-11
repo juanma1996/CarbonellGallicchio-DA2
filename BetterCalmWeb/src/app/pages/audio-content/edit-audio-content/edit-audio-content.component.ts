@@ -59,7 +59,9 @@ export class EditAudioContentComponent implements OnInit {
       creatorName: new FormControl(audioContent.creatorName, Validators.required),
       duration: new FormControl(null),
       imageUrl: new FormControl(audioContent.imageUrl),
-      audioUrl: new FormControl(audioContent.audioUrl, Validators.required),
+      audioUrl: new FormControl(audioContent.audioUrl, Validators.pattern(
+        /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[\/?#]\S*)?$/i
+      )),
       categories: this.fb.array([], Validators.required),
       playlists: this.fb.array([])
     });
@@ -80,28 +82,29 @@ export class EditAudioContentComponent implements OnInit {
   }
 
   updateMultiSelects() {
-    var originalCategory = this.fb.group({
-      id: this.editingAudioContent.categories[0].id,
-      name: this.editingAudioContent.categories[0].name
-    })
-    this.categories.push(originalCategory);
-    this.playableContentForm.selectedCategory = originalCategory;
-    this.playableContentForm.getPlaylistByCategory(this.editingAudioContent.categories[0].id);
+    this.editingAudioContent.categories.forEach(category => {
+      var originalCategory = this.fb.group({
+        id: category.id,
+        name: category.name
+      })
+      this.playableContentForm.selectedCategory = originalCategory;
+      this.categories.push(originalCategory);
+      this.playableContentForm.originalCategories.push({ id: category.id, itemName: category.name });
+      this.playableContentForm.getPlaylistByCategory(category.id);
+    });
 
-    var originalPlaylist = this.fb.group({
-      id: this.editingAudioContent.playlists[0].id,
-      name: this.editingAudioContent.playlists[0].name,
-      description: this.editingAudioContent.playlists[0].description
+    this.editingAudioContent.playlists.forEach(playlist => {
+      var originalPlaylist = this.fb.group({
+        id: playlist.id,
+        name: playlist.name,
+        description: playlist.description
+      })
+      this.playlists.push(originalPlaylist);
+      this.playableContentForm.originalPlaylists.push({ id: playlist.id, itemName: playlist.name });
     })
-    this.playlists.push(originalPlaylist);
-    this.playableContentForm.originalCategory = [{ id: this.editingAudioContent.categories[0].id, itemName: this.editingAudioContent.categories[0].name }]
-    if (this.editingAudioContent.playlists.length > 0) {
-      this.playableContentForm.originalPlaylist = [{ id: this.editingAudioContent.playlists[0].id, itemName: this.editingAudioContent.playlists[0].name }]
-    }
   }
 
   updateAudioContent() {
-    this.addNewPlaylist();
     this.playableContentForm.transformTime();
     this.playableContentForm.submited = true;
     if (!this.editAudioContentForm.invalid) {
@@ -125,9 +128,4 @@ export class EditAudioContentComponent implements OnInit {
     return this.editAudioContentForm.get('playlists') as FormArray;
   }
 
-  addNewPlaylist() {
-    if (this.playableContentForm.newPlaylist) {
-      this.playlists.push(this.playableContentForm.selectedPlaylist);
-    }
-  }
 }

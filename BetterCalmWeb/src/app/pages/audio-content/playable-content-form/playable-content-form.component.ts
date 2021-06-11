@@ -17,8 +17,8 @@ export class PlayableContentFormComponent implements OnInit {
   selectedCategory: FormGroup;
   selectedPlaylist: FormGroup;
   submited: boolean = false;
-  originalPlaylist = [];
-  originalCategory = [];
+  originalPlaylists = [];
+  originalCategories = [];
 
 
   public categoriesData = [];
@@ -32,6 +32,7 @@ export class PlayableContentFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.selectedCategory)
     this.getCategories();
     this.initializePlayableContentContentForm();
   }
@@ -133,17 +134,17 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   createNewPlaylist(item: any) {
-    if (this.playlists.value.length > 0) this.playlists.removeAt(0);
     this.selectedPlaylist = this.fb.group({
       name: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
     })
+    this.playlists.push(this.selectedPlaylist);
   }
 
   resetForm() {
     this.submited = false;
     this.playableContentContentForm.reset();
-    this.originalCategory = [];
-    this.originalPlaylist = [];
+    this.originalCategories = [];
+    this.originalPlaylists = [];
   }
 }

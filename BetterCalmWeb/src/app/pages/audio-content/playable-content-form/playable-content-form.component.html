@@ -41,7 +41,7 @@
                         !playableContentContentForm.get('categories').valid
                     }">
                 <label> Categories </label>
-                <angular2-multiselect [data]="categoriesData" [ngModel]="originalCategory"
+                <angular2-multiselect [data]="categoriesData" [ngModel]="originalCategories"
                     [ngModelOptions]="{standalone: true}" [settings]="{
                                 singleSelection: false,
                                 enableCheckAll: false,
@@ -99,7 +99,7 @@
                     !playableContentContentForm.get('playlists').valid
                 }" *ngIf="selectedCategory && !newPlaylist && playlistsData.length>0">
                 <label> Playlist </label>
-                <angular2-multiselect [data]="playlistsData" [ngModel]="originalPlaylist"
+                <angular2-multiselect [data]="playlistsData" [ngModel]="originalPlaylists"
                     [ngModelOptions]="{standalone: true}" [settings]="{
                             singleSelection: false,
                             enableCheckAll: false,

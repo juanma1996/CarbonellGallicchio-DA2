@@ -46,7 +46,7 @@ export class CreateVideoContentComponent implements OnInit {
   }
 
   createVideoContent() {
-    this.addNewPlaylist();
+    this.playableContentForm.transformTime();
     this.playableContentForm.submited = true;
     if (!this.createVideoContentForm.invalid) {
 
@@ -68,12 +68,6 @@ export class CreateVideoContentComponent implements OnInit {
 
   get playlists(): FormArray {
     return this.createVideoContentForm.get('playlists') as FormArray;
-  }
-
-  addNewPlaylist() {
-    if (this.playableContentForm.newPlaylist) {
-      this.playlists.push(this.playableContentForm.selectedPlaylist);
-    }
   }
 
 }
