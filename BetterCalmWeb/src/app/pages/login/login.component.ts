@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { SessionUserModel } from 'src/app/models/session/session-user-model';
 import { SessionService } from 'src/app/services/session/session.service';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: "app-login",
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private sessionService: SessionService,
-    public toastr: ToastrService,
+    public customToastr: ToastService,
     private router: Router,
   ) { }
 
@@ -24,49 +24,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     body.classList.add("login-page");
   }
   ngOnDestroy() {
-    var body = document.getElementsByTagName("body")[0];
-    body.classList.remove("login-page");
+    // var body = document.getElementsByTagName("body")[0];
+    // body.classList.remove("login-page");
   }
 
   login = function () {
     this.sessionService.login(this.administrator).
       subscribe(
         response => {
-          this.setSuccess()
+          this.customToastr.setSuccess("The log in was successful")
           localStorage.setItem('email', this.administrator.email);
           this.router.navigateByUrl('categories/audioContents');
         },
         catchError => {
-          this.setError(catchError.error);
+          this.customToastr.setError(catchError.error);
         }
       )
-  }
-
-  private setError(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-danger alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
-  private setSuccess() {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      "The log in was successful",
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-success alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
   }
 }

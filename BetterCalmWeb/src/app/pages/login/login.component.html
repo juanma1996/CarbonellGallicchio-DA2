@@ -17,8 +17,7 @@
                   </div>
                 </div>
                 <input class=" form-control" placeholder="Email" type="text" (blur)="focus = false"
-                  (focus)="focus = true" 
-                  [(ngModel)]="administrator.email" name="administratorEmail"/>
+                  (focus)="focus = true" [(ngModel)]="administrator.email" name="administratorEmail" />
               </div>
               <div class=" input-group" [ngClass]="{ 'input-group-focus': focus1 === true }">
                 <div class=" input-group-prepend">
@@ -27,21 +26,13 @@
                   </div>
                 </div>
                 <input class=" form-control" placeholder="Password" type="text" (blur)="focus1 = false"
-                  (focus)="focus1 = true" 
-                  [(ngModel)]="administrator.password" name="administratorPassword"/>
+                  (focus)="focus1 = true" [(ngModel)]="administrator.password" name="administratorPassword" />
               </div>
             </div>
             <div class=" card-footer">
               <a class=" btn btn-primary btn-lg btn-block mb-3" href="#pablo" (click)="login()">
                 Log in
               </a>
-              <div class=" pull-left">
-                <h6>
-                  <a class=" link footer-link" href="javascript:void(0)">
-                    Create Account
-                  </a>
-                </h6>
-              </div>
             </div>
           </div>
         </form>
