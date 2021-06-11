@@ -36,11 +36,11 @@ export class CreateAudioContentComponent implements OnInit {
     this.createAudioContentForm = this.fb.group({
       name: new FormControl(null, Validators.required),
       creatorName: new FormControl(null, Validators.required),
-      //duration: new FormControl(null),
+      duration: new FormControl(null),
       imageUrl: new FormControl(null),
       audioUrl: new FormControl(null, Validators.required),
       categories: this.fb.array([], Validators.required),
-      playlists: this.fb.array([], Validators.required)
+      playlists: this.fb.array([])
     });
     this.selectedPlaylist = this.fb.group({
     })
@@ -48,12 +48,15 @@ export class CreateAudioContentComponent implements OnInit {
 
   createAudioContent() {
     this.addNewPlaylist();
+    this.playableContentForm.transformTime();
     this.playableContentForm.submited = true;
     if (!this.createAudioContentForm.invalid) {
       this.audioContentService.add(this.createAudioContentForm.value)
         .subscribe(
           response => {
             this.customToastr.setSuccess("The audio content was successfully created");
+            this.playableContentForm.resetForm();
+            this.playableContentForm.submited = false;
           },
           catchError => {
             this.customToastr.setError(catchError);

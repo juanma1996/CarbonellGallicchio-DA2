@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { VideoContentListComponent } from '../video-content/video-content-list/video-content-list.component';
 import { SafePipe } from './safe.pipe';
 import { PlayableContentFormComponent } from '../audio-content/playable-content-form/playable-content-form.component';
-import { TimepickerModule } from 'ngx-bootstrap/timepicker/public_api';
+import { TimepickerModule } from "ngx-bootstrap/timepicker";
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -22,6 +22,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     RouterModule,
     CommonModule,
     AngularMultiSelectModule,
+    TimepickerModule.forRoot(),
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     FormsModule,
   ],

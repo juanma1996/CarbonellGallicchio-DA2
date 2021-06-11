@@ -57,11 +57,11 @@ export class EditAudioContentComponent implements OnInit {
       id: new FormControl(this.audioContentId, Validators.required),
       name: new FormControl(audioContent.name, Validators.required),
       creatorName: new FormControl(audioContent.creatorName, Validators.required),
-      //duration: new FormControl(null),
+      duration: new FormControl(null),
       imageUrl: new FormControl(audioContent.imageUrl),
       audioUrl: new FormControl(audioContent.audioUrl, Validators.required),
       categories: this.fb.array([], Validators.required),
-      playlists: this.fb.array([], Validators.required)
+      playlists: this.fb.array([])
     });
     this.selectedPlaylist = this.fb.group({
     })
@@ -76,50 +76,41 @@ export class EditAudioContentComponent implements OnInit {
     this.editAudioContentForm.get('creatorName').setValue(this.editingAudioContent.creatorName);
     this.editAudioContentForm.get('imageUrl').setValue(this.editingAudioContent.imageUrl);
     this.editAudioContentForm.get('audioUrl').setValue(this.editingAudioContent.audioUrl);
+    this.editAudioContentForm.get('duration').setValue(new Date(0, 0, 0, this.editingAudioContent.duration.hours, this.editingAudioContent.duration.minutes, 0, 0));
   }
 
   updateMultiSelects() {
-    // Dummy esperando el servicio.
-    var categories = [{ id: 1, name: 'Dormir' }];
-    var playlists = [{ id: 4, name: "New playlist", description: "This is a new playlist valid" }];
-
-    // Esto tenemos que cargarlo con lo que venga del objeto real.
     var originalCategory = this.fb.group({
-      id: categories[0].id,
-      name: categories[0].name
+      id: this.editingAudioContent.categories[0].id,
+      name: this.editingAudioContent.categories[0].name
     })
     this.categories.push(originalCategory);
-    // Esto hay que setearlo igual para que ya aparezca el combo de playlists.
     this.playableContentForm.selectedCategory = originalCategory;
-    //Aca ponerle la categoria del objeto real.
-    this.playableContentForm.getPlaylistByCategory(categories[0].id);
+    this.playableContentForm.getPlaylistByCategory(this.editingAudioContent.categories[0].id);
 
-    // Esto tenemos que cargarlo con lo que venga del objeto real.
     var originalPlaylist = this.fb.group({
-      id: playlists[0].id,
-      name: playlists[0].name,
-      description: playlists[0].description
+      id: this.editingAudioContent.playlists[0].id,
+      name: this.editingAudioContent.playlists[0].name,
+      description: this.editingAudioContent.playlists[0].description
     })
     this.playlists.push(originalPlaylist);
-    //Creo que esta mal.
-    // this.playableContentForm.originalCategory = [{ id: this.editingAudioContent.categories[0].id, itemName: this.editingAudioContent.categories[0].name }]
-    // if (this.editingAudioContent.playlists.length > 0) {
-    //   this.playableContentForm.originalPlaylist = [{ id: this.editingAudioContent.playlists[0].id, itemName: this.editingAudioContent.playlists[0].name }]
-    // }
-    this.playableContentForm.originalCategory = [{ id: categories[0].id, itemName: categories[0].name }]
-    if (playlists.length > 0) {
-      this.playableContentForm.originalPlaylist = [{ id: playlists[0].id, itemName: playlists[0].name }]
+    this.playableContentForm.originalCategory = [{ id: this.editingAudioContent.categories[0].id, itemName: this.editingAudioContent.categories[0].name }]
+    if (this.editingAudioContent.playlists.length > 0) {
+      this.playableContentForm.originalPlaylist = [{ id: this.editingAudioContent.playlists[0].id, itemName: this.editingAudioContent.playlists[0].name }]
     }
   }
 
   updateAudioContent() {
     this.addNewPlaylist();
+    this.playableContentForm.transformTime();
     this.playableContentForm.submited = true;
     if (!this.editAudioContentForm.invalid) {
       this.audioContentService.update(this.editAudioContentForm.value)
         .subscribe(
           response => {
             this.customToastr.setSuccess("The audio content was successfully updated");
+            this.playableContentForm.resetForm();
+            this.playableContentForm.submited = false;
           },
           catchError => {
             this.customToastr.setError(catchError);
@@ -129,6 +120,10 @@ export class EditAudioContentComponent implements OnInit {
     else {
       this.customToastr.setError("Please verify the entered data.");
     }
+  }
+
+  get duration() {
+    return this.editAudioContentForm.get('duration');
   }
 
   get playlists(): FormArray {

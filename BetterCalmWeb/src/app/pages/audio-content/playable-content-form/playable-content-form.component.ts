@@ -77,6 +77,19 @@ export class PlayableContentFormComponent implements OnInit {
     });
   }
 
+  get duration(): FormControl {
+    return this.playableContentContentForm.get('duration') as FormControl;
+  }
+
+  transformTime() {
+    var date = new Date(this.duration.value);
+    var transformDuration = {
+      "hours": date.getHours(),
+      "minutes": date.getMinutes(),
+    }
+    this.playableContentContentForm.get('duration').setValue(transformDuration);
+  }
+
   get categories(): FormArray {
     return this.playableContentContentForm.get('categories') as FormArray;
   }
@@ -123,5 +136,11 @@ export class PlayableContentFormComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
     })
+  }
+
+  resetForm() {
+    this.playableContentContentForm.reset();
+    this.originalCategory = [];
+    this.originalPlaylist = [];
   }
 }
