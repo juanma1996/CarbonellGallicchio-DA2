@@ -42,6 +42,10 @@ export class AudioContentDashboardComponent implements OnInit {
       )
   }
 
+  updateAudios() {
+    this.getAudioContents(this.playlistId);
+  }
+
   delete(id) {
     this.audioContentService.delete(id)
       .subscribe(

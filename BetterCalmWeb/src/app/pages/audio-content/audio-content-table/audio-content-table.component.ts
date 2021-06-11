@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SessionService } from 'src/app/services/session/session.service';
 import { AudioContentService } from 'src/app/services/audio-content/audio-content.service';
 import { ToastService } from 'src/app/common/toast.service';
@@ -10,8 +10,9 @@ import { AlertService } from 'src/app/common/alert.service';
   styleUrls: ['./audio-content-table.component.scss']
 })
 export class AudioContentTableComponent implements OnInit {
-  entries: number = 10;
   @Input() audios: [];
+  @Output() updateAudios = new EventEmitter();
+  entries: number = 10;
   public isAutenticated: boolean;
 
   constructor(
@@ -35,6 +36,7 @@ export class AudioContentTableComponent implements OnInit {
       .subscribe(
         response => {
           this.customToastr.setSuccess("The audio content was successfully deleted");
+          this.updateAudios.emit();
         },
         catchError => {
           this.customToastr.setError(catchError);

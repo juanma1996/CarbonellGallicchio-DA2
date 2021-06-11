@@ -45,6 +45,10 @@ export class CategoriesDashboardComponent implements OnInit {
       )
   }
 
+  updateAudios() {
+    this.getAudioContents();
+  }
+
   private get(response) {
     console.log(response);
     this.categories = response;
