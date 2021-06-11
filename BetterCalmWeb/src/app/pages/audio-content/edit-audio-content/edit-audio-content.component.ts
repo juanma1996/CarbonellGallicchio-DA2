@@ -110,7 +110,6 @@ export class EditAudioContentComponent implements OnInit {
           response => {
             this.customToastr.setSuccess("The audio content was successfully updated");
             this.playableContentForm.resetForm();
-            this.playableContentForm.submited = false;
           },
           catchError => {
             this.customToastr.setError(catchError);
@@ -120,10 +119,6 @@ export class EditAudioContentComponent implements OnInit {
     else {
       this.customToastr.setError("Please verify the entered data.");
     }
-  }
-
-  get duration() {
-    return this.editAudioContentForm.get('duration');
   }
 
   get playlists(): FormArray {

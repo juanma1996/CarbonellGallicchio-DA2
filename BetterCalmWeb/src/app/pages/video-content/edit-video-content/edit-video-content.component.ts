@@ -56,10 +56,12 @@ export class EditVideoContentComponent implements OnInit {
       id: new FormControl(this.videoContentId, Validators.required),
       name: new FormControl(null, Validators.required),
       creatorName: new FormControl(null, Validators.required),
-      //duration: new FormControl(null),
-      videoUrl: new FormControl(null, Validators.required),
+      duration: new FormControl(null),
+      videoUrl: new FormControl(null, Validators.pattern(
+        /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[\/?#]\S*)?$/i
+      )),
       categories: this.fb.array([], Validators.required),
-      playlists: this.fb.array([], Validators.required)
+      playlists: this.fb.array([])
     });
     this.selectedPlaylist = this.fb.group({
     })
@@ -73,51 +75,40 @@ export class EditVideoContentComponent implements OnInit {
     this.editVideoContentForm.get('name').setValue(this.editingVideoContent.name);
     this.editVideoContentForm.get('creatorName').setValue(this.editingVideoContent.creatorName);
     this.editVideoContentForm.get('videoUrl').setValue(this.editingVideoContent.videoUrl);
-
+    this.editVideoContentForm.get('duration').setValue(new Date(0, 0, 0, this.editingVideoContent.duration.hours, this.editingVideoContent.duration.minutes, 0, 0));
   }
 
   updateMultiSelects() {
-    // Dummy esperando el servicio.
-    var categories = [{ id: 1, name: 'Dormir' }];
-    var playlists = [{ id: 4, name: "New playlist", description: "This is a new playlist valid" }];
-
-    // Esto tenemos que cargarlo con lo que venga del objeto real.
     var originalCategory = this.fb.group({
-      id: categories[0].id,
-      name: categories[0].name
+      id: this.editingVideoContent.categories[0].id,
+      name: this.editingVideoContent.categories[0].name
     })
     this.categories.push(originalCategory);
-    // Esto hay que setearlo igual para que ya aparezca el combo de playlists.
     this.playableContentForm.selectedCategory = originalCategory;
-    //Aca ponerle la categoria del objeto real.
-    this.playableContentForm.getPlaylistByCategory(categories[0].id);
+    this.playableContentForm.getPlaylistByCategory(this.editingVideoContent.categories[0].id);
 
-    // Esto tenemos que cargarlo con lo que venga del objeto real.
     var originalPlaylist = this.fb.group({
-      id: playlists[0].id,
-      name: playlists[0].name,
-      description: playlists[0].description
+      id: this.editingVideoContent.playlists[0].id,
+      name: this.editingVideoContent.playlists[0].name,
+      description: this.editingVideoContent.playlists[0].description
     })
     this.playlists.push(originalPlaylist);
-    //Creo que esta mal.
-    // this.playableContentForm.originalCategory = [{ id: this.editingAudioContent.categories[0].id, itemName: this.editingAudioContent.categories[0].name }]
-    // if (this.editingAudioContent.playlists.length > 0) {
-    //   this.playableContentForm.originalPlaylist = [{ id: this.editingAudioContent.playlists[0].id, itemName: this.editingAudioContent.playlists[0].name }]
-    // }
-    this.playableContentForm.originalCategory = [{ id: categories[0].id, itemName: categories[0].name }]
-    if (playlists.length > 0) {
-      this.playableContentForm.originalPlaylist = [{ id: playlists[0].id, itemName: playlists[0].name }]
+    this.playableContentForm.originalCategory = [{ id: this.editingVideoContent.categories[0].id, itemName: this.editingVideoContent.categories[0].name }]
+    if (this.editingVideoContent.playlists.length > 0) {
+      this.playableContentForm.originalPlaylist = [{ id: this.editingVideoContent.playlists[0].id, itemName: this.editingVideoContent.playlists[0].name }]
     }
   }
 
   updateVideoContent() {
     this.addNewPlaylist();
+    this.playableContentForm.transformTime();
     this.playableContentForm.submited = true;
     if (!this.editVideoContentForm.invalid) {
       this.videoContentService.update(this.editVideoContentForm.value)
         .subscribe(
           response => {
             this.customToast.setSuccess("The video content was successfully updated");
+            this.playableContentForm.resetForm();
           },
           catchError => {
             this.customToast.setError(catchError);

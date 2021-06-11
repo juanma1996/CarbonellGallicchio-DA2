@@ -1,19 +1,19 @@
-<div class=" content">
-    <div class=" row">
-        <div class=" col-md-8">
-            <div class=" card">
-                <div class=" card-header">
-                    <h2 class=" title">Edit Video Content</h2>
-                </div>
-                <form [formGroup]="editVideoContentForm">
+<form [formGroup]="editVideoContentForm">
+    <div class=" content">
+        <div class=" row">
+            <div class=" col-md-8">
+                <div class=" card">
+                    <div class=" card-header">
+                        <h2 class=" title">Edit Video Content</h2>
+                    </div>
                     <app-playable-content-form [parentForm]="editVideoContentForm" [isAudio]="false">
                     </app-playable-content-form>
-                </form>
-                <div class=" card-footer">
-                    <button class=" btn btn-fill btn-danger" type="submit" (click)="updateVideoContent()">Edit
-                        audio content</button>
+                    <div class=" card-footer">
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="updateVideoContent()">Edit
+                            audio content</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>

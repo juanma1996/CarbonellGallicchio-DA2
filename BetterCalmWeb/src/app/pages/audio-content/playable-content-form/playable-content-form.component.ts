@@ -139,6 +139,7 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   resetForm() {
+    this.submited = false;
     this.playableContentContentForm.reset();
     this.originalCategory = [];
     this.originalPlaylist = [];

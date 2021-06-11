@@ -56,7 +56,6 @@ export class CreateAudioContentComponent implements OnInit {
           response => {
             this.customToastr.setSuccess("The audio content was successfully created");
             this.playableContentForm.resetForm();
-            this.playableContentForm.submited = false;
           },
           catchError => {
             this.customToastr.setError(catchError);
