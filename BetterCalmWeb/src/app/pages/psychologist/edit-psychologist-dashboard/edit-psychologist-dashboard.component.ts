@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PsychologistBasicInfo } from 'src/app/models/psychologist/psychologist-basic-info';
 import { ToastService } from 'src/app/common/toast.service';
-import { AdministratorService } from 'src/app/services/administrator/administrator.service';
 import { PsychologistService } from 'src/app/services/psychologist/psychologist.service';
 import { catchError } from 'rxjs/operators';
+import { AlertService } from 'src/app/common/alert.service';
 
 @Component({
   selector: 'app-edit-psychologist-dashboard',
@@ -18,6 +18,7 @@ export class EditPsychologistDashboardComponent implements OnInit {
   constructor(
     private psychologistService: PsychologistService,
     public customToastr: ToastService,
+    private alert: AlertService,
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +39,10 @@ export class EditPsychologistDashboardComponent implements OnInit {
 
   entriesChange($event) {
     this.entries = $event.target.value;
+  }
+
+  deleteModal(id) {
+    this.alert.showAlert("Are you sure you want to delete this psychologist?", "I'm sure", this.delete.bind(this, id));
   }
 
   delete(id) {

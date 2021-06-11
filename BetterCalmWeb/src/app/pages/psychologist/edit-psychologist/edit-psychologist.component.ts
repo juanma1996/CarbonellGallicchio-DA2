@@ -123,12 +123,11 @@ export class EditPsychologistComponent implements OnInit {
       this.psychologistService.add(this.editPsychologistForm.value)
         .subscribe(
           response => {
-            console.log(response);
             this.customToastr.setSuccess("The psychologist was successfully registered");
+            this.psychologistForm.resetForm();
           }
         ),
         catchError => {
-          console.log(catchError.error);
           this.customToastr.setError(catchError.error)
         }
     }

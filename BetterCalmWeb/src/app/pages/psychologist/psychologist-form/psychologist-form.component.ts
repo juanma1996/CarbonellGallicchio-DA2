@@ -80,7 +80,6 @@ export class PsychologistFormComponent implements OnInit {
       name: item.itemName,
     })
     this.psychologistProblematics.push(this.selectedProblematic);
-    console.log(this.originalProblematics);
   }
 
   problematicDeSelect(item: any) {
@@ -94,13 +93,6 @@ export class PsychologistFormComponent implements OnInit {
 
   consultationModeSelect(item: any) {
     this.consultationMode.setValue(item.itemName);
-    if (item.itemName == 'Virtual') {
-      this.psychologistForm.get('direction').clearValidators();
-    } else {
-      this.psychologistForm.get('direction').setValidators(Validators.required);
-    }
-    this.psychologistForm.get('direction').updateValueAndValidity();
-    console.log(this.originalConsultationMode);
   }
 
   consultationModeDeSelect() {
@@ -117,6 +109,17 @@ export class PsychologistFormComponent implements OnInit {
 
   feeDeSelect() {
     this.fee.reset();
+  }
+
+  resetForm() {
+    this.submited = false;
+    this.psychologistForm.reset();
+    this.originalConsultationMode = [];
+    this.originalFee = [];
+    this.originalProblematics = [];
+    while (this.psychologistProblematics.value.length) {
+      this.psychologistProblematics.removeAt(0);
+    }
   }
 
 }

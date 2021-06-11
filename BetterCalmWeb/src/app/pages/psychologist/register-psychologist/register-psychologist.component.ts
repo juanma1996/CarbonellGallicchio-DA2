@@ -49,6 +49,7 @@ export class RegisterPsychologistComponent implements OnInit {
         .subscribe(
           response => {
             this.customToastr.setSuccess("The psychologist was successfully registered");
+            this.psychologistForm.resetForm();
           }
         ),
         catchError => {
