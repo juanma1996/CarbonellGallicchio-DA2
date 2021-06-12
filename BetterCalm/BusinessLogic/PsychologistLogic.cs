@@ -29,19 +29,28 @@ namespace BusinessLogic
         {
             Psychologist psychologist = psychologistRepository.GetById(psychologistId);
             psychologistValidator.Validate(psychologist);
-            var problematics = problematicRepository.GetAll(problematic => problematic.Psychologists.Any(a => a.PsychologistId == psychologistId));
-            List<PsychologistProblematic> psychologistProblematics = new List<PsychologistProblematic>();
-            foreach (var item in problematics)
-            {
-                var relation = new PsychologistProblematic()
-                {
-                    Problematic = item,
-                    Psychologist = psychologist
-                };
-                psychologistProblematics.Add(relation);
-            }
-            psychologist.Problematics = psychologistProblematics;
+            psychologist.Problematics = GetProblematicsByPsychologist(psychologist);
             return psychologist;
+        }
+
+        private List<PsychologistProblematic> GetProblematicsByPsychologist(Psychologist psychologist)
+        {
+            var problematics = problematicRepository.GetAll(problematic => problematic.Psychologists.Any(a => a.PsychologistId == psychologist.Id));
+            List<PsychologistProblematic> psychologistProblematics = new List<PsychologistProblematic>();
+            problematics.ForEach(p => psychologistProblematics.Add(GetPsychologistProblematic(p, psychologist)));
+
+            return psychologistProblematics;
+        }
+
+        private PsychologistProblematic GetPsychologistProblematic(Problematic problematic, Psychologist psychologist)
+        {
+            PsychologistProblematic psychologistProblematic = new PsychologistProblematic()
+            {
+                Problematic = problematic,
+                Psychologist = psychologist
+            };
+
+            return psychologistProblematic;
         }
 
         public Psychologist Add(Psychologist psycologist)

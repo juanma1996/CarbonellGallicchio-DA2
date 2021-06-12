@@ -27,6 +27,7 @@ namespace BusinessLogic
             this.categoryRepository = categoryRepository;
             this.playlistRepository = playlistRepository;
         }
+
         public PlayableContent GetById(int playableContentId)
         {
             PlayableContent playableContent = playableContentRepository.GetById(playableContentId);
@@ -38,34 +39,53 @@ namespace BusinessLogic
             {
                 audioContentValidator.Validate(null);
             }
-            var categories = categoryRepository.GetAll(category => category.PlayableContents.Any(a => a.PlayableContentId == playableContentId));
-            List<PlayableContentCategory> playableContentCategories = new List<PlayableContentCategory>();
-            foreach (var item in categories)
-            {
-                var relation = new PlayableContentCategory()
-                {
-                    Category = item,
-                    PlayableContent = playableContent
-                };
-                playableContentCategories.Add(relation);
-            }
-            playableContent.Categories = playableContentCategories;
-            var playlists = playlistRepository.GetAll(playlist => playlist.PlayableContents.Any(a => a.PlayableContentId == playableContentId));
-            List<PlayableContentPlaylist> playableContentPlaylists = new List<PlayableContentPlaylist>();
-            foreach (var item in playlists)
-            {
-                var relation = new PlayableContentPlaylist()
-                {
-                    Playlist = item,
-                    PlayableContent = playableContent
-                };
-                playableContentPlaylists.Add(relation);
-            }
-            playableContent.Playlists = playableContentPlaylists;
-            
+            playableContent.Categories = GetCategoriesByPlayableContent(playableContent);
+            playableContent.Playlists = GetPlaylistsByPlayableContent(playableContent);
+
             return playableContent;
 
         }
+        
+        private List<PlayableContentCategory> GetCategoriesByPlayableContent(PlayableContent playableContent)
+        {
+            var categories = categoryRepository.GetAll(category => category.PlayableContents.Any(a => a.PlayableContentId == playableContent.Id));
+            List<PlayableContentCategory> playableContentCategories = new List<PlayableContentCategory>();
+            categories.ForEach(c => playableContentCategories.Add(GetPlayableContentCategory(c, playableContent)));
+
+            return playableContentCategories;
+        }
+
+        private PlayableContentCategory GetPlayableContentCategory(Category category, PlayableContent playableContent)
+        {
+            PlayableContentCategory playableContentCategory = new PlayableContentCategory()
+            {
+                Category = category,
+                PlayableContent = playableContent
+            };
+
+            return playableContentCategory;
+        }
+
+        private List<PlayableContentPlaylist> GetPlaylistsByPlayableContent(PlayableContent playableContent)
+        {
+            var playlists = playlistRepository.GetAll(playlist => playlist.PlayableContents.Any(a => a.PlayableContentId == playableContent.Id));
+            List<PlayableContentPlaylist> playableContentPlaylists = new List<PlayableContentPlaylist>();
+            playlists.ForEach(p => playableContentPlaylists.Add(GetPlayableContentPlaylist(p, playableContent)));
+
+            return playableContentPlaylists;
+        }
+
+        private PlayableContentPlaylist GetPlayableContentPlaylist(Playlist playlist, PlayableContent playableContent)
+        {
+            PlayableContentPlaylist playableContentPlaylist = new PlayableContentPlaylist()
+            {
+                Playlist = playlist,
+                PlayableContent = playableContent
+            };
+
+            return playableContentPlaylist;
+        }
+
         public PlayableContent Create(PlayableContent playableContent)
         {
             ValidateExistPlaylistAndCategoryByPlayableContent(playableContent);
