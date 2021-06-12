@@ -7,16 +7,20 @@ import { SessionBasicInfo } from 'src/app/models/session/session-basic-info';
 import { SessionUserModel } from '../../models/session/session-user-model';
 import { Guid } from 'guid-typescript';
 import { map } from 'rxjs/operators';
+import { BaseService } from '../base.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SessionService {
+export class SessionService extends BaseService {
     private uri = environment.baseURL + 'sessions';
     private id = 1;
     private token: string;
     private currenUser: string;
-    constructor(private http: HttpClient) { this.readToken(); }
+    constructor(private http: HttpClient) {
+        super();
+        this.readToken();
+    }
 
     getAll(): Observable<SessionBasicInfo[]> {
         return this.http.get<SessionBasicInfo[]>(this.uri)
@@ -48,10 +52,5 @@ export class SessionService {
     }
     isAuthenticated(): boolean {
         return this.token.length > 2;
-    }
-
-
-    private handleError(error: HttpErrorResponse) {
-        return throwError(error.error);
     }
 }

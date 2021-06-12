@@ -4,22 +4,21 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { VideoContentBasicInfo } from 'src/app/models/videoContent/video-content-basic-info';
+import { BaseService } from '../base.service';
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class VideoContentService {
+export class VideoContentService extends BaseService {
     private uri = environment.baseURL + 'videoContents';
-    constructor(private http: HttpClient) { }
 
+    constructor(private http: HttpClient) {
+        super();
+    }
 
     add(body) {
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem('token')
-        });
-        let options = { headers: headers };
+        let options = { headers: this.headers };
         var httpRequest = this.http.post(this.uri, body, options)
             .pipe(catchError(this.handleError));
         return httpRequest;
@@ -46,28 +45,16 @@ export class VideoContentService {
     }
 
     update(body): Observable<any> {
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem('token')
-        });
-        let options = { headers: headers };
+        let options = { headers: this.headers };
         var httpRequest = this.http.put<any>(this.uri, body, options)
             .pipe(catchError(this.handleError));
         return httpRequest;
     }
 
     delete(id): Observable<any> {
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem('token')
-        });
-        let options = { headers: headers };
+        let options = { headers: this.headers };
         var httpRequest = this.http.delete<any>(this.uri + "/" + id, options)
             .pipe(catchError(this.handleError));
         return httpRequest;
-    }
-
-    private handleError(error: HttpErrorResponse) {
-        return throwError(error.error);
     }
 }

@@ -4,20 +4,20 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { ProblematicBasicInfo } from 'src/app/models/problematic/problematic-basic-info';
+import { BaseService } from '../base.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ProblematicsService {
+export class ProblematicsService extends BaseService {
     private uri = environment.baseURL + 'problematics';
-    constructor(private http: HttpClient) { }
+
+    constructor(private http: HttpClient) {
+        super();
+    }
 
     get(): Observable<[ProblematicBasicInfo]> {
         return this.http.get<[ProblematicBasicInfo]>(this.uri)
             .pipe(catchError(this.handleError));
-    }
-
-    private handleError(error: HttpErrorResponse) {
-        return throwError(error.error);
     }
 }
