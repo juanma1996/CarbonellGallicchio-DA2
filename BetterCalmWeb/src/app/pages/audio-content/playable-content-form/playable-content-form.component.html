@@ -13,12 +13,15 @@
             </div>
         </div>
         <div class=" col-md-6 pl-md-1" [formGroup]="playableContentContentForm">
-            <div class=" form-group">
+            <div class=" form-group has-label">
                 <label> Duration </label>
-                <div class=" form-group">
+                <div class=" form-group has-label">
                     <timepicker formControlName="duration" [showMeridian]="false" [showSpinners]="false"
                         [showMinutes]="true" [showSeconds]="true"> </timepicker>
                 </div>
+                <label class="error" style="color:#ec250d"
+                    *ngIf="!playableContentContentForm.get('duration').valid && (playableContentContentForm.get('duration').touched || submited)">Please
+                    enter a valid duration.</label>
             </div>
         </div>
     </div>

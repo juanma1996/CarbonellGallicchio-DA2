@@ -95,9 +95,11 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   transformTime() {
-    var date = new Date(this.duration.value);
-    var transformedDuration: string = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-    this.playableContentContentForm.get('duration').setValue(transformedDuration);
+    if (this.duration.value) {
+      var date = new Date(this.duration.value);
+      var transformedDuration: string = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+      this.playableContentContentForm.get('duration').setValue(transformedDuration);
+    }
   }
 
   get categories(): FormArray {
