@@ -34,6 +34,7 @@ export class EditPsychologistComponent implements OnInit {
 
   initializeForm(): void {
     this.editPsychologistForm = this.fb.group({
+      id: new FormControl(this.psychologistId),
       name: new FormControl(null, Validators.required),
       consultationMode: new FormControl(null, Validators.required),
       fee: new FormControl(null, Validators.required),
@@ -103,10 +104,10 @@ export class EditPsychologistComponent implements OnInit {
   editPsychologist() {
     this.psychologistForm.submited = true;
     if (!this.editPsychologistForm.invalid) {
-      this.psychologistService.add(this.editPsychologistForm.value)
+      this.psychologistService.update(this.editPsychologistForm.value)
         .subscribe(
           response => {
-            this.customToastr.setSuccess("The psychologist was successfully registered");
+            this.customToastr.setSuccess("The psychologist was successfully updated");
             this.psychologistForm.resetForm();
           }
         ),
