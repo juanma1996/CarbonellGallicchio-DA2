@@ -38,7 +38,7 @@ namespace WebApiTests
             AuthorizationFilterContext actionExecutingContext = new AuthorizationFilterContext(
                 actionContext,
                 new Mock<IList<IFilterMetadata>>().Object);
-            AuthorizationAttributeFilter filter = new AuthorizationAttributeFilter(mockSessionLogic.Object);
+            AuthorizationFilter filter = new AuthorizationFilter(mockSessionLogic.Object);
 
             filter.OnAuthorization(actionExecutingContext);
 
@@ -64,7 +64,7 @@ namespace WebApiTests
             AuthorizationFilterContext actionExecutingContext = new AuthorizationFilterContext(
                 actionContext,
                 new Mock<IList<IFilterMetadata>>().Object);
-            AuthorizationAttributeFilter filter = new AuthorizationAttributeFilter(mockSessionLogic.Object);
+            AuthorizationFilter filter = new AuthorizationFilter(mockSessionLogic.Object);
 
             filter.OnAuthorization(actionExecutingContext);
             var result = actionExecutingContext.Result as ContentResult;
@@ -91,7 +91,7 @@ namespace WebApiTests
             AuthorizationFilterContext actionExecutingContext = new AuthorizationFilterContext(
                 actionContext,
                 new Mock<IList<IFilterMetadata>>().Object);
-            AuthorizationAttributeFilter filter = new AuthorizationAttributeFilter(mockSessionLogic.Object);
+            AuthorizationFilter filter = new AuthorizationFilter(mockSessionLogic.Object);
 
             filter.OnAuthorization(actionExecutingContext);
             var result = actionExecutingContext.Result as ContentResult;

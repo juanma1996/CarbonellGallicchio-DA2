@@ -34,7 +34,7 @@ namespace BetterCalm
             ServiceFactory serviceFactory = new ServiceFactory(services);
             serviceFactory.AddDbContextService();
             serviceFactory.AddCustomServices();
-            services.AddScoped<AuthorizationAttributeFilter>();
+            services.AddScoped<AuthorizationFilter>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "BetterCalm Api", Version = "v1" });

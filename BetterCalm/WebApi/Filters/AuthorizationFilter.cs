@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SessionInterface;
-using System;
 
 namespace WebApi.Filters
 {
-    public class AuthorizationAttributeFilter : Attribute, IAuthorizationFilter
+    public class AuthorizationFilter : IAuthorizationFilter
     {
         private readonly ISessionLogic sessions;
 
-        public AuthorizationAttributeFilter(ISessionLogic sessionsLogic)
+        public AuthorizationFilter(ISessionLogic sessionsLogic)
         {
             this.sessions = sessionsLogic;
         }

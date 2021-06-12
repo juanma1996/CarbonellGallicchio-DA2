@@ -51,7 +51,7 @@ namespace WebApi.Controllers
         /// <response code="401">Unauthorized. Must contain a token to access Api.</response>
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost]
         public IActionResult Post(PsychologistModel psycologistIn)
         {
@@ -71,7 +71,7 @@ namespace WebApi.Controllers
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="404">NotFound. There is no psychologist registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -95,7 +95,7 @@ namespace WebApi.Controllers
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="404">NotFound. There is no psychologist registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut]
         public IActionResult Put([FromBody] PsychologistModel psychologistModel)
         {
@@ -112,7 +112,7 @@ namespace WebApi.Controllers
         /// </remarks>
         /// <response code="200">Success. Returns the requested object.</response>  
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet]
         public IActionResult Get()
         {

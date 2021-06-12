@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         /// </remarks>
         /// <response code="200">Success. Returns the requested object.</response>  
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet]
         public IActionResult Get()
         {
@@ -49,7 +49,7 @@ namespace WebApi.Controllers
         /// <response code="400">Error. The bonus amount value is invalid.</response>
         /// <response code="404">NotFound. There is no pacient registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut]
         public IActionResult Update(BonusModel bonus)
         {

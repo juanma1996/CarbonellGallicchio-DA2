@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Model.In
 {
     public class VideoContentModel
     {
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
         public string CreatorName { get; set; }
