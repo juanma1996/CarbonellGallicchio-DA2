@@ -18,6 +18,7 @@ export class PlayableContentFormComponent implements OnInit {
   selectedCategory: FormGroup;
   selectedPlaylist: FormGroup;
   submited: boolean = false;
+  convertedDate: boolean = false;
   originalPlaylists = [];
   originalCategories = [];
 
@@ -95,7 +96,8 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   transformTime() {
-    if (this.duration.value) {
+    if (this.duration.value && !this.convertedDate) {
+      this.convertedDate = true;
       var date = new Date(this.duration.value);
       var transformedDuration: string = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
       this.playableContentContentForm.get('duration').setValue(transformedDuration);
