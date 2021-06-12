@@ -1,28 +1,24 @@
 {
   "name": "Un nombre",
-  "duration": {
-        "ticks": 0,
-        "days": 0,
-        "hours": 0,
-        "milliseconds": 0,
-        "minutes": 2,
-        "seconds": 2,
-        "totalDays": 0,
-        "totalHours": 0,
-        "totalMilliseconds": 0,
-        "totalMinutes": 0,
-        "totalSeconds": 0
-    },
+  "duration": "00:02:50",
   "creatorName": "El creador",
   "imageUrl": "imageUrl",
   "url": "audioUrl",
-	  "categories": [{
-	  "id": 1,
-	  "name": "Nombre"
-	}],
-  "playlists": [{
-	  "name": "Nombre",
-	  "description": "Descripcion"
-	}],
-	"playableContentType": 0
+  "categories":
+			[
+				{
+					"categoryId":  1
+				}
+			],
+  "playlists": 
+			[
+				{
+					"playlist": 
+						{
+						  "description": "sdda",
+						  "name": "dsaasd"
+						}
+				}
+			],
+	"playableContentTypeId": 1
 }

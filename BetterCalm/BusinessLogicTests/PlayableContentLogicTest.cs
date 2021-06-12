@@ -19,7 +19,7 @@ namespace BusinessLogicTests
         public void TestGetAudioContentOk()
         {
             int audioContentId = 1;
-            AudioContent audioContentToReturn = new AudioContent()
+            PlayableContent audioContentToReturn = new PlayableContent()
             {
                 Id = audioContentId,
                 Name = "Canción",
@@ -30,8 +30,8 @@ namespace BusinessLogicTests
             };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(audioContentId)).Returns(audioContentToReturn);
-            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
-            validatorMock.Setup(m => m.Validate(It.IsAny<AudioContent>()));
+            Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<PlayableContent>()));
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mockCategory.Setup(m => m.GetAll(It.IsAny<Expression<Func<Category, bool>>>())).Returns(new List<Category>());
@@ -42,7 +42,7 @@ namespace BusinessLogicTests
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
-            AudioContent result = (AudioContent)audioContentLogic.GetById(audioContentId);
+            PlayableContent result = audioContentLogic.GetById(audioContentId);
 
             mock.VerifyAll();
             Assert.AreEqual(audioContentToReturn.Id, result.Id);
@@ -55,7 +55,7 @@ namespace BusinessLogicTests
             int audioContentId = 1;
             int categoryId = 1;
             int playlistId = 1;
-            AudioContent audioContentModel = new AudioContent()
+            PlayableContent audioContentModel = new PlayableContent()
             {
                 Id = audioContentId,
                 Name = "Canción",
@@ -79,9 +79,9 @@ namespace BusinessLogicTests
                 },
             };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
-            mock.Setup(m => m.Add(It.IsAny<AudioContent>())).Returns(audioContentModel);
-            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
-            validatorMock.Setup(m => m.Validate(It.IsAny<AudioContent>()));
+            mock.Setup(m => m.Add(It.IsAny<PlayableContent>())).Returns(audioContentModel);
+            Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<PlayableContent>()));
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             mockCategoryPlaylist.Setup(m => m.Add(It.IsAny<CategoryPlaylist>())).Returns(It.IsAny<CategoryPlaylist>());
             mockCategoryPlaylist.Setup(m => m.Exists(It.IsAny<Expression<Func<CategoryPlaylist, bool>>>())).Returns(false);
@@ -94,7 +94,7 @@ namespace BusinessLogicTests
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
-            AudioContent result = (AudioContent)audioContentLogic.Create(audioContentModel);
+            PlayableContent result = audioContentLogic.Create(audioContentModel);
 
             mock.VerifyAll();
             Assert.AreEqual(audioContentId, result.Id);
@@ -104,15 +104,15 @@ namespace BusinessLogicTests
         public void TestDeleteAudioContentOk()
         {
             int audioContentId = 1;
-            AudioContent audioContentToReturn = new AudioContent
+            PlayableContent audioContentToReturn = new PlayableContent
             {
                 Id = audioContentId
             };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
             mock.Setup(m => m.GetById(audioContentId)).Returns(audioContentToReturn);
-            mock.Setup(m => m.Delete(It.IsAny<AudioContent>()));
-            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
-            validatorMock.Setup(m => m.Validate(It.IsAny<AudioContent>()));
+            mock.Setup(m => m.Delete(It.IsAny<PlayableContent>()));
+            Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<PlayableContent>()));
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mockCategory.Setup(m => m.GetAll(It.IsAny<Expression<Func<Category, bool>>>())).Returns(new List<Category>());
@@ -142,7 +142,7 @@ namespace BusinessLogicTests
             {
                 Id = playlistId
             };
-            AudioContent audioContentUpdated = new AudioContent()
+            PlayableContent audioContentUpdated = new PlayableContent()
             {
                 Id = audioContentId,
                 Name = "Canción",
@@ -167,9 +167,9 @@ namespace BusinessLogicTests
             };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(a => a.Id == audioContentUpdated.Id)).Returns(true);
-            mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
-            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
-            validatorMock.Setup(m => m.Validate(It.IsAny<AudioContent>()));
+            mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
+            Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<PlayableContent>()));
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             mockCategoryPlaylist.Setup(m => m.Add(It.IsAny<CategoryPlaylist>())).Returns(It.IsAny<CategoryPlaylist>());
             mockCategoryPlaylist.Setup(m => m.Exists(It.IsAny<Expression<Func<CategoryPlaylist, bool>>>())).Returns(false);
@@ -197,10 +197,10 @@ namespace BusinessLogicTests
         {
             int audioContentId = 1;
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetById(It.IsAny<int>())).Returns((AudioContent)null);
-            mock.Setup(m => m.Delete(It.IsAny<AudioContent>()));
-            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
-            validatorMock.Setup(m => m.Validate(It.IsAny<AudioContent>())).Throws(new NullObjectException("Audio content not exist"));
+            mock.Setup(m => m.GetById(It.IsAny<int>())).Returns((PlayableContent)null);
+            mock.Setup(m => m.Delete(It.IsAny<PlayableContent>()));
+            Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<PlayableContent>())).Throws(new NullObjectException("Audio content not exist"));
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             mockCategory.Setup(m => m.GetAll(It.IsAny<Expression<Func<Category, bool>>>())).Returns(It.IsAny<List<Category>>());
@@ -231,7 +231,7 @@ namespace BusinessLogicTests
             {
                 Id = playlistId
             };
-            AudioContent audioContentUpdated = new AudioContent()
+            PlayableContent audioContentUpdated = new PlayableContent()
             {
                 Id = audioContentId,
                 Name = "Canción",
@@ -256,9 +256,9 @@ namespace BusinessLogicTests
             };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
             mock.Setup(m => m.Exists(a => a.Id == audioContentUpdated.Id)).Returns(false);
-            mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
-            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
-            validatorMock.Setup(m => m.Validate(It.IsAny<AudioContent>())).Throws(new NullObjectException("Audio content not exist"));
+            mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
+            Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<PlayableContent>())).Throws(new NullObjectException("Audio content not exist"));
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
@@ -276,7 +276,7 @@ namespace BusinessLogicTests
         public void TestGetAudioContentsByCategoryOk()
         {
             int categoryId = 1;
-            AudioContent firstAudioContentToReturn = new AudioContent()
+            PlayableContent firstAudioContentToReturn = new PlayableContent()
             {
                 Id = 1,
                 Name = "One Song",
@@ -284,20 +284,22 @@ namespace BusinessLogicTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 Url = "www.audio.com",
+                PlayableContentTypeId = 1
             };
-            AudioContent secondAudioContentToReturn = new AudioContent()
+            PlayableContent secondAudioContentToReturn = new PlayableContent()
             {
                 Id = 2,
                 Name = "Another song",
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
-                Url = "www.audio.com"
+                Url = "www.audio.com",
+                PlayableContentTypeId = 1
             };
             List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll(p => p.Categories.Any(pCategory => pCategory.CategoryId == categoryId))).Returns(audioContentsToReturn);
-            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<PlayableContent, bool>>>())).Returns(audioContentsToReturn);
+            Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
@@ -306,7 +308,7 @@ namespace BusinessLogicTests
             PlayableContentLogic playableContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
-            List<PlayableContent> audioContents = playableContentLogic.GetByCategoryId(categoryId);
+            List<PlayableContent> audioContents = playableContentLogic.GetByCategoryId(categoryId, 1);
 
             mock.VerifyAll();
             Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
@@ -316,7 +318,7 @@ namespace BusinessLogicTests
         public void TestGetAudioContentsByPlaylistOk()
         {
             int playlistId = 1;
-            AudioContent firstAudioContentToReturn = new AudioContent()
+            PlayableContent firstAudioContentToReturn = new PlayableContent()
             {
                 Id = 1,
                 Name = "One Song",
@@ -325,7 +327,7 @@ namespace BusinessLogicTests
                 ImageUrl = "www.unaimagen.com",
                 Url = "www.audio.com",
             };
-            AudioContent secondAudioContentToReturn = new AudioContent()
+            PlayableContent secondAudioContentToReturn = new PlayableContent()
             {
                 Id = 2,
                 Name = "Another song",
@@ -336,8 +338,8 @@ namespace BusinessLogicTests
             };
             List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll(p => p.Playlists.Any(pPlaylist => pPlaylist.PlaylistId == playlistId))).Returns(audioContentsToReturn);
-            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<PlayableContent, bool>>>())).Returns(audioContentsToReturn);
+            Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
@@ -346,7 +348,7 @@ namespace BusinessLogicTests
             PlayableContentLogic playableContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
-            List<PlayableContent> audioContents = playableContentLogic.GetByPlaylistId(playlistId);
+            List<PlayableContent> audioContents = playableContentLogic.GetByPlaylistId(playlistId, 1);
 
             mock.VerifyAll();
             Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);
@@ -355,7 +357,7 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestGetAudioContentsOk()
         {
-            AudioContent firstAudioContentToReturn = new AudioContent()
+            PlayableContent firstAudioContentToReturn = new PlayableContent()
             {
                 Id = 1,
                 Name = "One Song",
@@ -363,20 +365,22 @@ namespace BusinessLogicTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 Url = "www.audio.com",
+                PlayableContentTypeId = 1
             };
-            AudioContent secondAudioContentToReturn = new AudioContent()
+            PlayableContent secondAudioContentToReturn = new PlayableContent()
             {
                 Id = 2,
                 Name = "Another song",
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
-                Url = "www.audio.com"
+                Url = "www.audio.com",
+                PlayableContentTypeId = 1
             };
             List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll(null)).Returns(audioContentsToReturn);
-            Mock<IValidator<AudioContent>> validatorMock = new Mock<IValidator<AudioContent>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<PlayableContent, bool>>>())).Returns(audioContentsToReturn);
+            Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
             Mock<IRepository<CategoryPlaylist>> mockCategoryPlaylist = new Mock<IRepository<CategoryPlaylist>>(MockBehavior.Strict);
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
@@ -385,7 +389,7 @@ namespace BusinessLogicTests
             PlayableContentLogic playableContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
-            List<PlayableContent> audioContents = playableContentLogic.GetAll();
+            List<PlayableContent> audioContents = playableContentLogic.GetAll(1);
 
             mock.VerifyAll();
             Assert.AreEqual(audioContentsToReturn.Count, audioContents.Count);

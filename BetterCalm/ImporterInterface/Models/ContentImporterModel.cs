@@ -1,5 +1,4 @@
-﻿using ImporterInterface.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ImporterInterface.Models
@@ -12,8 +11,8 @@ namespace ImporterInterface.Models
         public string CreatorName { get; set; }
         public string ImageUrl { get; set; }
         public string Url { get; set; }
-        public List<CategoryImporterModel> Categories { get; set; }
-        public List<PlaylistImporterModel> Playlists { get; set; }
-        public PlayableContentType PlayableContentType { get; set; }
+        public List<ContentCategoryModel> Categories { get; set; }
+        public List<ContentPlaylistModel> Playlists { get; set; }
+        public int PlayableContentTypeId { get; set; }
     }
 }

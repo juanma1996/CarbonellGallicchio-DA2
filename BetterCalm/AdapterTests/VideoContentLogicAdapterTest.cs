@@ -95,7 +95,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<VideoContent>())).Throws(new NullObjectException("Not exist video content"));
+            mock.Setup(m => m.Update(It.IsAny<PlayableContent>())).Throws(new NullObjectException("Not exist video content"));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
@@ -137,7 +137,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Create(It.IsAny<VideoContent>())).Returns(It.IsAny<VideoContent>());
+            mock.Setup(m => m.Create(It.IsAny<PlayableContent>())).Returns(It.IsAny<PlayableContent>());
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
@@ -179,7 +179,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<VideoContent>()));
+            mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
@@ -221,7 +221,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Create(It.IsAny<VideoContent>())).Returns(It.IsAny<VideoContent>());
+            mock.Setup(m => m.Create(It.IsAny<PlayableContent>())).Returns(It.IsAny<PlayableContent>());
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
@@ -263,7 +263,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<VideoContent>()));
+            mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
@@ -281,7 +281,7 @@ namespace AdapterTests
         public void TestGetVideoContentsByCategoryOk()
         {
             int categoryId = 1;
-            VideoContent firstVideoContentToReturn = new VideoContent()
+            PlayableContent firstVideoContentToReturn = new PlayableContent()
             {
                 Id = 1,
                 Name = "One video",
@@ -289,19 +289,21 @@ namespace AdapterTests
                 CreatorName = "Juan",
                 ImageUrl = "",
                 Url = "www.video.com",
+                PlayableContentTypeId = 2
             };
-            VideoContent secondVideoContentToReturn = new VideoContent()
+            PlayableContent secondVideoContentToReturn = new PlayableContent()
             {
                 Id = 2,
                 Name = "Another video",
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "",
-                Url = "www.video.com"
+                Url = "www.video.com",
+                PlayableContentTypeId = 2
             };
             List<PlayableContent> videoContentsToReturn = new List<PlayableContent>() { firstVideoContentToReturn, secondVideoContentToReturn };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetByCategoryId(categoryId)).Returns(videoContentsToReturn);
+            mock.Setup(m => m.GetByCategoryId(categoryId, 2)).Returns(videoContentsToReturn);
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
@@ -319,7 +321,7 @@ namespace AdapterTests
         public void TestGetVideoContentsByPlaylistOk()
         {
             int playlistId = 1;
-            VideoContent firstVideoContentToReturn = new VideoContent()
+            PlayableContent firstVideoContentToReturn = new PlayableContent()
             {
                 Id = 1,
                 Name = "One video",
@@ -327,19 +329,21 @@ namespace AdapterTests
                 CreatorName = "Juan",
                 ImageUrl = "",
                 Url = "www.video.com",
+                PlayableContentTypeId = 2
             };
-            VideoContent secondVideoContentToReturn = new VideoContent()
+            PlayableContent secondVideoContentToReturn = new PlayableContent()
             {
                 Id = 2,
                 Name = "Another video",
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "",
-                Url = "www.video.com"
+                Url = "www.video.com",
+                PlayableContentTypeId = 2
             };
             List<PlayableContent> videoContentsToReturn = new List<PlayableContent>() { firstVideoContentToReturn, secondVideoContentToReturn };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetByPlaylistId(playlistId)).Returns(videoContentsToReturn);
+            mock.Setup(m => m.GetByPlaylistId(playlistId, 2)).Returns(videoContentsToReturn);
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
@@ -356,7 +360,7 @@ namespace AdapterTests
         [TestMethod]
         public void TestGetVideoContentsOk()
         {
-            VideoContent firstVideoContentToReturn = new VideoContent()
+            PlayableContent firstVideoContentToReturn = new PlayableContent()
             {
                 Id = 1,
                 Name = "One video",
@@ -365,18 +369,19 @@ namespace AdapterTests
                 ImageUrl = "",
                 Url = "www.video.com",
             };
-            VideoContent secondVideoContentToReturn = new VideoContent()
+            PlayableContent secondVideoContentToReturn = new PlayableContent()
             {
                 Id = 2,
                 Name = "Another video",
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "",
-                Url = "www.video.com"
+                Url = "www.video.com",
+                PlayableContentTypeId = 2
             };
             List<PlayableContent> videoContentsToReturn = new List<PlayableContent>() { firstVideoContentToReturn, secondVideoContentToReturn };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll()).Returns(videoContentsToReturn);
+            mock.Setup(m => m.GetAll(2)).Returns(videoContentsToReturn);
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));

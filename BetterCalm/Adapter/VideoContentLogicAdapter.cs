@@ -15,6 +15,7 @@ namespace Adapter
 {
     public class VideoContentLogicAdapter : IVideoContentLogicAdapter
     {
+        private readonly int videoContentTypeId = 2;
         private readonly IPlayableContentLogic playableContentLogic;
         private readonly IMapper mapper;
         private readonly IValidator<VideoContentModel> videoContentModelValidator;
@@ -32,7 +33,7 @@ namespace Adapter
         {
             try
             {
-                VideoContent videoContent = (VideoContent)playableContentLogic.GetById(videoContentId);
+                PlayableContent videoContent = playableContentLogic.GetById(videoContentId);
                 return mapper.Map<VideoContentBasicInfoModel>(videoContent);
             }
             catch (NullObjectException e)
@@ -46,8 +47,9 @@ namespace Adapter
             videoContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
             try
             {
-                VideoContent videoContentIn = mapper.Map<VideoContent>(videoContentModel);
-                VideoContent videoContent = (VideoContent)playableContentLogic.Create(videoContentIn);
+                PlayableContent videoContentIn = mapper.Map<PlayableContent>(videoContentModel);
+                videoContentIn.PlayableContentTypeId = videoContentTypeId;
+                PlayableContent videoContent = playableContentLogic.Create(videoContentIn);
                 return mapper.Map<VideoContentBasicInfoModel>(videoContent);
             }
             catch (NullObjectException e)
@@ -72,7 +74,8 @@ namespace Adapter
             {
                 videoContentModelValidator.Validate(videoContentModel);
                 videoContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
-                VideoContent videoContentToUpdate = mapper.Map<VideoContent>(videoContentModel);
+                PlayableContent videoContentToUpdate = mapper.Map<PlayableContent>(videoContentModel);
+                videoContentToUpdate.PlayableContentTypeId = videoContentTypeId;
                 playableContentLogic.Update(videoContentToUpdate);
             }
             catch (NullObjectException e)
@@ -83,46 +86,22 @@ namespace Adapter
 
         public List<VideoContentBasicInfoModel> GetByCategoryId(int categoryId)
         {
-            List<PlayableContent> playableContents = playableContentLogic.GetByCategoryId(categoryId);
-            List<VideoContent> videoContents = new List<VideoContent>();
-            foreach (var item in playableContents)
-            {
-                if (item is VideoContent videoContent)
-                {
-                    videoContents.Add(videoContent);
-                }
-            }
-            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(videoContents);
+            List<PlayableContent> playableContents = playableContentLogic.GetByCategoryId(categoryId, videoContentTypeId);
+            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(playableContents);
             return videoContentsBasicInfoModel;
         }
 
         public List<VideoContentBasicInfoModel> GetByPlaylistId(int playlistId)
         {
-            List<PlayableContent> playableContents = playableContentLogic.GetByPlaylistId(playlistId);
-            List<VideoContent> videoContents = new List<VideoContent>();
-            foreach (var item in playableContents)
-            {
-                if (item is VideoContent videoContent)
-                {
-                    videoContents.Add(videoContent);
-                }
-            }
-            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(videoContents);
+            List<PlayableContent> playableContents = playableContentLogic.GetByPlaylistId(playlistId, videoContentTypeId);
+            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(playableContents);
             return videoContentsBasicInfoModel;
         }
 
         public List<VideoContentBasicInfoModel> GetAll()
         {
-            List<PlayableContent> playableContents = playableContentLogic.GetAll();
-            List<VideoContent> videoContents = new List<VideoContent>();
-            foreach (var item in playableContents)
-            {
-                if (item is VideoContent videoContent)
-                {
-                    videoContents.Add(videoContent);
-                }
-            }
-            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(videoContents);
+            List<PlayableContent> playableContents = playableContentLogic.GetAll(videoContentTypeId);
+            List<VideoContentBasicInfoModel> videoContentsBasicInfoModel = mapper.Map<List<VideoContentBasicInfoModel>>(playableContents);
             return videoContentsBasicInfoModel;
         }
     }

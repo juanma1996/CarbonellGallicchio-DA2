@@ -1,4 +1,5 @@
 ﻿using ImporterInterface;
+using ImporterInterface.Common;
 using ImporterInterface.Models;
 using System.IO;
 using System.Text.Json;
@@ -15,7 +16,12 @@ namespace JsonContentImporter
         public ContentImporterModel ImportContent(string filePath)
         {
             string file = File.ReadAllText(filePath);
-            ContentImporterModel exampleJson = JsonSerializer.Deserialize<ContentImporterModel>(file, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var serializerOptions = new JsonSerializerOptions
+            {
+                Converters = { new TimeSpanConverter() },
+                PropertyNameCaseInsensitive = true
+            };
+            ContentImporterModel exampleJson = JsonSerializer.Deserialize<ContentImporterModel>(file, serializerOptions);
             return exampleJson;
         }
     }
