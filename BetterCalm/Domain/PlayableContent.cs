@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain
 {
-    public abstract class PlayableContent
+    public class PlayableContent
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,5 +13,7 @@ namespace Domain
         public string ImageUrl { get; set; }
         public List<PlayableContentCategory> Categories { get; set; }
         public List<PlayableContentPlaylist> Playlists { get; set; }
+        public int PlayableContentTypeId { get; set; }
+        public PlayableContentType PlayableContentType { get; set; }
     }
 }

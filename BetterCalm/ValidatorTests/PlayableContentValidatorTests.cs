@@ -6,14 +6,14 @@ using Validator;
 namespace ValidatorTests
 {
     [TestClass]
-    public class AudioContentValidatorTests
+    public class PlayableContentValidatorTests
     {
         [TestMethod]
         [ExpectedException(typeof(NullObjectException))]
         public void TestNullAudioContent()
         {
-            AudioContent audioContent = null;
-            AudioContentValidator validator = new AudioContentValidator();
+            PlayableContent audioContent = null;
+            PlayableContentValidator validator = new PlayableContentValidator();
 
             validator.Validate(audioContent);
         }
@@ -21,11 +21,11 @@ namespace ValidatorTests
         [TestMethod]
         public void TestAudioContentIsCorrect()
         {
-            AudioContent audioContent = new AudioContent
+            PlayableContent audioContent = new PlayableContent
             {
                 Name = "Juan"
             };
-            AudioContentValidator validator = new AudioContentValidator();
+            PlayableContentValidator validator = new PlayableContentValidator();
 
             validator.Validate(audioContent);
         }

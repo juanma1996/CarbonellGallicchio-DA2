@@ -95,7 +95,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AudioContent>())).Throws(new NullObjectException("Not exist audio content"));
+            mock.Setup(m => m.Update(It.IsAny<PlayableContent>())).Throws(new NullObjectException("Not exist audio content"));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
@@ -137,7 +137,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
+            mock.Setup(m => m.Create(It.IsAny<PlayableContent>())).Returns(It.IsAny<PlayableContent>());
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
@@ -179,7 +179,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
+            mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
@@ -221,7 +221,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Create(It.IsAny<AudioContent>())).Returns(It.IsAny<AudioContent>());
+            mock.Setup(m => m.Create(It.IsAny<PlayableContent>())).Returns(It.IsAny<PlayableContent>());
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
@@ -263,7 +263,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AudioContent>()));
+            mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<AudioContentModel>()));
@@ -281,7 +281,7 @@ namespace AdapterTests
         public void TestGetAudioContentsByCategoryOk()
         {
             int categoryId = 1;
-            AudioContent firstAudioContentToReturn = new AudioContent()
+            PlayableContent firstAudioContentToReturn = new PlayableContent()
             {
                 Id = 1,
                 Name = "One Song",
@@ -290,18 +290,19 @@ namespace AdapterTests
                 ImageUrl = "www.unaimagen.com",
                 Url = "www.audio.com",
             };
-            AudioContent secondAudioContentToReturn = new AudioContent()
+            PlayableContent secondAudioContentToReturn = new PlayableContent()
             {
                 Id = 2,
                 Name = "Another song",
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
-                Url = "www.audio.com"
+                Url = "www.audio.com",
+                PlayableContentTypeId = 1
             };
             List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetByCategoryId(categoryId)).Returns(audioContentsToReturn);
+            mock.Setup(m => m.GetByCategoryId(categoryId, 1)).Returns(audioContentsToReturn);
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
             Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
@@ -318,7 +319,7 @@ namespace AdapterTests
         public void TestGetAudioContentsByPlaylistOk()
         {
             int playlistId = 1;
-            AudioContent firstAudioContentToReturn = new AudioContent()
+            PlayableContent firstAudioContentToReturn = new PlayableContent()
             {
                 Id = 1,
                 Name = "One Song",
@@ -326,19 +327,21 @@ namespace AdapterTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 Url = "www.audio.com",
+                PlayableContentTypeId = 1
             };
-            AudioContent secondAudioContentToReturn = new AudioContent()
+            PlayableContent secondAudioContentToReturn = new PlayableContent()
             {
                 Id = 2,
                 Name = "Another song",
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
-                Url = "www.audio.com"
+                Url = "www.audio.com",
+                PlayableContentTypeId = 1
             };
             List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetByPlaylistId(playlistId)).Returns(audioContentsToReturn);
+            mock.Setup(m => m.GetByPlaylistId(playlistId, 1)).Returns(audioContentsToReturn);
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
             Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);
@@ -354,7 +357,7 @@ namespace AdapterTests
         [TestMethod]
         public void TestGetAudioContentsOk()
         {
-            AudioContent firstAudioContentToReturn = new AudioContent()
+            PlayableContent firstAudioContentToReturn = new PlayableContent()
             {
                 Id = 1,
                 Name = "One Song",
@@ -362,19 +365,21 @@ namespace AdapterTests
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
                 Url = "www.audio.com",
+                PlayableContentTypeId = 1
             };
-            AudioContent secondAudioContentToReturn = new AudioContent()
+            PlayableContent secondAudioContentToReturn = new PlayableContent()
             {
                 Id = 2,
                 Name = "Another song",
                 Duration = TimeSpan.MaxValue,
                 CreatorName = "Juan",
                 ImageUrl = "www.unaimagen.com",
-                Url = "www.audio.com"
+                Url = "www.audio.com",
+                PlayableContentTypeId = 1
             };
             List<PlayableContent> audioContentsToReturn = new List<PlayableContent>() { firstAudioContentToReturn, secondAudioContentToReturn };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll()).Returns(audioContentsToReturn);
+            mock.Setup(m => m.GetAll(1)).Returns(audioContentsToReturn);
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<AudioContentModel>> mockValidator = new Mock<IValidator<AudioContentModel>>(MockBehavior.Strict);
             Mock<IValidator<PlaylistModel>> mockPlaylistModelValidator = new Mock<IValidator<PlaylistModel>>(MockBehavior.Strict);

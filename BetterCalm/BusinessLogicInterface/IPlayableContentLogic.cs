@@ -9,8 +9,8 @@ namespace BusinessLogicInterface
         PlayableContent Create(PlayableContent playableContentModel);
         void DeleteById(int playableContentId);
         void Update(PlayableContent playableContentModel);
-        List<PlayableContent> GetByCategoryId(int categoryId);
-        List<PlayableContent> GetByPlaylistId(int playlistId);
-        List<PlayableContent> GetAll();
+        List<PlayableContent> GetByCategoryId(int categoryId, int playableContentTypeId);
+        List<PlayableContent> GetByPlaylistId(int playlistId, int playableContentTypeId);
+        List<PlayableContent> GetAll(int playableContentTypeId);
     }
 }

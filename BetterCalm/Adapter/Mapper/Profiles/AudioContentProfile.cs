@@ -9,7 +9,7 @@ namespace Adapter.Mapper.Profiles
     {
         public AudioContentProfile()
         {
-            CreateMap<AudioContent, AudioContentBasicInfoModel>()
+            CreateMap<PlayableContent, AudioContentBasicInfoModel>()
                  .ForMember(c => c.AudioUrl, opt => opt.MapFrom(x => x.Url));
 
             CreateMap<PlayableContentPlaylist, PlaylistBasicInfoModel>()
@@ -21,7 +21,9 @@ namespace Adapter.Mapper.Profiles
                .ForMember(c => c.Id, opt => opt.MapFrom(x => x.Category.Id))
                .ForMember(c => c.Name, opt => opt.MapFrom(x => x.Category.Name));
 
-            CreateMap<AudioContentModel, AudioContent>()
+            CreateMap<AudioContentModel, PlayableContent>()
+                .ForMember(c => c.PlayableContentTypeId, opt => opt.Ignore())
+                .ForMember(c => c.PlayableContentType, opt => opt.Ignore())
                 .ForMember(c => c.Url, opt => opt.MapFrom(x => x.AudioUrl));
 
             CreateMap<CategoryModel, PlayableContentCategory>()

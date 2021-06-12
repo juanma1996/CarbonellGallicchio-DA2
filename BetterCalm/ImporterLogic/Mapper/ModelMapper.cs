@@ -9,8 +9,7 @@ namespace ImporterLogic.Mapper
         {
             MapperConfiguration config = new MapperConfiguration(mapper =>
             {
-                mapper.AddProfile<AudioContentProfile>();
-                mapper.AddProfile<VideoContentProfile>();
+                mapper.AddProfile<PlayableContentProfile>();
             });
 
             return config.CreateMapper();

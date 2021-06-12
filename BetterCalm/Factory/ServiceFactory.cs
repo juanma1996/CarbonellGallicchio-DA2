@@ -49,7 +49,7 @@ namespace Factory
             services.AddScoped<IValidator<AdministratorModel>, AdministratorModelValidator>();
             services.AddScoped<IValidator<Administrator>, AdministratorValidator>();
             services.AddScoped<IValidator<AudioContentModel>, AudioContentModelValidator>();
-            services.AddScoped<IValidator<AudioContent>, AudioContentValidator>();
+            services.AddScoped<IValidator<PlayableContent>, PlayableContentValidator>();
             services.AddScoped<IValidator<Playlist>, PlaylistValidator>();
             services.AddScoped<IValidator<PsychologistModel>, PsychologistModelValidator>();
             services.AddScoped<IValidator<Psychologist>, PsychologistValidator>();

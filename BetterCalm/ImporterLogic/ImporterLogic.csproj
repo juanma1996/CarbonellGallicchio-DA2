@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdapterInterface\AdapterInterface.csproj" />
+    <ProjectReference Include="..\BusinessLogicInterface\BusinessLogicInterface.csproj" />
     <ProjectReference Include="..\ImporterInterface\ImporterInterface.csproj" />
     <ProjectReference Include="..\ImporterLogicInterface\ImporterLogicInterface.csproj" />
   </ItemGroup>

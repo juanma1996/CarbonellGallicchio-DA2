@@ -22,6 +22,7 @@ namespace DataAccess.Context
         public DbSet<Consultation> Consultations { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Agenda> Agendas { get; set; }
+        public DbSet<PlayableContentType> PlayableContentTypes { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
@@ -67,16 +68,11 @@ namespace DataAccess.Context
             modelBuilder.Entity<Playlist>().Property(p => p.Description).HasMaxLength(150);
 
             modelBuilder.Entity<PlayableContent>().HasKey(s => s.Id);
-
-            modelBuilder.Entity<AudioContent>().Property(p => p.Name).IsRequired();
-            modelBuilder.Entity<AudioContent>().Property(s => s.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<AudioContent>().HasMany(s => s.Categories);
-            modelBuilder.Entity<AudioContent>().HasMany(s => s.Playlists);
-
-            modelBuilder.Entity<VideoContent>().Property(p => p.Name).IsRequired();
-            modelBuilder.Entity<VideoContent>().Property(s => s.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<VideoContent>().HasMany(s => s.Categories);
-            modelBuilder.Entity<VideoContent>().HasMany(s => s.Playlists);
+            modelBuilder.Entity<PlayableContent>().Property(p => p.Name).IsRequired();
+            modelBuilder.Entity<PlayableContent>().Property(s => s.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<PlayableContent>().HasMany(s => s.Categories);
+            modelBuilder.Entity<PlayableContent>().HasMany(s => s.Playlists);
+            modelBuilder.Entity<PlayableContent>().HasOne(s => s.PlayableContentType);
 
             modelBuilder.Entity<CategoryPlaylist>().ToTable("CategoryPlaylists");
             modelBuilder.Entity<CategoryPlaylist>().HasKey(cp => new { cp.CategoryId, cp.PlaylistId });
@@ -147,6 +143,20 @@ namespace DataAccess.Context
             modelBuilder.Entity<Administrator>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Administrator>().HasData(new Administrator() { Id = 1, Name = "SuperAdmin",
                 Email = "admin@gmail.com", Password="1234" });
+
+            modelBuilder.Entity<PlayableContentType>().ToTable("PlayableContentTypes");
+            modelBuilder.Entity<PlayableContentType>().HasKey(p => p.Type);
+            modelBuilder.Entity<PlayableContentType>().Property(p => p.Type).ValueGeneratedOnAdd();
+            modelBuilder.Entity<PlayableContentType>().HasData(new PlayableContentType()
+            {
+                Type = 1,
+                Name = "Audio"
+            });
+            modelBuilder.Entity<PlayableContentType>().HasData(new PlayableContentType()
+            {
+                Type = 2,
+                Name = "Video"
+            });
         }
     }
 }

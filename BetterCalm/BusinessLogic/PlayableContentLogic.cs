@@ -12,7 +12,7 @@ namespace BusinessLogic
     public class PlayableContentLogic : IPlayableContentLogic
     {
         private IRepository<PlayableContent> playableContentRepository;
-        private IValidator<AudioContent> audioContentValidator;
+        private IValidator<PlayableContent> playableContentValidator;
         private IRepository<CategoryPlaylist> categoryPlaylistRepository;
         private IRepository<Category> categoryRepository;
         private IRepository<Playlist> playlistRepository;
@@ -20,12 +20,12 @@ namespace BusinessLogic
         private IRepository<PlayableContentCategory> playableContentCategoryRepository;
 
         public PlayableContentLogic(IRepository<PlayableContent> playableContentRepository,
-            IValidator<AudioContent> audioContentValidator, IRepository<CategoryPlaylist> categoryPlaylistRepository,
+            IValidator<PlayableContent> playableContentValidator, IRepository<CategoryPlaylist> categoryPlaylistRepository,
             IRepository<Category> categoryRepository, IRepository<Playlist> playlistRepository,
             IRepository<PlayableContentPlaylist> playableContentPlaylistRepository, IRepository<PlayableContentCategory> playableContentCategoryRepository)
         {
             this.playableContentRepository = playableContentRepository;
-            this.audioContentValidator = audioContentValidator;
+            this.playableContentValidator = playableContentValidator;
             this.categoryPlaylistRepository = categoryPlaylistRepository;
             this.categoryRepository = categoryRepository;
             this.playlistRepository = playlistRepository;
@@ -146,14 +146,7 @@ namespace BusinessLogic
         public PlayableContent GetById(int playableContentId)
         {
             PlayableContent playableContent = playableContentRepository.GetById(playableContentId);
-            if (playableContent is AudioContent audioContent)
-            {
-                audioContentValidator.Validate(audioContent);
-            }
-            else if (playableContent is null)
-            {
-                audioContentValidator.Validate(null);
-            }
+            playableContentValidator.Validate(playableContent);
             playableContent.Categories = GetCategoriesByPlayableContent(playableContent);
             playableContent.Playlists = GetPlaylistsByPlayableContent(playableContent);
 
@@ -189,19 +182,21 @@ namespace BusinessLogic
 
             return playableContent;
         }
-        public List<PlayableContent> GetByCategoryId(int categoryId)
+        public List<PlayableContent> GetByCategoryId(int categoryId, int playableContentTypeId)
         {
-            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.Categories.Any(pCategory => pCategory.CategoryId == categoryId));
+            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.PlayableContentTypeId == playableContentTypeId && 
+                p.Categories.Any(pCategory => pCategory.CategoryId == categoryId));
             return playableContents;
         }
-        public List<PlayableContent> GetByPlaylistId(int playlistId)
+        public List<PlayableContent> GetByPlaylistId(int playlistId, int playableContentTypeId)
         {
-            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.Playlists.Any(pPlaylist => pPlaylist.PlaylistId == playlistId));
+            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.PlayableContentTypeId == playableContentTypeId &&
+                p.Playlists.Any(pPlaylist => pPlaylist.PlaylistId == playlistId));
             return playableContents;
         }
-        public List<PlayableContent> GetAll()
+        public List<PlayableContent> GetAll(int playableContentTypeId)
         {
-            List<PlayableContent> playableContents = playableContentRepository.GetAll();
+            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.PlayableContentTypeId == playableContentTypeId);
             return playableContents;
         }
     }
