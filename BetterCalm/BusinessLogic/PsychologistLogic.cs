@@ -12,21 +12,35 @@ namespace BusinessLogic
     public class PsychologistLogic : IPsychologistLogic
     {
         private readonly IRepository<Psychologist> psychologistRepository;
+        private readonly IRepository<Problematic> problematicRepository;
         private readonly IValidator<Psychologist> psychologistValidator;
         private readonly IAgendaLogic agendaLogic;
 
         public PsychologistLogic(IRepository<Psychologist> psychologistRepository, IAgendaLogic agendaLogic,
-            IValidator<Psychologist> psychologistValidator)
+            IValidator<Psychologist> psychologistValidator, IRepository<Problematic> problematicRepository)
         {
             this.psychologistRepository = psychologistRepository;
             this.agendaLogic = agendaLogic;
             this.psychologistValidator = psychologistValidator;
+            this.problematicRepository = problematicRepository;
         }
 
         public Psychologist GetById(int psychologistId)
         {
             Psychologist psychologist = psychologistRepository.GetById(psychologistId);
             psychologistValidator.Validate(psychologist);
+            var problematics = problematicRepository.GetAll(problematic => problematic.Psychologists.Any(a => a.PsychologistId == psychologistId));
+            List<PsychologistProblematic> psychologistProblematics = new List<PsychologistProblematic>();
+            foreach (var item in problematics)
+            {
+                var relation = new PsychologistProblematic()
+                {
+                    Problematic = item,
+                    Psychologist = psychologist
+                };
+                psychologistProblematics.Add(relation);
+            }
+            psychologist.Problematics = psychologistProblematics;
             return psychologist;
         }
 

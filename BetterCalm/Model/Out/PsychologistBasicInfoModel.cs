@@ -11,5 +11,6 @@ namespace Model.Out
         public string Direction { get; set; }
         public DateTime CreationDate { get; set; }
         public List<ProblematicBasicInfoModel> Problematics { get; set; }
+        public int Fee { get; set; }
     }
 }
