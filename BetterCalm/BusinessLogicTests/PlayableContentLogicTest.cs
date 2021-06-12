@@ -38,8 +38,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
             mockPlaylist.Setup(m => m.GetAll(It.IsAny<Expression<Func<Playlist, bool>>>())).Returns(new List<Playlist>());
             Mock<IRepository<PlayableContentPlaylist>> mockPlayableContentPlaylist = new Mock<IRepository<PlayableContentPlaylist>>(MockBehavior.Strict);
+            Mock<IRepository<PlayableContentCategory>> mockPlayableContentCategory = new Mock<IRepository<PlayableContentCategory>>(MockBehavior.Strict);
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
-                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object);
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
             AudioContent result = (AudioContent)audioContentLogic.GetById(audioContentId);
 
@@ -89,8 +90,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
             mockPlaylist.Setup(m => m.Exists(It.IsAny<Expression<Func<Playlist, bool>>>())).Returns(true);
             Mock<IRepository<PlayableContentPlaylist>> mockPlayableContentPlaylist = new Mock<IRepository<PlayableContentPlaylist>>(MockBehavior.Strict);
+            Mock<IRepository<PlayableContentCategory>> mockPlayableContentCategory = new Mock<IRepository<PlayableContentCategory>>(MockBehavior.Strict);
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
-                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object);
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
             AudioContent result = (AudioContent)audioContentLogic.Create(audioContentModel);
 
@@ -117,8 +119,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
             mockPlaylist.Setup(m => m.GetAll(It.IsAny<Expression<Func<Playlist, bool>>>())).Returns(new List<Playlist>());
             Mock<IRepository<PlayableContentPlaylist>> mockPlayableContentPlaylist = new Mock<IRepository<PlayableContentPlaylist>>(MockBehavior.Strict);
+            Mock<IRepository<PlayableContentCategory>> mockPlayableContentCategory = new Mock<IRepository<PlayableContentCategory>>(MockBehavior.Strict);
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
-                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object);
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
             audioContentLogic.DeleteById(audioContentId);
 
@@ -176,8 +179,12 @@ namespace BusinessLogicTests
             mockPlaylist.Setup(m => m.Exists(It.IsAny<Expression<Func<Playlist, bool>>>())).Returns(true);
             Mock<IRepository<PlayableContentPlaylist>> mockPlayableContentPlaylist = new Mock<IRepository<PlayableContentPlaylist>>(MockBehavior.Strict);
             mockPlayableContentPlaylist.Setup(m => m.Add(It.IsAny<PlayableContentPlaylist>())).Returns(It.IsAny<PlayableContentPlaylist>());
+            mockPlayableContentPlaylist.Setup(m => m.DeleteAll(It.IsAny<Expression<Func<PlayableContentPlaylist, bool>>>()));
+            Mock<IRepository<PlayableContentCategory>> mockPlayableContentCategory = new Mock<IRepository<PlayableContentCategory>>(MockBehavior.Strict);
+            mockPlayableContentCategory.Setup(m => m.DeleteAll(It.IsAny<Expression<Func<PlayableContentCategory, bool>>>()));
+            mockPlayableContentCategory.Setup(m => m.Add(It.IsAny<PlayableContentCategory>())).Returns(It.IsAny<PlayableContentCategory>());
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
-                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object);
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
             audioContentLogic.Update(audioContentUpdated);
 
@@ -200,8 +207,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
             mockPlaylist.Setup(m => m.GetAll(It.IsAny<Expression<Func<Playlist, bool>>>())).Returns(It.IsAny<List<Playlist>>());
             Mock<IRepository<PlayableContentPlaylist>> mockPlayableContentPlaylist = new Mock<IRepository<PlayableContentPlaylist>>(MockBehavior.Strict);
+            Mock<IRepository<PlayableContentCategory>> mockPlayableContentCategory = new Mock<IRepository<PlayableContentCategory>>(MockBehavior.Strict);
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
-                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object);
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
             audioContentLogic.DeleteById(audioContentId);
 
@@ -255,8 +263,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
             Mock<IRepository<PlayableContentPlaylist>> mockPlayableContentPlaylist = new Mock<IRepository<PlayableContentPlaylist>>(MockBehavior.Strict);
+            Mock<IRepository<PlayableContentCategory>> mockPlayableContentCategory = new Mock<IRepository<PlayableContentCategory>>(MockBehavior.Strict);
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
-                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object);
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
             audioContentLogic.Update(audioContentUpdated);
 
@@ -293,8 +302,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
             Mock<IRepository<PlayableContentPlaylist>> mockPlayableContentPlaylist = new Mock<IRepository<PlayableContentPlaylist>>(MockBehavior.Strict);
+            Mock<IRepository<PlayableContentCategory>> mockPlayableContentCategory = new Mock<IRepository<PlayableContentCategory>>(MockBehavior.Strict);
             PlayableContentLogic playableContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
-                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object);
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
             List<PlayableContent> audioContents = playableContentLogic.GetByCategoryId(categoryId);
 
@@ -332,8 +342,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
             Mock<IRepository<PlayableContentPlaylist>> mockPlayableContentPlaylist = new Mock<IRepository<PlayableContentPlaylist>>(MockBehavior.Strict);
+            Mock<IRepository<PlayableContentCategory>> mockPlayableContentCategory = new Mock<IRepository<PlayableContentCategory>>(MockBehavior.Strict);
             PlayableContentLogic playableContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
-                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object);
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
             List<PlayableContent> audioContents = playableContentLogic.GetByPlaylistId(playlistId);
 
@@ -370,8 +381,9 @@ namespace BusinessLogicTests
             Mock<IRepository<Category>> mockCategory = new Mock<IRepository<Category>>(MockBehavior.Strict);
             Mock<IRepository<Playlist>> mockPlaylist = new Mock<IRepository<Playlist>>(MockBehavior.Strict);
             Mock<IRepository<PlayableContentPlaylist>> mockPlayableContentPlaylist = new Mock<IRepository<PlayableContentPlaylist>>(MockBehavior.Strict);
+            Mock<IRepository<PlayableContentCategory>> mockPlayableContentCategory = new Mock<IRepository<PlayableContentCategory>>(MockBehavior.Strict);
             PlayableContentLogic playableContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
-                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object);
+                mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
             List<PlayableContent> audioContents = playableContentLogic.GetAll();
 

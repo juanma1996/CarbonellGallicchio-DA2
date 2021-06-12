@@ -25,14 +25,6 @@ namespace BusinessLogic
             this.problematicRepository = problematicRepository;
         }
 
-        public Psychologist GetById(int psychologistId)
-        {
-            Psychologist psychologist = psychologistRepository.GetById(psychologistId);
-            psychologistValidator.Validate(psychologist);
-            psychologist.Problematics = GetProblematicsByPsychologist(psychologist);
-            return psychologist;
-        }
-
         private List<PsychologistProblematic> GetProblematicsByPsychologist(Psychologist psychologist)
         {
             var problematics = problematicRepository.GetAll(problematic => problematic.Psychologists.Any(a => a.PsychologistId == psychologist.Id));
@@ -41,7 +33,6 @@ namespace BusinessLogic
 
             return psychologistProblematics;
         }
-
         private PsychologistProblematic GetPsychologistProblematic(Problematic problematic, Psychologist psychologist)
         {
             PsychologistProblematic psychologistProblematic = new PsychologistProblematic()
@@ -53,18 +44,23 @@ namespace BusinessLogic
             return psychologistProblematic;
         }
 
+        public Psychologist GetById(int psychologistId)
+        {
+            Psychologist psychologist = psychologistRepository.GetById(psychologistId);
+            psychologistValidator.Validate(psychologist);
+            psychologist.Problematics = GetProblematicsByPsychologist(psychologist);
+            return psychologist;
+        }
         public Psychologist Add(Psychologist psycologist)
         {
             psycologist.CreationDate = DateTime.Now;
             return psychologistRepository.Add(psycologist);
         }
-
         public void DeleteById(int psychologistId)
         {
             Psychologist psychologist = GetById(psychologistId);
             psychologistRepository.Delete(psychologist);
         }
-
         public void Update(Psychologist psychologist)
         {
             if (!psychologistRepository.Exists(a => a.Id == psychologist.Id))
@@ -76,12 +72,10 @@ namespace BusinessLogic
                 psychologistRepository.Update(psychologist);
             }
         }
-
         public Psychologist GetAvailableByProblematicId(int problematicId)
         {
             return psychologistRepository.Get(p => p.Problematics.Exists(pr => pr.ProblematicId == problematicId));
         }
-
         public List<Psychologist> GetAllByProblematicId(int problematicId)
         {
             List<Psychologist> psychologists = null;
@@ -98,7 +92,6 @@ namespace BusinessLogic
 
             return psychologists;
         }
-
         public Psychologist GetAvailableByProblematicIdAndDate(int problematicId, DateTime date)
         {
             int daysToAdd = 1;
@@ -136,7 +129,6 @@ namespace BusinessLogic
             agendaLogic.Update(agendaToUse);
             return agendaToUse.Psychologist;
         }
-
         public List<Psychologist> GetAll()
         {
             List<Psychologist> psychologists = psychologistRepository.GetAll();
