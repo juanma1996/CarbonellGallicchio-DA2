@@ -97,7 +97,7 @@
             <div class=" form-group has-label" [ngClass]="{
                     'has-danger':
                     !playableContentContentForm.get('playlists').valid
-                }" *ngIf="selectedCategory && !newPlaylist && playlistsData.length>0">
+                }" *ngIf="selectedCategory && playlistsData.length>0">
                 <label> Playlist </label>
                 <angular2-multiselect [data]="playlistsData" [ngModel]="originalPlaylists"
                     [ngModelOptions]="{standalone: true}" [settings]="{
@@ -120,7 +120,7 @@
                         'has-danger':
                         !selectedPlaylist.get('name').valid && (selectedPlaylist.get('name').touched || submited)
                     }">
-                <label> Playlist Name </label>
+                <label>New Playlist Name </label>
                 <input class=" form-control" placeholder="Pop hits" type="text" formControlName="name" />
                 <label class="error"
                     *ngIf="!selectedPlaylist.get('name').valid && (selectedPlaylist.get('name').touched || submited)">Please
@@ -132,7 +132,7 @@
                         'has-danger':
                         !selectedPlaylist.get('description').valid && (selectedPlaylist.get('description').touched || submited)
                     }">
-                <label> Description </label>
+                <label>New Playlist Description </label>
                 <input class=" form-control" placeholder="All Pop hits to have an amazing nigth" type="text"
                     formControlName="description" />
                 <label class="error"

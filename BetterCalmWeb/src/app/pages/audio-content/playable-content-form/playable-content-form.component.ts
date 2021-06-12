@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
 import { ToastService } from 'src/app/common/toast.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-playable-content-form',
@@ -22,6 +23,7 @@ export class PlayableContentFormComponent implements OnInit {
 
 
   public categoriesData = [];
+  public allPlaylists = [];
   public playlistsData = [];
   public newPlaylist: boolean = false;
 
@@ -48,6 +50,7 @@ export class PlayableContentFormComponent implements OnInit {
       .subscribe(
         response => {
           this.mapData(response, this.categoriesData);
+          this.getAllPlaylists();
         },
         catchError => {
           this.customToastr.setError(catchError);
@@ -55,12 +58,13 @@ export class PlayableContentFormComponent implements OnInit {
       )
   }
 
-  getPlaylistByCategory(id: number) {
+  async getPlaylistByCategory(id: number) {
     this.playlistsData = [];
     this.categoriesService.getPlaylistByCategory(id)
       .subscribe(
         response => {
-          this.mapData(response, this.playlistsData);
+          this.allPlaylists.push(...response);
+          this.mapData(this.allPlaylists, this.playlistsData)
         },
         catchError => {
           this.customToastr.setError(catchError);
@@ -68,14 +72,22 @@ export class PlayableContentFormComponent implements OnInit {
       )
   }
 
+  getAllPlaylists() {
+    this.categoriesData.forEach(async category => {
+      await this.getPlaylistByCategory(category.id);
+    })
+  }
+
   mapData(originalData, multiSelectData) {
+    var mappedArray = [];
     originalData.forEach(item => {
       var data = {
         id: item.id,
         itemName: item.name
       }
-      multiSelectData.push(data);
+      mappedArray.push(data);
     });
+    multiSelectData.push(...mappedArray)
   }
 
   get duration(): FormControl {
@@ -106,7 +118,7 @@ export class PlayableContentFormComponent implements OnInit {
       name: item.itemName
     })
     this.categories.push(this.selectedCategory);
-    this.getPlaylistByCategory(item.id);
+    // this.getPlaylistByCategory(item.id);
   }
 
   categoryDeSelect(item: any) {
