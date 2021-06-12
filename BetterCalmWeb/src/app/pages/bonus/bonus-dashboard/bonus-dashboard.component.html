@@ -28,7 +28,7 @@
                                 <div id="datatable_filter" class="dataTables_filter">
                                     <label>
                                         <input type="search" class="form-control form-control-sm"
-                                            placeholder="Search records" aria-controls="datatable"
+                                            placeholder="Search by email" aria-controls="datatable"
                                             (keyup)="filterTable($event)" />
                                     </label>
                                 </div>
@@ -37,9 +37,9 @@
 
                         <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50"
                             [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined"
-                            [rows]="pacients">
-                            <ngx-datatable-column name="PacientEmail"></ngx-datatable-column>
-                            <ngx-datatable-column name="ConsultationsQuantity"></ngx-datatable-column>
+                            [rows]="filteredPacients">
+                            <ngx-datatable-column name="Pacient email"></ngx-datatable-column>
+                            <ngx-datatable-column name="Consultations quantity"></ngx-datatable-column>
                             <ngx-datatable-column name="Options" prop="option" [draggable]="false" [resizeable]="false">
                                 <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
                                     <button class=" btn btn-link btn-sm btn-icon" tooltip="Approve" type="button"
