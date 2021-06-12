@@ -61,7 +61,6 @@ export class EditPsychologistComponent implements OnInit {
     this.editPsychologistForm.get('name').setValue(this.editingPsychologist.name);
     this.editPsychologistForm.get('consultationMode').setValue(this.editingPsychologist.consultationMode);
     this.editPsychologistForm.get('direction').setValue(this.editingPsychologist.direction);
-    this.editPsychologistForm.get('problematics').setValue(this.editingPsychologist.problematics);
     this.editPsychologistForm.get('fee').setValue(this.editingPsychologist.fee);
   }
 
@@ -70,23 +69,7 @@ export class EditPsychologistComponent implements OnInit {
   }
 
   updateMultiSelects() {
-    // this will be the real problematics
-    var tempProblematics = [{
-      "id": 1,
-      "name": "Depresión"
-    },
-    {
-      "id": 2,
-      "name": "Estrés"
-    },
-    {
-      "id": 3,
-      "name": "Ansiedad"
-    },
-    ];
-
     var problematicsFormatted = [];
-    this.editingPsychologist.problematics = tempProblematics;
     this.editingPsychologist.problematics.forEach(item => {
       problematicsFormatted.push({ id: item.id, itemName: item.name });
       var problematic = this.fb.group({
