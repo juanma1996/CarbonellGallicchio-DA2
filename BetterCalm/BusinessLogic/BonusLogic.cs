@@ -1,4 +1,5 @@
-﻿using BusinessLogicInterface;
+﻿using BusinessExceptions;
+using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
 using System.Collections.Generic;
@@ -27,18 +28,37 @@ namespace BusinessLogic
         {
             Pacient pacient = pacientRepository.Get(p => p.Id == pacientId);
             pacientValidator.Validate(pacient);
-            pacient.BonusApproved = approved;
+            if (!pacient.GeneratedBonus)
+                throw new NotGeneratedBonusException("Patient for the data provided did not generate a bonus");
+            AdministrateBonus(pacient, amount, approved);
+            pacientRepository.Update(pacient);
+        }
+
+        private void AdministrateBonus(Pacient pacient, double amount, bool approved)
+        {
             if (approved)
             {
-                pacient.BonusAmount = (decimal)(1 - amount);
+                ApproveBonus(pacient, amount);
             }
-            else
+            else if (!approved)
             {
-                pacient.BonusAmount = 0;
-                pacient.GeneratedBonus = false;
-                pacient.ConsultationsQuantity = 0;
+                DenyBonus(pacient);
             }
-            pacientRepository.Update(pacient);
+        }
+
+        private void ApproveBonus(Pacient pacient, double amount)
+        {
+            pacient.BonusAmount = (decimal)(1 - amount);
+            pacient.GeneratedBonus = false;
+            pacient.BonusApproved = true;
+        }
+
+        private void DenyBonus(Pacient pacient)
+        {
+            pacient.BonusAmount = 0;
+            pacient.GeneratedBonus = false;
+            pacient.ConsultationsQuantity = 0;
+            pacient.BonusApproved = false;
         }
     }
 }

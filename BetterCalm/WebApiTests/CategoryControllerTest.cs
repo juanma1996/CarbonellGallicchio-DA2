@@ -87,8 +87,6 @@ namespace WebApiTests
         [TestMethod]
         public void TestGetAllCategoriesCheckAudioContentListOk()
         {
-            int audioContentId = 1;
-            string nameAudioContent = "Audio content name";
             List<CategoryBasicInfoModel> categoriesToReturn = new List<CategoryBasicInfoModel>()
             {
                 new CategoryBasicInfoModel
