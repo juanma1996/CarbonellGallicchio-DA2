@@ -13,5 +13,6 @@ namespace DataAccessInterface
         void Delete(T domain);
         void Update(T domain);
         bool Exists(Expression<Func<T, bool>> predicate);
+        void DeleteAll(Expression<Func<T, bool>> predicate);
     }
 }

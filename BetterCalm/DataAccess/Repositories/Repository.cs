@@ -26,6 +26,7 @@ namespace DataAccess.Repositories
         {
             return predicate != null ? this.Entities.Where(predicate).ToList() : this.Entities.ToList();
         }
+
         public T GetById(int id)
         {
             return this.Entities.Find(id);
@@ -45,6 +46,12 @@ namespace DataAccess.Repositories
         public void Delete(T domain)
         {
             this.context.Remove(domain);
+            this.context.SaveChanges();
+        }
+
+        public void DeleteAll(Expression<Func<T, bool>> predicate)
+        {
+            this.context.RemoveRange(this.Entities.Where(predicate).ToList());
             this.context.SaveChanges();
         }
 

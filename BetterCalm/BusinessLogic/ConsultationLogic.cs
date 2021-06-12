@@ -17,32 +17,6 @@ namespace BusinessLogic
             this.pacientRepository = pacientRepository;
         }
 
-        public Consultation Add(Consultation consultationModel)
-        {
-
-            consultationModel.Psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(consultationModel.ProblematicId, DateTime.Now);
-            Pacient pacient = GetPacientByEmail(consultationModel.Pacient);
-            decimal pacientBonus = CalculateBonus(pacient);
-            consultationModel.Pacient = pacient;
-            bool existPacient = pacientRepository.Exists(p => p.Email.Equals(pacient.Email));
-            if (existPacient)
-            {
-                pacientRepository.Update(pacient);
-            }
-            else
-            {
-                pacientRepository.Add(pacient);
-            }
-            Consultation consultation = consultationRepository.Add(consultationModel);
-            if (consultation.Psychologist.ConsultationMode.Equals("Virtual"))
-            {
-                consultation.Psychologist.Direction = GenerateMeetingId();
-            }
-            consultation.Cost = CalculateConsultationCost(consultation.Duration, consultation.Psychologist.Fee, pacientBonus);
-
-            return consultation;
-        }
-
         private decimal CalculateBonus(Pacient pacient)
         {
             decimal pacientBonus = 0;
@@ -57,7 +31,14 @@ namespace BusinessLogic
 
             return pacientBonus;
         }
-
+        private void CalculateConsultationQuantity(Pacient pacient)
+        {
+            pacient.ConsultationsQuantity++;
+            if (pacient.ConsultationsQuantity >= 5)
+            {
+                pacient.GeneratedBonus = true;
+            }
+        }
         private decimal ApplyBonus(Pacient pacient)
         {
             decimal pacientBonus = pacient.BonusAmount;
@@ -67,16 +48,6 @@ namespace BusinessLogic
 
             return pacientBonus;
         }
-
-        private void CalculateConsultationQuantity(Pacient pacient)
-        {
-            pacient.ConsultationsQuantity++;
-            if (pacient.ConsultationsQuantity >= 5)
-            {
-                pacient.GeneratedBonus = true;
-            }
-        }
-
         private Pacient GetPacientByEmail(Pacient pacient)
         {
             Pacient pacientByEmail = pacientRepository.Get(p => p.Email.Equals(pacient.Email));
@@ -87,7 +58,6 @@ namespace BusinessLogic
 
             return pacientByEmail;
         }
-
         private string GenerateMeetingId()
         {
             string direction = "https://bettercalm.com.uy/meeting_id/";
@@ -95,7 +65,6 @@ namespace BusinessLogic
 
             return direction;
         }
-
         private decimal CalculateConsultationCost(decimal duration, int fee, decimal bonus)
         {
             decimal cost = duration * fee;
@@ -105,6 +74,32 @@ namespace BusinessLogic
             }
 
             return cost;
+        }
+
+        public Consultation Add(Consultation consultationModel)
+        {
+
+            consultationModel.Psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(consultationModel.ProblematicId, DateTime.Now);
+            Pacient pacient = GetPacientByEmail(consultationModel.Pacient);
+            decimal pacientBonus = CalculateBonus(pacient);
+            bool existPacient = pacientRepository.Exists(p => p.Email.Equals(pacient.Email));
+            if (existPacient)
+            {
+                pacientRepository.Update(pacient);
+            }
+            else
+            {
+                pacientRepository.Add(pacient);
+            }
+            consultationModel.Pacient = pacient;
+            Consultation consultation = consultationRepository.Add(consultationModel);
+            if (consultation.Psychologist.ConsultationMode.Equals("Virtual"))
+            {
+                consultation.Psychologist.Direction = GenerateMeetingId();
+            }
+            consultation.Cost = CalculateConsultationCost(consultation.Duration, consultation.Psychologist.Fee, pacientBonus);
+
+            return consultation;
         }
     }
 }

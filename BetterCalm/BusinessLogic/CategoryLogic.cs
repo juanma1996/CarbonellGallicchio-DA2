@@ -26,7 +26,6 @@ namespace BusinessLogic
         {
             return categoryRepository.GetAll();
         }
-
         public List<Playlist> GetPlaylistsByCategoryId(int categoryId)
         {
             List<Playlist> playlists = playlistRepository.GetAll(playlist => playlist.Categories.Any(playlistCategory => playlistCategory.CategoryId == categoryId));
