@@ -16,16 +16,18 @@ namespace BusinessLogic
         private IRepository<CategoryPlaylist> categoryPlaylistRepository;
         private IRepository<Category> categoryRepository;
         private IRepository<Playlist> playlistRepository;
+        private IRepository<PlayableContentPlaylist> playableContentPlaylistRepository;
 
         public PlayableContentLogic(IRepository<PlayableContent> playableContentRepository,
             IValidator<AudioContent> audioContentValidator, IRepository<CategoryPlaylist> categoryPlaylistRepository,
-            IRepository<Category> categoryRepository, IRepository<Playlist> playlistRepository)
+            IRepository<Category> categoryRepository, IRepository<Playlist> playlistRepository, IRepository<PlayableContentPlaylist> playableContentPlaylistRepository)
         {
             this.playableContentRepository = playableContentRepository;
             this.audioContentValidator = audioContentValidator;
             this.categoryPlaylistRepository = categoryPlaylistRepository;
             this.categoryRepository = categoryRepository;
             this.playlistRepository = playlistRepository;
+            this.playableContentPlaylistRepository = playableContentPlaylistRepository;
         }
 
         public PlayableContent GetById(int playableContentId)
@@ -45,7 +47,7 @@ namespace BusinessLogic
             return playableContent;
 
         }
-        
+
         private List<PlayableContentCategory> GetCategoriesByPlayableContent(PlayableContent playableContent)
         {
             var categories = categoryRepository.GetAll(category => category.PlayableContents.Any(a => a.PlayableContentId == playableContent.Id));
@@ -158,8 +160,32 @@ namespace BusinessLogic
             else
             {
                 ValidateExistPlaylistAndCategoryByPlayableContent(playableContent);
+                CreatePlaylists(playableContent);
                 playableContentRepository.Update(playableContent);
+                CreatePlayableContentPlaylist(playableContent.Playlists);
                 CreateCategoryPlaylist(playableContent.Playlists, playableContent.Categories);
+            }
+        }
+
+        private void CreatePlaylists(PlayableContent playableContent)
+        {
+            foreach (var item in playableContent.Playlists)
+            {
+                if (item.Playlist != null && item.Playlist.Id == default)
+                {
+                    item.Playlist = playlistRepository.Add(item.Playlist);
+                    item.PlaylistId = item.Playlist.Id;
+                    item.PlayableContent = playableContent;
+                    item.PlayableContentId = playableContent.Id;
+                }
+            }
+        }
+
+        private void CreatePlayableContentPlaylist(List<PlayableContentPlaylist> playlists)
+        {
+            foreach (PlayableContentPlaylist item in playlists)
+            {
+                playableContentPlaylistRepository.Add(item);
             }
         }
 
