@@ -10,7 +10,8 @@ import { AlertService } from 'src/app/common/alert.service';
   styleUrls: ['./audio-content-table.component.scss']
 })
 export class AudioContentTableComponent implements OnInit {
-  @Input() audios: [];
+  @Input() audios;
+  filteredAudios;
   @Output() updateAudios = new EventEmitter();
   entries: number = 10;
   public isAutenticated: boolean;
@@ -24,6 +25,7 @@ export class AudioContentTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAutenticated = this.sessionService.isAuthenticated();
+    this.filteredAudios = this.audios;
   }
 
   deleteModal(id) {
@@ -46,6 +48,13 @@ export class AudioContentTableComponent implements OnInit {
 
   entriesChange($event) {
     this.entries = $event.target.value;
+  }
+
+  filterTable($event) {
+    let val = $event.target.value;
+    this.filteredAudios = this.audios.filter(audio => {
+      return audio.name.includes(val);
+    });
   }
 
 }

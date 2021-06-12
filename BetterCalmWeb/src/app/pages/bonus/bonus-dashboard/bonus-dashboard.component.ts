@@ -26,7 +26,6 @@ export class BonusDashboardComponent implements OnInit {
   ]
 
   pacients = [];
-  filteredPacients = [];
   showBonus: boolean = false;
   bonusForPacient: string = "";
 
@@ -46,8 +45,7 @@ export class BonusDashboardComponent implements OnInit {
     this.bonusesService.get()
       .subscribe(
         response => {
-          this.pacients = response
-          this.filteredPacients = this.pacients;
+          this.pacients = response;
         },
         catchError => {
           this.customToastr.setError(catchError);
@@ -115,13 +113,6 @@ export class BonusDashboardComponent implements OnInit {
 
   bonusPercentSelect(item: any) {
     this.bonusForm.get('amount').setValue(this.transformToDecimal(item.itemName));
-  }
-
-  filterTable($event) {
-    let val = $event.target.value;
-    this.filteredPacients = this.pacients.filter(pacients => {
-      return pacients.pacientEmail.includes(val);
-    });
   }
 
 }
