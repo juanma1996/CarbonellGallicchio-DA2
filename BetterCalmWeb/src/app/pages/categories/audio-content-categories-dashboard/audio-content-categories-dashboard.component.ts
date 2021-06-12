@@ -7,10 +7,10 @@ import { AudioContentModel } from 'src/app/models/audioContent/audio-content-mod
 import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
-  selector: 'app-categories-dashboard',
-  templateUrl: 'categories-dashboard.component.html',
+  selector: 'app-audio-content-categories-dashboard',
+  templateUrl: 'audio-content-categories-dashboard.component.html',
 })
-export class CategoriesDashboardComponent implements OnInit {
+export class AudioContentCategoriesDashboardComponent implements OnInit {
   public categories: CategoryBasicInfo[] = [];
   public audioContents: AudioContentModel[] = [];
 

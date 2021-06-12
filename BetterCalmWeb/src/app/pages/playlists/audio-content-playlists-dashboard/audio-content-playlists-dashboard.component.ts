@@ -8,11 +8,11 @@ import { AudioContentModel } from 'src/app/models/audioContent/audio-content-mod
 import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
-  selector: 'app-playlists-dashboard',
-  templateUrl: './playlists-dashboard.component.html',
-  styleUrls: ['./playlists-dashboard.component.scss']
+  selector: 'app-audio-content-playlists-dashboard',
+  templateUrl: './audio-content-playlists-dashboard.component.html',
+  styleUrls: ['./audio-content-playlists-dashboard.component.scss']
 })
-export class PlaylistsDashboardComponent implements OnInit {
+export class AudioContentPlaylistsDashboardComponent implements OnInit {
 
   playlists: PlaylistBasicInfo[] = [];
   public audioContents: AudioContentModel[] = [];

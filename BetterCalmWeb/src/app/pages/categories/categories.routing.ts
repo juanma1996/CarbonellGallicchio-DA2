@@ -1,16 +1,16 @@
 import { Routes } from "@angular/router";
 
-import { CategoriesDashboardComponent } from './categories-dashboard/categories-dashboard.component';
+import { AudioContentCategoriesDashboardComponent } from './audio-content-categories-dashboard/audio-content-categories-dashboard.component';
 import { VideoContentCategoriesDashboardComponent } from './video-content-categories-dashboard/video-content-categories-dashboard.component';
 
 export const CategoriesRoutes: Routes = [
   {
     path: "",
-    component: CategoriesDashboardComponent
+    component: AudioContentCategoriesDashboardComponent
   },
   {
     path: "audioContents",
-    component: CategoriesDashboardComponent
+    component: AudioContentCategoriesDashboardComponent
   },
   {
     path: "videoContents",

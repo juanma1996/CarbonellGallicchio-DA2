@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlaylistsDashboardComponent } from './playlists-dashboard.component';
+import { PlaylistsDashboardComponent } from './audio-content-playlists-dashboard.component';
 
 describe('PlaylistsDashboardComponent', () => {
   let component: PlaylistsDashboardComponent;

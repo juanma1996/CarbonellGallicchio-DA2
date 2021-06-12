@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { CategoriesDashboardComponent } from '../../pages/categories/categories-dashboard/categories-dashboard.component';
 import { CategoryBasicInfo } from 'src/app/models/category/category-basic-info';
 import { PlaylistBasicInfo } from 'src/app/models/playlist/playlist-basic-info';
 import { BaseService } from '../base.service';

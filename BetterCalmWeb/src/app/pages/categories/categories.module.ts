@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CategoriesDashboardComponent } from './categories-dashboard/categories-dashboard.component';
+import { AudioContentCategoriesDashboardComponent } from './audio-content-categories-dashboard/audio-content-categories-dashboard.component';
 import { CategoryCardComponent } from './category-card/category-card.component';
 
 import { CategoriesRoutes } from "./categories.routing";
@@ -16,11 +16,11 @@ import { VideoContentCategoriesDashboardComponent } from './video-content-catego
   ],
   declarations: [
     CategoryCardComponent,
-    CategoriesDashboardComponent,
+    AudioContentCategoriesDashboardComponent,
     VideoContentCategoriesDashboardComponent,
   ],
   exports: [
-    CategoriesDashboardComponent,
+    AudioContentCategoriesDashboardComponent,
     CategoryCardComponent
   ]
 })
