@@ -18,7 +18,8 @@ namespace BusinessLogic
 
         public List<Playlist> GetAll()
         {
-            throw new NotImplementedException();
+            List<Playlist> playlists = playlistRepository.GetAll();
+            return playlists;
         }
     }
 }
