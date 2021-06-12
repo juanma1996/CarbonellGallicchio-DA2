@@ -93,7 +93,7 @@ export const ROUTES: RouteInfo[] = [
     path: "/administrator",
     title: "Administrators",
     type: "sub",
-    icontype: "tim-icons icon-settings-gear-63",
+    icontype: "tim-icons icon-single-02",
     collapse: "",
     rtlTitle: "صفحات",
     isCollapsed: true,

@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AdministratorService } from 'src/app/services/administrator/administrator.service';
 import { ToastService } from 'src/app/common/toast.service';
 import { catchError } from 'rxjs/operators';
+import { AlertService } from 'src/app/common/alert.service';
 
 @Component({
   selector: 'app-edit-administrator-dashboard',
@@ -18,7 +19,10 @@ export class EditAdministratorDashboardComponent implements OnInit {
   constructor(
     private administratorService: AdministratorService,
     public customToast: ToastService,
-  ) {
+    private alert: AlertService,
+  ) { }
+
+  ngOnInit(): void {
     this.getAdministrators();
   }
 
@@ -51,11 +55,8 @@ export class EditAdministratorDashboardComponent implements OnInit {
     });
   }
 
-  consoleButton(value) {
-    console.log(value)
-  }
-
-  ngOnInit(): void {
+  deleteModal(id) {
+    this.alert.showAlert("Are you sure you want to delete this administrator?", "I'm sure", this.delete.bind(this, id));
   }
 
   delete(id) {

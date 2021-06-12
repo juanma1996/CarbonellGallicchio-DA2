@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AdministratorService } from 'src/app/services/administrator/administrator.service';
 import { ToastrService } from 'ngx-toastr';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: 'app-administrator-form',
@@ -15,7 +16,6 @@ export class AdministratorFormComponent implements OnInit {
 
   constructor(
     private administratorService: AdministratorService,
-    public toastr: ToastrService,
     private fb: FormBuilder
   ) { }
 
@@ -27,35 +27,9 @@ export class AdministratorFormComponent implements OnInit {
     this.administratorForm = this.parentForm;
   }
 
-  onSubmit(): void {
-    console.log(this.administratorForm);
-  }
-  
-  private setError(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-danger alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
+  resetForm() {
+    this.submited = false;
+    this.administratorForm.reset();
   }
 
-  private setSuccess() {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      "The administrator registration was successful",
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-success alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
 }

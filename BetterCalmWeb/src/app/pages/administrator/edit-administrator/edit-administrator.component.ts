@@ -67,7 +67,8 @@ export class EditAdministratorComponent implements OnInit {
       this.administratorService.update(this.editAdministratorForm.value)
         .subscribe(
           response => {
-            this.customToast.setSuccess("The administrator update was successful")
+            this.customToast.setSuccess("The administrator update was successful");
+            this.administratorForm.resetForm();
           },
           catchError => {
             this.customToast.setError(catchError);

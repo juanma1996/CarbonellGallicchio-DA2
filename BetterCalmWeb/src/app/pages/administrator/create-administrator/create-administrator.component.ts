@@ -35,10 +35,6 @@ export class CreateAdministratorComponent implements OnInit {
     })
   }
 
-  onSubmit(): void {
-    console.log(this.administratorForm);
-  }
-
   registerAdministrator = function () {
     this.administratorForm.submited = true;
     if (!this.createAdministratorForm.invalid) {
@@ -46,6 +42,7 @@ export class CreateAdministratorComponent implements OnInit {
         .subscribe(
           response => {
             this.customToast.setSuccess("The administrator registration was successful");
+            this.administratorForm.resetForm();
           },
           catchError => {
             this.customToast.setError(catchError);
