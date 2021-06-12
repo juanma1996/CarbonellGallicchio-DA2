@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { ContentImporterService } from 'src/app/services/content-importer/content-importer.service';
 import { catchError } from 'rxjs/operators';
+import { ToastService } from 'src/app/common/toast.service';
 
 @Component({
   selector: 'app-content-importer-dashboard',
@@ -17,7 +17,7 @@ export class ContentImporterDashboardComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public toastr: ToastrService,
+    public customToastr: ToastService,
     public contentImporterService: ContentImporterService,
   ) { }
 
@@ -29,7 +29,7 @@ export class ContentImporterDashboardComponent implements OnInit {
           this.mapData(response, this.importerTypesData);
         },
         catchError => {
-          this.setError(catchError.error)
+          this.customToastr.setError(catchError.error)
         }
       )
   }
@@ -48,15 +48,15 @@ export class ContentImporterDashboardComponent implements OnInit {
         .subscribe(
           response => {
             console.log(response)
-            this.setSuccess();
+            this.customToastr.setSuccess("The content was imported successfully");
           },
           catchError => {
-            this.setError(catchError);
+            this.customToastr.setError(catchError);
           }
         )
     }
     else {
-      this.setError("Please verify the entered data.");
+      this.customToastr.setError("Please verify the entered data.");
     }
   }
 
@@ -81,33 +81,4 @@ export class ContentImporterDashboardComponent implements OnInit {
       multiSelectData.push(data);
     }
   }
-
-  private setError(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-danger alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
-  private setSuccess() {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      "The content was imported successfully",
-      {
-        timeOut: 5000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-success alert-with-icon",
-        positionClass: "toast-top-right"
-      }
-    );
-  }
-
 }
