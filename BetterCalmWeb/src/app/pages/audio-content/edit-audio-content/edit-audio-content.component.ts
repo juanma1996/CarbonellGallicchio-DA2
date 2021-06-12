@@ -73,12 +73,13 @@ export class EditAudioContentComponent implements OnInit {
     return this.editAudioContentForm.get('categories') as FormArray;
   }
 
+
   updateForm() {
     this.editAudioContentForm.get('name').setValue(this.editingAudioContent.name);
     this.editAudioContentForm.get('creatorName').setValue(this.editingAudioContent.creatorName);
     this.editAudioContentForm.get('imageUrl').setValue(this.editingAudioContent.imageUrl);
     this.editAudioContentForm.get('audioUrl').setValue(this.editingAudioContent.audioUrl);
-    this.editAudioContentForm.get('duration').setValue(new Date(0, 0, 0, this.editingAudioContent.duration.hours, this.editingAudioContent.duration.minutes, 0, 0));
+    this.editAudioContentForm.get('duration').setValue(this.toDate(this.editingAudioContent.duration));
   }
 
   updateMultiSelects() {
@@ -102,6 +103,14 @@ export class EditAudioContentComponent implements OnInit {
       this.playlists.push(originalPlaylist);
       this.playableContentForm.originalPlaylists.push({ id: playlist.id, itemName: playlist.name });
     })
+  }
+
+  toDate(originalDuration) {
+    var now = new Date();
+    now.setHours(originalDuration.substr(0, originalDuration.indexOf(":")));
+    now.setMinutes(originalDuration.substr(3, originalDuration.indexOf(":")));
+    now.setSeconds(originalDuration.substr(6, originalDuration.indexOf(":")));
+    return now;
   }
 
   updateAudioContent() {

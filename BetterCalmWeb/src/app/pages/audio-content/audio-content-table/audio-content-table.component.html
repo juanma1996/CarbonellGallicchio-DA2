@@ -31,7 +31,8 @@
             <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50"
                 [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="audios">
                 <ngx-datatable-column name="Name"></ngx-datatable-column>
-                <ngx-datatable-column name="CreatorName"></ngx-datatable-column>
+                <ngx-datatable-column name="Creator name"></ngx-datatable-column>
+                <ngx-datatable-column name="Duration"></ngx-datatable-column>
                 <ngx-datatable-column name="Play" prop="option" [draggable]="false" [resizeable]="true">
                     <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
                         <audio [src]="row.audioUrl" preload="none" controls></audio>

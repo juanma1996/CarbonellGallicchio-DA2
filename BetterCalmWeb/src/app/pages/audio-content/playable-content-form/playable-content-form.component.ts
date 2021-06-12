@@ -96,11 +96,8 @@ export class PlayableContentFormComponent implements OnInit {
 
   transformTime() {
     var date = new Date(this.duration.value);
-    var transformDuration = {
-      "hours": date.getHours(),
-      "minutes": date.getMinutes(),
-    }
-    this.playableContentContentForm.get('duration').setValue(transformDuration);
+    var transformedDuration: string = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    this.playableContentContentForm.get('duration').setValue(transformedDuration);
   }
 
   get categories(): FormArray {
