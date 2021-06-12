@@ -56,10 +56,10 @@ export class EditVideoContentComponent implements OnInit {
       id: new FormControl(this.videoContentId, Validators.required),
       name: new FormControl(null, Validators.required),
       creatorName: new FormControl(null, Validators.required),
-      duration: new FormControl(null),
-      videoUrl: new FormControl(null, Validators.pattern(
+      duration: new FormControl(null, Validators.required),
+      videoUrl: new FormControl(null, [Validators.pattern(
         /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[\/?#]\S*)?$/i
-      )),
+      ), Validators.required]),
       categories: this.fb.array([], Validators.required),
       playlists: this.fb.array([])
     });
@@ -75,7 +75,7 @@ export class EditVideoContentComponent implements OnInit {
     this.editVideoContentForm.get('name').setValue(this.editingVideoContent.name);
     this.editVideoContentForm.get('creatorName').setValue(this.editingVideoContent.creatorName);
     this.editVideoContentForm.get('videoUrl').setValue(this.editingVideoContent.videoUrl);
-    this.editVideoContentForm.get('duration').setValue(new Date(0, 0, 0, this.editingVideoContent.duration.hours, this.editingVideoContent.duration.minutes, 0, 0));
+    this.editVideoContentForm.get('duration').setValue(this.toDate(this.editingVideoContent.duration));
   }
 
   updateMultiSelects() {
@@ -99,6 +99,14 @@ export class EditVideoContentComponent implements OnInit {
       this.playlists.push(originalPlaylist);
       this.playableContentForm.originalPlaylists.push({ id: playlist.id, itemName: playlist.name });
     })
+  }
+
+  toDate(originalDuration) {
+    var now = new Date();
+    now.setHours(originalDuration.substr(0, originalDuration.indexOf(":")));
+    now.setMinutes(originalDuration.substr(3, originalDuration.indexOf(":")));
+    now.setSeconds(originalDuration.substr(6, originalDuration.indexOf(":")));
+    return now;
   }
 
   updateVideoContent() {
