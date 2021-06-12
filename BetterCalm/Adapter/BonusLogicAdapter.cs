@@ -44,6 +44,10 @@ namespace Adapter
             {
                 throw new NotFoundException(e.errorMessage);
             }
+            catch (BusinessExceptions.NotGeneratedBonusException e)
+            {
+                throw new AdapterExceptions.NotGeneratedBonusException(e.errorMessage);
+            }
         }
     }
 }

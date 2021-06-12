@@ -19,24 +19,10 @@ namespace BusinessLogic
 
         public Consultation Add(Consultation consultationModel)
         {
-            decimal pacientBonus = 0;
+
             consultationModel.Psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(consultationModel.ProblematicId, DateTime.Now);
             Pacient pacient = GetPacientByEmail(consultationModel.Pacient);
-            if (pacient.GeneratedBonus && pacient.BonusApproved)
-            {
-                pacientBonus = pacient.BonusAmount;
-                pacient.ConsultationsQuantity = 0;
-                pacient.GeneratedBonus = false;
-                pacient.BonusApproved = false;
-            }
-            else
-            {
-                pacient.ConsultationsQuantity++;
-                if (pacient.ConsultationsQuantity >= 5)
-                {
-                    pacient.GeneratedBonus = true;
-                }
-            }
+            decimal pacientBonus = CalculateBonus(pacient);
             consultationModel.Pacient = pacient;
             bool existPacient = pacientRepository.Exists(p => p.Email.Equals(pacient.Email));
             if (existPacient)
@@ -55,6 +41,40 @@ namespace BusinessLogic
             consultation.Cost = CalculateConsultationCost(consultation.Duration, consultation.Psychologist.Fee, pacientBonus);
 
             return consultation;
+        }
+
+        private decimal CalculateBonus(Pacient pacient)
+        {
+            decimal pacientBonus = 0;
+            if (pacient.BonusApproved)
+            {
+                pacientBonus = ApplyBonus(pacient);
+            }
+            else
+            {
+                CalculateConsultationQuantity(pacient);
+            }
+
+            return pacientBonus;
+        }
+
+        private decimal ApplyBonus(Pacient pacient)
+        {
+            decimal pacientBonus = pacient.BonusAmount;
+            pacient.ConsultationsQuantity = 0;
+            pacient.GeneratedBonus = false;
+            pacient.BonusApproved = false;
+
+            return pacientBonus;
+        }
+
+        private void CalculateConsultationQuantity(Pacient pacient)
+        {
+            pacient.ConsultationsQuantity++;
+            if (pacient.ConsultationsQuantity >= 5)
+            {
+                pacient.GeneratedBonus = true;
+            }
         }
 
         private Pacient GetPacientByEmail(Pacient pacient)

@@ -135,5 +135,28 @@ namespace AdapterTests
 
             bonusLogicAdapter.Update(bonusModel);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(AdapterExceptions.NotGeneratedBonusException))]
+        public void TestApproveBonusWithNotGeneratedBonus()
+        {
+            BonusModel bonusModel = new BonusModel()
+            {
+                PacientId = 1,
+                Approved = true,
+                Amount = 0.25
+            };
+            Mock<IBonusLogic> mock = new Mock<IBonusLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount))
+                .Throws(new BusinessExceptions.NotGeneratedBonusException("Amount value is invalid"));
+            ModelMapper mapper = new ModelMapper();
+            Mock<IValidator<BonusModel>> mockValidator = new Mock<IValidator<BonusModel>>(MockBehavior.Strict);
+            mockValidator.Setup(m => m.Validate(bonusModel));
+            BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
+
+            bonusLogicAdapter.Update(bonusModel);
+
+            mock.VerifyAll();
+        }
     }
 }

@@ -48,7 +48,8 @@ namespace BusinessLogicTests
             {
                 Id = 1,
                 Email = "juan@email.com",
-                ConsultationsQuantity = 5
+                ConsultationsQuantity = 5,
+                GeneratedBonus = true
             };
             Mock<IRepository<Pacient>> mock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             mock.Setup(m => m.Get(p => p.Id == pacientId)).Returns(pacientToReturn);
@@ -70,7 +71,8 @@ namespace BusinessLogicTests
             {
                 Id = 1,
                 Email = "juan@email.com",
-                ConsultationsQuantity = 5
+                ConsultationsQuantity = 5,
+                GeneratedBonus = true
             };
             Mock<IRepository<Pacient>> mock = new Mock<IRepository<Pacient>>(MockBehavior.Strict);
             mock.Setup(m => m.Get(p => p.Id == pacientId)).Returns(pacientToReturn);
