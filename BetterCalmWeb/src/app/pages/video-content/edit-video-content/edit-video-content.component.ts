@@ -27,7 +27,7 @@ export class EditVideoContentComponent implements OnInit {
     private fb: FormBuilder,
     public route: ActivatedRoute,
     private router: Router,
-    public customToast: ToastService
+    public customToastr: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class EditVideoContentComponent implements OnInit {
         },
         catchError => {
           this.router.navigateByUrl('categories');
-          this.customToast.setError(catchError)
+          this.customToastr.setError(catchError)
         }
       )
   }
@@ -116,16 +116,16 @@ export class EditVideoContentComponent implements OnInit {
       this.videoContentService.update(this.editVideoContentForm.value)
         .subscribe(
           response => {
-            this.customToast.setSuccess("The video content was successfully updated");
+            this.customToastr.setSuccess("The video content was successfully updated");
             this.playableContentForm.resetForm();
           },
           catchError => {
-            this.customToast.setError(catchError);
+            this.customToastr.setError(catchError);
           }
         )
     }
     else {
-      this.customToast.setError("Please verify the entered data.");
+      this.customToastr.setError("Please verify the entered data.");
     }
   }
 

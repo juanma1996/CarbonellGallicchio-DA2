@@ -18,7 +18,7 @@ export class EditAdministratorDashboardComponent implements OnInit {
 
   constructor(
     private administratorService: AdministratorService,
-    public customToast: ToastService,
+    public customToastr: ToastService,
     private alert: AlertService,
   ) { }
 
@@ -34,7 +34,7 @@ export class EditAdministratorDashboardComponent implements OnInit {
           this.administrators = response;
         },
         catchError => {
-          this.customToast.setError(catchError);
+          this.customToastr.setError(catchError);
         }
       )
   }
@@ -63,11 +63,11 @@ export class EditAdministratorDashboardComponent implements OnInit {
     this.administratorService.delete(id)
       .subscribe(
         response => {
-          this.customToast.setSuccess("The administrator was successfully deleted");
+          this.customToastr.setSuccess("The administrator was successfully deleted");
           this.getAdministrators();
         },
         catchError => {
-          this.customToast.setError(catchError);
+          this.customToastr.setError(catchError);
         }
       )
   }

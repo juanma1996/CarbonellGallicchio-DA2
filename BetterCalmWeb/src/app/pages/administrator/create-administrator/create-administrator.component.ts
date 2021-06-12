@@ -19,7 +19,7 @@ export class CreateAdministratorComponent implements OnInit {
   constructor(
     private administratorService: AdministratorService,
     public toastr: ToastrService,
-    public customToast: ToastService,
+    public customToastr: ToastService,
     private fb: FormBuilder
   ) { }
 
@@ -41,16 +41,16 @@ export class CreateAdministratorComponent implements OnInit {
       this.administratorService.add(this.createAdministratorForm.value)
         .subscribe(
           response => {
-            this.customToast.setSuccess("The administrator registration was successful");
+            this.customToastr.setSuccess("The administrator registration was successful");
             this.administratorForm.resetForm();
           },
           catchError => {
-            this.customToast.setError(catchError);
+            this.customToastr.setError(catchError);
           }
         )
     }
     else {
-      this.customToast.setError("Please verify the entered data.")
+      this.customToastr.setError("Please verify the entered data.")
     }
   }
 

@@ -20,7 +20,7 @@ export class EditAdministratorComponent implements OnInit {
   administratorId;
   constructor(
     private administratorService: AdministratorService,
-    public customToast: ToastService,
+    public customToastr: ToastService,
     private fb: FormBuilder,
     private router: Router,
     public route: ActivatedRoute,
@@ -40,7 +40,7 @@ export class EditAdministratorComponent implements OnInit {
           this.updateForm();
         },
         catchError => {
-          this.customToast.setError(catchError);
+          this.customToastr.setError(catchError);
           this.router.navigateByUrl('administrator/maintenance')
         }
       )
@@ -67,16 +67,16 @@ export class EditAdministratorComponent implements OnInit {
       this.administratorService.update(this.editAdministratorForm.value)
         .subscribe(
           response => {
-            this.customToast.setSuccess("The administrator was successfully updated");
+            this.customToastr.setSuccess("The administrator was successfully updated");
             this.administratorForm.resetForm();
           },
           catchError => {
-            this.customToast.setError(catchError);
+            this.customToastr.setError(catchError);
           }
         )
     }
     else {
-      this.customToast.setError("Please verify the entered data.")
+      this.customToastr.setError("Please verify the entered data.")
     }
   }
 
