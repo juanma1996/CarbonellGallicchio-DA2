@@ -2,6 +2,7 @@
 using AdapterInterface;
 using AutoMapper;
 using BusinessLogicInterface;
+using Domain;
 using Model.Out;
 using System.Collections.Generic;
 
@@ -19,7 +20,9 @@ namespace Adapter
         }
     public List<PlaylistBasicInfoModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            List<Playlist> playlists = playlistLogic.GetAll();
+            List<PlaylistBasicInfoModel> playlistsBasicInfoModel = mapper.Map<List<PlaylistBasicInfoModel>>(playlists);
+            return playlistsBasicInfoModel;
         }
     }
 }
