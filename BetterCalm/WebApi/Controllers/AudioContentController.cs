@@ -49,7 +49,7 @@ namespace WebApi.Controllers
         /// <response code="400">Error. The audio content must contain a category.</response>
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost]
         public IActionResult Post([FromBody] AudioContentModel audioContentModel)
         {
@@ -69,7 +69,7 @@ namespace WebApi.Controllers
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="404">NotFound. Audio content not exist for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -92,7 +92,7 @@ namespace WebApi.Controllers
         /// <response code="400">Error. The audio content must contain a category.</response>
         /// <response code="404">NotFound. There is no audio content registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut]
         public IActionResult Put(AudioContentModel audioContentModel)
         {

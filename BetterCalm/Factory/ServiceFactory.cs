@@ -66,6 +66,8 @@ namespace Factory
             services.AddScoped<IBonusLogic, BonusLogic>();
             services.AddScoped<IValidator<BonusModel>, BonusModelValidator>();
             services.AddScoped<IValidator<Pacient>, PacientValidator>();
+            services.AddScoped<IPlaylistLogicAdapter, PlaylistLogicAdapter>();
+            services.AddScoped<IPlaylistLogic, PlaylistLogic>();
         }
         public void AddDbContextService()
         {

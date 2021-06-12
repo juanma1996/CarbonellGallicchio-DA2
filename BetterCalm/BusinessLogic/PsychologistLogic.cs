@@ -15,14 +15,17 @@ namespace BusinessLogic
         private readonly IRepository<Problematic> problematicRepository;
         private readonly IValidator<Psychologist> psychologistValidator;
         private readonly IAgendaLogic agendaLogic;
+        private readonly IRepository<PsychologistProblematic> psychologistProblematicRepository;
 
         public PsychologistLogic(IRepository<Psychologist> psychologistRepository, IAgendaLogic agendaLogic,
-            IValidator<Psychologist> psychologistValidator, IRepository<Problematic> problematicRepository)
+            IValidator<Psychologist> psychologistValidator, IRepository<Problematic> problematicRepository,
+            IRepository<PsychologistProblematic> psychologistProblematicRepository)
         {
             this.psychologistRepository = psychologistRepository;
             this.agendaLogic = agendaLogic;
             this.psychologistValidator = psychologistValidator;
             this.problematicRepository = problematicRepository;
+            this.psychologistProblematicRepository = psychologistProblematicRepository;
         }
 
         private List<PsychologistProblematic> GetProblematicsByPsychologist(Psychologist psychologist)
@@ -42,6 +45,14 @@ namespace BusinessLogic
             };
 
             return psychologistProblematic;
+        }
+        private void DeletePsychologistProblematicRelations(Psychologist psychologist)
+        {
+            psychologistProblematicRepository.DeleteAll(p => p.PsychologistId.Equals(psychologist.Id));
+        }
+        private void CreatePsychologistProblematicRelations(List<PsychologistProblematic> problematics)
+        {
+            problematics.ForEach(p => psychologistProblematicRepository.Add(p));
         }
 
         public Psychologist GetById(int psychologistId)
@@ -69,7 +80,9 @@ namespace BusinessLogic
             }
             else
             {
+                DeletePsychologistProblematicRelations(psychologist);
                 psychologistRepository.Update(psychologist);
+                CreatePsychologistProblematicRelations(psychologist.Problematics);
             }
         }
         public Psychologist GetAvailableByProblematicId(int problematicId)
