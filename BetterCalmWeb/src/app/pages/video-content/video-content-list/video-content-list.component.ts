@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { VideoContentBasicInfo } from 'src/app/models/videoContent/video-content-basic-info';
 import { DomSanitizer, SafeResourceUrl, } from '@angular/platform-browser';
 import { VideoContentService } from 'src/app/services/video-content/video-content-service';
@@ -13,6 +13,7 @@ import { AlertService } from 'src/app/common/alert.service';
 })
 export class VideoContentListComponent implements OnInit {
   @Input() videos: VideoContentBasicInfo[];
+  @Output() updateVideos = new EventEmitter();
   public isAutenticated: boolean;
 
   constructor(
@@ -35,6 +36,7 @@ export class VideoContentListComponent implements OnInit {
       .subscribe(
         response => {
           this.customToastr.setSuccess("The video content was successfully deleted");
+          this.updateVideos.emit();
         },
         catchError => {
           this.customToastr.setError(catchError);

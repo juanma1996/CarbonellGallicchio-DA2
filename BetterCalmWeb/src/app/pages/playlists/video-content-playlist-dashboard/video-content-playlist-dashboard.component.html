@@ -27,5 +27,5 @@
             </div>
         </div>
     </div>
-    <app-video-content-list [videos]="videoContents"></app-video-content-list>
+    <app-video-content-list [videos]="videoContents" (updateVideos)="getVideoContents()"></app-video-content-list>
 </div>

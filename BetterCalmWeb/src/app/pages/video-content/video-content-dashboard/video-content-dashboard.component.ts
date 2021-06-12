@@ -36,4 +36,8 @@ export class VideoContentDashboardComponent implements OnInit {
       )
   }
 
+  updateVideos() {
+    this.getVideoContents(this.playlistId);
+  }
+
 }
