@@ -20,8 +20,9 @@ export class ConsultationDashboardComponent implements OnInit {
 
   public problematicsData = [];
   public problematics: ProblematicBasicInfo[] = [];
-  selectedItems = [];
   public scheduledConsultation: ConsultationBasicInfo;
+  public selectedDuration: [];
+  public selectedProblematic: [];
 
   durationData = [
     { id: 1, itemName: 1 },
@@ -73,8 +74,7 @@ export class ConsultationDashboardComponent implements OnInit {
             console.log(response)
             this.scheduledConsultation = response;
             this.customToastr.setSuccess("The consultation was successfully scheduled");
-            this.consultationForm.reset();
-            this.scheduled = false;
+            this.resetForm();
           },
           catchError => {
             this.customToastr.setError(catchError);
@@ -120,4 +120,12 @@ export class ConsultationDashboardComponent implements OnInit {
     this.duration.reset();
   }
 
+  resetForm() {
+    this.scheduled = false;
+    this.consultationForm.reset();
+    this.problematicId.reset();
+    this.duration.reset();
+    this.selectedProblematic = [];
+    this.selectedDuration = [];
+  }
 }

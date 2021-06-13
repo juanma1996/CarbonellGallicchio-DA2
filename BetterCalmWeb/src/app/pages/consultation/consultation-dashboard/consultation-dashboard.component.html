@@ -14,7 +14,7 @@
                                     !consultationForm.get('problematicId').valid
                                     }">
                                     <label> Problematic </label>
-                                    <angular2-multiselect [data]="problematicsData" [ngModel]=""
+                                    <angular2-multiselect [data]="problematicsData" [ngModel]="selectedProblematic"
                                         [ngModelOptions]="{standalone: true}" [settings]="{
                                         singleSelection: true,
                                         text: 'Problematic',
@@ -109,7 +109,7 @@
                                                 !consultationForm.get('duration').valid
                                                 }">
                                     <label> Duration in hours</label>
-                                    <angular2-multiselect [data]="durationData" [ngModel]=""
+                                    <angular2-multiselect [data]="durationData" [ngModel]="selectedDuration"
                                         [ngModelOptions]="{standalone: true}" [settings]="{
                                                     singleSelection: true,
                                                     text: 'Duration',
