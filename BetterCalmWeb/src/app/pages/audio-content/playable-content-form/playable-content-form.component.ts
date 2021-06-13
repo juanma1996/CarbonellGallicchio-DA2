@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@ang
 import { CategoriesService } from 'src/app/services/categories/categories.service';
 import { ToastService } from 'src/app/common/toast.service';
 import { Observable } from 'rxjs';
+import { PlaylistsService } from 'src/app/services/playlists/playlists.service';
 
 @Component({
   selector: 'app-playable-content-form',
@@ -30,6 +31,7 @@ export class PlayableContentFormComponent implements OnInit {
 
   constructor(
     private categoriesService: CategoriesService,
+    private playlistsService: PlaylistsService,
     public customToastr: ToastService,
     private fb: FormBuilder
   ) { }
@@ -37,6 +39,7 @@ export class PlayableContentFormComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.selectedCategory)
     this.getCategories();
+    this.getAllPlaylists();
     this.initializePlayableContentContentForm();
   }
 
@@ -51,21 +54,6 @@ export class PlayableContentFormComponent implements OnInit {
       .subscribe(
         response => {
           this.mapData(response, this.categoriesData);
-          this.getAllPlaylists();
-        },
-        catchError => {
-          this.customToastr.setError(catchError);
-        }
-      )
-  }
-
-  async getPlaylistByCategory(id: number) {
-    this.playlistsData = [];
-    this.categoriesService.getPlaylistByCategory(id)
-      .subscribe(
-        response => {
-          this.allPlaylists.push(...response);
-          this.mapData(this.allPlaylists, this.playlistsData)
         },
         catchError => {
           this.customToastr.setError(catchError);
@@ -74,9 +62,15 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   getAllPlaylists() {
-    this.categoriesData.forEach(async category => {
-      await this.getPlaylistByCategory(category.id);
-    })
+    this.playlistsService.get()
+      .subscribe(
+        response => {
+          this.mapData(response, this.playlistsData);
+        },
+        catchError => {
+          this.customToastr.setError(catchError);
+        }
+      )
   }
 
   mapData(originalData, multiSelectData) {
@@ -113,13 +107,11 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   categorySelect(item: any) {
-    //if (this.categories.value.length > 0) this.categories.removeAt(0);
     this.selectedCategory = this.fb.group({
       id: item.id,
       name: item.itemName
     })
     this.categories.push(this.selectedCategory);
-    // this.getPlaylistByCategory(item.id);
   }
 
   categoryDeSelect(item: any) {
@@ -132,7 +124,6 @@ export class PlayableContentFormComponent implements OnInit {
   }
 
   playlistSelect(item: any) {
-    //if (this.playlists.value.length > 0) this.playlists.removeAt(0);
     this.selectedPlaylist = this.fb.group({
       id: item.id,
       name: item.itemName,

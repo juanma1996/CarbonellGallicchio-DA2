@@ -87,7 +87,6 @@ export class EditVideoContentComponent implements OnInit {
       this.playableContentForm.selectedCategory = originalCategory;
       this.categories.push(originalCategory);
       this.playableContentForm.originalCategories.push({ id: category.id, itemName: category.name });
-      this.playableContentForm.getPlaylistByCategory(category.id);
     });
 
     this.editingVideoContent.playlists.forEach(playlist => {

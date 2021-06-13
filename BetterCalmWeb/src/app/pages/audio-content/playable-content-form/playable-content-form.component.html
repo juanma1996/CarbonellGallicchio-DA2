@@ -100,7 +100,7 @@
             <div class=" form-group has-label" [ngClass]="{
                     'has-danger':
                     !playableContentContentForm.get('playlists').valid
-                }" *ngIf="selectedCategory && playlistsData.length>0">
+                }" *ngIf="selectedCategory">
                 <label> Playlist </label>
                 <angular2-multiselect [data]="playlistsData" [ngModel]="originalPlaylists"
                     [ngModelOptions]="{standalone: true}" [settings]="{
