@@ -5,7 +5,6 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
-import { RtlLayoutComponent } from "./layouts/rtl-layout/rtl-layout.component";
 import { AdminGuard } from './guards/admin.guard';
 import { PacientLayoutComponent } from './layouts/pacient-layout/pacient-layout.component';
 
@@ -19,11 +18,6 @@ const routes: Routes = [
     path: "",
     component: AdminLayoutComponent, canActivate: [AdminGuard],
     children: [
-      {
-        path: "",
-        loadChildren:
-          "./pages/examples/dashboard/dashboard.module#DashboardModule"
-      },
       {
         path: "administrator",
         loadChildren:
@@ -39,46 +33,6 @@ const routes: Routes = [
         loadChildren:
           "./pages/bonus/bonus.module#BonusModule"
       },
-      {
-        path: "components",
-        loadChildren:
-          "./pages/examples/components/components.module#ComponentsPageModule"
-      },
-      {
-        path: "forms",
-        loadChildren: "./pages/examples/forms/forms.module#Forms"
-      },
-      {
-        path: "tables",
-        loadChildren: "./pages/examples/tables/tables.module#TablesModule"
-      },
-      {
-        path: "maps",
-        loadChildren: "./pages/examples/maps/maps.module#MapsModule"
-      },
-      {
-        path: "widgets",
-        loadChildren: "./pages/examples/widgets/widgets.module#WidgetsModule"
-      },
-      {
-        path: "charts",
-        loadChildren: "./pages/examples/charts/charts.module#ChartsModule"
-      },
-      {
-        path: "calendar",
-        loadChildren:
-          "./pages/examples/calendar/calendar.module#CalendarModulee"
-      },
-      {
-        path: "",
-        loadChildren:
-          "./pages/examples/pages/user/user-profile.module#UserModule"
-      },
-      {
-        path: "",
-        loadChildren:
-          "./pages/examples/pages/timeline/timeline.module#TimelineModule"
-      }
     ]
   },
   {
@@ -122,22 +76,8 @@ const routes: Routes = [
     component: AuthLayoutComponent,
     children: [
       {
-        path: "pages",
-        loadChildren: "./pages/examples/pages/pages.module#PagesModule"
-      },
-      {
         path: "login",
         loadChildren: "./pages/login/login.module#LoginModule"
-      }
-    ]
-  },
-  {
-    path: "",
-    component: RtlLayoutComponent,
-    children: [
-      {
-        path: "pages",
-        loadChildren: "./pages/examples/pages/rtl/rtl.module#RtlModule"
       }
     ]
   },

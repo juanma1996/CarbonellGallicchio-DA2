@@ -13,7 +13,6 @@ import { PacientLayoutComponent } from './layouts/pacient-layout/pacient-layout.
 
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
-import { RtlLayoutComponent } from "./layouts/rtl-layout/rtl-layout.component";
 import { CategoriesModule } from './pages/categories/categories.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
@@ -24,7 +23,6 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     AdminLayoutComponent,
     PacientLayoutComponent,
     AuthLayoutComponent,
-    RtlLayoutComponent
   ],
   imports: [
     CommonModule,

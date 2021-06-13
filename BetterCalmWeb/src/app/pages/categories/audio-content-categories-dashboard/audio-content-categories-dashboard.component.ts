@@ -24,7 +24,7 @@ export class AudioContentCategoriesDashboardComponent implements OnInit {
     this.categoriesService.get()
       .subscribe(
         response => {
-          this.get(response)
+          this.categories = response;
         },
         catchError => {
           this.customToastr.setError(catchError);
@@ -47,10 +47,5 @@ export class AudioContentCategoriesDashboardComponent implements OnInit {
 
   updateAudios() {
     this.getAudioContents();
-  }
-
-  private get(response) {
-    console.log(response);
-    this.categories = response;
   }
 }
