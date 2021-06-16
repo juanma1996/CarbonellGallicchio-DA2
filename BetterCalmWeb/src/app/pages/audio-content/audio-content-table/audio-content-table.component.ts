@@ -10,6 +10,7 @@ import { AlertService } from 'src/app/common/alert.service';
   styleUrls: ['./audio-content-table.component.scss']
 })
 export class AudioContentTableComponent implements OnInit {
+  @Input() title: string;
   @Input() audios;
   filteredAudios;
   @Output() updateAudios = new EventEmitter();

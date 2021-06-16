@@ -12,6 +12,7 @@ import { AlertService } from 'src/app/common/alert.service';
   styleUrls: ['./video-content-list.component.scss']
 })
 export class VideoContentListComponent implements OnInit {
+  @Input() title: string;
   @Input() videos: VideoContentBasicInfo[];
   @Output() updateVideos = new EventEmitter();
   public isAutenticated: boolean;

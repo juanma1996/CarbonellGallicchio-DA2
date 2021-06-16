@@ -6,8 +6,9 @@
                     <div (click)="isCollapsed = !isCollapsed; $event.preventDefault()"
                         [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic" href="#pablo">
                         <div class="d-flex align-items-center">
-                            <h2 class="title p-2">Playlists for Categories</h2>
-                            <i class=" tim-icons icon-minimal-down"> </i>
+                            <h2 class="title p-2">Playlists for Categories
+                                <i class="tim-icons icon-minimal-down ml-auto"> </i>
+                            </h2>
                         </div>
                     </div>
                 </div>
@@ -27,5 +28,6 @@
             </div>
         </div>
     </div>
-    <app-audio-content-table [audios]="audioContents" (updateAudios)="getAudioContents()"></app-audio-content-table>
+    <app-audio-content-table [audios]="audioContents" [title]="'Audio contents by category'"
+        (updateAudios)="getAudioContents()"></app-audio-content-table>
 </div>

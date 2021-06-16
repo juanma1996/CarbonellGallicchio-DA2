@@ -10,7 +10,7 @@ export class FixedPluginComponent implements OnInit {
   public sidebarColor: string = "red";
   public state: boolean = true;
   public dashboardColor: boolean = true;
-  constructor(public toastr: ToastrService) {}
+  constructor(public toastr: ToastrService) { }
   changeSidebarColor(color) {
     var sidebar = document.getElementsByClassName("sidebar")[0];
     var mainPanel = document.getElementsByClassName("main-panel")[0];
@@ -32,7 +32,7 @@ export class FixedPluginComponent implements OnInit {
       body.classList.remove("white-content");
     }
   }
-  ngOnInit() {}
+  ngOnInit() { }
   onChangeDashboardColor(event) {
     const body = document.getElementsByTagName("body")[0];
     if (this.dashboardColor === true) {
@@ -41,12 +41,12 @@ export class FixedPluginComponent implements OnInit {
       this.changeDashboardColor("white-content");
     }
     // we simulate the window Resize so the charts will get updated in realtime.
-    var simulateWindowResize = setInterval(function() {
+    var simulateWindowResize = setInterval(function () {
       window.dispatchEvent(new Event("resize"));
     }, 180);
 
     // we stop the simulation of Window Resize after the animations are completed
-    setTimeout(function() {
+    setTimeout(function () {
       clearInterval(simulateWindowResize);
     }, 1000);
   }
@@ -54,18 +54,16 @@ export class FixedPluginComponent implements OnInit {
     const body = document.getElementsByTagName("body")[0];
     if (this.state === true) {
       body.classList.remove("sidebar-mini");
-      this.showSidebarMessage("Sidebar mini deactivated...");
     } else {
       body.classList.add("sidebar-mini");
-      this.showSidebarMessage("Sidebar mini activated...");
     }
     // we simulate the window Resize so the charts will get updated in realtime.
-    var simulateWindowResize = setInterval(function() {
+    var simulateWindowResize = setInterval(function () {
       window.dispatchEvent(new Event("resize"));
     }, 180);
 
     // we stop the simulation of Window Resize after the animations are completed
-    setTimeout(function() {
+    setTimeout(function () {
       clearInterval(simulateWindowResize);
     }, 1000);
   }

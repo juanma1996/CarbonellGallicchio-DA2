@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 
 @NgModule({
   declarations: [BonusDashboardComponent],
@@ -15,6 +16,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     AngularMultiSelectModule,
     NgxDatatableModule,
+    TooltipModule.forRoot(),
     RouterModule.forChild(BonusRoutes),
   ]
 })

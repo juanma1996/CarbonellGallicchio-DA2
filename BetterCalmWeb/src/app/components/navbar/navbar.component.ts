@@ -49,10 +49,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (misc.sidebar_mini_active === true) {
       body.classList.remove("sidebar-mini");
       misc.sidebar_mini_active = false;
-      this.showSidebarMessage("Sidebar mini deactivated...");
     } else {
       body.classList.add("sidebar-mini");
-      this.showSidebarMessage("Sidebar mini activated...");
       misc.sidebar_mini_active = true;
     }
 

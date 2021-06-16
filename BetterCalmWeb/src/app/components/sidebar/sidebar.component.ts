@@ -37,6 +37,18 @@ export const ROUTES: RouteInfo[] = [
     icontype: "tim-icons icon-key-25",
   },
   {
+    path: "/consultation",
+    title: "Consultation",
+    type: "link",
+    icontype: "tim-icons icon-calendar-60",
+  },
+  {
+    path: "/contentImporter",
+    title: "Content importer",
+    type: "link",
+    icontype: "tim-icons icon-cloud-upload-94",
+  },
+  {
     path: "/categories",
     title: "Content by category",
     type: "sub",
@@ -44,7 +56,6 @@ export const ROUTES: RouteInfo[] = [
     collapse: "",
     isCollapsed: true,
     children: [
-
       {
         path: "audioContents",
         rtlSmallTitle: "ع ",
@@ -62,18 +73,6 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
   {
-    path: "/consultation",
-    title: "Consultation",
-    type: "link",
-    icontype: "tim-icons icon-calendar-60",
-  },
-  {
-    path: "/contentImporter",
-    title: "Content importer",
-    type: "link",
-    icontype: "tim-icons icon-cloud-upload-94",
-  },
-  {
     path: "/administrator",
     title: "Administrators",
     type: "sub",
@@ -81,20 +80,19 @@ export const ROUTES: RouteInfo[] = [
     collapse: "",
     isCollapsed: true,
     children: [
-
       {
         path: "create",
         rtlSmallTitle: "ع ",
         title: "Register administrator",
         type: "link",
-        smallTitle: ""
+        smallTitle: "R"
       },
       {
         path: "maintenance",
         rtlSmallTitle: "ع ",
         title: "Administrators maintance",
         type: "link",
-        smallTitle: ""
+        smallTitle: "A"
       },
     ]
   },
@@ -106,20 +104,19 @@ export const ROUTES: RouteInfo[] = [
     collapse: "",
     isCollapsed: true,
     children: [
-
       {
         path: "create",
         rtlSmallTitle: "ع ",
         title: "Register psychologist",
         type: "link",
-        smallTitle: ""
+        smallTitle: "R"
       },
       {
         path: "maintenance",
         rtlSmallTitle: "ع ",
         title: "Psychologist maintance",
         type: "link",
-        smallTitle: ""
+        smallTitle: "P"
       },
     ]
   },
@@ -136,14 +133,14 @@ export const ROUTES: RouteInfo[] = [
         rtlSmallTitle: "ع ",
         title: "Create Audio Content",
         type: "link",
-        smallTitle: "P"
+        smallTitle: "C"
       },
       {
         path: "videoContent",
         rtlSmallTitle: "ع ",
         title: "Create Video Content",
         type: "link",
-        smallTitle: "P"
+        smallTitle: "C"
       },
     ]
   },

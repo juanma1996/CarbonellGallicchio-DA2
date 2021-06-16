@@ -9,6 +9,7 @@ import { PlayableContentFormComponent } from '../audio-content/playable-content-
 import { TimepickerModule } from "ngx-bootstrap/timepicker";
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     RouterModule,
     CommonModule,
     AngularMultiSelectModule,
+    TooltipModule.forRoot(),
     TimepickerModule.forRoot(),
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     FormsModule,

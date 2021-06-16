@@ -1,5 +1,6 @@
 <div class=" card">
     <div class=" card-body">
+        <h2 class=" title">{{title}}</h2>
         <div class=" toolbar"></div>
         <div class="dataTables_wrapper py-4">
             <div class="row">
@@ -33,7 +34,7 @@
                 <ngx-datatable-column *ngIf=isAutenticated name="Option" prop="option" [draggable]="false"
                     [resizeable]="false">
                     <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-                        <button class=" btn btn-link btn-sm btn-icon" tooltip="Refresh" type="button"
+                        <button class=" btn btn-link btn-sm btn-icon" tooltip="Edit" type="button"
                             [routerLink]="['/audioContent/edit', row.id]" routerLinkActive="active">
                             <i class=" tim-icons icon-pencil"> </i>
                         </button>

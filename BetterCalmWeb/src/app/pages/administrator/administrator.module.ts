@@ -8,6 +8,7 @@ import { EditAdministratorDashboardComponent } from './edit-administrator-dashbo
 import { AdministratorFormComponent } from './administrator-form/administrator-form.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { EditAdministratorComponent } from './edit-administrator/edit-administrator.component';
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { EditAdministratorComponent } from './edit-administrator/edit-administra
     CommonModule,
     FormsModule,
     NgxDatatableModule,
+    TooltipModule.forRoot(),
     RouterModule.forChild(AdministratorRoutes),
     ReactiveFormsModule
   ],

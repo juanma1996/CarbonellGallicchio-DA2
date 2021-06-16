@@ -13,7 +13,7 @@ var misc: any = {
   styleUrls: ['./pacient-layout.component.scss']
 })
 export class PacientLayoutComponent implements OnInit {
-  constructor(public router: Router, public toastr: ToastrService) {}
+  constructor(public router: Router, public toastr: ToastrService) { }
   @HostListener("window:scroll", ["$event"])
   showNavbarButton = () => {
     var mainPanel: any = document.getElementsByClassName("main-panel")[0];
@@ -62,20 +62,18 @@ export class PacientLayoutComponent implements OnInit {
     if (misc.sidebar_mini_active === true) {
       body.classList.remove("sidebar-mini");
       misc.sidebar_mini_active = false;
-      this.showSidebarMessage("Sidebar mini deactivated...");
     } else {
       body.classList.add("sidebar-mini");
-      this.showSidebarMessage("Sidebar mini activated...");
       misc.sidebar_mini_active = true;
     }
 
     // we simulate the window Resize so the charts will get updated in realtime.
-    const simulateWindowResize = setInterval(function() {
+    const simulateWindowResize = setInterval(function () {
       window.dispatchEvent(new Event("resize"));
     }, 180);
 
     // we stop the simulation of Window Resize after the animations are completed
-    setTimeout(function() {
+    setTimeout(function () {
       clearInterval(simulateWindowResize);
     }, 1000);
   }

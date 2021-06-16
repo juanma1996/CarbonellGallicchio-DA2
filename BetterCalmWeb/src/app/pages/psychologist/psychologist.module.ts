@@ -9,14 +9,14 @@ import { PsychologistFormComponent } from './psychologist-form/psychologist-form
 import { EditPsychologistDashboardComponent } from './edit-psychologist-dashboard/edit-psychologist-dashboard.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { EditPsychologistComponent } from './edit-psychologist/edit-psychologist.component';
-
-
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     NgxDatatableModule,
+    TooltipModule.forRoot(),
     RouterModule.forChild(PsychologistRoutes),
     AngularMultiSelectModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
