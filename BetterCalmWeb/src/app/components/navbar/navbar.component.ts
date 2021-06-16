@@ -166,7 +166,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     localStorage.removeItem('token');
     localStorage.removeItem('name');
     localStorage.removeItem('email');
-    //this.refreshPage();
+    this.refreshPage();
     this.router.navigateByUrl('categories/audioContents')
   }
   refreshPage() { window.location.reload(); }
