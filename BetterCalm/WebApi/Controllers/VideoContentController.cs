@@ -93,10 +93,10 @@ namespace WebApi.Controllers
         /// <response code="404">NotFound. There is no video registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
-        [HttpPut]
-        public IActionResult Put(VideoContentModel videoContentModel)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, VideoContentModel videoContentModel)
         {
-            videoContentLogicAdapter.Update(videoContentModel);
+            videoContentLogicAdapter.Update(id, videoContentModel);
             return NoContent();
         }
 

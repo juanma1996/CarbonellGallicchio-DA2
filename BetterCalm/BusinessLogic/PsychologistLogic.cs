@@ -72,14 +72,15 @@ namespace BusinessLogic
             Psychologist psychologist = GetById(psychologistId);
             psychologistRepository.Delete(psychologist);
         }
-        public void Update(Psychologist psychologist)
+        public void Update(int id, Psychologist psychologist)
         {
-            if (!psychologistRepository.Exists(a => a.Id == psychologist.Id))
+            if (!psychologistRepository.Exists(a => a.Id == id))
             {
                 throw new NullObjectException("There is no psychologist registered for the given data");
             }
             else
             {
+                psychologist.Id = id;
                 DeletePsychologistProblematicRelations(psychologist);
                 psychologistRepository.Update(psychologist);
                 CreatePsychologistProblematicRelations(psychologist.Problematics);

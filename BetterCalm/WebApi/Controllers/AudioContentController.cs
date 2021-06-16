@@ -3,7 +3,6 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
-using System;
 using System.Collections.Generic;
 using WebApi.Filters;
 
@@ -93,10 +92,10 @@ namespace WebApi.Controllers
         /// <response code="404">NotFound. There is no audio content registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
-        [HttpPut]
-        public IActionResult Put(AudioContentModel audioContentModel)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, AudioContentModel audioContentModel)
         {
-            audioContentLogicAdapter.Update(audioContentModel);
+            audioContentLogicAdapter.Update(id, audioContentModel);
             return NoContent();
         }
 

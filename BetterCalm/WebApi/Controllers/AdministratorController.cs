@@ -3,7 +3,6 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
-using System;
 using System.Collections.Generic;
 using WebApi.Filters;
 
@@ -97,10 +96,10 @@ namespace WebApi.Controllers
         /// <response code="404">NotFound. There is no administrator registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
-        [HttpPut]
-        public IActionResult Put([FromBody]AdministratorModel administratorModel)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] AdministratorModel administratorModel)
         {
-            administratorDomainToModelAdapter.Update(administratorModel);
+            administratorDomainToModelAdapter.Update(id, administratorModel);
             return NoContent();
         }
 

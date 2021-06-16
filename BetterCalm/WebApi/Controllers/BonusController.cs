@@ -50,10 +50,10 @@ namespace WebApi.Controllers
         /// <response code="404">NotFound. There is no pacient registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
-        [HttpPut]
-        public IActionResult Update(BonusModel bonus)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, BonusModel bonus)
         {
-            bonusLogicAdapter.Update(bonus);
+            bonusLogicAdapter.Update(id, bonus);
             return NoContent();
         }
     }

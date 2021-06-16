@@ -60,13 +60,13 @@ namespace Adapter
             }
         }
 
-        public void Update(PsychologistModel psychologistModel)
+        public void Update(int id, PsychologistModel psychologistModel)
         {
             try
             {
                 psychologistModelValidator.Validate(psychologistModel);
                 Psychologist psychologistToUpdate = mapper.Map<Psychologist>(psychologistModel);
-                psychologistLogic.Update(psychologistToUpdate);
+                psychologistLogic.Update(id, psychologistToUpdate);
             }
             catch (NullObjectException e)
             {
