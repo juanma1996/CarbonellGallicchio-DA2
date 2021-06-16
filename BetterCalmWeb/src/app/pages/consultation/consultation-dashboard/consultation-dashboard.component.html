@@ -80,7 +80,7 @@
                                     <label for="exampleInputEmail1"> Birth date </label>
                                     <input bsDatepicker class="form-control" data-datepicker-color="danger"
                                         [bsConfig]="{ isAnimated: true, containerClass: 'theme-red' }"
-                                        formControlName="birthDate" id="datepicker" type="text"
+                                        [maxDate]="maxDate" formControlName="birthDate" id="datepicker" type="text"
                                         placeholder="05/12/1996">
                                     <label class="error"
                                         *ngIf="!consultationForm.controls.pacient.get('birthDate').valid && (consultationForm.controls.pacient.get('birthDate').touched || scheduled)">Please

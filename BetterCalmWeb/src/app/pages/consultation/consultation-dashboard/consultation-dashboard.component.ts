@@ -23,6 +23,7 @@ export class ConsultationDashboardComponent implements OnInit {
   public scheduledConsultation: ConsultationBasicInfo;
   public selectedDuration: [];
   public selectedProblematic: [];
+  public maxDate = new Date();
 
   durationData = [
     { id: 1, itemName: 1 },
