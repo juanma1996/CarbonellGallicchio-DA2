@@ -9,7 +9,7 @@ namespace BusinessLogicInterface
         Psychologist GetById(int psychologistId);
         Psychologist Add(Psychologist psycologist);
         void DeleteById(int psychologistId);
-        void Update(Psychologist psycologist);
+        void Update(int id, Psychologist psycologist);
         Psychologist GetAvailableByProblematicId(int problematicId);
         List<Psychologist> GetAllByProblematicId(int problematicId);
         Psychologist GetAvailableByProblematicIdAndDate(int problematicId, DateTime date);

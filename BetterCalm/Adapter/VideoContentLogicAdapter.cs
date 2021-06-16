@@ -68,7 +68,7 @@ namespace Adapter
                 throw new NotFoundException(e.errorMessage);
             }
         }
-        public void Update(VideoContentModel videoContentModel)
+        public void Update(int id, VideoContentModel videoContentModel)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Adapter
                 videoContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
                 PlayableContent videoContentToUpdate = mapper.Map<PlayableContent>(videoContentModel);
                 videoContentToUpdate.PlayableContentTypeId = videoContentTypeId;
-                playableContentLogic.Update(videoContentToUpdate);
+                playableContentLogic.Update(id, videoContentToUpdate);
             }
             catch (NullObjectException e)
             {

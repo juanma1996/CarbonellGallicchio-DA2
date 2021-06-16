@@ -33,12 +33,12 @@ namespace Adapter
             return bonuses;
         }
 
-        public void Update(BonusModel bonusModel)
+        public void Update(int pacientId, BonusModel bonusModel)
         {
             try
             {
                 bonusModelValidator.Validate(bonusModel);
-                bonusLogic.Update(bonusModel.PacientId, bonusModel.Approved, bonusModel.Amount);
+                bonusLogic.Update(pacientId, bonusModel.Approved, bonusModel.Amount);
             }
             catch (NullObjectException e)
             {

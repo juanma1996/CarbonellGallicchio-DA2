@@ -69,7 +69,7 @@ namespace Adapter
                 throw new NotFoundException(e.errorMessage);
             }
         }
-        public void Update(AudioContentModel audioContentModel)
+        public void Update(int id, AudioContentModel audioContentModel)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace Adapter
                 audioContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
                 PlayableContent audioContentToUpdate = mapper.Map<PlayableContent>(audioContentModel);
                 audioContentToUpdate.PlayableContentTypeId = audioContentTypeId;
-                playableContentLogic.Update(audioContentToUpdate);
+                playableContentLogic.Update(id, audioContentToUpdate);
             }
             catch (NullObjectException e)
             {
@@ -88,7 +88,7 @@ namespace Adapter
         public List<AudioContentBasicInfoModel> GetByCategoryId(int categoryId)
         {
             List<PlayableContent> playableContents = playableContentLogic.GetByCategoryId(categoryId, audioContentTypeId);
-            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel =  mapper.Map<List<AudioContentBasicInfoModel>>(playableContents);
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel = mapper.Map<List<AudioContentBasicInfoModel>>(playableContents);
             return audioContentsBasicInfoModel;
         }
 

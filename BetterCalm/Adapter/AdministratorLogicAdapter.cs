@@ -64,13 +64,13 @@ namespace Adapter
             }
         }
 
-        public void Update(AdministratorModel administrator)
+        public void Update(int id, AdministratorModel administrator)
         {
             try
             {
                 administratorModelValidator.Validate(administrator);
                 Administrator administratorToUpdate = mapper.Map<Administrator>(administrator);
-                administratorLogic.Update(administratorToUpdate);
+                administratorLogic.Update(id, administratorToUpdate);
             }
             catch (NullObjectException e)
             {

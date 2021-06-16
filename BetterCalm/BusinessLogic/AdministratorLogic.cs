@@ -40,14 +40,15 @@ namespace BusinessLogic
             administratorvalidator.Validate(administrator);
             administratorRepository.Delete(administrator);
         }
-        public void Update(Administrator administratorModel)
+        public void Update(int id, Administrator administratorModel)
         {
-            if (!administratorRepository.Exists(a => a.Id == administratorModel.Id))
+            if (!administratorRepository.Exists(a => a.Id == id))
             {
                 throw new NullObjectException("There is no administrator registered for the given data");
             }
             else
             {
+                administratorModel.Id = id;
                 administratorRepository.Update(administratorModel);
             }
         }

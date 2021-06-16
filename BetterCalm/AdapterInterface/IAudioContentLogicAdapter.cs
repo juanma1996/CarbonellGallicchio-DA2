@@ -9,7 +9,7 @@ namespace AdapterInterface
         AudioContentBasicInfoModel GetById(int audioContentId);
         AudioContentBasicInfoModel Add(AudioContentModel audioContentModel);
         void DeleteById(int audioContentId);
-        void Update(AudioContentModel audioContentModel);
+        void Update(int id, AudioContentModel audioContentModel);
         List<AudioContentBasicInfoModel> GetByCategoryId(int categoryId);
         List<AudioContentBasicInfoModel> GetByPlaylistId(int playlistId);
         List<AudioContentBasicInfoModel> GetAll();

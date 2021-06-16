@@ -7,6 +7,6 @@ namespace AdapterInterface
     public interface IBonusLogicAdapter
     {
         List<BonusBasicInfoModel> GetAll();
-        void Update(BonusModel bonusModel);
+        void Update(int id, BonusModel bonusModel);
     }
 }

@@ -96,10 +96,10 @@ namespace WebApi.Controllers
         /// <response code="404">NotFound. There is no psychologist registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
-        [HttpPut]
-        public IActionResult Put([FromBody] PsychologistModel psychologistModel)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] PsychologistModel psychologistModel)
         {
-            psychologistDomainToModelAdapter.Update(psychologistModel);
+            psychologistDomainToModelAdapter.Update(id, psychologistModel);
             return NoContent();
         }
 

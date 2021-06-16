@@ -157,17 +157,18 @@ namespace BusinessLogic
             PlayableContent playableContentToDelete = GetById(playableContentId);
             playableContentRepository.Delete(playableContentToDelete);
         }
-        public void Update(PlayableContent playableContent)
+        public void Update(int id, PlayableContent playableContent)
         {
-            if (!playableContentRepository.Exists(a => a.Id == playableContent.Id))
+            if (!playableContentRepository.Exists(a => a.Id == id && a.PlayableContentTypeId == playableContent.PlayableContentTypeId))
             {
-                throw new NullObjectException("Audio content not exist for the given data");
+                throw new NullObjectException("Playable content not exist for the given data");
             }
             else
             {
                 ValidateExistPlaylistAndCategoryByPlayableContent(playableContent);
                 DeletePlayableContentRelations(playableContent);
                 CreatePlaylists(playableContent);
+                playableContent.Id = id;
                 playableContentRepository.Update(playableContent);
                 CreatePlayableContentCategory(playableContent.Categories);
                 CreatePlayableContentPlaylist(playableContent.Playlists);
@@ -184,7 +185,7 @@ namespace BusinessLogic
         }
         public List<PlayableContent> GetByCategoryId(int categoryId, int playableContentTypeId)
         {
-            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.PlayableContentTypeId == playableContentTypeId && 
+            List<PlayableContent> playableContents = playableContentRepository.GetAll(p => p.PlayableContentTypeId == playableContentTypeId &&
                 p.Categories.Any(pCategory => pCategory.CategoryId == categoryId));
             return playableContents;
         }

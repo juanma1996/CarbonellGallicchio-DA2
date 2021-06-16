@@ -9,7 +9,7 @@ namespace AdapterInterface
         VideoContentBasicInfoModel GetById(int videoContentId);
         VideoContentBasicInfoModel Add(VideoContentModel videoContentModel);
         void DeleteById(int videoContentId);
-        void Update(VideoContentModel videoContentModel);
+        void Update(int id, VideoContentModel videoContentModel);
         List<VideoContentBasicInfoModel> GetByCategoryId(int categoryId);
         List<VideoContentBasicInfoModel> GetByPlaylistId(int playlistId);
         List<VideoContentBasicInfoModel> GetAll();
