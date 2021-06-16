@@ -13,6 +13,7 @@ import { BonusesService } from 'src/app/services/bonus/bonus.service';
 export class BonusDashboardComponent implements OnInit {
   entries: number = 10;
   bonusForm: FormGroup;
+  selectedBonus;
   bonusData = [
     {
       id: 1, itemName: "15",
@@ -90,6 +91,7 @@ export class BonusDashboardComponent implements OnInit {
           response => {
             this.customToastr.setSuccess("The bonus has been aproved successfully")
             this.getPacients();
+            this.resetForm();
           },
           catchError => {
             this.customToastr.setError(catchError);
@@ -113,6 +115,12 @@ export class BonusDashboardComponent implements OnInit {
 
   bonusPercentSelect(item: any) {
     this.bonusForm.get('amount').setValue(this.transformToDecimal(item.itemName));
+  }
+
+  resetForm() {
+    this.showBonus = false;
+    this.bonusForm.reset();
+    this.selectedBonus = [];
   }
 
 }

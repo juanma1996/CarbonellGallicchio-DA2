@@ -69,8 +69,8 @@
                             !bonusForm.get('amount').valid
                             }">
                             <p class="description"> Bonus percentage</p>
-                            <angular2-multiselect [data]="bonusData" [ngModel]="" [ngModelOptions]="{standalone: true}"
-                                [settings]="{
+                            <angular2-multiselect [data]="bonusData" [ngModel]="selectedBonus"
+                                [ngModelOptions]="{standalone: true}" [settings]="{
                                     singleSelection: true,
                                     text: 'Bonus percentage',
                                     classes: 'selectpicker btn-danger',

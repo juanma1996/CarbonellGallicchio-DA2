@@ -12,7 +12,7 @@ import { ToastService } from 'src/app/common/toast.service';
 export class ContentImporterDashboardComponent implements OnInit {
   importerForm: FormGroup;
   imported: boolean = false;
-
+  selectedType;
   importerTypesData = [];
 
   constructor(
@@ -47,8 +47,8 @@ export class ContentImporterDashboardComponent implements OnInit {
       this.contentImporterService.add(this.importerForm.value)
         .subscribe(
           response => {
-            console.log(response)
             this.customToastr.setSuccess("The content was imported successfully");
+            this.resetForm();
           },
           catchError => {
             this.customToastr.setError(catchError);
@@ -80,5 +80,11 @@ export class ContentImporterDashboardComponent implements OnInit {
       }
       multiSelectData.push(data);
     }
+  }
+
+  resetForm() {
+    this.imported = false;
+    this.importerForm.reset();
+    this.selectedType = [];
   }
 }
