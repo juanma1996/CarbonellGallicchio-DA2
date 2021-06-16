@@ -13,6 +13,11 @@ export class BaseService {
     });
 
     protected handleError(error: HttpErrorResponse) {
-        return throwError(error.error);
+        if (error.status == 0) {
+            return throwError("Server problems, unexpected error");
+        }
+        else {
+            return throwError(error.error);
+        }
     }
 }
