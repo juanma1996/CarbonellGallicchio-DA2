@@ -64,7 +64,7 @@ export class EditAdministratorComponent implements OnInit {
   updateAdministrator = function () {
     this.administratorForm.submited = true;
     if (!this.editAdministratorForm.invalid) {
-      this.administratorService.update(this.editAdministratorForm.value)
+      this.administratorService.update(this.editAdministratorForm.value, this.administratorId)
         .subscribe(
           response => {
             this.customToastr.setSuccess("The administrator was successfully updated");

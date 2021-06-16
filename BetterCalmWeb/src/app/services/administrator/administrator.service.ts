@@ -39,9 +39,9 @@ export class AdministratorService extends BaseService {
         return httpRequest;
     }
 
-    update(body): Observable<AdministratorModel> {
+    update(body, id): Observable<AdministratorModel> {
         let options = { headers: this.headers };
-        var httpRequest = this.http.put<AdministratorModel>(this.uri, body, options)
+        var httpRequest = this.http.put<AdministratorModel>(this.uri + '/' + id, body, options)
             .pipe(catchError(this.handleError));
         return httpRequest;
     }

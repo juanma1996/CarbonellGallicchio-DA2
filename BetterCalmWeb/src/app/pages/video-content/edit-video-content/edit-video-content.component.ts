@@ -112,7 +112,7 @@ export class EditVideoContentComponent implements OnInit {
     this.playableContentForm.transformTime();
     this.playableContentForm.submited = true;
     if (!this.editVideoContentForm.invalid) {
-      this.videoContentService.update(this.editVideoContentForm.value)
+      this.videoContentService.update(this.editVideoContentForm.value, this.videoContentId)
         .subscribe(
           response => {
             this.customToastr.setSuccess("The video content was successfully updated");

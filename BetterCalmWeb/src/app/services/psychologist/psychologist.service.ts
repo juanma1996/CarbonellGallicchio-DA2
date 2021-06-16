@@ -36,9 +36,9 @@ export class PsychologistService extends BaseService {
         return httpRequest;
     }
 
-    update(body): Observable<PsychologistBasicInfo> {
+    update(body, id): Observable<PsychologistBasicInfo> {
         let options = { headers: this.headers };
-        var httpRequest = this.http.put<PsychologistBasicInfo>(this.uri, body, options)
+        var httpRequest = this.http.put<PsychologistBasicInfo>(this.uri + '/' + id, body, options)
             .pipe(catchError(this.handleError));
         return httpRequest;
     }

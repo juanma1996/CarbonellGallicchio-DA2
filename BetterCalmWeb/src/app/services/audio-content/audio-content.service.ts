@@ -44,9 +44,9 @@ export class AudioContentService extends BaseService {
             .pipe(catchError(this.handleError));
     }
 
-    update(body): Observable<any> {
+    update(body, id): Observable<any> {
         let options = { headers: this.headers };
-        var httpRequest = this.http.put<any>(this.uri, body, options)
+        var httpRequest = this.http.put<any>(this.uri + '/' + id, body, options)
             .pipe(catchError(this.handleError));
         return httpRequest;
     }

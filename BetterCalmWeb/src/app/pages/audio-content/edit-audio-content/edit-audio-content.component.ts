@@ -116,7 +116,7 @@ export class EditAudioContentComponent implements OnInit {
     this.playableContentForm.transformTime();
     this.playableContentForm.submited = true;
     if (!this.editAudioContentForm.invalid) {
-      this.audioContentService.update(this.editAudioContentForm.value)
+      this.audioContentService.update(this.editAudioContentForm.value, this.audioContentId)
         .subscribe(
           response => {
             this.customToastr.setSuccess("The audio content was successfully updated");

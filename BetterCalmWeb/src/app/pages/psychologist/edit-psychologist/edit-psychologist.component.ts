@@ -104,7 +104,7 @@ export class EditPsychologistComponent implements OnInit {
   editPsychologist() {
     this.psychologistForm.submited = true;
     if (!this.editPsychologistForm.invalid) {
-      this.psychologistService.update(this.editPsychologistForm.value)
+      this.psychologistService.update(this.editPsychologistForm.value, this.psychologistId)
         .subscribe(
           response => {
             this.customToastr.setSuccess("The psychologist was successfully updated");
