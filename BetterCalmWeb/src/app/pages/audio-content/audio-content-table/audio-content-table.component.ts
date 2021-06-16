@@ -34,7 +34,6 @@ export class AudioContentTableComponent implements OnInit {
   }
 
   delete(id) {
-    console.log("id " + id);
     this.audioContentService.delete(id)
       .subscribe(
         response => {

@@ -30,7 +30,6 @@ export class EditAdministratorDashboardComponent implements OnInit {
     this.administratorService.get()
       .subscribe(
         response => {
-          console.log(response);
           this.administrators = response;
         },
         catchError => {

@@ -72,7 +72,6 @@ export class ConsultationDashboardComponent implements OnInit {
       this.consultationService.add(this.consultationForm.value)
         .subscribe(
           response => {
-            console.log(response)
             this.scheduledConsultation = response;
             this.customToastr.setSuccess("The consultation was successfully scheduled");
             this.resetForm();

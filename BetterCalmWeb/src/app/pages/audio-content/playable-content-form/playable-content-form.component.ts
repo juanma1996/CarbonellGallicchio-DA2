@@ -37,7 +37,6 @@ export class PlayableContentFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.selectedCategory)
     this.getCategories();
     this.getAllPlaylists();
     this.initializePlayableContentContentForm();
