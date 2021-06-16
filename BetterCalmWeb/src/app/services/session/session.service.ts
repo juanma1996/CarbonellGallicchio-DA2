@@ -51,6 +51,7 @@ export class SessionService extends BaseService {
         return this.token;
     }
     isAuthenticated(): boolean {
+        this.readToken();
         return this.token.length > 2;
     }
 }

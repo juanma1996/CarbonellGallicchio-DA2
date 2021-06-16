@@ -163,11 +163,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('name');
-    localStorage.removeItem('email');
-    this.refreshPage();
-    this.router.navigateByUrl('categories/audioContents')
+    localStorage.clear();
+    this.router.navigateByUrl('categories/audioContents');
   }
-  refreshPage() { window.location.reload(); }
 }
