@@ -33,6 +33,11 @@ const routes: Routes = [
         loadChildren:
           "./pages/bonus/bonus.module#BonusModule"
       },
+      {
+        path: "contentImporter",
+        loadChildren:
+          "./pages/content-importer/content-importer.module#ContentImporterModule"
+      }
     ]
   },
   {
@@ -63,11 +68,6 @@ const routes: Routes = [
         path: "consultation",
         loadChildren:
           "./pages/consultation/consultation.module#ConsultationModule"
-      },
-      {
-        path: "contentImporter",
-        loadChildren:
-          "./pages/content-importer/content-importer.module#ContentImporterModule"
       },
     ]
   },

@@ -20,10 +20,7 @@ export class ContentImporterService extends BaseService {
     }
 
     add(body) {
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-        });
-        let options = { headers: headers };
+        let options = { headers: this.headers };
         var httpRequest = this.http.post(this.uri, body, options)
             .pipe(catchError(this.handleError));
         return httpRequest;

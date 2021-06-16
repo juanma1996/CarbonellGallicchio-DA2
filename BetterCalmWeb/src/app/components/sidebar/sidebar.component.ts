@@ -43,12 +43,6 @@ export const ROUTES: RouteInfo[] = [
     icontype: "tim-icons icon-calendar-60",
   },
   {
-    path: "/contentImporter",
-    title: "Content importer",
-    type: "link",
-    icontype: "tim-icons icon-cloud-upload-94",
-  },
-  {
     path: "/categories",
     title: "Content by category",
     type: "sub",
@@ -143,6 +137,12 @@ export const ROUTES: RouteInfo[] = [
         smallTitle: "C"
       },
     ]
+  },
+  {
+    path: "/contentImporter",
+    title: "Content importer",
+    type: "link",
+    icontype: "tim-icons icon-cloud-upload-94",
   },
   {
     path: "/bonus",
