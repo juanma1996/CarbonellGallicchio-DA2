@@ -22,7 +22,7 @@
                                         lazyLoading: true,
                                         maxHeight: 100
                                     }" name="problematicConsultation" (onSelect)="problematicSelect($event)"
-                                        (onDeSelect)="problematicDeSelect($event)">
+                                        (onDeSelect)="problematicDeSelect()">
                                     </angular2-multiselect>
                                     <label class="error" *ngIf="!consultationForm.get('problematicId').valid">Please
                                         select

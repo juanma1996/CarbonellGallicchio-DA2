@@ -80,7 +80,7 @@
                             classes: 'selectpicker btn-danger',
                             lazyLoading: true,
                             maxHeight: 100
-                        }" name="psychologistFee" (onSelect)="feeSelect($event)" (onDeSelect)="feeDeSelect($event)">
+                        }" name="psychologistFee" (onSelect)="feeSelect($event)" (onDeSelect)="feeDeSelect()">
                 </angular2-multiselect>
                 <label class="error" *ngIf="!psychologistForm.get('fee').valid">
                     Please select the fee.</label>
