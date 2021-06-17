@@ -29,7 +29,7 @@ export class ContentImporterDashboardComponent implements OnInit {
           this.mapData(response, this.importerTypesData);
         },
         catchError => {
-          this.customToastr.setError(catchError.error)
+          this.customToastr.setError(catchError)
         }
       )
   }

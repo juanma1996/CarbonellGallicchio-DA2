@@ -15,8 +15,10 @@ export class ContentImporterService extends BaseService {
     }
 
     get(): Observable<[string]> {
-        return this.http.get<[string]>(this.uri)
+        let options = { headers: this.headers };
+        var httpRequest = this.http.get<[string]>(this.uri, options)
             .pipe(catchError(this.handleError));
+        return httpRequest;
     }
 
     add(body) {

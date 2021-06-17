@@ -64,7 +64,11 @@ export class PlayableContentFormComponent implements OnInit {
     this.playlistsService.get()
       .subscribe(
         response => {
-          this.mapData(response, this.playlistsData);
+          if (response.length < 0) {
+            this.customToastr.setError("There are no playlist created for selection.")
+          } else {
+            this.mapData(response, this.playlistsData);
+          }
         },
         catchError => {
           this.customToastr.setError(catchError);
