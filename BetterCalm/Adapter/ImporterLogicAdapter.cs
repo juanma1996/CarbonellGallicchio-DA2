@@ -18,18 +18,30 @@ namespace Adapter
             this.importerLogic = importerLogic;
         }
 
+        private void ThrowInvalidRouteForImplementationsException()
+        {
+            throw new InvalidRouteForImplementationsException("Invalid route for implementations");
+        }
+
+        private void ThrowInvalidRouteForFileException()
+        {
+            throw new InvalidRouteForImplementationsException("Invalid route for implementations");
+        }
+
         public List<string> GetAll()
         {
+            List<string> importers = null;
             try
             {
-                List<string> importers = importerLogic.GetAll();
-
-                return importers;
+                importers = importerLogic.GetAll();
             }
             catch (DirectoryNotFoundException)
             {
-                throw new InvalidRouteForImplementationsException("Invalid route for implementations");
+                ThrowInvalidRouteForImplementationsException();
             }
+
+            return importers;
+
         }
 
         public void ImportWithKnownInterface(ImportModel importModel)
@@ -44,11 +56,11 @@ namespace Adapter
             }
             catch (TypeLoadException)
             {
-                throw new InvalidRouteForFileException("Invalid route for file");
+                ThrowInvalidRouteForFileException();
             }
             catch (DirectoryNotFoundException)
             {
-                throw new InvalidRouteForImplementationsException("Invalid route for implementations");
+                ThrowInvalidRouteForImplementationsException();
             }
         }
     }
