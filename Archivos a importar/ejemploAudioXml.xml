@@ -1,4 +1,4 @@
-<contentImporterModel xmlns:json='http://james.newtonking.com/projects/json'>
+<contentImporterModel xmlns:json='false'>
    <url>audioUrl</url>
    <categories json:Array='true'>
 			<categoryId>1</categoryId>
@@ -11,7 +11,8 @@
    <playlists json:Array='true'>
 		<playlist>
             <description>Descripcion</description>
-            <name>Nombre</name>
-         </playlist>
+            <name>Audios Xml</name>
+      </playlist>
    </playlists>
 </contentImporterModel>
+

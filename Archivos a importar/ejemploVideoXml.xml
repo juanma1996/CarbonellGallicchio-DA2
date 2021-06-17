@@ -1,4 +1,4 @@
-<contentImporterModel xmlns:json='http://james.newtonking.com/projects/json'>
+<contentImporterModel xmlns:json='false'>
    <url>youtube.com/Video</url>
    <categories json:Array='true'>
 	<categoryId>2</categoryId>
@@ -15,3 +15,4 @@
          </playlist>
    </playlists>
 </contentImporterModel>
+

@@ -1,24 +1,21 @@
 {
-  "name": "Un nombre",
-  "duration": "00:02:50",
-  "creatorName": "El creador",
-  "imageUrl": "imageUrl",
-  "url": "audioUrl",
-  "categories":
-			[
-				{
-					"categoryId":  1
-				}
-			],
-  "playlists": 
-			[
-				{
-					"playlist": 
-						{
-						  "description": "sdda",
-						  "name": "dsaasd"
-						}
-				}
-			],
+	"name": "Un nombre",
+	"duration": "00:02:50",
+	"creatorName": "El creador",
+	"imageUrl": "imageUrl",
+	"url": "audioUrl",
+	"categories": [
+		{
+			"categoryId": 1
+		}
+	],
+	"playlists": [
+		{
+			"playlist": {
+				"description": "Descripcion",
+				"name": "Audios json"
+			}
+		}
+	],
 	"playableContentTypeId": 1
 }

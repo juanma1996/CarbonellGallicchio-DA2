@@ -1,24 +1,21 @@
 {
-  "name": "Un video json",
-  "duration": "00:02:50",
-  "creatorName": "El creador",
-  "imageUrl": "",
-  "url": "youtube.com/videoJson",
-  "categories":
-			[
-				{
-					"categoryId":  1
-				}
-			],
-  "playlists": 
-			[
-				{
-					"playlist": 
-						{
-						  "description": "Descripcion",
-						  "name": "Videos json"
-						}
-				}
-			],
+	"name": "Un video json",
+	"duration": "00:02:50",
+	"creatorName": "El creador",
+	"imageUrl": "",
+	"url": "youtube.com/videoJson",
+	"categories": [
+		{
+			"categoryId": 1
+		}
+	],
+	"playlists": [
+		{
+			"playlist": {
+				"description": "Descripcion",
+				"name": "Videos json"
+			}
+		}
+	],
 	"playableContentTypeId": 2
 }
