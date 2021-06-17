@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:WebApi.Controllers.AdministratorController.Get(System.Int32)">
+            <summary>
+            Obtains the information of an administrator by the id given.
+            </summary>
+            <remarks>
+            Obtains an administrator by the id given. An administrator token is required.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="404">NotFound. There is no administrator registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AdministratorController.Post(Model.In.AdministratorModel)">
+            <summary>
+            Creates an administrator.
+            </summary>
+            <remarks>
+            Creates the administrator with the information send in the body. An administrator token is required.
+            </remarks>
+            <response code="201">Created.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="400">Error. There is an administrator registered for the given data.</response>
+            <response code="400">Error. The administrator's name can't be empty.</response>
+            <response code="400">Error. The administrator's email can't be empty.</response>
+            <response code="400">Error. The administrator's password can't be empty.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AdministratorController.Delete(System.Int32)">
+            <summary>
+            Deletes an administrator.
+            </summary>
+            <remarks>
+            Deletes the administrator with the id given. An administrator token is required.
+            </remarks>
+            <response code="204">No content.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="404">NotFound. There is no administrator registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AdministratorController.Put(System.Int32,Model.In.AdministratorModel)">
+            <summary>
+            Updates an administrator.
+            </summary>
+            <remarks>
+            Updates an administrator with the information send in the body. An administrator token is required.
+            </remarks>
+            <response code="204">No content.</response>
+            <response code="400">Error. The administrator's name can't be empty.</response>
+            <response code="400">Error. The administrator's email can't be empty.</response>
+            <response code="400">Error. The administrator's password can't be empty.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="404">NotFound. There is no administrator registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AdministratorController.Get">
+            <summary>
+            Obtains the information of all existing administrators.
+            </summary>
+            <remarks>
+            Obtains the information of all existing administrators. An administrator token is required.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AudioContentController.Get(System.Int32)">
+            <summary>
+            Obtains the information of an audio content by the id given.
+            </summary>
+            <remarks>
+            Obtains an audio content related by the id given.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="404">NotFound. Audio content not exist for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AudioContentController.Post(Model.In.AudioContentModel)">
+            <summary>
+            Creates an audio content.
+            </summary>
+            <remarks>
+            Creates the audio content send in the body. An administrator token is required.
+            </remarks>
+            <response code="201">Created.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="400">Error. The audio content name can't be empty.</response>
+            <response code="400">Error. The audio content must contain a playlist.</response>
+            <response code="400">Error. The audio content must contain a category.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AudioContentController.Delete(System.Int32)">
+            <summary>
+            Deletes an audio content.
+            </summary>
+            <remarks>
+            Deletes the audio content with the id given. An administrator token is required.
+            </remarks>
+            <response code="204">No content.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="404">NotFound. Audio content not exist for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AudioContentController.Put(System.Int32,Model.In.AudioContentModel)">
+            <summary>
+            Updates an audio content.
+            </summary>
+            <remarks>
+            Updates the audio content with the content send in the body. An administrator token is required.
+            </remarks>
+            <response code="204">No content.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="400">Error. The audio content name can't be empty.</response>
+            <response code="400">Error. The audio content must contain a playlist.</response>
+            <response code="400">Error. The audio content must contain a category.</response>
+            <response code="404">NotFound. There is no audio content registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AudioContentController.GetAudioContentByCategory(System.Int32)">
+            <summary>
+            Obtains all existing audio contents for a given category.
+            </summary>
+            <remarks>
+            Obtains all existing audio contents for a given category. An existing category id is required.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="404">NotFound. There is no category registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AudioContentController.GetAudioContentByPlaylist(System.Int32)">
+            <summary>
+            Obtains all existing audio contents for a given playlist.
+            </summary>
+            <remarks>
+            Obtains all existing audio contents for a given playlist. An existing playlist id is required.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="404">NotFound. There is no playlist registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.AudioContentController.Get">
+            <summary>
+            Obtains the information of all existing audio contents.
+            </summary>
+            <remarks>
+            Obtains the information of all existing audio contents.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.BonusController.Get">
+            <summary>
+            Obtains the information of all existing pacient with generated bonus.
+            </summary>
+            <remarks>
+            Obtains the information of all existing pacient with generated bonus. An administrator token is required.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.BonusController.Update(System.Int32,Model.In.BonusModel)">
+            <summary>
+            Updates an generated bonus for a pacient.
+            </summary>
+            <remarks>
+            Updates an generated bonus for a pacient send in the body. An administrator token is required.
+            </remarks>
+            <response code="204">No content.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="400">Error. The bonus amount value is invalid.</response>
+            <response code="404">NotFound. There is no pacient registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.ConsultationController.Post(Model.In.ConsultationModel)">
+            <summary>
+            Creates a consultation with a psychologist.
+            </summary>
+            <remarks>
+            Creates a consultation with a psychologist. It will return the information of the psychologist and the direction or the link if it's virtual.
+            </remarks>
+            <response code="201">Created. Returns the information of the psychologist and the direction or the link if it's virtual</response>
+            <response code="404">Not found. There is no psychologist registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.ImporterController.Post(Model.In.ImportModel)">
+            <summary>
+            Creates an administrator.
+            </summary>
+            <remarks>
+            Creates the administrator with the information send in the body. An administrator token is required.
+            </remarks>
+            <response code="201">Created.</response>
+            <response code="400">Error. The configurated path is not valid.</response>
+            <response code="400">Error. The given path is not valid.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.ImporterController.Get">
+            <summary>
+            Obtains the information of all avaible importers by the configurated path.
+            </summary>
+            <remarks>
+            Obtains the information of all avaible importers by the configurated path. An administrator token is required.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="400">Error. The configurated path is not valid.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.PlaylistController.Get">
+            <summary>
+            Obtains all the playlists.
+            </summary>
+            <remarks>
+            Obtains all the information of the playlists on the system.
+            </remarks>
+            <response code="200">Success. Returns the list of playlists.</response>  
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.ProblematicController.Get">
+            <summary>
+            Obtains all the problematics.
+            </summary>
+            <remarks>
+            Obtains all the information of the problematics on the system.
+            </remarks>
+            <response code="200">Success. Returns the list of problematics.</response>  
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.PsychologistController.Get(System.Int32)">
+            <summary>
+            Obtains the information of a psychologist by the id given.
+            </summary>
+            <remarks>
+            Obtains the information of a psychologist by the id give.
+            </remarks>
+            <response code="200">Success. Returns the psychologist information.</response>  
+            <response code="404">NotFound. There is no psychologist registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.PsychologistController.Post(Model.In.PsychologistModel)">
+            <summary>
+            Creates a psychologist.
+            </summary>
+            <remarks>
+            Creates the psychologist with the information send in the body. An administrator token is required.
+            </remarks>
+            <response code="201">Created. Returns the psychologist created.</response>
+            <response code="400">Error. The psychologist's name can't be empty.</response>
+            <response code="400">Error. The psychologist's consultation mode can't be empty.</response>
+            <response code="400">Error. The psychologist's direction can't be empty.</response>
+            <response code="400">Error. The psychologist's problematics can't be zero.</response>
+            <response code="400">Error. The psychologist's consultation mode must be 'Virtual' or 'Presencial.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.PsychologistController.Delete(System.Int32)">
+            <summary>
+            Deletes a psychologist.
+            </summary>
+            <remarks>
+            Deletes the psychologist with the id given. An administrator token is required.
+            </remarks>
+            <response code="204">No content.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="404">NotFound. There is no psychologist registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.PsychologistController.Put(System.Int32,Model.In.PsychologistModel)">
+            <summary>
+            Updates a psychologist.
+            </summary>
+            <remarks>
+            Updates a psychologist with the information send in the body. An administrator token is required.
+            </remarks>
+            <response code="204">No content.</response>
+            <response code="400">Error. The psychologist's name can't be empty.</response>
+            <response code="400">Error. The psychologist's consultation mode can't be empty.</response>
+            <response code="400">Error. The psychologist's direction can't be empty.</response>
+            <response code="400">Error. The psychologist's problematics can't be zero.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="404">NotFound. There is no psychologist registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.PsychologistController.Get">
+            <summary>
+            Obtains the information of all existing psychologists.
+            </summary>
+            <remarks>
+            Obtains the information of all existing psychologists.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.SessionController.Post(Model.In.SessionModel)">
+            <summary>
+            Creates an administrator apikey token.
+            </summary>
+            <remarks>
+            Creates an administrator apikey token from administrator user credentials.
+            </remarks>
+            <response code="201">Created.</response>
+            <response code="400">Error. The email can't be empty.</response>
+            <response code="400">Error. The password can't be empty.</response>
+            <response code="404">Not Found. There is no administrator registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.VideoContentController.Get(System.Int32)">
+            <summary>
+            Obtains the information of an video content by the id given.
+            </summary>
+            <remarks>
+            Obtains an video content related by the id given.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="404">NotFound. Video content not exist for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.VideoContentController.Post(Model.In.VideoContentModel)">
+            <summary>
+            Creates an video content.
+            </summary>
+            <remarks>
+            Creates the video content send in the body. An administrator token is required.
+            </remarks>
+            <response code="201">Created.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="400">Error. The video content name can't be empty.</response>
+            <response code="400">Error. The video content must contain a playlist.</response>
+            <response code="400">Error. The video content must contain a category.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.VideoContentController.Delete(System.Int32)">
+            <summary>
+            Deletes an video content.
+            </summary>
+            <remarks>
+            Deletes the video content with the id given. An administrator token is required.
+            </remarks>
+            <response code="204">No content.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="404">NotFound. Video content not exist for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.VideoContentController.Put(System.Int32,Model.In.VideoContentModel)">
+            <summary>
+            Updates an video content.
+            </summary>
+            <remarks>
+            Updates the video content with the content send in the body. An administrator token is required.
+            </remarks>
+            <response code="204">No content.</response>
+            <response code="401">Unauthorized. Must contain a token to access Api.</response>
+            <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+            <response code="400">Error. The video content name can't be empty.</response>
+            <response code="400">Error. The video content must contain a playlist.</response>
+            <response code="400">Error. The video content must contain a category.</response>
+            <response code="404">NotFound. There is no video registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.VideoContentController.GetVideoContentByCategory(System.Int32)">
+            <summary>
+            Obtains all existing video contents for a given category.
+            </summary>
+            <remarks>
+            Obtains all existing video contents for a given category. An existing category id is required.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="404">NotFound. There is no category registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.VideoContentController.GetVideoContentByPlaylist(System.Int32)">
+            <summary>
+            Obtains all existing video contents for a given playlist.
+            </summary>
+            <remarks>
+            Obtains all existing video contents for a given playlist. An existing playlist id is required.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="404">NotFound. There is no playlist registered for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:WebApi.Controllers.VideoContentController.Get">
+            <summary>
+            Obtains the information of all existing video contents.
+            </summary>
+            <remarks>
+            Obtains the information of all existing video contents.
+            </remarks>
+            <response code="200">Success. Returns the requested object.</response>  
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:BetterCalm.WebApi.Controllers.CategoryController.Get">
+            <summary>
+            Obtains all the categories.
+            </summary>
+            <remarks>
+            Obtains all the information of the categories on the system.
+            </remarks>
+            <response code="200">Success. Returns the list of categories.</response>  
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+        <member name="M:BetterCalm.WebApi.Controllers.CategoryController.GetPlaylistByCategory(System.Int32)">
+            <summary>
+            Obtains all the playlists related to a category.
+            </summary>
+            <remarks>
+            Obtains all the playlist related to a category.
+            </remarks>
+            <response code="200">Success. Returns the list of playlists.</response>  
+            <response code="404">NotFound. Playlist not exist for the given data.</response>
+            <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        </member>
+    </members>
+</doc>
