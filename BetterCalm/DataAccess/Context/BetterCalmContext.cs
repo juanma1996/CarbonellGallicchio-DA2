@@ -55,7 +55,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Category>().HasMany(s => s.PlayableContents);
             modelBuilder.Entity<Category>().HasData(new Category() { Id = 1, Name = "Dormir" });
             modelBuilder.Entity<Category>().HasData(new Category() { Id = 2, Name = "Meditar" });
-            modelBuilder.Entity<Category>().HasData(new Category() { Id = 3, Name = "Música" });
+            modelBuilder.Entity<Category>().HasData(new Category() { Id = 3, Name = "Musica" });
             modelBuilder.Entity<Category>().HasData(new Category() { Id = 4, Name = "Cuerpo" });
 
             modelBuilder.Entity<Playlist>().ToTable("Playlists");
