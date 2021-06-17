@@ -18,7 +18,7 @@ namespace JsonContentImporter
             string file = File.ReadAllText(filePath);
             var serializerOptions = new JsonSerializerOptions
             {
-                Converters = { new TimeSpanConverter() },
+                Converters = { new JsonConverter() },
                 PropertyNameCaseInsensitive = true
             };
             ContentImporterModel exampleJson = JsonSerializer.Deserialize<ContentImporterModel>(file, serializerOptions);
