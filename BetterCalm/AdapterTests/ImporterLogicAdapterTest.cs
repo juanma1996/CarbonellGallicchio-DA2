@@ -1,9 +1,9 @@
 ﻿using Adapter;
+using AdapterExceptions;
 using ImporterLogicInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,5 +48,22 @@ namespace AdapterTests
             Assert.AreEqual(importersToReturn.First(), importers.First());
             Assert.AreEqual(importersToReturn.Last(), importers.Last());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidRouteForFileException))]
+        public void TestAddImportingInvalidRouteForFile()
+        {
+            List<string> importersToReturn = new List<string>()
+            {
+                "Json", "Xml"
+            };
+            Mock<IImporterLogic> mock = new Mock<IImporterLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll()).Throws(new System.TypeLoadException());
+            ImporterLogicAdapter importerLogicAdapter = new ImporterLogicAdapter(mock.Object);
+
+            List<string> importers = importerLogicAdapter.GetAll();
+        }
+
+        
     }
 }

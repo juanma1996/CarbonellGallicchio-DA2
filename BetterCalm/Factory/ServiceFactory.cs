@@ -68,6 +68,7 @@ namespace Factory
             services.AddScoped<IValidator<Pacient>, PacientValidator>();
             services.AddScoped<IPlaylistLogicAdapter, PlaylistLogicAdapter>();
             services.AddScoped<IPlaylistLogic, PlaylistLogic>();
+            services.AddScoped<IImporterLogicAdapter, ImporterLogicAdapter>();
         }
         public void AddDbContextService()
         {
