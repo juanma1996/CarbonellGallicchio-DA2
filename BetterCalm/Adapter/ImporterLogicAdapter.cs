@@ -5,6 +5,7 @@ using ImporterLogicInterface;
 using Model.In;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Adapter
 {
@@ -37,6 +38,10 @@ namespace Adapter
             catch (TypeLoadException)
             {
                 throw new InvalidRouteForFileException("Invalid route for file");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                throw new InvalidRouteForImplementationsException("Invalid route for implementations");
             }
         }
     }
