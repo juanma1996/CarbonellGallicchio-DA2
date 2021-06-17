@@ -95,7 +95,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PlayableContent>())).Throws(new NullObjectException("Not exist video content"));
+            mock.Setup(m => m.Update(videoContentId, It.IsAny<PlayableContent>())).Throws(new NullObjectException("Not exist video content"));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
@@ -104,7 +104,7 @@ namespace AdapterTests
             VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
                 mockValidator.Object, mockPlaylistModelValidator.Object);
 
-            videoContentLogicAdapter.Update(videoContentModel);
+            videoContentLogicAdapter.Update(videoContentId, videoContentModel);
 
             mock.VerifyAll();
         }
@@ -179,7 +179,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
+            mock.Setup(m => m.Update(videoContentId, It.IsAny<PlayableContent>()));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>())).Throws(new InvalidAttributeException("Name can't be empty"));
@@ -188,7 +188,7 @@ namespace AdapterTests
             VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
                 mockValidator.Object, mockPlaylistModelValidator.Object);
 
-            videoContentLogicAdapter.Update(videoContentModel);
+            videoContentLogicAdapter.Update(videoContentId, videoContentModel);
 
             mock.VerifyAll();
         }
@@ -263,7 +263,7 @@ namespace AdapterTests
                 }
             };
             Mock<IPlayableContentLogic> mock = new Mock<IPlayableContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
+            mock.Setup(m => m.Update(videoContentId, It.IsAny<PlayableContent>()));
             ModelMapper mapper = new ModelMapper();
             Mock<IValidator<VideoContentModel>> mockValidator = new Mock<IValidator<VideoContentModel>>(MockBehavior.Strict);
             mockValidator.Setup(m => m.Validate(It.IsAny<VideoContentModel>()));
@@ -272,7 +272,7 @@ namespace AdapterTests
             VideoContentLogicAdapter videoContentLogicAdapter = new VideoContentLogicAdapter(mock.Object, mapper,
                 mockValidator.Object, mockPlaylistModelValidator.Object);
 
-            videoContentLogicAdapter.Update(videoContentModel);
+            videoContentLogicAdapter.Update(videoContentId, videoContentModel);
 
             mock.VerifyAll();
         }

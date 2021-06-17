@@ -160,6 +160,7 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdateAdministratorOk()
         {
+            int adminId = 1;
             AdministratorModel administratorModel = new AdministratorModel
             {
                 Id = 1,
@@ -168,10 +169,10 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>()));
+            mock.Setup(m => m.Update(adminId, It.IsAny<AdministratorModel>()));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var response = controller.Put(administratorModel);
+            var response = controller.Put(adminId, administratorModel);
             StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -182,6 +183,7 @@ namespace WebApiTests
         [ExpectedException(typeof(NotFoundException))]
         public void TestUpdateAdministratorNotFound()
         {
+            int adminId = 1;
             AdministratorModel administratorModel = new AdministratorModel
             {
                 Id = 1,
@@ -190,16 +192,17 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new NotFoundException("The Administrator doesn't exists"));
+            mock.Setup(m => m.Update(adminId, It.IsAny<AdministratorModel>())).Throws(new NotFoundException("The Administrator doesn't exists"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var response = controller.Put(administratorModel);
+            var response = controller.Put(adminId, administratorModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdateAdministratorInvalidName()
         {
+            int adminId = 1;
             AdministratorModel administratorModel = new AdministratorModel
             {
                 Name = "",
@@ -207,16 +210,17 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid name"));
+            mock.Setup(m => m.Update(adminId, It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid name"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var result = controller.Put(administratorModel);
+            var result = controller.Put(adminId, administratorModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdateAdministratorInvalidEmail()
         {
+            int adminId = 1;
             AdministratorModel administratorModel = new AdministratorModel
             {
                 Name = "Juan",
@@ -224,16 +228,17 @@ namespace WebApiTests
                 Password = "Password01",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid Email"));
+            mock.Setup(m => m.Update(adminId, It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid Email"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var result = controller.Put(administratorModel);
+            var result = controller.Put(adminId, administratorModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdateAdministratorInvalidPassword()
         {
+            int adminId = 1;
             AdministratorModel administratorModel = new AdministratorModel
             {
                 Name = "Juan",
@@ -241,10 +246,10 @@ namespace WebApiTests
                 Password = "",
             };
             Mock<IAdministratorLogicAdapter> mock = new Mock<IAdministratorLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid password"));
+            mock.Setup(m => m.Update(adminId, It.IsAny<AdministratorModel>())).Throws(new InvalidAttributeException("Invalid password"));
             AdministratorController controller = new AdministratorController(mock.Object);
 
-            var result = controller.Put(administratorModel);
+            var result = controller.Put(adminId, administratorModel);
         }
 
         [TestMethod]

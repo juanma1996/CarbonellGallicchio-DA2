@@ -63,7 +63,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterInterface", "Import
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonContentImporter", "JsonContentImporter\JsonContentImporter.csproj", "{CD92962E-062A-4D9F-9BDF-F1F2F09B8184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlContentImporter", "XmlContentImporter\XmlContentImporter.csproj", "{9EA23C7F-C98C-4167-BB1E-6C94C21ED345}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XmlContentImporter", "XmlContentImporter\XmlContentImporter.csproj", "{0907B4D3-B0ED-4499-A2E7-7A77BD1B4C56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

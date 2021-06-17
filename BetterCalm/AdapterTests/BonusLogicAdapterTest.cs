@@ -57,6 +57,7 @@ namespace AdapterTests
         [TestMethod]
         public void TestApproveBonusOk()
         {
+            int pacientId = 1;
             BonusModel bonusModel = new BonusModel()
             {
                 PacientId = 1,
@@ -70,7 +71,7 @@ namespace AdapterTests
             mockValidator.Setup(m => m.Validate(bonusModel));
             BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
-            bonusLogicAdapter.Update(bonusModel);
+            bonusLogicAdapter.Update(pacientId, bonusModel);
 
             mock.VerifyAll();
         }
@@ -78,6 +79,7 @@ namespace AdapterTests
         [TestMethod]
         public void TestDenyBonusOk()
         {
+            int pacientId = 1;
             BonusModel bonusModel = new BonusModel()
             {
                 PacientId = 1,
@@ -91,7 +93,7 @@ namespace AdapterTests
             mockValidator.Setup(m => m.Validate(bonusModel));
             BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
-            bonusLogicAdapter.Update(bonusModel);
+            bonusLogicAdapter.Update(pacientId, bonusModel);
 
             mock.VerifyAll();
         }
@@ -100,6 +102,7 @@ namespace AdapterTests
         [ExpectedException(typeof(NotFoundException))]
         public void TestApproveBonusNotExistPacientId()
         {
+            int pacientId = 1;
             BonusModel bonusModel = new BonusModel()
             {
                 PacientId = 1,
@@ -113,13 +116,14 @@ namespace AdapterTests
             mockValidator.Setup(m => m.Validate(bonusModel));
             BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
-            bonusLogicAdapter.Update(bonusModel);
+            bonusLogicAdapter.Update(pacientId, bonusModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestApproveBonusInvalidAmount()
         {
+            int pacientId = 1;
             BonusModel bonusModel = new BonusModel()
             {
                 PacientId = 1,
@@ -133,13 +137,14 @@ namespace AdapterTests
             ModelMapper mapper = new ModelMapper();
             BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
-            bonusLogicAdapter.Update(bonusModel);
+            bonusLogicAdapter.Update(pacientId, bonusModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(AdapterExceptions.NotGeneratedBonusException))]
         public void TestApproveBonusWithNotGeneratedBonus()
         {
+            int pacientId = 1;
             BonusModel bonusModel = new BonusModel()
             {
                 PacientId = 1,
@@ -154,7 +159,7 @@ namespace AdapterTests
             mockValidator.Setup(m => m.Validate(bonusModel));
             BonusLogicAdapter bonusLogicAdapter = new BonusLogicAdapter(mock.Object, mapper, mockValidator.Object);
 
-            bonusLogicAdapter.Update(bonusModel);
+            bonusLogicAdapter.Update(pacientId, bonusModel);
 
             mock.VerifyAll();
         }
