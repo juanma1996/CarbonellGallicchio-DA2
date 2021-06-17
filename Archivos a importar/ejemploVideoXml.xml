@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentImporterModel>
-   <Url>youtube.com/Video</Url>
-   <Categories>
-      <CategoryImporterModel>
-         <Id>2</Id>
-      </CategoryImporterModel>
-   </Categories>
-   <CreatorName>El creador</CreatorName>
-   <ImageUrl></ImageUrl>
-   <Name>Un video</Name>
-   <Playlists>
-      <PlaylistImporterModel>
-         <Description>Descripcion</Description>
-         <Name>Videos</Name>
-      </PlaylistImporterModel>
-   </Playlists>
-   <PlayableContentType>VideoContent</PlayableContentType>
-</ContentImporterModel>
+<contentImporterModel xmlns:json='http://james.newtonking.com/projects/json'>
+   <url>youtube.com/Video</url>
+   <categories json:Array='true'>
+	<categoryId>2</categoryId>
+   </categories>
+   <creatorName>El creador</creatorName>
+	<duration>00:07:30</duration>
+   <imageUrl></imageUrl>
+   <name>Un video</name>
+   <playableContentTypeId json:Type='Integer'>2</playableContentTypeId>
+   <playlists json:Array='true'>
+		<playlist>
+            <description>Descripcion</description>
+            <name>Videos</name>
+         </playlist>
+   </playlists>
+</contentImporterModel>

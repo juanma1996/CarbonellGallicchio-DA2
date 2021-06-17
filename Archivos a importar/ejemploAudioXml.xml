@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentImporterModel>
-   <Url>audioUrl</Url>
-   <Categories>
-      <CategoryImporterModel>
-         <Id>1</Id>
-      </CategoryImporterModel>
-   </Categories>
-   <CreatorName>El creador</CreatorName>
-   <ImageUrl>imageUrl</ImageUrl>
-   <Name>Un nombre</Name>
-   <Playlists>
-      <PlaylistImporterModel>
-         <Description>Descripcion</Description>
-         <Name>Nombre</Name>
-      </PlaylistImporterModel>
-   </Playlists>
-   <PlayableContentType>AudioContent</PlayableContentType>
-</ContentImporterModel>
+<contentImporterModel xmlns:json='http://james.newtonking.com/projects/json'>
+   <url>audioUrl</url>
+   <categories json:Array='true'>
+			<categoryId>1</categoryId>
+   </categories>
+   <creatorName>El creador</creatorName>
+	<duration>00:02:50</duration>
+   <imageUrl>imageUrl</imageUrl>
+   <name>Un nombre</name>
+   <playableContentTypeId json:Type='Integer'>1</playableContentTypeId>
+   <playlists json:Array='true'>
+		<playlist>
+            <description>Descripcion</description>
+            <name>Nombre</name>
+         </playlist>
+   </playlists>
+</contentImporterModel>
