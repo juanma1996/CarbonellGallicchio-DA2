@@ -41,7 +41,7 @@ namespace AdapterTests
             mock.Setup(m => m.GetAll()).Returns(importersToReturn);
             ImporterLogicAdapter importerLogicAdapter = new ImporterLogicAdapter(mock.Object);
 
-            List<string> importers =  importerLogicAdapter.GetAll();
+            List<string> importers = importerLogicAdapter.GetAll();
 
             mock.VerifyAll();
             Assert.AreEqual(importersToReturn.Count, importers.Count);
@@ -53,17 +53,18 @@ namespace AdapterTests
         [ExpectedException(typeof(InvalidRouteForFileException))]
         public void TestAddImportingInvalidRouteForFile()
         {
-            List<string> importersToReturn = new List<string>()
+            ImportModel importModel = new ImportModel()
             {
-                "Json", "Xml"
+                FilePath = "somePath",
+                ImporterType = "json"
             };
             Mock<IImporterLogic> mock = new Mock<IImporterLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetAll()).Throws(new System.TypeLoadException());
+            mock.Setup(m => m.ImportWithKnownInterface(It.IsAny<ImportModel>())).Throws(new System.TypeLoadException());
             ImporterLogicAdapter importerLogicAdapter = new ImporterLogicAdapter(mock.Object);
 
-            List<string> importers = importerLogicAdapter.GetAll();
+            importerLogicAdapter.ImportWithKnownInterface(importModel);
         }
 
-        
+
     }
 }

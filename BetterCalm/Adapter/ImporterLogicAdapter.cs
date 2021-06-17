@@ -3,6 +3,7 @@ using AdapterInterface;
 using BusinessExceptions;
 using ImporterLogicInterface;
 using Model.In;
+using System;
 using System.Collections.Generic;
 
 namespace Adapter
@@ -32,6 +33,10 @@ namespace Adapter
             catch (NullObjectException e)
             {
                 throw new NotFoundException(e.errorMessage);
+            }
+            catch (TypeLoadException)
+            {
+                throw new InvalidRouteForFileException("Invalid route for file");
             }
         }
     }
