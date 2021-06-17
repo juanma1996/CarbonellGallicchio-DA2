@@ -1,0 +1,20 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-12">
+            <div class=" card">
+                <div class=" card-header">
+                    <h2 class=" title">Video content categories</h2>
+                </div>
+                <div class=" card-body all-icons">
+                    <div class=" row">
+                        <div *ngFor="let data of categories" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6 ">
+                            <app-category-card [category]="data" [audio]="false"></app-category-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-video-content-list [videos]="videoContents" [title]="'All video contents'" (updateVideos)="getVideoContents()">
+    </app-video-content-list>
+</div>

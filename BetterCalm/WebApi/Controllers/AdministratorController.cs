@@ -3,6 +3,7 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -28,7 +29,7 @@ namespace WebApi.Controllers
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="404">NotFound. There is no administrator registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet("{id}", Name = "GetAdministrator")]
         public IActionResult Get(int id)
         {
@@ -51,7 +52,7 @@ namespace WebApi.Controllers
         /// <response code="400">Error. The administrator's password can't be empty.</response>
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost]
         public IActionResult Post([FromBody] AdministratorModel administratorModel)
         {
@@ -71,7 +72,7 @@ namespace WebApi.Controllers
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="404">NotFound. There is no administrator registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -94,12 +95,31 @@ namespace WebApi.Controllers
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="404">NotFound. There is no administrator registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
-        [HttpPut]
-        public IActionResult Put([FromBody]AdministratorModel administratorModel)
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] AdministratorModel administratorModel)
         {
-            administratorDomainToModelAdapter.Update(administratorModel);
+            administratorDomainToModelAdapter.Update(id, administratorModel);
             return NoContent();
+        }
+
+        // GET: 
+        /// <summary>
+        /// Obtains the information of all existing administrators.
+        /// </summary>
+        /// <remarks>
+        /// Obtains the information of all existing administrators. An administrator token is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="401">Unauthorized. Must contain a token to access Api.</response>
+        /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<AdministratorBasicInfoModel> administrators = administratorDomainToModelAdapter.GetAll();
+            return Ok(administrators);
         }
     }
 }

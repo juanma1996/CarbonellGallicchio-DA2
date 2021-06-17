@@ -38,7 +38,7 @@ namespace WebApiTests
             AuthorizationFilterContext actionExecutingContext = new AuthorizationFilterContext(
                 actionContext,
                 new Mock<IList<IFilterMetadata>>().Object);
-            AuthorizationAttributeFilter filter = new AuthorizationAttributeFilter(mockSessionLogic.Object);
+            AuthorizationFilter filter = new AuthorizationFilter(mockSessionLogic.Object);
 
             filter.OnAuthorization(actionExecutingContext);
 
@@ -64,7 +64,7 @@ namespace WebApiTests
             AuthorizationFilterContext actionExecutingContext = new AuthorizationFilterContext(
                 actionContext,
                 new Mock<IList<IFilterMetadata>>().Object);
-            AuthorizationAttributeFilter filter = new AuthorizationAttributeFilter(mockSessionLogic.Object);
+            AuthorizationFilter filter = new AuthorizationFilter(mockSessionLogic.Object);
 
             filter.OnAuthorization(actionExecutingContext);
             var result = actionExecutingContext.Result as ContentResult;
@@ -91,7 +91,7 @@ namespace WebApiTests
             AuthorizationFilterContext actionExecutingContext = new AuthorizationFilterContext(
                 actionContext,
                 new Mock<IList<IFilterMetadata>>().Object);
-            AuthorizationAttributeFilter filter = new AuthorizationAttributeFilter(mockSessionLogic.Object);
+            AuthorizationFilter filter = new AuthorizationFilter(mockSessionLogic.Object);
 
             filter.OnAuthorization(actionExecutingContext);
             var result = actionExecutingContext.Result as ContentResult;
@@ -209,5 +209,48 @@ namespace WebApiTests
             Assert.AreEqual(500, s.StatusCode);
         }
 
+        [TestMethod]
+        public void TestInvalidRouteForFileException()
+        {
+            var actionContext = new ActionContext()
+            {
+                HttpContext = new DefaultHttpContext(),
+                RouteData = new Microsoft.AspNetCore.Routing.RouteData(),
+                ActionDescriptor = new ActionDescriptor()
+            };
+            var mockException = new Mock<InvalidRouteForFileException>("Invalid Route For File Exception");
+            var exceptionContext = new ExceptionContext(actionContext, new List<IFilterMetadata>())
+            {
+                Exception = mockException.Object
+            };
+            var filter = new ExceptionFilter();
+
+            filter.OnException(exceptionContext);
+            var s = exceptionContext.Result as ContentResult;
+
+            Assert.AreEqual(400, s.StatusCode);
+        }
+
+        [TestMethod]
+        public void TestInvalidRouteForImplementationsException()
+        {
+            var actionContext = new ActionContext()
+            {
+                HttpContext = new DefaultHttpContext(),
+                RouteData = new Microsoft.AspNetCore.Routing.RouteData(),
+                ActionDescriptor = new ActionDescriptor()
+            };
+            var mockException = new Mock<InvalidRouteForImplementationsException>("Invalid Route For Implementations Exception");
+            var exceptionContext = new ExceptionContext(actionContext, new List<IFilterMetadata>())
+            {
+                Exception = mockException.Object
+            };
+            var filter = new ExceptionFilter();
+
+            filter.OnException(exceptionContext);
+            var s = exceptionContext.Result as ContentResult;
+
+            Assert.AreEqual(400, s.StatusCode);
+        }
     }
 }

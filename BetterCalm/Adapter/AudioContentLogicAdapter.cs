@@ -7,20 +7,22 @@ using BusinessLogicInterface;
 using Domain;
 using Model.In;
 using Model.Out;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace Adapter
 {
     public class AudioContentLogicAdapter : IAudioContentLogicAdapter
     {
-        private readonly IAudioContentLogic audioContentLogic;
+        private readonly int audioContentTypeId = 1;
+        private readonly IPlayableContentLogic playableContentLogic;
         private readonly IMapper mapper;
         private readonly IValidator<AudioContentModel> audioContentModelValidator;
         private readonly IValidator<PlaylistModel> playlistModelValidator;
-        public AudioContentLogicAdapter(IAudioContentLogic audioContentLogic, IModelMapper mapper,
+        public AudioContentLogicAdapter(IPlayableContentLogic playableContentLogic, IModelMapper mapper,
             IValidator<AudioContentModel> audioContentModelValidator, IValidator<PlaylistModel> playlistModelValidator)
         {
-            this.audioContentLogic = audioContentLogic;
+            this.playableContentLogic = playableContentLogic;
             this.mapper = mapper.Configure();
             this.audioContentModelValidator = audioContentModelValidator;
             this.playlistModelValidator = playlistModelValidator;
@@ -30,8 +32,9 @@ namespace Adapter
         {
             try
             {
-                AudioContent audioContent = audioContentLogic.GetById(audioContentId);
-                return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                PlayableContent audioContent = playableContentLogic.GetById(audioContentId);
+                AudioContentBasicInfoModel audioContentBasicInfoModel = mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                return audioContentBasicInfoModel;
             }
             catch (NullObjectException e)
             {
@@ -44,9 +47,11 @@ namespace Adapter
             audioContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
             try
             {
-                AudioContent audioContentIn = mapper.Map<AudioContent>(audioContentModel);
-                AudioContent audioContent = audioContentLogic.Create(audioContentIn);
-                return mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                PlayableContent audioContentIn = mapper.Map<PlayableContent>(audioContentModel);
+                audioContentIn.PlayableContentTypeId = audioContentTypeId;
+                PlayableContent audioContent = playableContentLogic.Create(audioContentIn);
+                AudioContentBasicInfoModel audioContentBasicInfoModel = mapper.Map<AudioContentBasicInfoModel>(audioContent);
+                return audioContentBasicInfoModel;
             }
             catch (NullObjectException e)
             {
@@ -57,26 +62,48 @@ namespace Adapter
         {
             try
             {
-                audioContentLogic.DeleteById(audioContentId);
+                playableContentLogic.DeleteById(audioContentId);
             }
             catch (NullObjectException e)
             {
                 throw new NotFoundException(e.errorMessage);
             }
         }
-        public void Update(AudioContentModel audioContentModel)
+        public void Update(int id, AudioContentModel audioContentModel)
         {
             try
             {
                 audioContentModelValidator.Validate(audioContentModel);
                 audioContentModel.Playlists.ForEach(p => playlistModelValidator.Validate(p));
-                AudioContent audioContentToUpdate = mapper.Map<AudioContent>(audioContentModel);
-                audioContentLogic.Update(audioContentToUpdate);
+                PlayableContent audioContentToUpdate = mapper.Map<PlayableContent>(audioContentModel);
+                audioContentToUpdate.PlayableContentTypeId = audioContentTypeId;
+                playableContentLogic.Update(id, audioContentToUpdate);
             }
             catch (NullObjectException e)
             {
                 throw new NotFoundException(e.errorMessage);
             }
+        }
+
+        public List<AudioContentBasicInfoModel> GetByCategoryId(int categoryId)
+        {
+            List<PlayableContent> playableContents = playableContentLogic.GetByCategoryId(categoryId, audioContentTypeId);
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel = mapper.Map<List<AudioContentBasicInfoModel>>(playableContents);
+            return audioContentsBasicInfoModel;
+        }
+
+        public List<AudioContentBasicInfoModel> GetByPlaylistId(int playlistId)
+        {
+            List<PlayableContent> playableContents = playableContentLogic.GetByPlaylistId(playlistId, audioContentTypeId);
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel = mapper.Map<List<AudioContentBasicInfoModel>>(playableContents);
+            return audioContentsBasicInfoModel;
+        }
+
+        public List<AudioContentBasicInfoModel> GetAll()
+        {
+            List<PlayableContent> playableContents = playableContentLogic.GetAll(audioContentTypeId);
+            List<AudioContentBasicInfoModel> audioContentsBasicInfoModel = mapper.Map<List<AudioContentBasicInfoModel>>(playableContents);
+            return audioContentsBasicInfoModel;
         }
     }
 }

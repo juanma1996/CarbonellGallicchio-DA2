@@ -13,11 +13,8 @@
     <ProjectReference Include="..\BusinessLogicInterface\BusinessLogicInterface.csproj" />
     <ProjectReference Include="..\BusinessExceptions\BusinessExceptions.csproj" />
     <ProjectReference Include="..\AdapterExceptions\AdapterExceptions.csproj" />
+    <ProjectReference Include="..\ImporterLogicInterface\ImporterLogicInterface.csproj" />
     <ProjectReference Include="..\SessionInterface\SessionInterface.csproj" />
     <ProjectReference Include="..\ValidatorInterface\ValidatorInterface.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mapper\Profiles\" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,21 @@
+{
+	"name": "Un video json",
+	"duration": "00:02:50",
+	"creatorName": "El creador",
+	"imageUrl": "",
+	"url": "https://www.youtube.com/embed/SsKT0s5J8ko",
+	"categories": [
+		{
+			"categoryId": 1
+		}
+	],
+	"playlists": [
+		{
+			"playlist": {
+				"description": "Descripcion",
+				"name": "Videos json"
+			}
+		}
+	],
+	"playableContentTypeId": 2
+}

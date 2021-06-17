@@ -2,6 +2,8 @@
 using BusinessLogicInterface;
 using DataAccessInterface;
 using Domain;
+using System;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace BusinessLogic
@@ -23,7 +25,6 @@ namespace BusinessLogic
             administratorvalidator.Validate(administrator);
             return administrator;
         }
-
         public Administrator Add(Administrator administrator)
         {
             if (administratorRepository.Exists(a => a.Email == administrator.Email))
@@ -33,31 +34,34 @@ namespace BusinessLogic
 
             return administratorRepository.Add(administrator);
         }
-
         public void DeleteById(int administratorId)
         {
             Administrator administrator = administratorRepository.GetById(administratorId);
             administratorvalidator.Validate(administrator);
             administratorRepository.Delete(administrator);
         }
-
-        public void Update(Administrator administratorModel)
+        public void Update(int id, Administrator administratorModel)
         {
-            if (!administratorRepository.Exists(a => a.Id == administratorModel.Id))
+            if (!administratorRepository.Exists(a => a.Id == id))
             {
                 throw new NullObjectException("There is no administrator registered for the given data");
             }
             else
             {
+                administratorModel.Id = id;
                 administratorRepository.Update(administratorModel);
             }
         }
-
         public Administrator GetByEmailAndPassword(string email, string password)
         {
             Administrator administrator = administratorRepository.Get(a => a.Email == email && a.Password == password);
             administratorvalidator.Validate(administrator);
             return administrator;
+        }
+        public List<Administrator> GetAll()
+        {
+            List<Administrator> administrators = administratorRepository.GetAll();
+            return administrators;
         }
     }
 }

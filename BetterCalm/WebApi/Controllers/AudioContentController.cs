@@ -3,6 +3,7 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -47,7 +48,7 @@ namespace WebApi.Controllers
         /// <response code="400">Error. The audio content must contain a category.</response>
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost]
         public IActionResult Post([FromBody] AudioContentModel audioContentModel)
         {
@@ -67,7 +68,7 @@ namespace WebApi.Controllers
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="404">NotFound. Audio content not exist for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -88,14 +89,66 @@ namespace WebApi.Controllers
         /// <response code="400">Error. The audio content name can't be empty.</response>
         /// <response code="400">Error. The audio content must contain a playlist.</response>
         /// <response code="400">Error. The audio content must contain a category.</response>
-        /// <response code="404">NotFound. There is no administrator registered for the given data.</response>
+        /// <response code="404">NotFound. There is no audio content registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
-        [HttpPut]
-        public IActionResult Put(AudioContentModel audioContentModel)
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, AudioContentModel audioContentModel)
         {
-            audioContentLogicAdapter.Update(audioContentModel);
+            audioContentLogicAdapter.Update(id, audioContentModel);
             return NoContent();
+        }
+
+        // GET: 
+        /// <summary>
+        /// Obtains all existing audio contents for a given category.
+        /// </summary>
+        /// <remarks>
+        /// Obtains all existing audio contents for a given category. An existing category id is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="404">NotFound. There is no category registered for the given data.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [Route("categories/{id}")]
+        [HttpGet]
+        public IActionResult GetAudioContentByCategory([FromRoute] int id)
+        {
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByCategoryId(id);
+            return Ok(audioContents);
+        }
+
+        // GET: 
+        /// <summary>
+        /// Obtains all existing audio contents for a given playlist.
+        /// </summary>
+        /// <remarks>
+        /// Obtains all existing audio contents for a given playlist. An existing playlist id is required.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="404">NotFound. There is no playlist registered for the given data.</response>
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [Route("playlists/{id}")]
+        [HttpGet]
+        public IActionResult GetAudioContentByPlaylist([FromRoute] int id)
+        {
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetByPlaylistId(id);
+            return Ok(audioContents);
+        }
+
+        // GET: 
+        /// <summary>
+        /// Obtains the information of all existing audio contents.
+        /// </summary>
+        /// <remarks>
+        /// Obtains the information of all existing audio contents.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<AudioContentBasicInfoModel> audioContents = audioContentLogicAdapter.GetAll();
+            return Ok(audioContents);
         }
     }
 }

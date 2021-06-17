@@ -7,6 +7,7 @@ using BusinessLogicInterface;
 using Domain;
 using Model.In;
 using Model.Out;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace Adapter
@@ -63,18 +64,24 @@ namespace Adapter
             }
         }
 
-        public void Update(AdministratorModel administrator)
+        public void Update(int id, AdministratorModel administrator)
         {
             try
             {
                 administratorModelValidator.Validate(administrator);
                 Administrator administratorToUpdate = mapper.Map<Administrator>(administrator);
-                administratorLogic.Update(administratorToUpdate);
+                administratorLogic.Update(id, administratorToUpdate);
             }
             catch (NullObjectException e)
             {
                 throw new NotFoundException(e.errorMessage);
             }
+        }
+
+        public List<AdministratorBasicInfoModel> GetAll()
+        {
+            List<Administrator> administrators = administratorLogic.GetAll();
+            return mapper.Map<List<AdministratorBasicInfoModel>>(administrators);
         }
     }
 }

@@ -1,0 +1,50 @@
+<div class=" card">
+    <div class=" card-body">
+        <h2 class=" title">{{title}}</h2>
+        <div class=" toolbar"></div>
+        <div class="dataTables_wrapper py-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="datatable_length">
+                        <label>
+                            Show
+                            <select name="datatable_length" aria-controls="datatable"
+                                class="form-control form-control-sm" (change)="entriesChange($event)">
+                                <option value="10" [selected]="entries == 10">10</option>
+                                <option value="25" [selected]="entries == 25">25</option>
+                                <option value="50" [selected]="entries == 50">50</option>
+                                <option value="-1" [selected]="entries == -1">All</option>
+                            </select>
+                            entries
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="audios">
+                <ngx-datatable-column name="Name"></ngx-datatable-column>
+                <ngx-datatable-column name="Creator name"></ngx-datatable-column>
+                <ngx-datatable-column name="Duration"></ngx-datatable-column>
+                <ngx-datatable-column name="Play" prop="option" [draggable]="false" [resizeable]="false" [width]="263">
+                    <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                        <audio [src]="row.audioUrl" preload="none" controls></audio>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column *ngIf=isAutenticated name="Option" prop="option" [draggable]="false"
+                    [resizeable]="false">
+                    <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                        <button class=" btn btn-link btn-sm btn-icon" tooltip="Edit" type="button"
+                            [routerLink]="['/audioContent/edit', row.id]" routerLinkActive="active">
+                            <i class=" tim-icons icon-pencil"> </i>
+                        </button>
+                        <button class=" btn btn-danger btn-link btn-sm" tooltip="Delete" type="button"
+                            (click)="deleteModal(row.id)">
+                            <i class=" tim-icons icon-simple-remove"> </i>
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>

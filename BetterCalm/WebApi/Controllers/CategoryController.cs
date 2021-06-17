@@ -41,7 +41,8 @@ namespace BetterCalm.WebApi.Controllers
         /// <response code="200">Success. Returns the list of playlists.</response>  
         /// <response code="404">NotFound. Playlist not exist for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [HttpGet("{id}/playlists", Name = "GetPlaylist")]
+        [Route("{id}/playlists")]
+        [HttpGet]
         public IActionResult GetPlaylistByCategory([FromRoute] int id)
         {
             List<PlaylistBasicInfoModel> playlists = categoryDomainToModelAdapter.GetPlaylistsByCategoryId(id);

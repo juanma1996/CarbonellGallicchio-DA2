@@ -1,0 +1,10 @@
+<div class="card" style="background-color: #282e3e"
+    [routerLink]=" audio ? ['/audioContent', categoryId, playlist.id] : ['/videoContent', categoryId, playlist.id] "
+    routerLinkActive=" active">
+    <div class=" card-header">
+        <h4 class=" title" style="align-content: center">{{playlist.name}}</h4>
+    </div>
+    <div class="card-body">
+        {{playlist.description}}
+    </div>
+</div>

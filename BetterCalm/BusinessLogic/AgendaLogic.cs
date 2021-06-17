@@ -18,7 +18,6 @@ namespace BusinessLogic
         {
             return agendaRepository.Get(a => a.Psychologist.Id == psychologistId && a.Date.Date == date.Date);
         }
-
         public Agenda Add(Psychologist psychologistId, DateTime date)
         {
             Agenda newAgenda = new Agenda()
@@ -29,12 +28,10 @@ namespace BusinessLogic
             };
             return agendaRepository.Add(newAgenda);
         }
-
         public void Update(Agenda agendaToUse)
         {
             agendaRepository.Update(agendaToUse);
         }
-
         public Agenda Assign(Agenda agendaToReturn)
         {
             agendaToReturn.Count++;

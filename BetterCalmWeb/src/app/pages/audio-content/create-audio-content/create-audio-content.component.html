@@ -1,0 +1,19 @@
+<form [formGroup]="createAudioContentForm">
+    <div class=" content">
+        <div class=" row">
+            <div class=" col-md-8">
+                <div class=" card">
+                    <div class=" card-header">
+                        <h2 class=" title">Create audio content</h2>
+                    </div>
+                    <app-playable-content-form [parentForm]="createAudioContentForm" [isAudio]="true">
+                    </app-playable-content-form>
+                    <div class=" card-footer">
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="createAudioContent()">Create
+                            audio content</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

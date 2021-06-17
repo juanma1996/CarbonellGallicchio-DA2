@@ -7,6 +7,8 @@ using DataAccess.Context;
 using DataAccess.Repositories;
 using DataAccessInterface;
 using Domain;
+using ImporterLogic;
+using ImporterLogicInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Model.In;
@@ -33,7 +35,7 @@ namespace Factory
             services.AddScoped<IModelMapper, ModelMapper>();
             services.AddScoped<ICategoryLogicAdapter, CategoryLogicAdapter>();
             services.AddScoped<IAudioContentLogicAdapter, AudioContentLogicAdapter>();
-            services.AddScoped<IAudioContentLogic, AudioContentLogic>();
+            services.AddScoped<IPlayableContentLogic, PlayableContentLogic>();
             services.AddScoped<IPsychologistLogicAdapter, PsychologistLogicAdapter>();
             services.AddScoped<IPsychologistLogic, PsychologistLogic>();
             services.AddScoped<IProblematicLogic, ProblematicLogic>();
@@ -47,7 +49,7 @@ namespace Factory
             services.AddScoped<IValidator<AdministratorModel>, AdministratorModelValidator>();
             services.AddScoped<IValidator<Administrator>, AdministratorValidator>();
             services.AddScoped<IValidator<AudioContentModel>, AudioContentModelValidator>();
-            services.AddScoped<IValidator<AudioContent>, AudioContentValidator>();
+            services.AddScoped<IValidator<PlayableContent>, PlayableContentValidator>();
             services.AddScoped<IValidator<Playlist>, PlaylistValidator>();
             services.AddScoped<IValidator<PsychologistModel>, PsychologistModelValidator>();
             services.AddScoped<IValidator<Psychologist>, PsychologistValidator>();
@@ -56,6 +58,17 @@ namespace Factory
             services.AddScoped<ISessionLogicAdapter, SessionLogicAdapter>();
             services.AddScoped<IValidator<PacientModel>, PacientModelValidator>();
             services.AddScoped<IValidator<ConsultationModel>, ConsultationModelValidator>();
+            services.AddScoped<IImporterLogic, ImporterLogics>();
+            services.AddScoped<ImporterLogic.Mapper.IModelMapper, ImporterLogic.Mapper.ModelMapper>();
+            services.AddScoped<IVideoContentLogicAdapter, VideoContentLogicAdapter>();
+            services.AddScoped<IValidator<VideoContentModel>, VideoContentModelValidator>();
+            services.AddScoped<IBonusLogicAdapter, BonusLogicAdapter>();
+            services.AddScoped<IBonusLogic, BonusLogic>();
+            services.AddScoped<IValidator<BonusModel>, BonusModelValidator>();
+            services.AddScoped<IValidator<Pacient>, PacientValidator>();
+            services.AddScoped<IPlaylistLogicAdapter, PlaylistLogicAdapter>();
+            services.AddScoped<IPlaylistLogic, PlaylistLogic>();
+            services.AddScoped<IImporterLogicAdapter, ImporterLogicAdapter>();
         }
         public void AddDbContextService()
         {

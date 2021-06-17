@@ -1,0 +1,21 @@
+{
+	"name": "Un nombre",
+	"duration": "00:02:50",
+	"creatorName": "El creador",
+	"imageUrl": "imageUrl",
+	"url": "https://ia801503.us.archive.org/15/items/TheBeatlesPennyLane_201805/The%20Beatles%20-%20Penny%20Lane.mp3",
+	"categories": [
+		{
+			"categoryId": 1
+		}
+	],
+	"playlists": [
+		{
+			"playlist": {
+				"description": "Descripcion",
+				"name": "Audios json"
+			}
+		}
+	],
+	"playableContentTypeId": 1
+}

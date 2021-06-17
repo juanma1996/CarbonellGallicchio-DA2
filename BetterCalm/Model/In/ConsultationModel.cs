@@ -4,5 +4,6 @@
     {
         public int ProblematicId { get; set; }
         public PacientModel Pacient { get; set; }
+        public decimal Duration { get; set; }
     }
 }

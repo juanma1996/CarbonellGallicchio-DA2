@@ -3,6 +3,8 @@ using BetterCalm.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 using Model.Out;
+using System;
+using System.Collections.Generic;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -49,7 +51,7 @@ namespace WebApi.Controllers
         /// <response code="401">Unauthorized. Must contain a token to access Api.</response>
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost]
         public IActionResult Post(PsychologistModel psycologistIn)
         {
@@ -69,7 +71,7 @@ namespace WebApi.Controllers
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="404">NotFound. There is no psychologist registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -93,12 +95,29 @@ namespace WebApi.Controllers
         /// <response code="403">Unauthorized. Forbidden, ask for permission.</response>
         /// <response code="404">NotFound. There is no psychologist registered for the given data.</response>
         /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
-        [ServiceFilter(typeof(AuthorizationAttributeFilter))]
-        [HttpPut]
-        public IActionResult Put([FromBody] PsychologistModel psychologistModel)
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] PsychologistModel psychologistModel)
         {
-            psychologistDomainToModelAdapter.Update(psychologistModel);
+            psychologistDomainToModelAdapter.Update(id, psychologistModel);
             return NoContent();
+        }
+
+        // GET: 
+        /// <summary>
+        /// Obtains the information of all existing psychologists.
+        /// </summary>
+        /// <remarks>
+        /// Obtains the information of all existing psychologists.
+        /// </remarks>
+        /// <response code="200">Success. Returns the requested object.</response>  
+        /// <response code="500">InternalServerError. Server problems, unexpected error.</response>
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<PsychologistBasicInfoModel> psychologist = psychologistDomainToModelAdapter.GetAll();
+            return Ok(psychologist);
         }
     }
 }

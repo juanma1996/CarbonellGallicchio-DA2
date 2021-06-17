@@ -1,0 +1,18 @@
+<contentImporterModel xmlns:json='false'>
+   <url>https://www.youtube.com/embed/AbV-Q6tz4B8</url>
+   <categories json:Array='true'>
+	<categoryId>2</categoryId>
+   </categories>
+   <creatorName>El creador</creatorName>
+	<duration>00:07:30</duration>
+   <imageUrl></imageUrl>
+   <name>Un video</name>
+   <playableContentTypeId json:Type='Integer'>2</playableContentTypeId>
+   <playlists json:Array='true'>
+		<playlist>
+            <description>Descripcion</description>
+            <name>Videos</name>
+         </playlist>
+   </playlists>
+</contentImporterModel>
+

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
-    [DbContext(typeof(BetterCalmContext))]
     [ExcludeFromCodeCoverage]
+    [DbContext(typeof(BetterCalmContext))]
     partial class BetterCalmContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -80,64 +80,6 @@ namespace DataAccess.Migrations
                     b.ToTable("Agendas");
                 });
 
-            modelBuilder.Entity("Domain.AudioContent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AudioUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AudioContents");
-                });
-
-            modelBuilder.Entity("Domain.AudioContentCategory", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AudioContentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoryId", "AudioContentId");
-
-                    b.HasIndex("AudioContentId");
-
-                    b.ToTable("AudioContentCategories");
-                });
-
-            modelBuilder.Entity("Domain.AudioContentPlaylist", b =>
-                {
-                    b.Property<int>("AudioContentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlaylistId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AudioContentId", "PlaylistId");
-
-                    b.HasIndex("PlaylistId");
-
-                    b.ToTable("AudioContentPlaylists");
-                });
-
             modelBuilder.Entity("Domain.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -166,7 +108,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            Name = "Música"
+                            Name = "Musica"
                         },
                         new
                         {
@@ -197,6 +139,12 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Duration")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int?>("PacientId")
                         .HasColumnType("int");
 
@@ -225,11 +173,23 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("BonusAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("BonusApproved")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Cellphone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ConsultationsQuantity")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("GeneratedBonus")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -240,6 +200,96 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pacients");
+                });
+
+            modelBuilder.Entity("Domain.PlayableContent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatorName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlayableContentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlayableContentTypeId");
+
+                    b.ToTable("PlayableContents");
+                });
+
+            modelBuilder.Entity("Domain.PlayableContentCategory", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayableContentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryId", "PlayableContentId");
+
+                    b.HasIndex("PlayableContentId");
+
+                    b.ToTable("PlayableContentCategories");
+                });
+
+            modelBuilder.Entity("Domain.PlayableContentPlaylist", b =>
+                {
+                    b.Property<int>("PlayableContentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaylistId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlayableContentId", "PlaylistId");
+
+                    b.HasIndex("PlaylistId");
+
+                    b.ToTable("PlayableContentPlaylists");
+                });
+
+            modelBuilder.Entity("Domain.PlayableContentType", b =>
+                {
+                    b.Property<int>("Type")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Type");
+
+                    b.ToTable("PlayableContentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Type = 1,
+                            Name = "Audio"
+                        },
+                        new
+                        {
+                            Type = 2,
+                            Name = "Video"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Playlist", b =>
@@ -339,6 +389,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Fee")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -391,36 +444,6 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Domain.AudioContentCategory", b =>
-                {
-                    b.HasOne("Domain.AudioContent", "AudioContent")
-                        .WithMany("Categories")
-                        .HasForeignKey("AudioContentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Category", "Category")
-                        .WithMany("AudioContents")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.AudioContentPlaylist", b =>
-                {
-                    b.HasOne("Domain.AudioContent", "AudioContent")
-                        .WithMany("Playlists")
-                        .HasForeignKey("AudioContentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Playlist", "Playlist")
-                        .WithMany("AudioContents")
-                        .HasForeignKey("PlaylistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.CategoryPlaylist", b =>
                 {
                     b.HasOne("Domain.Category", "Category")
@@ -446,6 +469,45 @@ namespace DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("PsychologistId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.PlayableContent", b =>
+                {
+                    b.HasOne("Domain.PlayableContentType", "PlayableContentType")
+                        .WithMany()
+                        .HasForeignKey("PlayableContentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.PlayableContentCategory", b =>
+                {
+                    b.HasOne("Domain.Category", "Category")
+                        .WithMany("PlayableContents")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.PlayableContent", "PlayableContent")
+                        .WithMany("Categories")
+                        .HasForeignKey("PlayableContentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.PlayableContentPlaylist", b =>
+                {
+                    b.HasOne("Domain.PlayableContent", "PlayableContent")
+                        .WithMany("Playlists")
+                        .HasForeignKey("PlayableContentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Playlist", "Playlist")
+                        .WithMany("PlayableContents")
+                        .HasForeignKey("PlaylistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.PsychologistProblematic", b =>

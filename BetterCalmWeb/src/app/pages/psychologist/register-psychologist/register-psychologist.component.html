@@ -1,0 +1,18 @@
+<form [formGroup]="registerPsychologistForm">
+    <div class=" content">
+        <div class=" row">
+            <div class=" col-md-8">
+                <div class=" card">
+                    <div class=" card-header">
+                        <h2 class=" title">Register psychologist</h2>
+                    </div>
+                    <app-psychologist-form [parentForm]="registerPsychologistForm"></app-psychologist-form>
+                    <div class=" card-footer">
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="registerPsychologist()">Register
+                            psychologist</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

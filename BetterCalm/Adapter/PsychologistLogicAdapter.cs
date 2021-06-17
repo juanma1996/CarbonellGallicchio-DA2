@@ -7,6 +7,7 @@ using BusinessLogicInterface;
 using Domain;
 using Model.In;
 using Model.Out;
+using System.Collections.Generic;
 using ValidatorInterface;
 
 namespace Adapter
@@ -59,18 +60,24 @@ namespace Adapter
             }
         }
 
-        public void Update(PsychologistModel psychologistModel)
+        public void Update(int id, PsychologistModel psychologistModel)
         {
             try
             {
                 psychologistModelValidator.Validate(psychologistModel);
                 Psychologist psychologistToUpdate = mapper.Map<Psychologist>(psychologistModel);
-                psychologistLogic.Update(psychologistToUpdate);
+                psychologistLogic.Update(id, psychologistToUpdate);
             }
             catch (NullObjectException e)
             {
                 throw new NotFoundException(e.errorMessage);
             }
+        }
+
+        public List<PsychologistBasicInfoModel> GetAll()
+        {
+            List<Psychologist> psychologists = psychologistLogic.GetAll();
+            return mapper.Map<List<PsychologistBasicInfoModel>>(psychologists);
         }
     }
 }

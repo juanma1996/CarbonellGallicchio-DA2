@@ -4,6 +4,6 @@ namespace BusinessLogicInterface
 {
     public interface IConsultationLogic
     {
-        Psychologist Add(Consultation consultationModel);
+        Consultation Add(Consultation consultationModel);
     }
 }

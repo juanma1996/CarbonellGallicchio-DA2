@@ -4,10 +4,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
+using WebApi.Common;
 using WebApi.Filters;
 
 namespace BetterCalm
@@ -24,17 +27,26 @@ namespace BetterCalm
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(options => options.Filters.Add(typeof(ExceptionFilter)));
+            services
+                .AddControllers(options => options.Filters.Add(typeof(ExceptionFilter)))
+                .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter()));
+
             ServiceFactory serviceFactory = new ServiceFactory(services);
             serviceFactory.AddDbContextService();
             serviceFactory.AddCustomServices();
-            services.AddScoped<AuthorizationAttributeFilter>();
+            services.AddScoped<AuthorizationFilter>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "BetterCalm Api", Version = "v1" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+                c.MapType<TimeSpan>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Example = new OpenApiString("00:00:00")
+                });
+
             });
         }
 
@@ -44,6 +56,11 @@ namespace BetterCalm
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

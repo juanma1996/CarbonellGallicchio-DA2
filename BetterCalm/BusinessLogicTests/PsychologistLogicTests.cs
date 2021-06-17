@@ -32,7 +32,11 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            mockProblematicRepository.Setup(m => m.GetAll(It.IsAny<Expression<Func<Problematic, bool>>>())).Returns(new List<Problematic>());
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             Psychologist result = psychologistLogic.GetById(psychologistId);
 
@@ -54,7 +58,10 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>())).Throws(new NullObjectException("There is no psychologist for the given data"));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             Psychologist result = psychologistLogic.GetById(psychologistId);
 
@@ -88,7 +95,10 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             Psychologist result = psychologistLogic.Add(psycologistModel);
 
@@ -114,7 +124,11 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            mockProblematicRepository.Setup(m => m.GetAll(It.IsAny<Expression<Func<Problematic, bool>>>())).Returns(new List<Problematic>());
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             psychologistLogic.DeleteById(psychologistId);
 
@@ -132,7 +146,10 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>())).Throws(new NullObjectException("There is no psychologist for the given data"));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             psychologistLogic.DeleteById(psychologistId);
 
@@ -158,14 +175,19 @@ namespace BusinessLogicTests
                 }
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
-            mock.Setup(m => m.Exists(a => a.Id == psychologistModel.Id)).Returns(true);
+            mock.Setup(m => m.Exists(a => a.Id == psychologistId)).Returns(true);
             mock.Setup(m => m.Update(psychologistModel));
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            mockPsychologistProblematic.Setup(m => m.DeleteAll(It.IsAny<Expression<Func<PsychologistProblematic, bool>>>()));
+            mockPsychologistProblematic.Setup(m => m.Add(It.IsAny<PsychologistProblematic>())).Returns(It.IsAny<PsychologistProblematic>());
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
-            psychologistLogic.Update(psychologistModel);
+            psychologistLogic.Update(psychologistId, psychologistModel);
 
             mock.VerifyAll();
         }
@@ -184,14 +206,17 @@ namespace BusinessLogicTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
-            mock.Setup(m => m.Exists(a => a.Id == psychologistModel.Id)).Returns(false);
+            mock.Setup(m => m.Exists(a => a.Id == psychologistId)).Returns(false);
             mock.Setup(m => m.Update(It.IsAny<Psychologist>()));
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>())).Throws(new NullObjectException("There is no psychologist for the given data"));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
-            psychologistLogic.Update(psychologistModel);
+            psychologistLogic.Update(psychologistId, psychologistModel);
 
             mock.VerifyAll();
         }
@@ -220,7 +245,10 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             Psychologist psychologist = psychologistLogic.GetAvailableByProblematicId(problematicId);
 
@@ -272,7 +300,10 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             Psychologist psychologist = psychologistLogic.GetAvailableByProblematicId(problematicId);
 
@@ -328,7 +359,10 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             List<Psychologist> result = psychologistLogic.GetAllByProblematicId(problematicId);
 
@@ -373,7 +407,10 @@ namespace BusinessLogicTests
             mockAgendaLogic.Setup(m => m.Assign(It.IsAny<Agenda>())).Returns(It.IsAny<Agenda>());
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             Psychologist psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(problematicId, date);
 
@@ -421,7 +458,10 @@ namespace BusinessLogicTests
             mockAgendaLogic.Setup(m => m.Update(It.IsAny<Agenda>()));
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>())).Throws(new NullObjectException("There is no psychologist for the given data"));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             Psychologist psychologist = psychologistLogic.GetAvailableByProblematicIdAndDate(problematicId, date);
         }
@@ -469,12 +509,104 @@ namespace BusinessLogicTests
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
-            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
             List<Psychologist> result = psychologistLogic.GetAllByProblematicId(problematicId);
 
             mock.VerifyAll();
             Assert.AreEqual(psychologists.Count, result.Count);
-        }        
+        }
+
+        [TestMethod]
+        public void TestGetPsychologistsOk()
+        {
+            int problematicId = 8;
+            Psychologist onePsychologist = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(1999, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 2,
+                    }
+                }
+            };
+            Psychologist anotherPsychologist = new Psychologist
+            {
+                Id = 1,
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = problematicId,
+                    }
+                }
+            };
+            List<Psychologist> psychologistsToReturn = new List<Psychologist>() { onePsychologist, anotherPsychologist };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAll(It.IsAny<Expression<Func<Psychologist, bool>>>())).Returns(psychologistsToReturn);
+            Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
+            Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
+
+            List<Psychologist> result = psychologistLogic.GetAll();
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistsToReturn.Count, result.Count);
+        }
+
+        [TestMethod]
+        public void TestCreatePsychologistWithfeeOk()
+        {
+            int psychologistId = 1;
+            Psychologist psycologistModel = new Psychologist
+            {
+                Name = "Juan",
+                Direction = "Rio negro",
+                ConsultationMode = "Presencial",
+                CreationDate = new DateTime(2021, 4, 20),
+                Problematics = new List<PsychologistProblematic>
+                {
+                    new PsychologistProblematic
+                    {
+                        ProblematicId = 1,
+                    }
+                },
+                Fee = 1000
+            };
+            Psychologist psychologistToReturn = new Psychologist
+            {
+                Id = psychologistId
+            };
+            Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
+            mock.Setup(m => m.Add(It.IsAny<Psychologist>())).Returns(psychologistToReturn);
+            Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
+            Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
+            validatorMock.Setup(m => m.Validate(It.IsAny<Psychologist>()));
+            Mock<IRepository<Problematic>> mockProblematicRepository = new Mock<IRepository<Problematic>>(MockBehavior.Strict);
+            Mock<IRepository<PsychologistProblematic>> mockPsychologistProblematic = new Mock<IRepository<PsychologistProblematic>>(MockBehavior.Strict);
+            PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
+                mockProblematicRepository.Object, mockPsychologistProblematic.Object);
+
+            Psychologist result = psychologistLogic.Add(psycologistModel);
+
+            mock.VerifyAll();
+            Assert.AreEqual(psychologistToReturn.Id, result.Id);
+        }
     }
 }
