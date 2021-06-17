@@ -65,6 +65,20 @@ namespace AdapterTests
             importerLogicAdapter.ImportWithKnownInterface(importModel);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidRouteForImplementationsException))]
+        public void TestAddImportingInvalidRouteForImplementationsException()
+        {
+            ImportModel importModel = new ImportModel()
+            {
+                FilePath = "somePath",
+                ImporterType = "json"
+            };
+            Mock<IImporterLogic> mock = new Mock<IImporterLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.ImportWithKnownInterface(It.IsAny<ImportModel>())).Throws(new System.IO.DirectoryNotFoundException());
+            ImporterLogicAdapter importerLogicAdapter = new ImporterLogicAdapter(mock.Object);
 
+            importerLogicAdapter.ImportWithKnownInterface(importModel);
+        }
     }
 }
