@@ -25,7 +25,7 @@ namespace Adapter
 
         private void ThrowInvalidRouteForFileException()
         {
-            throw new InvalidRouteForImplementationsException("Invalid route for implementations");
+            throw new InvalidRouteForFileException("Invalid route for file");
         }
 
         public List<string> GetAll()
