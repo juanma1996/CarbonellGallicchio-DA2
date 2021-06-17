@@ -209,5 +209,26 @@ namespace WebApiTests
             Assert.AreEqual(500, s.StatusCode);
         }
 
+        [TestMethod]
+        public void TestInvalidRouteForFileException()
+        {
+            var actionContext = new ActionContext()
+            {
+                HttpContext = new DefaultHttpContext(),
+                RouteData = new Microsoft.AspNetCore.Routing.RouteData(),
+                ActionDescriptor = new ActionDescriptor()
+            };
+            var mockException = new Mock<InvalidRouteForFileException>("Invalid Route For File Exception");
+            var exceptionContext = new ExceptionContext(actionContext, new List<IFilterMetadata>())
+            {
+                Exception = mockException.Object
+            };
+            var filter = new ExceptionFilter();
+
+            filter.OnException(exceptionContext);
+            var s = exceptionContext.Result as ContentResult;
+
+            Assert.AreEqual(400, s.StatusCode);
+        }
     }
 }
