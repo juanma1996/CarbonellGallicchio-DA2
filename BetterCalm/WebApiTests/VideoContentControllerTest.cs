@@ -95,6 +95,7 @@ namespace WebApiTests
         [TestMethod]
         public void TestUpdateVideoContentOk()
         {
+            int videoContentModelId = 1;
             VideoContentModel videoContentModel = new VideoContentModel()
             {
                 Name = "Video",
@@ -117,10 +118,10 @@ namespace WebApiTests
                 },
             };
             Mock<IVideoContentLogicAdapter> mock = new Mock<IVideoContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<VideoContentModel>()));
+            mock.Setup(m => m.Update(videoContentModelId, It.IsAny<VideoContentModel>()));
             VideoContentController controller = new VideoContentController(mock.Object);
 
-            var response = controller.Put(videoContentModel);
+            var response = controller.Put(videoContentModelId, videoContentModel);
             StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -192,6 +193,7 @@ namespace WebApiTests
         [ExpectedException(typeof(NotFoundException))]
         public void TestUpdateVideoContentNotExistentId()
         {
+            int videoContentModelId = 1;
             VideoContentModel videoContentModel = new VideoContentModel()
             {
                 Name = "Canción",
@@ -214,16 +216,17 @@ namespace WebApiTests
                 },
             };
             Mock<IVideoContentLogicAdapter> mock = new Mock<IVideoContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<VideoContentModel>())).Throws(new NotFoundException("Not found object"));
+            mock.Setup(m => m.Update(videoContentModelId, It.IsAny<VideoContentModel>())).Throws(new NotFoundException("Not found object"));
             VideoContentController controller = new VideoContentController(mock.Object);
 
-            var result = controller.Put(videoContentModel);
+            var result = controller.Put(videoContentModelId, videoContentModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestUpdateVideoContentNotValidName()
         {
+            int videoContentModelId = 1;
             VideoContentModel videoContentModel = new VideoContentModel()
             {
                 Name = "",
@@ -246,10 +249,10 @@ namespace WebApiTests
                 },
             };
             Mock<IVideoContentLogicAdapter> mock = new Mock<IVideoContentLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(It.IsAny<VideoContentModel>())).Throws(new InvalidAttributeException("Name is required"));
+            mock.Setup(m => m.Update(videoContentModelId, It.IsAny<VideoContentModel>())).Throws(new InvalidAttributeException("Name is required"));
             VideoContentController controller = new VideoContentController(mock.Object);
 
-            var result = controller.Put(videoContentModel);
+            var result = controller.Put(videoContentModelId, videoContentModel);
         }
 
         [TestMethod]

@@ -46,6 +46,7 @@ namespace WebApiTests
         [TestMethod]
         public void TestApproveBonusOk()
         {
+            int bonusModelId = 1;
             BonusModel bonusModel = new BonusModel()
             {
                 PacientId = 1,
@@ -53,10 +54,10 @@ namespace WebApiTests
                 Amount = 0.25
             };
             Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(bonusModel));
+            mock.Setup(m => m.Update(bonusModelId, bonusModel));
             BonusController controller = new BonusController(mock.Object);
 
-            var response = controller.Update(bonusModel);
+            var response = controller.Update(bonusModelId, bonusModel);
             StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();
@@ -67,6 +68,7 @@ namespace WebApiTests
         [ExpectedException(typeof(NotFoundException))]
         public void TestApproveBonusNotExistPacientId()
         {
+            int bonusModelId = 1;
             BonusModel bonusModel = new BonusModel()
             {
                 PacientId = 1,
@@ -74,16 +76,17 @@ namespace WebApiTests
                 Amount = 0.25
             };
             Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(bonusModel)).Throws(new NotFoundException("Not found object"));
+            mock.Setup(m => m.Update(bonusModelId, bonusModel)).Throws(new NotFoundException("Not found object"));
             BonusController controller = new BonusController(mock.Object);
 
-            var response = controller.Update(bonusModel);
+            var response = controller.Update(bonusModelId, bonusModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAttributeException))]
         public void TestApproveBonusInvalidAmount()
         {
+            int bonusModelId = 1;
             BonusModel bonusModel = new BonusModel()
             {
                 PacientId = 1,
@@ -91,15 +94,16 @@ namespace WebApiTests
                 Amount = 5
             };
             Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(bonusModel)).Throws(new InvalidAttributeException("Amount value is invalid"));
+            mock.Setup(m => m.Update(bonusModelId, bonusModel)).Throws(new InvalidAttributeException("Amount value is invalid"));
             BonusController controller = new BonusController(mock.Object);
 
-            var response = controller.Update(bonusModel);
+            var response = controller.Update(bonusModelId, bonusModel);
         }
 
         [TestMethod]
         public void TestDenyBonusOk()
         {
+            int bonusModelId = 1;
             BonusModel bonusModel = new BonusModel()
             {
                 PacientId = 1,
@@ -107,10 +111,10 @@ namespace WebApiTests
                 Amount = 0
             };
             Mock<IBonusLogicAdapter> mock = new Mock<IBonusLogicAdapter>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(bonusModel));
+            mock.Setup(m => m.Update(bonusModelId, bonusModel));
             BonusController controller = new BonusController(mock.Object);
 
-            var response = controller.Update(bonusModel);
+            var response = controller.Update(bonusModelId, bonusModel);
             StatusCodeResult statusCodeResult = response as StatusCodeResult;
 
             mock.VerifyAll();

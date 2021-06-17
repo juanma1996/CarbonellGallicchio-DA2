@@ -164,9 +164,10 @@ namespace BusinessLogicTests
                         PlaylistId = playlistId
                     }
                 },
+                PlayableContentTypeId = 1
             };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
-            mock.Setup(m => m.Exists(a => a.Id == audioContentUpdated.Id)).Returns(true);
+            mock.Setup(m => m.Exists(a => a.Id == audioContentId && a.PlayableContentTypeId == audioContentUpdated.PlayableContentTypeId)).Returns(true);
             mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
             Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<PlayableContent>()));
@@ -186,7 +187,7 @@ namespace BusinessLogicTests
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
-            audioContentLogic.Update(audioContentUpdated);
+            audioContentLogic.Update(audioContentId, audioContentUpdated);
 
             mock.VerifyAll();
         }
@@ -255,7 +256,7 @@ namespace BusinessLogicTests
                 },
             };
             Mock<IRepository<PlayableContent>> mock = new Mock<IRepository<PlayableContent>>(MockBehavior.Strict);
-            mock.Setup(m => m.Exists(a => a.Id == audioContentUpdated.Id)).Returns(false);
+            mock.Setup(m => m.Exists(a => a.Id == audioContentId && a.PlayableContentTypeId == audioContentUpdated.PlayableContentTypeId)).Returns(false);
             mock.Setup(m => m.Update(It.IsAny<PlayableContent>()));
             Mock<IValidator<PlayableContent>> validatorMock = new Mock<IValidator<PlayableContent>>(MockBehavior.Strict);
             validatorMock.Setup(m => m.Validate(It.IsAny<PlayableContent>())).Throws(new NullObjectException("Audio content not exist"));
@@ -267,7 +268,7 @@ namespace BusinessLogicTests
             PlayableContentLogic audioContentLogic = new PlayableContentLogic(mock.Object, validatorMock.Object,
                 mockCategoryPlaylist.Object, mockCategory.Object, mockPlaylist.Object, mockPlayableContentPlaylist.Object, mockPlayableContentCategory.Object);
 
-            audioContentLogic.Update(audioContentUpdated);
+            audioContentLogic.Update(audioContentId, audioContentUpdated);
 
             mock.VerifyAll();
         }

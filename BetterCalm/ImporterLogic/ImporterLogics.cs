@@ -51,6 +51,12 @@ namespace ImporterLogic
             IEnumerable<Type> implementations = GetTypesInAssembly<IContentImporter>(myAssembly);
             return implementations;
         }
+        private void CreatePlayableContent(ContentImporterModel contentImporterModel)
+        {
+            PlayableContent playableContentModel = mapper.Map<PlayableContent>(contentImporterModel);
+            playableContentLogic.Create(playableContentModel);
+        }
+
         public void ImportWithKnownInterface(ImportModel importModel)
         {
             FileInfo[] files = GetFiles();
@@ -65,10 +71,7 @@ namespace ImporterLogic
                     {
                         foundImporter = true;
                         ContentImporterModel contentImporterModel = contentImporter.ImportContent(importModel.FilePath);
-                        PlayableContent playableContentModel = mapper.Map<PlayableContent>(contentImporterModel);
-                        playableContentLogic.Create(playableContentModel);
-
-
+                        CreatePlayableContent(contentImporterModel);
                     }
                 }
             }

@@ -175,7 +175,7 @@ namespace BusinessLogicTests
                 }
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
-            mock.Setup(m => m.Exists(a => a.Id == psychologistModel.Id)).Returns(true);
+            mock.Setup(m => m.Exists(a => a.Id == psychologistId)).Returns(true);
             mock.Setup(m => m.Update(psychologistModel));
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
@@ -187,7 +187,7 @@ namespace BusinessLogicTests
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
                 mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
-            psychologistLogic.Update(psychologistModel);
+            psychologistLogic.Update(psychologistId, psychologistModel);
 
             mock.VerifyAll();
         }
@@ -206,7 +206,7 @@ namespace BusinessLogicTests
                 CreationDate = new DateTime(2021, 4, 20),
             };
             Mock<IRepository<Psychologist>> mock = new Mock<IRepository<Psychologist>>(MockBehavior.Strict);
-            mock.Setup(m => m.Exists(a => a.Id == psychologistModel.Id)).Returns(false);
+            mock.Setup(m => m.Exists(a => a.Id == psychologistId)).Returns(false);
             mock.Setup(m => m.Update(It.IsAny<Psychologist>()));
             Mock<IAgendaLogic> mockAgendaLogic = new Mock<IAgendaLogic>(MockBehavior.Strict);
             Mock<IValidator<Psychologist>> validatorMock = new Mock<IValidator<Psychologist>>(MockBehavior.Strict);
@@ -216,7 +216,7 @@ namespace BusinessLogicTests
             PsychologistLogic psychologistLogic = new PsychologistLogic(mock.Object, mockAgendaLogic.Object, validatorMock.Object,
                 mockProblematicRepository.Object, mockPsychologistProblematic.Object);
 
-            psychologistLogic.Update(psychologistModel);
+            psychologistLogic.Update(psychologistId, psychologistModel);
 
             mock.VerifyAll();
         }

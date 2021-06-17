@@ -1,4 +1,4 @@
-﻿using ImporterLogicInterface;
+﻿using AdapterInterface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.In;
@@ -20,7 +20,7 @@ namespace WebApiTests
                 FilePath = "somePath",
                 ImporterType = "json"
             };
-            Mock<IImporterLogic> mock = new Mock<IImporterLogic>(MockBehavior.Strict);
+            Mock<IImporterLogicAdapter> mock = new Mock<IImporterLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.ImportWithKnownInterface(It.IsAny<ImportModel>()));
             ImporterController controller = new ImporterController(mock.Object);
 
@@ -38,7 +38,7 @@ namespace WebApiTests
             {
                 "Json", "Xml"
             };
-            Mock<IImporterLogic> mock = new Mock<IImporterLogic>(MockBehavior.Strict);
+            Mock<IImporterLogicAdapter> mock = new Mock<IImporterLogicAdapter>(MockBehavior.Strict);
             mock.Setup(m => m.GetAll()).Returns(importersToReturn);
             ImporterController controller = new ImporterController(mock.Object);
 
