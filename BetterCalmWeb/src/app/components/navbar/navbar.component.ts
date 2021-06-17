@@ -3,6 +3,7 @@ import { ROUTES } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
+import { ToastService } from 'src/app/common/toast.service';
 
 var misc: any = {
   sidebar_mini_active: true
@@ -23,7 +24,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     location: Location,
     private element: ElementRef,
     private router: Router,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    public customToast: ToastService
   ) {
     this.location = location;
   }
@@ -165,5 +167,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logOut() {
     localStorage.clear();
     this.router.navigateByUrl('categories/audioContents');
+    this.customToast.setSuccess("You have successfully logged out.")
   }
 }
