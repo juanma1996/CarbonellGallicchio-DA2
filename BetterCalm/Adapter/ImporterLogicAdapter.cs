@@ -20,9 +20,16 @@ namespace Adapter
 
         public List<string> GetAll()
         {
-            List<string> importers = importerLogic.GetAll();
+            try
+            {
+                List<string> importers = importerLogic.GetAll();
 
-            return importers;
+                return importers;
+            }
+            catch (DirectoryNotFoundException)
+            {
+                throw new InvalidRouteForImplementationsException("Invalid route for implementations");
+            }
         }
 
         public void ImportWithKnownInterface(ImportModel importModel)
