@@ -1,0 +1,14 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-12">
+            <div class=" card">
+                <div class=" card-header">
+                    <div class="row">
+                        <h2 class=" title p-2">Audio Contents of Playlist</h2>
+                    </div>
+                    <app-audio-content-table [audios]="audioContents" (updateAudios)="updateAudios()">
+                    </app-audio-content-table>
+                </div>
+            </div>
+        </div>
+    </div>

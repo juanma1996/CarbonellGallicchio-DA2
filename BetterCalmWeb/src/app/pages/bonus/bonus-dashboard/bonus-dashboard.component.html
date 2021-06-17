@@ -1,0 +1,96 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-md-8">
+            <div class=" card">
+                <div class=" card-header">
+                    <h2 class=" title">Pending bonuses</h2>
+                </div>
+                <div class=" card-body">
+                    <div class=" toolbar"></div>
+                    <div class="dataTables_wrapper py-4">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length" id="datatable_length">
+                                    <label>
+                                        Show
+                                        <select name="datatable_length" aria-controls="datatable"
+                                            class="form-control form-control-sm" (change)="entriesChange($event)">
+                                            <option value="10" [selected]="entries == 10">10</option>
+                                            <option value="25" [selected]="entries == 25">25</option>
+                                            <option value="50" [selected]="entries == 50">50</option>
+                                            <option value="-1" [selected]="entries == -1">All</option>
+                                        </select>
+                                        entries
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined"
+                            [rows]="pacients">
+                            <ngx-datatable-column name="Pacient email"></ngx-datatable-column>
+                            <ngx-datatable-column name="Consultations quantity"></ngx-datatable-column>
+                            <ngx-datatable-column name="Options" prop="option" [draggable]="false" [resizeable]="false">
+                                <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                                    <button class=" btn btn-link btn-sm btn-icon" tooltip="Approve" type="button"
+                                        (click)="selectForApproval(row)">
+                                        <i class=" tim-icons icon-check-2"> </i>
+                                    </button>
+                                    <button class=" btn btn-danger btn-link btn-sm" tooltip="Disapprove" type="button"
+                                        (click)="disapprove(row)">
+                                        <i class=" tim-icons icon-simple-remove"> </i>
+                                    </button>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class=" col-md-4" *ngIf="showBonus" [formGroup]="bonusForm">
+            <div class=" card card-user">
+                <div class=" card-body">
+                    <p class=" card-text"></p>
+                    <div class=" author">
+                        <div class=" block block-one"></div>
+                        <div class=" block block-two"></div>
+                        <div class=" block block-three"></div>
+                        <div class=" block block-four"></div>
+                        <a href="javascript:void(0)">
+                            <h4 class=" title">Bonus for:</h4>
+                        </a>
+                        <p class=" description"> {{bonusForPacient}}</p>
+                    </div>
+                    <div class=" card-description">
+                        <div class=" form-group has-label" [ngClass]="{
+                            'has-danger':
+                            !bonusForm.get('amount').valid
+                            }">
+                            <p class="description"> Bonus percentage</p>
+                            <angular2-multiselect [data]="bonusData" [ngModel]="selectedBonus"
+                                [ngModelOptions]="{standalone: true}" [settings]="{
+                                    singleSelection: true,
+                                    text: 'Bonus percentage',
+                                    classes: 'selectpicker btn-danger',
+                                    lazyLoading: true,
+                                    maxHeight: 100
+                                }" name="problematicConsultation" (onSelect)="bonusPercentSelect($event)"
+                                (onDeSelect)="bonusPercentDeSelect()">
+                            </angular2-multiselect>
+                            <label class="error" *ngIf="!bonusForm.get('amount').valid">Please
+                                select
+                                a bonus percentage.</label>
+                        </div>
+                    </div>
+                    <div class=" card-footer">
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="approvesBonus()">Approve
+                            bonus</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

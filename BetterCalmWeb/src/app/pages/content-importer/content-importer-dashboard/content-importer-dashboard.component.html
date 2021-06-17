@@ -1,0 +1,56 @@
+<form [formGroup]="importerForm">
+    <div class=" content">
+        <div class=" row">
+            <div class=" col-md-8">
+                <div class=" card">
+                    <div class=" card-header">
+                        <h2 class=" title">Content importer</h2>
+                    </div>
+                    <div class=" card-body">
+                        <div class=" row">
+                            <div class=" col-md-6 pr-md-1">
+                                <div class=" form-group has-label" [ngClass]="{
+                                    'has-danger':
+                                    !importerForm.get('importerType').valid
+                                    }">
+                                    <label> Importer type </label>
+                                    <angular2-multiselect [data]="importerTypesData" [ngModel]="selectedType"
+                                        [ngModelOptions]="{standalone: true}" [settings]="{
+                                        singleSelection: true,
+                                        text: 'Importer type',
+                                        classes: 'selectpicker btn-danger',
+                                        lazyLoading: true,
+                                        maxHeight: 100
+                                    }" name="contentImporterType" (onSelect)="importerTypeSelect($event)"
+                                        (onDeSelect)="importerTypeDeSelect($event)">
+                                    </angular2-multiselect>
+                                    <label class="error" *ngIf="!importerForm.get('importerType').valid">Please
+                                        select
+                                        a importer type.</label>
+                                </div>
+                            </div>
+                            <div class=" col-md-6 pl-md-1">
+                                <div class=" form-group has-label" [ngClass]="{
+                                        'has-danger':
+                                        !importerForm.get('filePath').valid && (importerForm.get('filePath').touched || imported)
+                                        }">
+                                    <label for="exampleInputFilePath"> File path </label>
+                                    <input class=" form-control" placeholder="C:/Json/audioContent.json" type="text"
+                                        formControlName="filePath" />
+                                    <label class="error"
+                                        *ngIf="!importerForm.get('filePath').valid && (importerForm.get('filePath').touched || imported)">
+                                        Please enter a valid file path.</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" card-footer">
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="importContent()">Import
+                            content
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
