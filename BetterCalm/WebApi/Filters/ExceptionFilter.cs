@@ -53,6 +53,14 @@ namespace WebApi.Filters
                     Content = ex.errorMessage
                 };
             }
+            catch (InvalidRouteForImplementationsException ex)
+            {
+                context.Result = new ContentResult()
+                {
+                    StatusCode = 400,
+                    Content = ex.errorMessage
+                };
+            }
             catch (Exception)
             {
                 context.Result = new ContentResult()
